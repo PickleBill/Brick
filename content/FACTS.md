@@ -34,7 +34,11 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Profitability | Profitable at step-back and every year since, through present | public |
 | Revenue | $35M+ | ⚠️ public-safe? |
 | Growth | 11x in one year | ⚠️ which year, what base |
-| Outcome | Sold to Google | ⚠️ what's contractually sayable |
+| Outcome | ⚠️ **CORRECTED 2026-06-12: NOT "sold to Google."** First-of-its-kind cross-division Google *partnership* in the Southeast Asian market (trademark/IP checker on Google Vision; verified high-volume merchants via the Dreamship trust layer). Old "sold to Google" claim in v2 content.json must be fixed on migration. One-line outcome statement still needed (story doc, open thread 5) | public framing; economics untagged |
+| Google deal origin | First contact via an executive connection (a director); Bill in the room from the start | public |
+| Follow-on partnerships | Stripe, PayPal, Payoneer, Meta + others | public |
+| Microsoft partnership | Rev-share/GTM deal: merchant access to ChatGPT via Bing; negotiated from Duke hospital during chemo; higher partner tier earned on volume | public (dollars ⚠️ untagged) |
+| 11x year drivers | First full year + COVID tailwind + execution (orders → supply routes → reliable shipping trust) | public |
 | Raised | $2.2M | ⚠️ |
 
 ## Pickle DaaS
