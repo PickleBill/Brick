@@ -34,7 +34,9 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Profitability | Profitable at step-back and every year since, through present | public |
 | Revenue | $35M+ | ⚠️ public-safe? |
 | Growth | 11x in one year | ⚠️ which year, what base |
-| Outcome | ⚠️ **CORRECTED 2026-06-12: NOT "sold to Google."** First-of-its-kind cross-division Google *partnership* in the Southeast Asian market (trademark/IP checker on Google Vision; verified high-volume merchants via the Dreamship trust layer). Old "sold to Google" claim in v2 content.json must be fixed on migration. One-line outcome statement still needed (story doc, open thread 5) | public framing; economics untagged |
+| Outcome | ⚠️ **RESOLVED 2026-06-12:** never an acquisition. "Sold Google" on the v2 site was sales-speak for *closing Google as an account* — first-of-its-kind cross-division Google *partnership* (trademark/IP checker on Google Vision; verified high-volume merchants via the Dreamship trust layer). Site copy rewritten to "closed Google as a partner" / "won & ran the Google partnership" to kill the ambiguous reading. One-line outcome statement still wanted (story doc, open thread 5) | public framing; economics untagged |
+| Google partnership shape | Navigated 5–6 internal Google teams (trust & safety, business integrity, commercial) to director+ sign-off as a <1-year-old startup → 8-figure ad-spend channel, ran 5+ years (from v2 resume.html) | ⚠️ confirm |
+| GMV / volume | ~$85M GMV; 2.3M+ units (from v2 home-warm.html) | ⚠️ confirm |
 | Google deal origin | First contact via an executive connection (a director); Bill in the room from the start | public |
 | Follow-on partnerships | Stripe, PayPal, Payoneer, Meta + others | public |
 | Microsoft partnership | Rev-share/GTM deal: merchant access to ChatGPT via Bing; negotiated from Duke hospital during chemo; higher partner tier earned on volume | public (dollars ⚠️ untagged) |

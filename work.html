@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Bill Bricker — The Work</title>
+<meta property="og:title" content="bricker-os — Bill Bricker's terminal"/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="https://picklebill.github.io/Brick/assets/og-card.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#08090a;--bg2:#0c0e10;--panel:#101316;
+    --glass:rgba(255,255,255,.05);--line:rgba(255,255,255,.10);--line2:rgba(255,255,255,.18);
+    --text:#f4f2ec;--mute:#9aa0a3;--faint:#5c6164;
+    --sage:#a8c98e;--coral:#e69270;--blue:#7fb0e8;--green:#86e0a4;--amber:#e6b86e;--cream:#f3ecdc;
+    --term:#d8ddd6;
+    --sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--sage);color:#08090a}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
+  .mesh{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.42;mix-blend-mode:screen}
+  .b1{width:600px;height:600px;background:radial-gradient(circle,#2f6f7a,transparent 65%);top:-180px;right:-140px;animation:drift 24s ease-in-out infinite}
+  .b2{width:520px;height:520px;background:radial-gradient(circle,#6a7a44,transparent 65%);top:520px;left:-160px;animation:drift2 28s ease-in-out infinite}
+  @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,40px) scale(1.1)}}
+  @keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-30px) scale(1.08)}}
+
+  /* ===== consistent nav (identical across site) ===== */
+  nav{position:sticky;top:0;z-index:50;background:rgba(8,9,10,.7);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;letter-spacing:-.01em;white-space:nowrap;flex-shrink:0}
+  .brand .pk{font-size:20px;line-height:1;animation:pkpulse 3s ease-in-out infinite}
+  @keyframes pkpulse{0%,100%{filter:drop-shadow(0 0 4px rgba(134,224,164,.55))}50%{filter:drop-shadow(0 0 10px rgba(134,224,164,.95))}}
+
+  .nl{display:flex;gap:4px;align-items:center;font-size:13px;color:var(--mute)}
+  .nl a{padding:7px 12px;border-radius:99px;transition:.15s}
+  .nl a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+  .nl a.here{color:#08090a;background:var(--cream);font-weight:600}
+  .nl a.email{color:#08090a;background:var(--cream);font-weight:600}
+  @media(max-width:600px){nav .wrap{flex-direction:column;height:auto;gap:8px;padding-top:9px;padding-bottom:11px}.nl{gap:3px;font-size:12px}.nl a{padding:7px 11px}}
+
+  /* hero */
+  .top{padding:14px 0 2px;text-align:center}
+  .kick{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);padding:7px 13px;border-radius:99px;background:var(--glass)}
+  .kick .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(134,224,164,.5)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  h1{font-size:clamp(30px,5.4vw,46px);font-weight:800;letter-spacing:-.03em;margin:16px 0 0;line-height:1.04}
+  h1 .g{background:linear-gradient(100deg,var(--sage),var(--coral));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{font-size:15px;color:var(--mute);margin:12px auto 0;max-width:48ch}
+
+  /* terminal */
+  .term{margin:8px auto 14px;border-radius:16px;border:1px solid var(--line);overflow:hidden;
+    background:linear-gradient(180deg,#0d0f12,#0a0c0e);box-shadow:0 40px 90px -40px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.05)}
+  .tbar{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02);flex-wrap:nowrap;overflow:hidden}
+  .tbar .dots{display:flex;gap:7px}.tbar .dots i{width:11px;height:11px;border-radius:50%}
+  .tbar .dots .r{background:#ff5f57}.tbar .dots .y{background:#febc2e}.tbar .dots .g{background:#28c840}
+  .tbar .ttl{font-family:var(--mono);font-size:11.5px;color:var(--mute);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  @media(max-width:560px){.tbar .live{display:none}}
+  .tbar .live{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:6px}
+  .tbar .live i{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
+  .screen{height:min(60vh,520px);overflow-y:auto;padding:18px 18px 8px;font-family:var(--mono);font-size:13.5px;line-height:1.65;color:var(--term);scroll-behavior:smooth}
+  .screen::-webkit-scrollbar{width:8px}.screen::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:99px}
+  @media(max-width:560px){.screen{font-size:12.5px;height:62vh}}
+  .ln{padding:1px 0;white-space:pre-wrap;word-break:break-word}
+  .echo{color:var(--text)}.echo .p{color:var(--green)}.echo .c{color:var(--sage)}
+  .cmt{color:var(--faint)}
+  .h{color:var(--text);font-weight:600;font-family:var(--sans);font-size:16px;display:block;margin:4px 0 2px}
+  .key{color:var(--blue)}.val{color:var(--term)}.ok{color:var(--green)}.warn{color:var(--amber)}.pink{color:var(--coral)}
+  .lnk{color:var(--sage);border-bottom:1px solid rgba(168,201,142,.4)}.lnk:hover{color:#cfe6b8}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .reveal{opacity:0;transform:translateY(6px);animation:rin .32s forwards}
+  @keyframes rin{to{opacity:1;transform:none}}
+  .cur{display:inline-block;width:8px;height:15px;background:var(--green);vertical-align:-2px;animation:blink 1s steps(2) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* input bar */
+  .ibar{display:flex;align-items:center;gap:9px;padding:12px 15px;border-top:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .ibar .pr{font-family:var(--mono);font-size:13.5px;color:var(--green);flex-shrink:0}
+  .ibar input{flex:1;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:13.5px;color:var(--text);caret-color:var(--green)}
+  .ibar input::placeholder{color:var(--faint)}
+  .ibar .run{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);padding:5px 9px;border-radius:6px;flex-shrink:0}
+
+  /* command marquee */
+  .cmdwrap{margin:0 0 10px}
+  .cmdlbl{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);margin-bottom:8px;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{opacity:.65}50%{opacity:1}}
+  .cmdbar{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .cmdrow{display:flex;gap:8px;width:max-content;animation:marq 34s linear infinite}
+  .cmdrow.r2{animation-duration:40s;animation-direction:reverse;margin-top:8px}
+  .cmdbar:hover .cmdrow{animation-play-state:paused}
+  @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .chip{font-family:var(--mono);font-size:11.5px;color:var(--mute);border:1px solid var(--line);background:var(--glass);padding:7px 13px;border-radius:99px;cursor:pointer;transition:.15s;white-space:nowrap;flex-shrink:0}
+  .chip:hover{color:#08090a;background:var(--sage);border-color:transparent}
+  .chip:hover .s{color:#08090a}
+  .chip .s{color:var(--green)}
+  .chip.glow{border-color:var(--green);box-shadow:0 0 12px rgba(134,224,164,.45);animation:gp 2.2s ease-in-out infinite}
+  @keyframes gp{0%,100%{box-shadow:0 0 7px rgba(134,224,164,.3)}50%{box-shadow:0 0 16px rgba(134,224,164,.65)}}
+  .flash{animation:flash .8s ease}
+  @keyframes flash{0%{background:rgba(134,224,164,.16)}100%{background:transparent}}
+  .cur{display:inline-block;width:9px;height:15px;background:var(--green);vertical-align:-2px;animation:blink 1s steps(2) infinite}
+
+  footer{text-align:center;color:var(--faint);font-size:12px;font-family:var(--mono);padding:10px 0 60px;letter-spacing:.04em}
+  footer a{color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="mesh"><div class="blob b1"></div><div class="blob b2"></div></div>
+
+<nav><div class="wrap">
+  <a class="brand" href="index.html"><span class="pk">🥒</span><span class="bn">Bill Bricker</span></a>
+  <div class="nl">
+    <a href="index.html">Home</a>
+    <a href="climb.html">Story</a>
+    <a href="work.html" class="here">Work</a>
+    <a href="resume-v2.html">Résumé</a>
+    <a href="mailto:bricker3@gmail.com" class="email">Email</a>
+  </div>
+</div></nav>
+
+<div class="wrap top">
+  <span class="kick"><span class="dot"></span>The Work · interactive terminal</span>
+  <h1>Don't take my word for it. <span class="g">Run the commands.</span></h1>
+</div>
+
+<div class="wrap">
+  <div class="cmdwrap">
+    <div class="cmdbar"><div class="cmdrow" id="row1"></div><div class="cmdrow r2" id="row2"></div></div>
+  </div>
+  <div class="term">
+    <div class="tbar">
+      <span class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></span>
+      <span class="ttl">bill@bricker-os: ~/work</span>
+      <span class="live"><i></i> session live</span>
+    </div>
+    <div class="screen" id="screen"></div>
+    <form class="ibar" id="form" autocomplete="off">
+      <span class="pr">➜&nbsp;~</span>
+      <input id="cmd" placeholder="ask me anything — or type a command…" aria-label="terminal command"/>
+      <span class="run">↵ run</span>
+    </form>
+  </div>
+
+
+</div>
+
+<footer>bill@bricker-os · <a href="index.html">home</a> · <a href="climb.html">the story</a> · <a href="resume-v2.html">résumé</a> · type <span style="color:var(--sage)">help</span> for all commands</footer>
+
+<script>
+const screen=document.getElementById('screen');
+const A='target="_blank" rel="noopener"';
+const L=(u,t,ext=true)=>`<a class="lnk" href="${u}" ${ext?A:''}>${t}</a>`;
+
+const CMDS={
+  help:()=>`<span class="cmt">// available commands — tap a chip or type one</span>
+<span class="key">whoami</span>       who I am, in one line
+<span class="key">ls</span>           the proof, as a directory
+<span class="key">companies</span>    Courtana &amp; Dreamship — both live
+<span class="key">google-deal</span>  the deal I lead interviews with
+<span class="key">sales-gtm</span>    connected-AI selling (Venue Connect)
+<span class="key">enterprise</span>   client-grade builds in days
+<span class="key">builds</span>       VibeCo + 40 apps across 31 repos
+<span class="key">pickle-daas</span>  the tech proof · $0.0054/clip
+<span class="key">stats</span>        the numbers
+<span class="key">git log</span>      the 20-year commit history
+<span class="key">ask &lt;anything&gt;</span> plain-English Q&amp;A
+<span class="key">contact</span>      let's talk · clear · resets`,
+
+  whoami:()=>`<span class="h">Bill Bricker — I sell frontier tech, and I build it myself.</span>Enterprise seller turned founder-CEO. <span class="ok">&gt;100% quota</span> at IBM, <span class="ok">$35M+</span> &amp; <span class="ok">11x</span> as a founder, sold <span class="ok">Google</span> as a sub-1-yr-old startup. Now I ship production AI daily. Father of three. Still walking.
+<span class="cmt">// next: try</span> <span class="key">ls</span> <span class="cmt">to see the proof</span>`,
+
+  ls:()=>`<span class="cmt">drwx</span>  <span class="key">companies/</span>      <span class="cmt"># 2 live operating companies</span>
+<span class="cmt">-rw-</span>  <span class="key">google-deal.md</span>  <span class="cmt"># the 8-figure partnership</span>
+<span class="cmt">drwx</span>  <span class="key">sales-gtm/</span>      <span class="cmt"># connected-AI selling</span>
+<span class="cmt">drwx</span>  <span class="key">enterprise/</span>     <span class="cmt"># client-grade builds</span>
+<span class="cmt">drwx</span>  <span class="key">builds/</span>         <span class="cmt"># 40+ apps · 31 repos</span>
+<span class="cmt">drwx</span>  <span class="key">pickle-daas/</span>    <span class="cmt"># the tech proof</span>
+<span class="cmt">-rw-</span>  <span class="key">stats</span> · <span class="key">git log</span> · <span class="key">contact</span>`,
+
+  companies:()=>`<span class="h">Two operating companies — both live.</span><span class="ok">●</span> <span class="val">Courtana</span> — AI smart-court SaaS · founder/CEO · 36 courts live/piloting · 11+ sports
+   ${L('https://courtana.com','courtana.com ↗')}
+<span class="pink">●</span> <span class="val">Dreamship</span> — API fulfillment · cofounder/CEO · $35M+ · 11x in a year · the Google deal
+   ${L('https://dreamship.com','dreamship.com ↗')}`,
+
+  'google-deal':()=>`<span class="h">google-deal.md — the one I lead interviews with</span><span class="warn">SITUATION</span>  A sub-one-year-old startup. No logo, no track record.
+<span class="warn">TASK</span>       Get Google to open an 8-figure ad-spend channel to our merchants.
+<span class="warn">ACTION</span>     Built a first-of-its-kind AI trademark/IP-compliance checker, then
+           navigated 5–6 internal teams — trust &amp; safety, business integrity,
+           commercial — to director+ sign-off.
+<span class="warn">RESULT</span>     An 8-figure channel that ran <span class="ok">5+ years</span>; then sequenced Stripe,
+           PayPal, Meta &amp; Payoneer off the credibility.
+<span class="cmt">// this is how I think about partnership GTM. ask me about it.</span>`,
+
+  sales:()=>`<span class="h">sales-gtm/ — selling in a connected-AI future</span>The single best example of how I think about GTM after AI: one dynamic asset
+that spans presentation, proposal, analytics, client success &amp; ecosystem —
+built for a venue partner we <span class="ok">closed</span>.
+   ${L('https://courtana-venue-connect.lovable.app/','▸ Courtana Venue Connect ↗')}
+<span class="cmt">// proposals that are products. onboarding that sells itself.</span>`,
+
+  enterprise:()=>`<span class="h">enterprise/ — client-grade builds, in days not quarters</span>${L('https://headsuptime.lovable.app','▸ HeadsUpTime ↗')}   <span class="cmt">25-yr industrial AI/ML camera co. — industry ID + value-prop POC</span>
+${L('https://naughtydata.lovable.app/','▸ NaughtyData ↗')}  <span class="cmt">Europe's largest marine-analytics co. — CTO rebrand in a few prompts</span>
+${L('https://litigator.lovable.app/dashboard','▸ Litigator ↗')}    <span class="cmt">legal · mass-arbitration intelligence app</span>`,
+
+  builds:()=>`<span class="h">builds/ — 40+ apps across 31 repos</span><span class="val">VibeCo</span> is the engine: 11 AI agents that turn an idea into briefs, build
+prompts &amp; art. Everything else falls out of it.
+   ${L('https://vibeco.lovable.app/simulate','▸ run the simulator ↗')}
+   ${L('https://layuplab.lovable.app/app/dashboard','▸ LayupLab ↗')} <span class="cmt">sports training</span>   ${L('https://freakfosho.lovable.app/','▸ FreakFoSho ↗')} <span class="cmt">consumer</span>
+   ${L('https://vibeco.lovable.app/#model','▸ the full ecosystem ↗')} <span class="cmt">FactFudge, The Load, an AI cooking app, a 12-yr-old's first build…</span>`,
+
+  pickle:()=>`<span class="h">pickle-daas/ — the tech proof, tied back to Courtana</span><span class="key">cost/clip</span>     <span class="ok">$0.0054</span>  <span class="cmt">(~7x cheaper than GPT-4o)</span>
+<span class="key">corpus</span>        4,097+ clips analyzed
+<span class="key">output</span>        player-DNA · brand-exposure · coaching feedback
+<span class="key">infra</span>         autonomous agents w/ spend caps + ground-truth validation
+   ${L('https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html','▸ investor walkthrough ↗')}
+   ${L('https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html','▸ all dashboards ↗')}
+<span class="cmt">// the model isn't the moat — the math is.</span>`,
+
+  stats:()=>`<span class="h">the numbers</span><span class="ok">20</span>      years operating          <span class="ok">11x</span>     revenue in one year
+<span class="ok">$35M+</span>   cumulative revenue led   <span class="ok">8-fig</span>   Google channel sold
+<span class="ok">&gt;100%</span>   IBM enterprise quota     <span class="ok">40+</span>     AI apps shipped solo
+<span class="ok">$0.0054</span> per-clip AI analysis     <span class="ok">3</span>       kids · the why`,
+
+  git:()=>`<span class="cmt">git log --oneline --career</span>
+<span class="warn">a37f63e</span> <span class="ok">(HEAD → now)</span> Courtana — AI smart-court SaaS, live          <span class="cmt">2023→</span>
+<span class="warn">8b9de71</span> Pickle DaaS + VibeCo — 40+ apps, $0.0054/clip          <span class="cmt">2026</span>
+<span class="warn">b3bb973</span> The Long Walk — diagnosed; pipeline kept moving        <span class="cmt">2023</span>
+<span class="warn">7a1a46f</span> Dreamship — $35M+, 11x, sold Google                    <span class="cmt">2018–25</span>
+<span class="warn">18b8b3f</span> IBM/Netezza — 7-fig deals, &gt;100% quota               <span class="cmt">2012–14</span>
+<span class="warn">0001f00</span> Northwestern Mutual — doors &amp; dials, top 10           <span class="cmt">2006</span>
+   ${L('climb.html','▸ walk the full climb ↗',false)}`,
+
+  ask:()=>`<span class="h">ask me anything — plain English works.</span>Try one of these, or type your own:
+<span class="key">"why do you want to work at a frontier lab?"</span>
+<span class="key">"what's the biggest deal you ever closed?"</span>
+<span class="key">"what is vibe coding?"</span>  <span class="key">"why pickleball?"</span>  <span class="key">"what's your superpower?"</span>`,
+
+  contact:()=>`<span class="h">let's talk.</span>Open to founder roles, GTM &amp; partnership leadership, fractional, board.
+<span class="key">email</span>  ${L('mailto:bricker3@gmail.com','bricker3@gmail.com',false)}
+<span class="key">phone</span>  ${L('tel:+19086018152','908 · 601 · 8152',false)}
+<span class="key">in</span>     ${L('https://linkedin.com/in/williambricker','linkedin.com/in/williambricker')}`,
+};
+const ALIAS={'sales-gtm':'sales','pickle-daas':'pickle','git log':'git','ls -la':'ls','cat google-deal.md':'google-deal','companies/':'companies','ask me anything':'ask','ask-me':'ask'};
+const QA=[
+ {k:['lab','anthropic','openai','frontier','why now','why a lab','join'],r:`<span class="h">why a frontier lab, why now</span>Because the gap I fill is the one labs feel most: people who can stand in front of an enterprise buyer <em>and</em> have personally shipped with the technology. I've sold the hardest room there is (Google, as a no-name startup) and I build with AI every single day. I want to do my best work where the frontier is actually being made.`},
+ {k:['biggest deal','best deal','google','hardest sale'],r:`<span class="h">the biggest deal</span>Google, when Dreamship was less than a year old. Built an AI IP-compliance checker to solve <em>their</em> trust problem, then carried it through 5-6 internal teams to director+ sign-off. 8-figure channel, ran 5+ years. Type <span class="key">google-deal</span> for the full STAR story.`},
+ {k:['vibe coding','vibe code','vibeco','vibe-coding'],r:`<span class="h">what is vibe coding?</span>Describing what you want in plain English and shipping working software the same day. I built <span class="val">VibeCo</span> — an 11-agent simulator — to industrialize it: idea → brief → build prompts → working app. 40+ apps across 31 repos came out of that motion. Type <span class="key">builds</span> to see them.`},
+ {k:['pickleball','courtana','why pickle','sports'],r:`<span class="h">why pickleball?</span>Fastest-growing sport in America, venues drowning in analog ops, and nobody owning the video layer. Courtana puts AI on the court — live video, instant highlights, coaching — and Pickle DaaS turns that footage into a data business. Type <span class="key">companies</span> or <span class="key">pickle-daas</span>.`},
+ {k:['superpower','strength','best at','why hire','why you'],r:`<span class="h">the honest answer</span>Translation. I make complicated things simple enough that one human buys them from another — and now I can <em>build</em> the demo before the second meeting. Sellers who build are rare; builders who can carry a quota are rarer.`},
+ {k:['cancer','long walk','health','chemo'],r:`<span class="h">the long walk</span>Diagnosed 2023. Twelve weeks of chemo. The pipeline kept moving. I keep it on the record because no one I'd want to work with would want it left out — and the operator instinct gets ruthlessly clear when the day is short.`},
+ {k:['kids','family','father','three'],r:`<span class="h">the why</span>Three kids, a real kitchen, and an unreal amount of pickleball gear in the garage. The whole map exists to support that — not the other way around.`},
+ {k:['available','hire','role','open to','looking for','work with'],r:`<span class="h">what I'm open to</span>Founder roles, GTM &amp; partnership leadership (frontier AI labs especially), fractional/advisory, board. Type <span class="key">contact</span> — or just email <a class="lnk" href="mailto:bricker3@gmail.com">bricker3@gmail.com</a>.`},
+ {k:['dreamship','fulfillment','print'],r:`<span class="h">dreamship, short version</span>Cofounded, led as CEO: zero → $35M+, 11x in one year, on $2.2M raised. EBITDA-profitable 4 of 8 years. Sold Google, then Stripe/PayPal/Meta/Payoneer off it. Type <span class="key">companies</span> for links.`},
+ {k:['ibm','quota','enterprise sales','netezza'],r:`<span class="h">enterprise pedigree</span>IBM/Netezza 2012-14: Zillow, Avalara, part of an 8-figure McKesson deal, &gt;100% of quota. The selling muscle everything else is built on.`},
+ {k:['stack','tools','claude','how do you build'],r:`<span class="h">the stack</span>Claude (Code + Design), Codex, Lovable, Gemini, Supabase, Stripe, GitHub. This site — terminal included — was built with the stack it describes.`},
+ {k:['dj','billygoat','fka'],r:`<span class="h">fka DJ Billygoat</span>A past life behind the decks. The set lists are sealed; the crowd-reading skills transferred directly to enterprise sales.`},
+];
+function answerQ(q){
+  const ql=q.toLowerCase();let best=null,bs=0;
+  QA.forEach(a=>{let sc=0;a.k.forEach(k=>{if(ql.includes(k))sc++});if(sc>bs){bs=sc;best=a}});
+  if(best){print(best.r,q);return;}
+  print(`<span class="h">good question.</span>I don't have a canned answer for that — which probably means it deserves a real conversation.\n<span class="cmt">// try</span> <span class="key">help</span> <span class="cmt">for what I can answer here, or email</span> <a class="lnk" href="mailto:bricker3@gmail.com">bricker3@gmail.com</a> <span class="cmt">and ask me directly.</span>`,q);
+}
+
+function print(html,echo){
+  if(echo!==undefined){
+    const e=document.createElement('div');e.className='ln echo reveal flash';
+    e.innerHTML=`<span class="p">➜ ~</span> <span class="c">${echo}</span>`;screen.appendChild(e);
+  }
+  const lines=html.split('\n');
+  lines.forEach((l,i)=>{const d=document.createElement('div');d.className='ln reveal';d.style.animationDelay=(i*22)+'ms';d.innerHTML=l||'&nbsp;';screen.appendChild(d);});
+  const sp=document.createElement('div');sp.className='ln';sp.innerHTML='&nbsp;';screen.appendChild(sp);
+  screen.scrollTop=screen.scrollHeight;
+}
+function run(raw){
+  const cmd=(raw||'').trim().toLowerCase();
+  if(!cmd)return;
+  const _w=document.getElementById('waiting');if(_w)_w.remove();
+  if(cmd==='clear'||cmd==='cls'){screen.innerHTML='';boot(true);return;}
+  if(cmd.startsWith('ask ')){answerQ(raw.trim().slice(4));return;}
+  const key=ALIAS[cmd]||cmd;
+  if(CMDS[key]){print(CMDS[key](),raw.trim());}
+  else{answerQ(raw.trim());}
+}
+function boot(short){
+  if(short){print('<span class="cmt">// cleared.</span>');return;}
+  screen.innerHTML='';
+  print("<span class='h' style='font-size:17px;margin-top:0'>Hi — I'm Bill's operating system.</span>"+
+        "<span class='cmt'>20 years selling &amp; building · enterprise GTM · 3 startups · 40+ AI apps.</span>\n"+
+        "<span class='cmt'>Tap a command — or ask me anything in plain English ↓</span>");
+  const w=document.createElement('div');w.className='ln';w.id='waiting';
+  w.innerHTML="<span class='p' style='color:var(--green)'>➜ ~</span> <span class='cur'></span>";
+  screen.appendChild(w);
+}
+document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();const i=document.getElementById('cmd');run(i.value);i.value='';});
+const GLOW=['whoami','ask'];
+function chip(c,l){return `<span class="chip${GLOW.includes(c)?' glow':''}" data-c="${c}"><span class="s">$</span> ${l}</span>`;}
+const R1=[['whoami','whoami'],['ask','ask me anything'],['companies','companies'],['google-deal','google-deal'],['sales','sales-gtm']];
+const R2=[['enterprise','enterprise'],['builds','builds'],['pickle','pickle-daas'],['ls','ls'],['stats','stats'],['git','git log'],['contact','contact']];
+function fill(id,arr){const h=arr.map(([c,l])=>chip(c,l)).join('');document.getElementById(id).innerHTML=h+h;}
+fill('row1',R1);fill('row2',R2);
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{run(c.dataset.c);if(window.innerWidth>680)document.getElementById('cmd').focus();}));
+boot();
+</script>
+</body>
+</html>

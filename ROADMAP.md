@@ -24,11 +24,13 @@ The killer demo is the **real LLM terminal** — "talk to Bill's OS" in a lab in
 
 ## Phase 0 — Foundation (unblock everything else)
 
-- [ ] **Connect `pickle-daas-data` to a Claude session** and migrate the v2 source into Brick (keep the static HTML/CSS/JS + `content.json` architecture — do NOT rewrite in React; static is fast, free, and working).
-- [ ] **Custom domain.** Buy `billbricker.com` (or chosen alternative), add CNAME, configure GitHub Pages on Brick. "picklebill.github.io/pickle-daas-data/showcase/v2" reads borrowed; the domain is the cheapest credibility upgrade on the board.
-- [ ] **Kill flaky dependencies.** Replace thum.io screenshots and Clearbit logos with committed local PNGs/SVGs.
+- [x] **Migrate the v2 source into Brick** — done 2026-06-12 by mirroring the live GitHub Pages deployment (all pages self-contained; static HTML/CSS/JS + `content.json` architecture preserved).
+- [ ] **Enable GitHub Pages on Brick** (Settings → Pages → deploy from `main`, root) — Bill, one click after merge. Then the site lives at `picklebill.github.io/Brick/`.
+- [ ] **Custom domain.** Buy `billbricker.com` (or chosen alternative), add CNAME, point Pages at it. Also update the hardcoded `og:url`/`og:image` URLs in the page heads when the domain switches.
+- [x] **Kill flaky dependencies.** thum.io screenshots → committed `assets/shots/*.png`; Clearbit logos → real company icons in `assets/logos/`.
 - [ ] **Reconcile the numbers.** One defensible figure per metric, everywhere (see `content/FACTS.md` ledger — e.g. 20K+ clips vs 4,097 analyzed).
-- [ ] **OG share cards** (1200×630) so LinkedIn/iMessage unfurls look premium from day one of the new domain.
+- [x] **OG share cards** (1200×630) — `assets/og-card.png` generated in the site design system; meta tags wired into index/climb/work/resume pages. Regenerate when the headline stats change.
+- [x] **"Sold Google" ambiguity fixed** — meta description + content.json now read "closed Google as a partner" / "won & ran the Google partnership."
 
 **Exit criteria:** the site lives at the custom domain, sourced from this repo, zero third-party runtime dependencies, one set of numbers.
 
