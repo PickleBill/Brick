@@ -74,7 +74,7 @@ The killer demo is the **real LLM terminal** — "talk to Bill's OS" in a lab in
 | # | Decision | Recommendation |
 |---|----------|----------------|
 | 1 | Domain name + purchase | `billbricker.com` |
-| 2 | Prominence of The Long Walk / chemo story | Discoverable, not headline — a Climb pin and an honest terminal answer, not the hero section. Bill's call entirely. |
+| 2 | ~~Prominence of The Long Walk / chemo story~~ | **DECIDED 2026-06-12: very public** — full story goes into the public narrative. See `content/stories/the-bridge.md`. Open: keep the "Long Walk" name (Bill redefined it as present-tense). |
 | 3 | Which numbers are public-safe (Google deal terms, revenue, raise amounts) | Interview will produce a "public / blur / private" tag per fact |
 | 4 | Photo + video comfort level | At minimum: one good portrait, one 60–90s Loom |
 | 5 | Primary audience ranking (lab GTM role vs. founder/fundraise vs. advisory) | Lab GTM first — it sharpens every headline |

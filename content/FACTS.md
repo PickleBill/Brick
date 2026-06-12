@@ -25,10 +25,13 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Ecosystem | 65+ projects (CLAUDE.md) vs 40+ apps / 31 repos (content.json) | ⚠️ pick one framing |
 | Peak Pickleball pilot | 8 weeks, Apr 7–Jun 1 2026, $95/court/mo post-pilot | ⚠️ outcome when known |
 
-## Dreamship (2018–24 CEO → 2024–25 Board Chair)
+## Dreamship (Cofounder/CEO 2018 → stepped back Sept 2023 → Board Chair)
 
 | Fact | Value | Tag |
 |------|-------|-----|
+| Stepped back from CEO | **September 2023** (Bill, 2026-06-12 interview). ⚠️ CONFLICT: v2 content.json said Board Chair 2024–25 — confirm dates and current role | public |
+| Reason for step-back | Cancer diagnosis; Google deal already in flight | public (Bill: "very public") |
+| Profitability | Profitable at step-back and every year since, through present | public |
 | Revenue | $35M+ | ⚠️ public-safe? |
 | Growth | 11x in one year | ⚠️ which year, what base |
 | Outcome | Sold to Google | ⚠️ what's contractually sayable |
@@ -57,5 +60,6 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Fact | Value | Tag |
 |------|-------|-----|
 | Family | Father of three | ⚠️ how present on site |
-| The Long Walk | Cancer diagnosis 2023; operated through treatment; "still walking" | ⚠️ publicity level = Bill's call (Interview Arc 1, Q6) |
+| Cancer | Diagnosed 2023; chemo through 2025; operated through treatment | public (Bill, 2026-06-12: "very public") |
+| The Long Walk | Redefined by Bill as **present-tense**: the figuring-out-what's-next chapter, not the cancer chapter | ⚠️ keep name or rename (story doc, open thread 4) |
 | DJ Billygoat | Unexplained easter egg | ⚠️ get the story (Arc 5, Q1) |
