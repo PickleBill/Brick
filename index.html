@@ -66,19 +66,25 @@
   .profile .ph{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em}
   .profile .ph .live{display:inline-flex;align-items:center;gap:6px;color:var(--sage);font-weight:600}
   .profile .ph .live i{width:6px;height:6px;border-radius:50%;background:var(--sage);animation:pulse 1.8s infinite}
-  .ringbox{position:relative;height:158px;display:flex;align-items:center;justify-content:center;margin:8px 0 6px}
-  .ringbox svg{filter:drop-shadow(0 0 9px rgba(140,240,160,.4))}
-  .ringbox .ctr{position:absolute;text-align:center}
-  .ringbox .ctr .n{font-size:42px;font-weight:900;letter-spacing:-.04em;line-height:1;background:linear-gradient(120deg,var(--sage),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .ringbox .ctr .l{font-size:10.5px;color:var(--mute);letter-spacing:.05em;margin-top:3px}
-  .ring-fg{stroke-dasharray:440;stroke-dashoffset:440;animation:draw 1.8s cubic-bezier(.4,0,.2,1) .3s forwards}
-  @keyframes draw{to{stroke-dashoffset:88}}
+  /* portrait — the human on the page */
+  .portrait{position:relative;margin:11px 0 15px;border-radius:18px;overflow:hidden;aspect-ratio:4/5;
+    border:1px solid var(--line);background:linear-gradient(155deg,#12161b,#0b0d10);
+    box-shadow:0 24px 60px -34px rgba(0,0,0,.9),inset 0 0 0 1px rgba(140,240,160,.05)}
+  .portrait::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:18px;
+    background:linear-gradient(180deg,transparent 48%,rgba(8,9,10,.62))}
+  .portrait img{width:100%;height:100%;object-fit:cover;object-position:center 16%;display:block;position:relative;z-index:1}
+  .pfall{position:absolute;inset:0;z-index:1;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    background:radial-gradient(120% 80% at 50% 32%,rgba(140,240,160,.10),transparent 70%)}
+  .pfall .bb{font-size:clamp(44px,9vw,58px);font-weight:900;letter-spacing:-.04em;background:linear-gradient(120deg,var(--sage),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .pfall .ptag{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  .pcap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:13px 16px;display:flex;flex-direction:column;gap:1px}
+  .pcap .pn{font-weight:700;font-size:15px;letter-spacing:-.01em}
+  .pcap .pl{font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.03em}
   .bars{display:flex;flex-direction:column;gap:10px;margin-top:6px}
   .bar{display:grid;grid-template-columns:1fr auto;gap:3px 10px;font-size:12px;cursor:pointer;border-radius:9px;padding:3px 7px;margin:0 -7px;transition:background .2s}
   .bar:hover,.bar.on{background:rgba(140,240,160,.09)}
   .bar.on .t{color:var(--sage);font-weight:600}
   .bar.on .track i{box-shadow:0 0 16px rgba(140,240,160,.85)}
-  .ringbox .ctr .n{transition:opacity .2s}
   .bar .t{color:var(--text)}.bar .v{font-size:10.5px;color:var(--mute);text-align:right}
   .bar .track{grid-column:1/-1;height:7px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
   .bar .track i{display:block;height:100%;border-radius:99px;width:0;transition:width 1.4s cubic-bezier(.25,1,.3,1);box-shadow:0 0 10px rgba(140,240,160,.5)}
@@ -208,7 +214,6 @@
     <a href="index.html" class="here">Home</a>
     <a href="climb.html">Story</a>
     <a href="work.html">Work</a>
-    <a href="now.html">Now</a>
     <a href="resume-v2.html">Résumé</a>
     <a href="mailto:bricker3@gmail.com" class="email">Email</a>
   </div>
@@ -227,12 +232,10 @@
   <div class="hcard">
     <div class="glass profile">
       <div class="ph"><span>OPERATOR PROFILE</span><span class="live"><i></i> in the room</span></div>
-      <div class="ringbox">
-        <svg width="158" height="158" viewBox="0 0 158 158" style="transform:rotate(-90deg)">
-          <circle cx="79" cy="79" r="70" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="10"/>
-          <circle class="ring-fg" cx="79" cy="79" r="70" fill="none" stroke="var(--sage)" stroke-width="10" stroke-linecap="round"/>
-        </svg>
-        <div class="ctr"><div class="n" id="ringN">20</div><div class="l" id="ringL">years operating</div></div>
+      <div class="portrait">
+        <img src="assets/portrait.jpg" alt="Bill Bricker" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.pfall').style.display='flex'"/>
+        <div class="pfall" style="display:none"><span class="bb">BB</span><span class="ptag">portrait incoming</span></div>
+        <div class="pcap"><span class="pn">Bill Bricker</span><span class="pl">Raleigh, NC · 20 years operating</span></div>
       </div>
       <div class="bars">
         <div class="bar" data-m="8-fig" data-ml="Google channel"><span class="t">Enterprise &amp; partnership GTM</span><span class="v">IBM · Google</span><span class="track"><i data-w="95" style="background:linear-gradient(90deg,#8cf0a0,#5ee0d6)"></i></span></div>
@@ -248,9 +251,9 @@
 <div class="wrap"><div class="glass stats rv">
   <div class="st"><div class="n" data-count="11" data-suf="x">11x</div><div class="l">revenue growth in one year</div></div>
   <div class="st"><div class="n" data-count="35" data-pre="$" data-suf="M+">$35M+</div><div class="l">cumulative revenue led</div></div>
-  <div class="st"><div class="n">8-fig</div><div class="l">Google channel sold</div></div>
+  <div class="st"><div class="n">8-fig</div><div class="l">Google partnership won</div></div>
   <div class="st"><div class="n" data-count="40" data-suf="+">40+</div><div class="l">AI apps shipped solo</div></div>
-  <div class="st"><div class="n" data-count="20" data-suf="K+">20K+</div><div class="l">video clips analyzed</div></div>
+  <div class="st"><div class="n" data-count="20" data-suf="K+">20K+</div><div class="l">video clips processed</div></div>
   <div class="st"><div class="n" data-count="3">3</div><div class="l">startups founded</div></div>
 </div></div>
 
@@ -280,7 +283,7 @@
     </a>
   </div>
   <div class="rv" style="text-align:center;margin-top:20px">
-    <a href="google-deal.html" style="display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--sage);border:1px solid var(--line2);padding:11px 20px;border-radius:99px;background:var(--glass2);transition:.18s" onmouseover="this.style.borderColor='var(--sage)'" onmouseout="this.style.borderColor='var(--line2)'">Read the Google partnership case study <span>→</span></a>
+    <a href="climb.html" style="display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--sage);border:1px solid var(--line2);padding:11px 20px;border-radius:99px;background:var(--glass2);transition:.18s" onmouseover="this.style.borderColor='var(--sage)'" onmouseout="this.style.borderColor='var(--line2)'">Walk the climb — incl. the Google partnership <span>→</span></a>
   </div>
 </section>
 
@@ -328,7 +331,7 @@
       <div class="pbig">Zero-to-one data platform — video analysis → player DNA, brand intelligence &amp; coaching.</div>
       <p>Went deep on the modern data stack myself: <b>Supabase</b>, connectors, autonomous ingest agents, and a ground-truth validation loop — a fully self-serve analytics system, not a slide.</p>
       <div class="pmetrics">
-        <div class="pm"><div class="v">20K+</div><div class="k">clips analyzed</div></div>
+        <div class="pm"><div class="v">20K+</div><div class="k">clips processed</div></div>
         <div class="pm"><div class="v">$0.0054</div><div class="k">per clip · ~7x cheaper</div></div>
         <div class="pm"><div class="v">31</div><div class="k">repos shipped</div></div>
       </div>
@@ -370,13 +373,6 @@
 </section>
 
 <div class="wrap archive">
-  <div class="ah">Design archive — earlier views &amp; alternates</div>
-  <div class="archrow">
-    <a class="arch" href="home-warm.html">Warm editorial home</a>
-    <a class="arch" href="home-fn.html">Function-Health study (v1)</a>
-    <a class="arch" href="resume.html">Minimal résumé</a>
-    <a class="arch" href="design-lab/">Design lab — 5 directions</a>
-  </div>
   <div class="foot">Bill Bricker · Raleigh, NC · built solo with the AI-native stack it describes.</div>
 </div>
 
@@ -391,9 +387,9 @@ const cio=new IntersectionObserver(es=>es.forEach(e=>{
 },{threshold:.6});
 document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
 setTimeout(()=>document.querySelectorAll('.track i').forEach(i=>{i.style.width=i.dataset.w+'%';}),450);
-const _b=[...document.querySelectorAll('.bar')],_rn=document.getElementById('ringN'),_rl=document.getElementById('ringL');
+const _b=[...document.querySelectorAll('.bar')];
 let _ai=-1,_t;
-function _set(i){_b.forEach((b,j)=>b.classList.toggle('on',j===i));if(i<0){_rn.textContent='20';_rl.textContent='years operating';}else{_rn.textContent=_b[i].dataset.m;_rl.textContent=_b[i].dataset.ml;}}
+function _set(i){_b.forEach((b,j)=>b.classList.toggle('on',j===i));}
 function _go(){_t=setInterval(()=>{_ai=(_ai+1)%_b.length;_set(_ai);},2600);}
 _b.forEach((b,i)=>{b.addEventListener('mouseenter',()=>{clearInterval(_t);_set(i);});b.addEventListener('mouseleave',_go);b.addEventListener('click',()=>{clearInterval(_t);_ai=i;_set(i);});});
 setTimeout(()=>{_set(0);_ai=0;_go();},1600);

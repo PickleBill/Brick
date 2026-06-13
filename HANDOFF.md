@@ -13,6 +13,21 @@
 
 ---
 
+## Convergence pass — 2026-06-13 (this session)
+
+Executed the "CONVERGENCE & POLISH" plan below, code-side. What changed:
+
+- **One front door, four surfaces.** Nav is now identical on every page: **Home · Story · Work · Résumé · Email.** The "Now" page was cut (file + `content/now.json` deleted, unlinked everywhere).
+- **Google story folded into Story + terminal.** `google-deal.html` retired (deleted). It now lives as a dedicated **"The Google Partnership" pin** on the Climb (crown-jewel narrative: trust-layer, win-win-win incentives, the Stripe/PayPal/Payoneer/Meta flywheel, and the Microsoft/Bing-ChatGPT deal cut from the chemo chair) and as the `google-deal` STAR in the terminal. Home's case-study CTA repoints into the Climb.
+- **Binding ledger corrections (do not regress).** Every "Sold Google" → "closed Google as a partner" across index/work/climb/resume-v2/resume. The Long Walk pin's superseded "twelve weeks of chemo" → "chemo through 2025; operated through treatment; *not the cancer chapter — the figuring-out chapter*" per `the-bridge.md`.
+- **Alternates pulled out of the live experience** (archived, not deleted): `home-fn`, `home-warm`, `design-lab/`, minimal `resume.html`. The Home "design archive" link row was removed.
+- **Portrait treatment shipped.** The Home hero's abstract ring is replaced by a real portrait frame in the operator card, wired to `assets/portrait.jpg` with a tasteful "portrait incoming" placeholder. **← Bill: drop your headshot at `assets/portrait.jpg` and it goes live.** Highest-leverage remaining move.
+- **Number precision:** Home "clips analyzed" → "clips processed" (the precise *analyzed* figure, 4,097, stays in the terminal). See open-numbers list below — still needs Bill's confirmation, not silently picked.
+
+**Still needs Bill (unchanged, and now the critical path):** (1) the portrait at `assets/portrait.jpg` + a 60–90s Loom; (2) custom domain; (3) confirm the ⚠️ numbers in `FACTS.md` — especially **20K+ vs 4,097 clips** and **40+ apps vs 65+ projects**, where the site currently commits to a framing that the ledger still flags.
+
+---
+
 ## Current state
 
 - **Live:** https://picklebill.github.io/Brick/ (auto-deploys from `main` via GitHub Actions; custom domain not yet set)
