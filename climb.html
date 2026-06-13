@@ -123,11 +123,11 @@
   @media(prefers-reduced-motion:reduce){.seal.live::after{animation:none}}
 
   /* labels */
-  .lbl{position:absolute;left:0;transform:translateX(-50%);white-space:nowrap;text-align:center;z-index:2;
+  .lbl{position:absolute;left:0;transform:translateX(-50%);white-space:nowrap;text-align:center;z-index:5;
     font-family:var(--serif);font-style:italic;font-weight:500;font-size:13.5px;color:var(--ink);line-height:1.16}
   .lbl.up{transform:translate(-50%,-100%);display:flex;flex-direction:column-reverse}
   .lbl .y{display:block;font-family:var(--mono);font-style:normal;font-size:8.5px;letter-spacing:.06em;color:var(--mute);margin-top:2px}
-  .lbl .stat{display:block;font-family:var(--mono);font-style:normal;font-size:10px;letter-spacing:.02em;color:var(--sienna-deep);font-weight:500;margin-top:3px}
+  .lbl .stat{display:block;font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.02em;color:var(--sienna-deep);font-weight:600;margin-top:3px}
   .lbl.hero{font-size:17px;font-weight:600}
   .lbl.life{font-size:11px;font-style:normal;font-family:var(--mono);letter-spacing:.03em;color:var(--ink2);text-transform:uppercase}
   .lbl.life .y{margin-top:1px;text-transform:none}
@@ -191,7 +191,6 @@
     <span><i></i> careers on the line</span>
     <span><i class="side"></i> side quests</span>
     <span><i class="base"></i> life &amp; giving</span>
-    <span><i class="next"></i> what’s next</span>
   </div>
 </div></header>
 
@@ -262,7 +261,7 @@
 </div>
 
 <div class="climbfoot">
-  <div class="hand">summit unset — still walking</div>
+  <div class="hand">this summit's lit — the next ridge is unmapped</div>
   <div class="ctas">
     <a class="btn primary" href="work.html">See the work →</a>
     <a class="btn" href="resume-v2.html">Résumé</a>
@@ -373,9 +372,9 @@ function nodeHTML(n,i){
   } else if(n.kind==='hero'){
     lbl=`<div class="lbl hero" style="top:54px">${title}</div>`;
   } else { // std career → leader down to a clean baseline
-    const base=540; const drop=base-y;
+    const base=556; const drop=base-y;
     leader=`<span class="leader" style="height:${drop}px"></span>`;
-    lbl=`<div class="lbl" style="top:${drop}px">${title}</div>`;
+    lbl=`<div class="lbl" style="top:${drop+6}px">${title}</div>`;
   }
   return `<div class="node${extra}" style="left:${x}px;top:${y}px" data-i="${i}">${leader}<div class="seal seal--${n.kind}${n.live?' live':''}">${sealInner(n)}</div>${lbl}</div>`;
 }
@@ -385,7 +384,7 @@ const sc=document.getElementById('scroller');
 let openI=null;
 function centerNode(i){const x=N[i].x*curScale;const max=sc.scrollWidth-sc.clientWidth;sc.scrollTo({left:Math.max(0,Math.min(max,x-sc.clientWidth/2)),behavior:'smooth'});}
 function cardSealHTML(n){
-  if(n.cardImg) return `<img src="${logoSrc(n.cardImg)}" alt="">`;
+  if(n.cardImg) return `<img src="${logoSrc(n.cardImg)}" alt="${n.title}">`;
   return sealInner(n);
 }
 function openCard(i,recenter){const n=N[i];if(!n)return;openI=i;
