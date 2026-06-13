@@ -22,7 +22,7 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Raised | $350K | ⚠️ public-safe? |
 | LOI | 44 courts | ⚠️ status — signed/converted? |
 | Sports supported | 11+ | ⚠️ |
-| Ecosystem | 65+ projects (CLAUDE.md) vs 40+ apps / 31 repos (content.json) | ⚠️ pick one framing |
+| Ecosystem | **40+ apps built across 31 repos** (confirmed framing, Bill 2026-06-13). "65+ projects" is the looser org-wide count — don't mix the two on one surface | public |
 | Peak Pickleball pilot | 8 weeks, Apr 7–Jun 1 2026, $95/court/mo post-pilot | ⚠️ outcome when known |
 
 ## Dreamship (Cofounder/CEO 2018 → stepped back Sept 2023 → Board Chair)
@@ -49,7 +49,7 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Fact | Value | Tag |
 |------|-------|-----|
 | Cost per clip | $0.0054 | ⚠️ |
-| Clips | **CONFLICT:** 20K+ (site) vs 4,097 analyzed (older docs) | ⚠️ define: collected vs analyzed, use both precisely |
+| Clips | **21,000 clips processed total** (confirmed Bill 2026-06-13). 4,097 fully analyzed with Gemini is the precise deep-analysis subset — use "processed" for 21K, "analyzed" for 4,097 | public |
 
 ## Earlier Career
 
@@ -66,7 +66,7 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 
 | Fact | Value | Tag |
 |------|-------|-----|
-| Family | Father of three | ⚠️ how present on site |
+| Family | Father of three | public — **Bill chose 2026-06-13 to run the full family photo (with two kids) as the Home hero portrait.** Deliberate "father of three" statement; lives at `assets/portrait.jpg` |
 | Cancer | Diagnosed 2023; chemo through 2025; operated through treatment. (Old v2 terminal said "twelve weeks of chemo" — superseded by Bill's 2026-06-12 statement; site copy corrected) | public (Bill, 2026-06-12: "very public") |
 | The Long Walk | Redefined by Bill as **present-tense**: the figuring-out-what's-next chapter, not the cancer chapter | ⚠️ keep name or rename (story doc, open thread 4) |
 | DJ Billygoat | Unexplained easter egg | ⚠️ get the story (Arc 5, Q1) |
