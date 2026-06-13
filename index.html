@@ -28,7 +28,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  h1,h2,.brand,.oname,.vbhero .vname,.pick .pbody .pbig,.card h3,.st .n,.pfall .bb{font-family:var(--disp)}
+  h1,h2,.brand,.oname,.vbhero .vname,.pick .pbody .pbig,.card h3,.st .n,.preadout .n{font-family:var(--disp)}
   ::selection{background:var(--sage);color:#08090a}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1040px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
@@ -67,20 +67,18 @@
   .profile .ph{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.04em}
   .profile .ph .live{display:inline-flex;align-items:center;gap:6px;color:var(--sage);font-weight:600}
   .profile .ph .live i{width:6px;height:6px;border-radius:50%;background:var(--sage);animation:pulse 1.8s infinite}
-  /* portrait — the human on the page */
-  .portrait{position:relative;margin:11px 0 15px;border-radius:18px;overflow:hidden;aspect-ratio:4/3;
-    border:1px solid var(--line);background:linear-gradient(155deg,#12161b,#0b0d10);
-    box-shadow:0 24px 60px -34px rgba(0,0,0,.9),inset 0 0 0 1px rgba(140,240,160,.05)}
-  .portrait::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:18px;
-    background:linear-gradient(180deg,transparent 48%,rgba(8,9,10,.62))}
-  .portrait img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;position:relative;z-index:1}
-  .pfall{position:absolute;inset:0;z-index:1;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-    background:radial-gradient(120% 80% at 50% 32%,rgba(140,240,160,.10),transparent 70%)}
-  .pfall .bb{font-size:clamp(44px,9vw,58px);font-weight:900;letter-spacing:-.04em;background:linear-gradient(120deg,var(--sage),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .pfall .ptag{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
-  .pcap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:13px 16px;display:flex;flex-direction:column;gap:1px}
-  .pcap .pn{font-weight:700;font-size:15px;letter-spacing:-.01em}
-  .pcap .pl{font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.03em}
+  /* portrait / Loom slot — the human in the first fold */
+  .portrait{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;border:1px solid var(--line);margin:10px 0 2px;
+    background:radial-gradient(120% 90% at 75% 0%,rgba(140,240,160,.14),transparent 60%),repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 11px,transparent 11px 22px),#0d0f12}
+  .portrait img{width:100%;height:100%;object-fit:cover;object-position:center 38%;display:block}
+  .portrait .pf{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:14px}
+  .portrait .pf svg{width:40px;height:40px;opacity:.34}
+  .portrait .pf .cap{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--faint);line-height:1.6}
+  .portrait .live2{position:absolute;top:11px;left:11px;display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);background:rgba(8,9,10,.55);border:1px solid var(--line);padding:4px 9px;border-radius:99px;backdrop-filter:blur(6px)}
+  .portrait .live2 i{width:6px;height:6px;border-radius:50%;background:var(--sage);box-shadow:0 0 8px var(--sage);animation:pulse 1.8s infinite}
+  .preadout{display:flex;align-items:baseline;gap:10px;margin:13px 2px 15px}
+  .preadout .n{font-size:26px;font-weight:900;letter-spacing:-.03em;line-height:1;background:linear-gradient(120deg,var(--sage),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:opacity .2s}
+  .preadout .l{font-size:12px;color:var(--mute);letter-spacing:.03em}
   .bars{display:flex;flex-direction:column;gap:10px;margin-top:6px}
   .bar{display:grid;grid-template-columns:1fr auto;gap:3px 10px;font-size:12px;cursor:pointer;border-radius:9px;padding:3px 7px;margin:0 -7px;transition:background .2s}
   .bar:hover,.bar.on{background:rgba(140,240,160,.09)}
@@ -232,12 +230,16 @@
   </div>
   <div class="hcard">
     <div class="glass profile">
-      <div class="ph"><span>OPERATOR PROFILE</span><span class="live"><i></i> in the room</span></div>
+      <div class="ph"><span>OPERATOR PROFILE</span><span style="color:var(--faint)">Raleigh, NC · father of three</span></div>
       <div class="portrait">
-        <img src="assets/portrait.jpg" alt="Bill Bricker with two of his kids" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.pfall').style.display='flex'"/>
-        <div class="pfall" style="display:none"><span class="bb">BB</span><span class="ptag">portrait incoming</span></div>
-        <div class="pcap"><span class="pn">Bill Bricker</span><span class="pl">Raleigh, NC · father of three</span></div>
+        <img src="assets/portrait.jpg" alt="Bill Bricker with two of his kids" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="pf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8cf0a0" stroke-width="1.3"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 4-7 8-7s8 2.6 8 7"/></svg>
+          <span class="cap">Bill + kids · drop in <b style="color:var(--mute)">assets/portrait.jpg</b> · 16:10</span>
+        </div>
+        <span class="live2"><i></i> in the room</span>
       </div>
+      <div class="preadout"><span class="n" id="ringN">20</span><span class="l" id="ringL">years operating</span></div>
       <div class="bars">
         <div class="bar" data-m="8-fig" data-ml="Google channel"><span class="t">Enterprise &amp; partnership GTM</span><span class="v">IBM · Google</span><span class="track"><i data-w="95" style="background:linear-gradient(90deg,#8cf0a0,#5ee0d6)"></i></span></div>
         <div class="bar" data-m="11x" data-ml="in one year"><span class="t">Zero-to-one building</span><span class="v">11x · $35M+</span><span class="track"><i data-w="92" style="background:linear-gradient(90deg,#8cf0a0,#5ee0d6)"></i></span></div>
@@ -381,16 +383,18 @@
 document.body.classList.remove('no-js');
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// failsafe: never leave reveal content stuck hidden (e.g. tab loaded in background)
+setTimeout(()=>document.querySelectorAll('.rv').forEach(el=>el.classList.add('in')),2500);
 const cio=new IntersectionObserver(es=>es.forEach(e=>{
   if(!e.isIntersecting)return;const el=e.target,t=+el.dataset.count,pre=el.dataset.pre||'',suf=el.dataset.suf||'';
   let c=0,step=Math.max(1,Math.ceil(t/34));el.textContent=pre+'0'+suf;
   const iv=setInterval(()=>{c+=step;if(c>=t){c=t;clearInterval(iv)}el.textContent=pre+c+suf;},26);cio.unobserve(el);
-},{threshold:.6});
+}),{threshold:.6});
 document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
 setTimeout(()=>document.querySelectorAll('.track i').forEach(i=>{i.style.width=i.dataset.w+'%';}),450);
-const _b=[...document.querySelectorAll('.bar')];
+const _b=[...document.querySelectorAll('.bar')],_rn=document.getElementById('ringN'),_rl=document.getElementById('ringL');
 let _ai=-1,_t;
-function _set(i){_b.forEach((b,j)=>b.classList.toggle('on',j===i));}
+function _set(i){_b.forEach((b,j)=>b.classList.toggle('on',j===i));if(i<0){_rn.textContent='20';_rl.textContent='years operating';}else{_rn.textContent=_b[i].dataset.m;_rl.textContent=_b[i].dataset.ml;}}
 function _go(){_t=setInterval(()=>{_ai=(_ai+1)%_b.length;_set(_ai);},2600);}
 _b.forEach((b,i)=>{b.addEventListener('mouseenter',()=>{clearInterval(_t);_set(i);});b.addEventListener('mouseleave',_go);b.addEventListener('click',()=>{clearInterval(_t);_ai=i;_set(i);});});
 setTimeout(()=>{_set(0);_ai=0;_go();},1600);
