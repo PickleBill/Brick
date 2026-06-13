@@ -12,7 +12,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
   :root{
     --bg:#08090a;--bg2:#0c0e10;--panel:#101316;
@@ -20,11 +20,12 @@
     --text:#f4f2ec;--mute:#9aa0a3;--faint:#5c6164;
     --sage:#a8c98e;--coral:#e69270;--blue:#7fb0e8;--green:#86e0a4;--amber:#e6b86e;--cream:#f3ecdc;
     --term:#d8ddd6;
-    --sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;--disp:'Bricolage Grotesque','Hanken Grotesk',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,.brand{font-family:var(--disp)}
   ::selection{background:var(--sage);color:#08090a}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1000px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
@@ -347,11 +348,33 @@ const R2=[['enterprise','enterprise'],['builds','builds'],['pickle','pickle-daas
 function fill(id,arr){const h=arr.map(([c,l])=>chip(c,l)).join('');document.getElementById(id).innerHTML=h+h;}
 fill('row1',R1);fill('row2',R2);
 document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{run(c.dataset.c);if(window.innerWidth>680)document.getElementById('cmd').focus();}));
+// auto-run a command on load with a typewriter effect, then leave a fresh prompt
+function typeRun(cmd){
+  const _w=document.getElementById('waiting');if(_w)_w.remove();
+  const e=document.createElement('div');e.className='ln echo reveal';
+  e.innerHTML=`<span class="p">➜ ~</span> <span class="c" id="autotype"></span><span class="cur" id="autocur"></span>`;
+  screen.appendChild(e);
+  const span=e.querySelector('#autotype');
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let i=0;
+  (function tick(){
+    if(i<=cmd.length){span.textContent=cmd.slice(0,i++);screen.scrollTop=screen.scrollHeight;setTimeout(tick,reduce?0:60);}
+    else{
+      const c=document.getElementById('autocur');if(c)c.remove();
+      const key=ALIAS[cmd]||cmd;
+      if(CMDS[key])print(CMDS[key]());
+      const w=document.createElement('div');w.className='ln';w.id='waiting';
+      w.innerHTML="<span class='p' style='color:var(--green)'>➜ ~</span> <span class='cur'></span>";
+      screen.appendChild(w);screen.scrollTop=screen.scrollHeight;
+    }
+  })();
+}
 boot();
 // deep links (QR card / shares): /work.html?cmd=whoami or ?q=why+pickleball
 const _qp=new URLSearchParams(location.search);
 const _dc=_qp.get('cmd')||_qp.get('q');
 if(_dc)setTimeout(()=>run(_dc),700);
+else setTimeout(()=>typeRun('whoami'),600); // first fold is alive: auto-run whoami
 </script>
 </body>
 </html>
