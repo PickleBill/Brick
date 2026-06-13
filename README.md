@@ -15,10 +15,10 @@ The living "about me" — an AI-native personal product by a GTM operator. The a
 | `assets/` | Local screenshots, logos, OG card |
 | `ROADMAP.md` / `INTERVIEW.md` / `CLAUDE.md` | Plan, corpus interview, session instructions |
 
-## One-time setup (Bill)
+## Deployment
 
-1. Merge the open PR.
-2. **Settings → Pages → Source: Deploy from branch → `main` / root.** That's it — the site is live.
-3. When `billbricker.com` is purchased: add it under Settings → Pages → Custom domain, and update the `og:url`/`og:image` URLs in the page `<head>`s.
+Fully automatic: every push to `main` deploys via `.github/workflows/pages.yml` (Pages source is set to "GitHub Actions"). Live at `https://picklebill.github.io/Brick/`.
+
+When `billbricker.com` is purchased: add it under Settings → Pages → Custom domain, and update the `og:url`/`og:image` URLs in the page `<head>`s.
 
 Migrated from `picklebill/pickle-daas-data` `showcase/v2` (lineage in `source/HANDOVER.md`).
