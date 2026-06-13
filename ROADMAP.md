@@ -50,7 +50,7 @@ The killer demo is the **real LLM terminal** — "talk to Bill's OS" in a lab in
 
 ## Phase 2 — Signature Features
 
-- [ ] **Real LLM terminal.** Swap keyword matching for a Claude Haiku endpoint with the corpus as system prompt. Recommended: a Supabase Edge Function in the existing vibeco project (infra + `ANTHROPIC_API_KEY` already exist) following the `_shared/llm-client.ts` pattern; CORS locked to the custom domain; rate-limited; capped tokens. This is the demo that closes interviews.
+- [x] **Real LLM terminal** — shipped 2026-06-13. `ask-bill` edge function in the vibeco Supabase project (Claude 3.5 Sonnet via `bill-qa` route, per-IP rate limit, 400-token cap) reads the corpus from `content/index.json` at runtime — corpus updates need no redeploy. `work.html` calls it for free-text questions with graceful fallback to the keyword engine. Deep links supported: `work.html?q=why+pickleball` / `?cmd=whoami` (QR card ready).
 - [ ] **60–90s Loom/video** of Bill walking the dashboard — embedded on Home. Outperforms every polished pixel.
 - [ ] **QR business card** — a 🥒 physical card whose QR opens the terminal directly (`/work?cmd=whoami` style deep link). Memorable in person.
 - [ ] **Personal photos woven into Climb** — the paper-aesthetic timeline gains real images at key pins.

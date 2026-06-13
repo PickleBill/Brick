@@ -32,6 +32,7 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Stepped back from CEO | **September 2023** (Bill, 2026-06-12 interview). ⚠️ CONFLICT: v2 content.json said Board Chair 2024–25 — confirm dates and current role | public |
 | Reason for step-back | Cancer diagnosis; Google deal already in flight | public (Bill: "very public") |
 | Profitability | Profitable at step-back and every year since, through present | public |
+| EBITDA | Profitable 4 of 8 years (v2 terminal copy) | ⚠️ confirm |
 | Revenue | $35M+ | ⚠️ public-safe? |
 | Growth | 11x in one year | ⚠️ which year, what base |
 | Outcome | ⚠️ **RESOLVED 2026-06-12:** never an acquisition. "Sold Google" on the v2 site was sales-speak for *closing Google as an account* — first-of-its-kind cross-division Google *partnership* (trademark/IP checker on Google Vision; verified high-volume merchants via the Dreamship trust layer). Site copy rewritten to "closed Google as a partner" / "won & ran the Google partnership" to kill the ambiguous reading. One-line outcome statement still wanted (story doc, open thread 5) | public framing; economics untagged |
@@ -66,6 +67,6 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Fact | Value | Tag |
 |------|-------|-----|
 | Family | Father of three | ⚠️ how present on site |
-| Cancer | Diagnosed 2023; chemo through 2025; operated through treatment | public (Bill, 2026-06-12: "very public") |
+| Cancer | Diagnosed 2023; chemo through 2025; operated through treatment. (Old v2 terminal said "twelve weeks of chemo" — superseded by Bill's 2026-06-12 statement; site copy corrected) | public (Bill, 2026-06-12: "very public") |
 | The Long Walk | Redefined by Bill as **present-tense**: the figuring-out-what's-next chapter, not the cancer chapter | ⚠️ keep name or rename (story doc, open thread 4) |
 | DJ Billygoat | Unexplained easter egg | ⚠️ get the story (Arc 5, Q1) |

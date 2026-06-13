@@ -255,19 +255,53 @@ const QA=[
  {k:['vibe coding','vibe code','vibeco','vibe-coding'],r:`<span class="h">what is vibe coding?</span>Describing what you want in plain English and shipping working software the same day. I built <span class="val">VibeCo</span> — an 11-agent simulator — to industrialize it: idea → brief → build prompts → working app. 40+ apps across 31 repos came out of that motion. Type <span class="key">builds</span> to see them.`},
  {k:['pickleball','courtana','why pickle','sports'],r:`<span class="h">why pickleball?</span>Fastest-growing sport in America, venues drowning in analog ops, and nobody owning the video layer. Courtana puts AI on the court — live video, instant highlights, coaching — and Pickle DaaS turns that footage into a data business. Type <span class="key">companies</span> or <span class="key">pickle-daas</span>.`},
  {k:['superpower','strength','best at','why hire','why you'],r:`<span class="h">the honest answer</span>Translation. I make complicated things simple enough that one human buys them from another — and now I can <em>build</em> the demo before the second meeting. Sellers who build are rare; builders who can carry a quota are rarer.`},
- {k:['cancer','long walk','health','chemo'],r:`<span class="h">the long walk</span>Diagnosed 2023. Twelve weeks of chemo. The pipeline kept moving. I keep it on the record because no one I'd want to work with would want it left out — and the operator instinct gets ruthlessly clear when the day is short.`},
+ {k:['cancer','long walk','health','chemo'],r:`<span class="h">the long walk</span>Diagnosed 2023. Chemo through 2025. The pipeline kept moving. I keep it on the record because no one I'd want to work with would want it left out — and the operator instinct gets ruthlessly clear when the day is short.`},
  {k:['kids','family','father','three'],r:`<span class="h">the why</span>Three kids, a real kitchen, and an unreal amount of pickleball gear in the garage. The whole map exists to support that — not the other way around.`},
  {k:['available','hire','role','open to','looking for','work with'],r:`<span class="h">what I'm open to</span>Founder roles, GTM &amp; partnership leadership (frontier AI labs especially), fractional/advisory, board. Type <span class="key">contact</span> — or just email <a class="lnk" href="mailto:bricker3@gmail.com">bricker3@gmail.com</a>.`},
- {k:['dreamship','fulfillment','print'],r:`<span class="h">dreamship, short version</span>Cofounded, led as CEO: zero → $35M+, 11x in one year, on $2.2M raised. EBITDA-profitable 4 of 8 years. Sold Google, then Stripe/PayPal/Meta/Payoneer off it. Type <span class="key">companies</span> for links.`},
+ {k:['dreamship','fulfillment','print'],r:`<span class="h">dreamship, short version</span>Cofounded, led as CEO: zero → $35M+, 11x in one year, on $2.2M raised. EBITDA-profitable 4 of 8 years. Closed Google as a partner, then sequenced Stripe/PayPal/Meta/Payoneer off it. Type <span class="key">companies</span> for links.`},
  {k:['ibm','quota','enterprise sales','netezza'],r:`<span class="h">enterprise pedigree</span>IBM/Netezza 2012-14: Zillow, Avalara, part of an 8-figure McKesson deal, &gt;100% of quota. The selling muscle everything else is built on.`},
  {k:['stack','tools','claude','how do you build'],r:`<span class="h">the stack</span>Claude (Code + Design), Codex, Lovable, Gemini, Supabase, Stripe, GitHub. This site — terminal included — was built with the stack it describes.`},
  {k:['dj','billygoat','fka'],r:`<span class="h">fka DJ Billygoat</span>A past life behind the decks. The set lists are sealed; the crowd-reading skills transferred directly to enterprise sales.`},
 ];
-function answerQ(q){
+function localAnswer(q,echoed){
   const ql=q.toLowerCase();let best=null,bs=0;
   QA.forEach(a=>{let sc=0;a.k.forEach(k=>{if(ql.includes(k))sc++});if(sc>bs){bs=sc;best=a}});
-  if(best){print(best.r,q);return;}
-  print(`<span class="h">good question.</span>I don't have a canned answer for that — which probably means it deserves a real conversation.\n<span class="cmt">// try</span> <span class="key">help</span> <span class="cmt">for what I can answer here, or email</span> <a class="lnk" href="mailto:bricker3@gmail.com">bricker3@gmail.com</a> <span class="cmt">and ask me directly.</span>`,q);
+  if(best){print(best.r,echoed?undefined:q);return;}
+  print(`<span class="h">good question.</span>I don't have a canned answer for that — which probably means it deserves a real conversation.\n<span class="cmt">// try</span> <span class="key">help</span> <span class="cmt">for what I can answer here, or email</span> <a class="lnk" href="mailto:bricker3@gmail.com">bricker3@gmail.com</a> <span class="cmt">and ask me directly.</span>`,echoed?undefined:q);
+}
+
+// ─ real LLM brain (ask-bill edge function, vibeco Supabase) ─
+const ASK_ENDPOINT='https://ulgoahsxkrkzoquvntei.supabase.co/functions/v1/ask-bill';
+const HIST=[];
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function echoLine(q){
+  const e=document.createElement('div');e.className='ln echo reveal flash';
+  e.innerHTML=`<span class="p">➜ ~</span> <span class="c">${esc(q)}</span>`;
+  screen.appendChild(e);screen.scrollTop=screen.scrollHeight;
+}
+function thinkLine(){
+  const t=document.createElement('div');t.className='ln reveal';
+  t.innerHTML='<span class="cmt">thinking</span><span class="cur"></span>';
+  screen.appendChild(t);screen.scrollTop=screen.scrollHeight;return t;
+}
+async function answerQ(q){
+  echoLine(q);
+  const t=thinkLine();
+  try{
+    const ctrl=new AbortController();const to=setTimeout(()=>ctrl.abort(),20000);
+    const r=await fetch(ASK_ENDPOINT,{method:'POST',signal:ctrl.signal,
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({question:q.slice(0,500),history:HIST.slice(-6)})});
+    clearTimeout(to);
+    const d=await r.json();
+    if(!r.ok||!d.answer)throw new Error(d.error||r.status);
+    t.remove();
+    HIST.push({role:'user',content:q},{role:'assistant',content:d.answer});
+    print(esc(d.answer).split(/\n+/).join('\n'));
+  }catch(e){
+    t.remove();
+    localAnswer(q,true);
+  }
 }
 
 function print(html,echo){
@@ -309,6 +343,10 @@ function fill(id,arr){const h=arr.map(([c,l])=>chip(c,l)).join('');document.getE
 fill('row1',R1);fill('row2',R2);
 document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{run(c.dataset.c);if(window.innerWidth>680)document.getElementById('cmd').focus();}));
 boot();
+// deep links (QR card / shares): /work.html?cmd=whoami or ?q=why+pickleball
+const _qp=new URLSearchParams(location.search);
+const _dc=_qp.get('cmd')||_qp.get('q');
+if(_dc)setTimeout(()=>run(_dc),700);
 </script>
 </body>
 </html>

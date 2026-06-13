@@ -1,0 +1,9 @@
+{
+  "description": "Corpus manifest for the bricker-os LLM terminal. The ask-bill edge function (vibeco Supabase) fetches this list and builds its system prompt from these files. Order = priority.",
+  "files": [
+    "source/content.json",
+    "content/FACTS.md",
+    "content/stories/the-bridge.md",
+    "content/stories/the-google-deal.md"
+  ]
+}
