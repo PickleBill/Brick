@@ -21,7 +21,12 @@ The live v1 site is at `picklebill.github.io/pickle-daas-data/showcase/v2/` (rep
 - **Content-first architecture**: all surfaces (pages, terminal, PDF, OG cards) render from `content/`. Never hardcode a fact into a page.
 - **Static site** — plain HTML/CSS/JS + JSON on GitHub Pages. Do not introduce a framework without an explicit decision in `ROADMAP.md`.
 - **Publicity tags** (`public` / `blur` / `private`) on facts and stories are binding. `private` content may be alluded to by the terminal but never stated.
-- **Design guardrails**: near-black `#08090a`, green→cyan→violet→coral gradients, glass cards (`rgba(255,255,255,.045)` fill, `.09` borders), 22px radius, Inter + JetBrains Mono. Full system in the v2 handover. Anti-pattern: generic AI-generated interfaces.
+- **Design guardrails (de-slopped 2026-06-13, Impeccable-aligned).** The old guardrail *was* the AI-slop palette; this replaces it.
+  - **Color:** tinted near-black `#0a0b0c`, warm-cream text `#f3ece0`, **one** restrained accent — muted sage `#a8c98e` (rare warm `#e69270` for live/now only). 60-30-10.
+  - **NEVER:** gradient text (`background-clip:text`), rainbow neon (cyan/violet/coral/teal as decoration), glassmorphism everywhere, the count-up metric-card template. (These are the exact tells in `SKILL_IMPECCABLE.md`.)
+  - **Surfaces:** solid `--surface:#111412` cards; backdrop-blur only on the nav (the one purposeful glass).
+  - **Type:** **Bricolage Grotesque** (display) + **Hanken Grotesk** (body) + **JetBrains Mono** (terminal/labels only). Inter is retired (banned reflex font).
+  - **Reference:** the Climb's paper aesthetic is the "not AI slop" north star. `index.html` is the reference de-slop implementation; Story/Work/Résumé roll onto this system next. Full rubric: vibeco `SKILL_IMPECCABLE.md` + `SKILL_CRITIQUE.md`. Anti-pattern: anything that reads "a model generated this."
 - The LLM terminal backend lives in the vibeco Supabase project (its `_shared/llm-client.ts` conventions apply).
 
 ## Operating Preferences
