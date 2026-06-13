@@ -51,16 +51,17 @@ The killer demo is the **real LLM terminal** — "talk to Bill's OS" in a lab in
 ## Phase 2 — Signature Features
 
 - [x] **Real LLM terminal** — shipped 2026-06-13. `ask-bill` edge function in the vibeco Supabase project (Claude 3.5 Sonnet via `bill-qa` route, per-IP rate limit, 400-token cap) reads the corpus from `content/index.json` at runtime — corpus updates need no redeploy. `work.html` calls it for free-text questions with graceful fallback to the keyword engine. Deep links supported: `work.html?q=why+pickleball` / `?cmd=whoami` (QR card ready).
+- [~] **Portrait on Home** — shipped 2026-06-13: the hero operator card now frames `assets/portrait.jpg` (placeholder until Bill drops the file). The single highest-leverage remaining move.
 - [ ] **60–90s Loom/video** of Bill walking the dashboard — embedded on Home. Outperforms every polished pixel.
 - [ ] **QR business card** — a 🥒 physical card whose QR opens the terminal directly (`/work?cmd=whoami` style deep link). Memorable in person.
 - [ ] **Personal photos woven into Climb** — the paper-aesthetic timeline gains real images at key pins.
 
 ## Phase 3 — Editorial Layer
 
-- [ ] **Google deal case-study page** — editorial single column, pull quotes, the full mechanics. Highest-status artifact for lab audiences.
-- [ ] **The Bridge as a Climb pin + terminal answer** — telling the Dreamship→Courtana story honestly (board chair transition, treatment, the pull of building again).
+- [x] **Google deal — folded into Story + terminal** (decided 2026-06-13: a dedicated "The Google Partnership" Climb pin + the `google-deal` terminal STAR, rather than a standalone page). Standalone `google-deal.html` retired. Editorial single-column expansion remains optional if a lab audience wants the long form.
+- [x] **The Bridge as a Climb pin + terminal answer** — the Long Walk pin now tells the Dreamship→Courtana story honestly (step-back with the Google deal in flight, treatment, present-tense "figuring-out chapter"). Corpus: `the-bridge.md`.
 - [ ] **Networking Manifesto + "How We Win"** as quiet serif essay pages.
-- [ ] **"Now" page** — JSON-driven monthly shipping log. Recruiters return to alive things.
+- [x] **"Now" page — CUT** (decided 2026-06-13: flagged generic; removed to converge on four surfaces).
 
 ## Phase 4 — Distribution & Polish
 
