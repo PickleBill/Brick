@@ -12,7 +12,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
   :root{
     --bg:#08090a;--bg2:#0c0e10;--panel:#101316;
@@ -20,7 +20,7 @@
     --text:#f4f2ec;--mute:#9aa0a3;--faint:#5c6164;
     --sage:#a8c98e;--coral:#e69270;--blue:#7fb0e8;--green:#86e0a4;--amber:#e6b86e;--cream:#f3ecdc;
     --term:#d8ddd6;
-    --sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;--disp:'Bricolage Grotesque','Hanken Grotesk',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -38,7 +38,7 @@
   /* ===== consistent nav (identical across site) ===== */
   nav{position:sticky;top:0;z-index:50;background:rgba(8,9,10,.7);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;letter-spacing:-.01em;white-space:nowrap;flex-shrink:0}
+  .brand{display:flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:700;font-size:17px;letter-spacing:-.01em;white-space:nowrap;flex-shrink:0}
   .brand .pk{font-size:20px;line-height:1;animation:pkpulse 3s ease-in-out infinite}
   @keyframes pkpulse{0%,100%{filter:drop-shadow(0 0 4px rgba(134,224,164,.55))}50%{filter:drop-shadow(0 0 10px rgba(134,224,164,.95))}}
 
@@ -54,8 +54,8 @@
   .kick{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);padding:7px 13px;border-radius:99px;background:var(--glass)}
   .kick .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(134,224,164,.5)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
-  h1{font-size:clamp(30px,5.4vw,46px);font-weight:800;letter-spacing:-.03em;margin:16px 0 0;line-height:1.04}
-  h1 .g{background:linear-gradient(100deg,var(--sage),var(--coral));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  h1{font-family:var(--disp);font-size:clamp(30px,5.4vw,46px);font-weight:700;letter-spacing:-.025em;margin:16px 0 0;line-height:1.04}
+  h1 .g{color:var(--sage)}
   .sub{font-size:15px;color:var(--mute);margin:12px auto 0;max-width:48ch}
 
   /* terminal */
