@@ -24,6 +24,10 @@ The live v1 site is at `picklebill.github.io/pickle-daas-data/showcase/v2/` (rep
 - **Design guardrails**: near-black `#08090a`, green→cyan→violet→coral gradients, glass cards (`rgba(255,255,255,.045)` fill, `.09` borders), 22px radius, Inter + JetBrains Mono. Full system in the v2 handover. Anti-pattern: generic AI-generated interfaces.
 - The LLM terminal backend lives in the vibeco Supabase project (its `_shared/llm-client.ts` conventions apply).
 
+## Operating Preferences
+
+- **Merging**: Bill authorized auto-merging Claude-authored roadmap PRs once they're mergeable and CI is green (decided 2026-06-13). Pause and ask before merges that are risky, irreversible, or outside the agreed scope.
+
 ## Working With Bill
 
 Bill answers interviews via voice-memo transcripts and bullet dumps; sessions do the structuring. When facts conflict across repos/docs, the ledger wins — flag conflicts, don't silently pick. Sensitive territory (The Long Walk / health) is handled at whatever publicity level Bill sets; default to discoverable-not-headline.
