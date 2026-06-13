@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero · Direction B — Living OS · Bill Bricker</title>
+<meta name="robots" content="noindex"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#08090a;--glass:rgba(255,255,255,.045);--glass2:rgba(255,255,255,.03);--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);
+    --text:#f4f2ec;--mute:#9aa0a3;--faint:#5c6164;
+    --sage:#8cf0a0;--sage2:rgba(140,240,160,.5);--coral:#ff8a5c;--cyan:#5ee0d6;--violet:#a78bfa;--cream:#f3ecdc;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;--disp:'Bricolage Grotesque','Hanken Grotesk',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  h1,.brand{font-family:var(--disp)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+  @media(max-width:560px){.wrap{padding:0 22px}}
+  .mesh{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;mix-blend-mode:screen}
+  .b1{width:600px;height:600px;background:radial-gradient(circle,#16a88a,transparent 64%);top:-180px;left:-130px;animation:d1 24s ease-in-out infinite}
+  .b2{width:560px;height:560px;background:radial-gradient(circle,#7b5be0,transparent 64%);top:300px;right:-180px;animation:d2 28s ease-in-out infinite}
+  @keyframes d1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,46px) scale(1.12)}}
+  @keyframes d2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-40px,-40px) scale(1.1)}}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(8,9,10,.72);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px}
+  .brand .pk{font-size:21px}
+  .nl{display:flex;gap:3px;align-items:center;font-size:13px;color:var(--mute)}
+  .nl a{padding:8px 13px;border-radius:99px;transition:.15s}
+  .nl a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+  .nl a.here{color:var(--text)}
+  .nl a.email{color:#08090a;background:var(--cream);font-weight:600}
+  @media(max-width:600px){nav .wrap{flex-direction:column;height:auto;gap:8px;padding:9px 0 11px}.nl{font-size:12px}}
+
+  .hero{display:grid;grid-template-columns:.92fr 1.08fr;gap:48px;align-items:center;padding:clamp(40px,7vh,90px) 0 60px}
+  @media(max-width:880px){.hero{grid-template-columns:1fr;gap:30px;padding-top:40px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);padding:8px 14px;border-radius:99px;background:var(--glass2)}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 0 var(--sage2);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 var(--sage2)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  h1{font-size:clamp(36px,5.6vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1.02;margin:24px 0 0}
+  h1 .g{background:linear-gradient(100deg,var(--sage),var(--cyan) 45%,var(--violet));background-size:300% 300%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 8s ease infinite}
+  @keyframes flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .lede{font-size:clamp(15px,1.9vw,17.5px);color:var(--mute);margin-top:22px;max-width:46ch;line-height:1.6}
+  .lede b{color:var(--text);font-weight:600}
+  .hctas{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;padding:13px 22px;border-radius:99px;transition:.18s;cursor:pointer;border:1px solid transparent}
+  .pill.cream{background:var(--cream);color:#08090a}
+  .pill.cream:hover{transform:translateY(-2px);box-shadow:0 16px 36px -14px rgba(243,236,220,.5)}
+  .pill.ghost{background:var(--glass);color:var(--text);border-color:var(--line2)}
+  .pill.ghost:hover{transform:translateY(-2px);border-color:var(--sage)}
+
+  /* terminal */
+  .term{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,rgba(18,20,24,.92),rgba(11,13,16,.92));backdrop-filter:blur(20px);box-shadow:0 40px 90px -40px rgba(0,0,0,.9),0 0 0 1px rgba(140,240,160,.05) inset;overflow:hidden}
+  .tbar{display:flex;align-items:center;gap:8px;padding:12px 15px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .tbar .dotr{display:flex;gap:6px}
+  .tbar .dotr i{width:11px;height:11px;border-radius:50%;display:block}
+  .tbar .dotr i:nth-child(1){background:#ff5f57}.tbar .dotr i:nth-child(2){background:#febc2e}.tbar .dotr i:nth-child(3){background:#28c840}
+  .tbar .ttl{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em;margin-left:6px}
+  .tbar .stat{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--sage);display:inline-flex;align-items:center;gap:6px}
+  .tbar .stat i{width:6px;height:6px;border-radius:50%;background:var(--sage);box-shadow:0 0 8px var(--sage);animation:pulse2 1.8s infinite}
+  @keyframes pulse2{0%,100%{opacity:1}50%{opacity:.3}}
+  .tbody{padding:18px 18px 16px;font-family:var(--mono);font-size:13px;line-height:1.7;min-height:264px}
+  .tline{margin:0 0 4px;white-space:pre-wrap}
+  .tq{color:var(--cyan)}
+  .tq::before{content:"❯ ";color:var(--sage)}
+  .ta{color:var(--text);opacity:.92;margin:2px 0 16px}
+  .ta b{color:var(--sage);font-weight:500}
+  .cursor{display:inline-block;width:8px;height:15px;background:var(--sage);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+  .tinput{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line);padding:13px 16px;background:rgba(255,255,255,.015)}
+  .tinput .pr{font-family:var(--mono);color:var(--sage);font-size:13px}
+  .tinput .field{flex:1;font-family:var(--mono);font-size:13px;color:var(--mute)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .chip{font-family:var(--mono);font-size:11px;color:var(--mute);border:1px solid var(--line);background:var(--glass2);padding:8px 13px;border-radius:99px;transition:.15s;cursor:pointer}
+  .chip:hover{color:#08090a;background:var(--sage);border-color:transparent}
+
+  .note{position:fixed;bottom:14px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--faint);z-index:5;pointer-events:none}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}.cursor{display:none}}
+</style>
+</head>
+<body>
+<div class="mesh"><div class="blob b1"></div><div class="blob b2"></div></div>
+
+<nav><div class="wrap">
+  <a class="brand" href="#"><span class="pk">🥒</span><span>Bill Bricker</span></a>
+  <div class="nl">
+    <a href="#" class="here">Home</a>
+    <a href="../climb.html">Story</a>
+    <a href="../work.html">Work</a>
+    <a href="../resume-v2.html">Résumé</a>
+    <a href="mailto:bricker3@gmail.com" class="email">Email</a>
+  </div>
+</div></nav>
+
+<header class="wrap hero">
+  <div class="hcopy">
+    <span class="eyebrow"><span class="dot"></span>bricker-os · live</span>
+    <h1>Don't read the&nbsp;résumé.<br><span class="g">Interrogate it.</span></h1>
+    <p class="lede">This site runs on a corpus of who I actually am — every deal, number, and scar. <b>Ask it anything.</b> It answers in my voice, only from facts I can back up. I sell frontier tech, and I built this myself.</p>
+    <div class="hctas">
+      <a class="pill cream" href="../work.html">Open the full terminal →</a>
+      <a class="pill ghost" href="../climb.html">Walk the climb</a>
+    </div>
+  </div>
+
+  <div class="hcard">
+    <div class="term">
+      <div class="tbar">
+        <span class="dotr"><i></i><i></i><i></i></span>
+        <span class="ttl">bill@bricker-os : ~</span>
+        <span class="stat"><i></i>online</span>
+      </div>
+      <div class="tbody" id="tbody"></div>
+      <a class="tinput" href="../work.html">
+        <span class="pr">❯</span><span class="field" id="field">ask me anything…</span>
+      </a>
+    </div>
+    <div class="chips">
+      <a class="chip" href="../work.html?q=did+you+really+close+google">did you really close Google?</a>
+      <a class="chip" href="../work.html?q=what+have+you+built">what have you built?</a>
+      <a class="chip" href="../work.html?q=why+pickleball">why pickleball?</a>
+    </div>
+  </div>
+</header>
+
+<div class="note">Draft hero · Direction B (Living OS) · auto-demo uses canned corpus answers; live terminal is work.html · not live</div>
+
+<script>
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const body=document.getElementById('tbody');
+const script=[
+  {q:'did you really close Google?',a:'Yes. A first-of-its-kind cross-division partnership, signed as a sub-1-year-old startup. I navigated 5–6 internal Google teams to director+ sign-off → an 8-figure channel that ran 5+ years.'},
+  {q:'what have you built lately?',a:'40+ AI apps across 31 repos — solo. Including a sports-data pipeline that processed 21K clips at $0.0054 each. I sell frontier tech and ship it myself.'}
+];
+function add(cls,txt){const d=document.createElement('div');d.className='tline '+cls;d.textContent=txt;body.appendChild(d);return d;}
+async function type(el,txt,sp){for(let i=0;i<txt.length;i++){el.textContent+=txt[i];await wait(sp);}}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function run(){
+  if(reduce){script.forEach(s=>{add('tq',s.q);add('ta',s.a);});const c=add('tq','');c.innerHTML='<span class="cursor"></span>';return;}
+  for(const s of script){
+    const q=add('tq','');await type(q,s.q,34);await wait(380);
+    const a=add('ta','');await type(a,s.a,12);await wait(900);
+  }
+  const c=add('tq','');c.innerHTML='<span class="cursor"></span>';
+}
+run();
+// rotate the placeholder
+const fld=document.getElementById('field');
+const ph=['ask me anything…','"how did you close Google?"','"what did you ship this week?"','"talk me through the climb"'];
+let pi=0;if(!reduce)setInterval(()=>{pi=(pi+1)%ph.length;fld.textContent=ph[pi];},2800);
+</script>
+</body>
+</html>

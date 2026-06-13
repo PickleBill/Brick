@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero · Direction C — Data Room · Bill Bricker</title>
+<meta name="robots" content="noindex"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#08090a;--glass:rgba(255,255,255,.045);--glass2:rgba(255,255,255,.03);--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);
+    --text:#f4f2ec;--mute:#9aa0a3;--faint:#5c6164;
+    --sage:#8cf0a0;--sage2:rgba(140,240,160,.5);--coral:#ff8a5c;--cyan:#5ee0d6;--violet:#a78bfa;--cream:#f3ecdc;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;--disp:'Bricolage Grotesque','Hanken Grotesk',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  h1,.brand,.cn{font-family:var(--disp)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+  @media(max-width:560px){.wrap{padding:0 22px}}
+  .mesh{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;mix-blend-mode:screen}
+  .b1{width:560px;height:560px;background:radial-gradient(circle,#16a88a,transparent 64%);top:-160px;right:-120px;animation:d1 26s ease-in-out infinite}
+  .b2{width:520px;height:520px;background:radial-gradient(circle,#7b5be0,transparent 64%);bottom:-200px;left:-160px;animation:d2 30s ease-in-out infinite}
+  @keyframes d1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-40px,40px) scale(1.1)}}
+  @keyframes d2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-36px) scale(1.1)}}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(8,9,10,.72);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px}
+  .brand .pk{font-size:21px}
+  .nl{display:flex;gap:3px;align-items:center;font-size:13px;color:var(--mute)}
+  .nl a{padding:8px 13px;border-radius:99px;transition:.15s}
+  .nl a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+  .nl a.here{color:var(--text)}
+  .nl a.email{color:#08090a;background:var(--cream);font-weight:600}
+  @media(max-width:600px){nav .wrap{flex-direction:column;height:auto;gap:8px;padding:9px 0 11px}.nl{font-size:12px}}
+
+  .hero{padding:clamp(40px,7vh,84px) 0 26px;text-align:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);padding:8px 14px;border-radius:99px;background:var(--glass2)}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 0 var(--sage2);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 var(--sage2)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  h1{font-size:clamp(34px,5.6vw,58px);font-weight:800;letter-spacing:-.04em;line-height:1.02;margin:22px auto 0;max-width:16ch}
+  h1 .g{background:linear-gradient(100deg,var(--sage),var(--cyan) 45%,var(--violet) 80%,var(--coral));background-size:300% 300%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 8s ease infinite}
+  @keyframes flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  .lede{font-size:clamp(15px,1.9vw,17px);color:var(--mute);margin:20px auto 0;max-width:50ch;line-height:1.6}
+  .lede b{color:var(--text);font-weight:600}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+  @media(max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.grid{grid-template-columns:1fr}}
+  .cell{display:block;text-align:left;border:1px solid var(--line);background:var(--glass);border-radius:18px;padding:22px 20px;position:relative;overflow:hidden;transition:.2s;opacity:0;transform:translateY(16px)}
+  .cell.in{opacity:1;transform:none}
+  .cell:hover{transform:translateY(-4px);border-color:var(--line2);box-shadow:0 28px 60px -36px rgba(0,0,0,.8)}
+  .cell .cn{font-size:clamp(30px,4.4vw,42px);font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(120deg,var(--sage),var(--cyan) 60%,var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 12px rgba(140,240,160,.25))}
+  .cell .cc{font-size:13.5px;color:var(--text);font-weight:600;margin-top:10px;line-height:1.4}
+  .cell .ce{font-family:var(--mono);font-size:11px;color:var(--mute);line-height:1.55;margin-top:8px}
+  .cell .clink{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--sage);margin-top:13px;display:inline-flex;align-items:center;gap:6px}
+  .cell .clink .ar{transition:.15s}
+  .cell:hover .clink .ar{transform:translateX(4px)}
+  .cell .tag{position:absolute;top:16px;right:16px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+
+  .hctas{display:flex;justify-content:center;flex-wrap:wrap;gap:11px;margin-top:34px}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;padding:13px 22px;border-radius:99px;transition:.18s;cursor:pointer;border:1px solid transparent}
+  .pill.cream{background:var(--cream);color:#08090a}
+  .pill.cream:hover{transform:translateY(-2px);box-shadow:0 16px 36px -14px rgba(243,236,220,.5)}
+  .pill.ghost{background:var(--glass);color:var(--text);border-color:var(--line2)}
+  .pill.ghost:hover{transform:translateY(-2px);border-color:var(--sage)}
+
+  .note{margin:30px 0 18px;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--faint)}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.cell{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="mesh"><div class="blob b1"></div><div class="blob b2"></div></div>
+
+<nav><div class="wrap">
+  <a class="brand" href="#"><span class="pk">🥒</span><span>Bill Bricker</span></a>
+  <div class="nl">
+    <a href="#" class="here">Home</a>
+    <a href="../climb.html">Story</a>
+    <a href="../work.html">Work</a>
+    <a href="../resume-v2.html">Résumé</a>
+    <a href="mailto:bricker3@gmail.com" class="email">Email</a>
+  </div>
+</div></nav>
+
+<header class="wrap hero">
+  <span class="eyebrow"><span class="dot"></span>GTM &amp; partnerships · frontier AI labs · open</span>
+  <h1>The proof, <span class="g">before the pitch.</span></h1>
+  <p class="lede">I sell frontier technology <b>and</b> build it myself. Six claims below — all falsifiable, all mine. Click any one for the receipts.</p>
+
+  <div class="grid" id="grid">
+    <a class="cell" href="../climb.html">
+      <span class="tag">Dreamship</span>
+      <div class="cn">Google</div>
+      <div class="cc">Closed as a partner — as a sub-1-year-old startup.</div>
+      <div class="ce">First-of-its-kind cross-division partnership → 8-figure channel, ran 5+ years.</div>
+      <span class="clink">see the climb <span class="ar">→</span></span>
+    </a>
+    <a class="cell" href="../climb.html">
+      <span class="tag">Dreamship</span>
+      <div class="cn" data-count="11" data-suf="×">11×</div>
+      <div class="cc">Revenue growth in a single year — to $35M+.</div>
+      <div class="ce">First full year + COVID tailwind + execution: orders → supply routes → shipping trust.</div>
+      <span class="clink">see the climb <span class="ar">→</span></span>
+    </a>
+    <a class="cell" href="../work.html?q=what+have+you+built">
+      <span class="tag">Solo</span>
+      <div class="cn" data-count="40" data-suf="+">40+</div>
+      <div class="cc">AI apps shipped — across 31 repos, by myself.</div>
+      <div class="ce">A career seller who taught himself to build. The site you're on is one of them.</div>
+      <span class="clink">interrogate it <span class="ar">→</span></span>
+    </a>
+    <a class="cell" href="https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html" target="_blank" rel="noopener">
+      <span class="tag">Pickle DaaS</span>
+      <div class="cn" data-count="21" data-suf="K">21K</div>
+      <div class="cc">Video clips processed at $0.0054 each.</div>
+      <div class="ce">Built the computer-vision pipeline + data warehouse myself — Supabase, ingest agents, ground-truth loop.</div>
+      <span class="clink">open the walkthrough <span class="ar">→</span></span>
+    </a>
+    <a class="cell" href="../climb.html">
+      <span class="tag">Partnerships</span>
+      <div class="cn" data-count="5" data-suf="+">5+</div>
+      <div class="cc">Big-tech partnerships closed &amp; run.</div>
+      <div class="ce">Google · Microsoft (Bing-ChatGPT, negotiated from the chemo chair) · Stripe · PayPal · Meta.</div>
+      <span class="clink">see the climb <span class="ar">→</span></span>
+    </a>
+    <a class="cell" href="../climb.html">
+      <span class="tag">The person</span>
+      <div class="cn" data-count="3">3</div>
+      <div class="cc">Kids. Built through cancer treatment — never stopped shipping.</div>
+      <div class="ce">Enterprise seller → founder-CEO → AI-native builder. The pipeline kept moving.</div>
+      <span class="clink">walk the climb <span class="ar">→</span></span>
+    </a>
+  </div>
+
+  <div class="hctas">
+    <a class="pill cream" href="../work.html">Interrogate my OS →</a>
+    <a class="pill ghost" href="../climb.html">Walk the climb</a>
+  </div>
+
+  <div class="note">Draft hero · Direction C (Data Room) · facts per content/FACTS.md · not live</div>
+</header>
+
+<script>
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const cells=[...document.querySelectorAll('.cell')];
+if(reduce){cells.forEach(c=>c.classList.add('in'));}
+else{
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target,d=cells.indexOf(el)*90;setTimeout(()=>el.classList.add('in'),d);io.unobserve(el);}}),{threshold:.15});
+  cells.forEach(c=>io.observe(c));
+}
+const cio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;const el=e.target,t=+el.dataset.count,suf=el.dataset.suf||'';
+  if(reduce){el.textContent=t+suf;cio.unobserve(el);return;}
+  let c=0,step=Math.max(1,Math.ceil(t/30));el.textContent='0'+suf;
+  const iv=setInterval(()=>{c+=step;if(c>=t){c=t;clearInterval(iv)}el.textContent=c+suf;},28);cio.unobserve(el);
+}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+</script>
+</body>
+</html>
