@@ -12,13 +12,13 @@ You are designing **`v4.html`** for Bill Bricker's dynamic résumé ("bricker-os
 3. **Render every number from the ledger** (below). Never "sold/acquired" Google — "**closed Google as a partner**." 21,000 processed / 4,097 analyzed. 40+ apps / 31 repos (never 65+).
 4. **Clean > dense.** No tile-soup. Prefer a few large, confident sections over many small cards. Honor `prefers-reduced-motion`; reveal-on-scroll with a failsafe.
 
-## Hero (the centerpiece) — three pieces
-- **Headline, left, two lines:** "Don't read the résumé." / "Interrogate it." (the spectrum lands only on "Interrogate it.").
-- **Identity flip-card, right** (spans the hero height): a glass card you can **click to flip**.
-  - *Front:* a two-column card — left side, three stacked role lines in the display font **"0→1 Builder / Frontier Tech / Vibe Pusher"** (mint accent on "Vibe Pusher") + "Raleigh, NC · father of three"; right side, **Bill's vertical portrait** (`assets/portrait.jpg`) with an "in the room" pulse.
-  - *Back (on click):* **the stats card** — Bill's **horizontal** photo (`assets/portrait-2.jpg`) over the headline numbers ($35M+ · 11x · 8-fig Google · 40+ apps) + name/role line. Smooth 3D flip; links inside still work; a small "click to flip" hint.
-- **Open terminal, left, under the headline:** NOT a boxed widget — an **open "bleeding" terminal** with just a thin mint left-rule, a small `bill@bricker-os` label, output that **fades at the bottom** into the page, a minimal input line, a single "what else to ask" chip row, and a CTA ("Ask my OS ↓" + "Walk the climb"). It boots `whoami` on arrival (typewriter) and flows the eye down into the next section.
-- On mobile, stack: headline → flip-card (face) → terminal.
+## Hero (the centerpiece) — flip-card + padded terminal, lots of air
+Two columns, generous gap and padding. Elegant and uncrowded.
+- **Left — identity flip-card** (glass, click to flip):
+  - *Front:* a small mono eyebrow ("Pickle-Bill Bricker · fka DJ Billygoat"), then the **big bold headline** (live copy) **"Frontier tech evangelist, vibe pusher, 0→1 builder."** with the full spectrum on **"vibe pusher,"** (the one spectrum phrase on the page), a mono subline "enterprise seller → founder-CEO", and below it **Bill's vertical portrait** (`assets/portrait.jpg`) generously padded inside the card with an "● in the room" pulse and a "flip for the operator profile" hint.
+  - *Back (on click):* **the operator profile** — "OPERATOR PROFILE · Raleigh, NC · father of three", a cycling readout, and **5 animated skill bars** (Enterprise & partnership GTM · Zero-to-one building · AI-native product · Founder-led sales · Connector & BD) with mint→cyan/violet/coral gradient fills that count up and auto-rotate the readout. Smooth 3D flip; bar clicks don't flip; a "click to flip" hint.
+- **Right — the live terminal in a padded glass view** (the user specifically wants padding around the terminal): a small `bill@bricker-os — the résumé, interrogated` header, the screen, a minimal input line, a single "what else to ask" chip row, and CTAs. Boots `whoami` on arrival.
+- On mobile, stack: flip-card (copy + face) → terminal.
 
 ## The terminal (hybrid, live)
 Boots `whoami` on load (typewriter; instant under reduced-motion), leaves a blinking prompt. **Built-in commands** (instant, mono syntax colors): `help, whoami, ls, companies, google-deal, sales-gtm, enterprise, builds, pickle-daas, stats, git log, ask <q>, contact, clear`. **Free-text** POSTs to `https://ulgoahsxkrkzoquvntei.supabase.co/functions/v1/ask-bill` (`{question,history:last6}`, 20s timeout) with a local keyword-Q&A fallback. **Deep links:** `?cmd=` / `?q=` auto-run (for QR cards).
