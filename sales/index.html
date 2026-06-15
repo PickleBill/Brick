@@ -17,36 +17,43 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="ai-forward.css"/>
 <style>
-  /* DOSSIER — portrait-forward operator ID hero */
-  .hero{display:grid;grid-template-columns:.86fr 1.14fr;gap:48px;align-items:center;padding:72px 28px 18px;max-width:var(--maxw);margin:0 auto}
-  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:30px;padding:42px 22px 8px}.hero .hcard{order:-1;max-width:420px}}
-  h1{font-family:var(--disp);font-size:clamp(36px,5.4vw,62px);font-weight:700;letter-spacing:-.035em;line-height:1;margin:22px 0 0;max-width:15ch}
-  .heavy-lede{font-size:clamp(15px,1.7vw,18px);color:var(--mute);margin-top:22px;max-width:52ch;line-height:1.6}
+  /* DOSSIER v2 — flip-panel operator ID, smaller image, top-aligned 2-line header */
+  .hero{display:grid;grid-template-columns:.7fr 1.3fr;gap:44px;align-items:start;padding:52px 28px 12px;max-width:var(--maxw);margin:0 auto}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:26px;padding:32px 22px 6px}.hero .hcard{order:-1;max-width:300px}}
+  h1{font-family:var(--disp);font-size:clamp(34px,5vw,58px);font-weight:700;letter-spacing:-.035em;line-height:1.02;margin:18px 0 0;max-width:18ch}
+  .heavy-lede{font-size:clamp(15px,1.6vw,17.5px);color:var(--mute);margin-top:20px;max-width:54ch;line-height:1.6}
   .heavy-lede b{color:var(--ink);font-weight:600}
-  .hctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-  .cred{margin-top:26px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint);display:flex;flex-wrap:wrap;align-items:center;gap:7px 12px}
-  .cred .lab{color:var(--mint2);letter-spacing:.14em;text-transform:uppercase;font-size:10px}
-  .cred b{color:var(--mute);font-weight:500}
-  .cred .sep{color:var(--line2)}
+  .hctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  /* minimized credibility strip (logo-style wordmarks) */
+  .cred{margin-top:24px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;font-family:var(--mono)}
+  .cred .lab{color:var(--mint2);letter-spacing:.16em;text-transform:uppercase;font-size:9.5px}
+  .cred .logos{color:var(--faint);font-size:12px;letter-spacing:.06em}
+  .cred .logos b{color:var(--mute);font-weight:500}
 
-  .opcard{background:linear-gradient(180deg,var(--glass),var(--glass2));border:1px solid var(--line);border-radius:var(--radius);padding:16px;backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));box-shadow:0 40px 90px -44px rgba(0,0,0,.85);position:relative;overflow:hidden;animation:float 7s ease-in-out infinite}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-  @media(prefers-reduced-motion:reduce){.opcard{animation:none}}
-  .opcard .sheen{position:absolute;top:0;left:-60%;width:42%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);transform:skewX(-18deg);animation:sheen 7s ease-in-out infinite;pointer-events:none;z-index:3}
-  @keyframes sheen{0%,72%{left:-60%}100%{left:150%}}
-  .portrait{position:relative;border-radius:15px;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line)}
-  .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-  .portrait .grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(8,9,10,.78));pointer-events:none;z-index:2}
-  .portrait .live{position:absolute;top:11px;left:12px;display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--mint);background:rgba(8,9,10,.55);border:1px solid var(--line);padding:5px 9px;border-radius:99px;z-index:3;pointer-events:none}
-  .portrait .live i{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint);animation:pulse 2s infinite}
-  .portrait .cap{position:absolute;left:13px;bottom:11px;right:13px;z-index:3;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:#dfe3e6;pointer-events:none}
-  .portrait .cap b{color:#fff;font-weight:600}
-  .ringrow{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:14px 8px 6px}
-  .ring{position:relative;width:84px;height:84px;flex-shrink:0}
+  /* operator card */
+  .opcard{background:linear-gradient(180deg,var(--glass),var(--glass2));border:1px solid var(--line);border-radius:var(--radius);padding:14px;backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));box-shadow:0 40px 90px -44px rgba(0,0,0,.85);position:relative;overflow:hidden}
+  /* flip image (from the original build) — smaller */
+  .flip{position:relative;perspective:1500px;cursor:pointer;border-radius:14px}
+  .flip-inner{position:relative;width:100%;aspect-ratio:1/1;transition:transform .72s var(--ease);transform-style:preserve-3d}
+  .flip.flipped .flip-inner{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .flip-back{transform:rotateY(180deg)}
+  .flip-face img{width:100%;height:100%;object-fit:cover;display:block}
+  .flip .grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 44%,rgba(8,9,10,.82));z-index:2;pointer-events:none}
+  .flip .cap{position:absolute;left:12px;right:12px;bottom:9px;z-index:3;font-family:var(--mono);font-size:10px;letter-spacing:.03em;color:#dfe3e6;pointer-events:none}
+  .flip .cap b{color:#fff;font-weight:600}
+  .flip .live{position:absolute;top:10px;left:11px;z-index:3;font-family:var(--mono);font-size:10px;letter-spacing:.07em;color:var(--mint);background:rgba(8,9,10,.55);border:1px solid var(--line);padding:4px 8px;border-radius:99px;display:inline-flex;align-items:center;gap:6px;pointer-events:none}
+  .flip .live i{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 9px var(--mint);animation:pulse 2s infinite}
+  .flip .cue{position:absolute;top:10px;right:11px;z-index:3;font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);background:rgba(8,9,10,.5);border:1px solid var(--line);padding:4px 8px;border-radius:99px;transition:.2s}
+  .flip:hover .cue{color:var(--mint);border-color:rgba(111,239,180,.3)}
+  @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}}
+
+  .ringrow{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:13px 6px 4px}
+  .ring{position:relative;width:78px;height:78px;flex-shrink:0}
   .ring svg{transform:rotate(-90deg);filter:drop-shadow(0 0 8px rgba(111,239,180,.35))}
   .ring .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-  .ring .ctr .n{font-family:var(--disp);font-size:25px;font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(120deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .ring .ctr .l{font-size:8px;color:var(--mute);letter-spacing:.04em;margin-top:3px;max-width:64px;line-height:1.2}
+  .ring .ctr .n{font-family:var(--disp);font-size:23px;font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(120deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .ring .ctr .l{font-size:7.5px;color:var(--mute);letter-spacing:.04em;margin-top:3px;max-width:60px;line-height:1.2}
   .ring-fg{stroke-dasharray:226;stroke-dashoffset:226;animation:draw 1.6s var(--ease) .3s forwards}
   @keyframes draw{to{stroke-dashoffset:46}}
   .bars{display:flex;flex-direction:column;gap:7px;min-width:0}
@@ -57,19 +64,39 @@
   .bar .v{font-family:var(--mono);font-size:9.5px;color:var(--mute);text-align:right;white-space:nowrap}
   .bar .track{grid-column:1/-1;height:5px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
   .bar .track i{display:block;height:100%;border-radius:99px;width:0;transition:width 1.3s var(--ease)}
-  .aiterm{margin-top:18px}
+
+  /* tighter centerpiece */
+  #center .glass.center{padding:24px 26px}
+  #center .gloss{margin-top:8px}
+
+  /* terminal — three grouped command rows */
+  .termsec{padding-top:30px}
+  .cmds3{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+  .cmdrow{display:flex;flex-wrap:nowrap;align-items:center;gap:7px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:1px 0}
+  .cmdrow::-webkit-scrollbar{display:none}
+  .cmdrow .cmd-chip{flex:0 0 auto}
+  .rowlbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;margin-right:3px;flex:0 0 auto}
+  .rowlbl.green{color:var(--mint2)} .rowlbl.orange{color:#e0a86b} .rowlbl.violet{color:#9b86e6}
+  .cmdrow.orange .cmd-chip{border-color:rgba(224,168,107,.26)} .cmdrow.orange .cmd-chip .c{color:#e0a86b}
+  .cmdrow.violet .cmd-chip{border-color:rgba(155,134,230,.26)} .cmdrow.violet .cmd-chip .c{color:#9b86e6}
+
+  /* AI section video card */
+  .vcard{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;background:#06070a}
+  .vcard video{width:100%;height:100%;object-fit:cover;display:block}
+  .vgrad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,10,.1),transparent 30%,transparent 62%,rgba(8,9,10,.72));pointer-events:none}
+  .vlabel{position:absolute;left:13px;bottom:12px;z-index:3;font-family:var(--mono);font-size:11px;color:var(--mint);letter-spacing:.02em}
+  .vbadge{position:absolute;left:var(--x);top:var(--y);z-index:3;font-family:var(--mono);font-size:10px;color:#eef0ee;background:rgba(8,8,12,.78);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-left:2px solid var(--c);border-radius:0 8px 8px 0;padding:5px 9px}
+  .vbadge b{color:#fff}
+
+  /* climb image inside the pedigree panel */
+  .climbimg{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);min-height:150px}
+  .climbimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s var(--ease)}
+  .climbrow:hover .climbimg img{transform:scale(1.06)}
+  .climbimg .cp-hint{position:absolute;right:11px;bottom:9px;font-family:var(--mono);font-size:10px;color:var(--mint);background:rgba(8,9,10,.5);border:1px solid var(--line);padding:4px 9px;border-radius:99px}
+  @media(prefers-reduced-motion:reduce){.climbimg img{transition:none}}
 </style>
 </head>
 <body>
-<template id="__bundler_thumbnail" data-bg-color="#08090a">
-  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <defs><linearGradient id="sp" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5be8a0"/><stop offset="33%" stop-color="#36c6e0"/><stop offset="66%" stop-color="#8b7cf0"/><stop offset="100%" stop-color="#ff8a6b"/></linearGradient></defs>
-    <rect width="1200" height="800" fill="#08090a"/>
-    <rect x="430" y="210" width="340" height="380" rx="22" fill="none" stroke="url(#sp)" stroke-width="4"/>
-    <circle cx="600" cy="360" r="70" fill="none" stroke="url(#sp)" stroke-width="4"/>
-    <text x="600" y="690" font-family="monospace" font-size="34" fill="#6a7178" text-anchor="middle" letter-spacing="5">OPERATOR DOSSIER</text>
-  </svg>
-</template>
 <script>document.documentElement.classList.add('js');</script>
 <div class="mesh"></div>
 <div class="grain"></div>
@@ -89,16 +116,26 @@
   <header class="hero">
     <div class="hcard rv">
       <div class="opcard">
-        <span class="sheen"></span>
-        <div class="portrait">
-          <span class="live"><i></i> IN THE ROOM</span>
-          <img src="../assets/portrait-sales.jpg" alt="Bill Bricker"/>
-          <div class="grad"></div>
-          <div class="cap"><b>Bill Bricker</b> · Raleigh, NC</div>
+        <div class="flip" id="flip" tabindex="0" role="button" aria-label="Identity card — tap to flip between portrait and the operator photo.">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="live"><i></i> IN THE ROOM</span>
+              <span class="cue">⟲ flip</span>
+              <img src="../assets/portrait-sales.jpg" alt="Bill Bricker"/>
+              <div class="grad"></div>
+              <div class="cap"><b>Bill Bricker</b> · Raleigh, NC</div>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="cue">⟲ back</span>
+              <img src="../assets/dreamship-donate.jpg" alt="Dreamship giving back on stage"/>
+              <div class="grad"></div>
+              <div class="cap"><b>Building &amp; giving — same track.</b> Dreamship on stage, 2019.</div>
+            </div>
+          </div>
         </div>
         <div class="ringrow">
           <div class="ring">
-            <svg width="84" height="84" viewBox="0 0 84 84">
+            <svg width="78" height="78" viewBox="0 0 84 84">
               <circle cx="42" cy="42" r="36" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>
               <circle class="ring-fg" cx="42" cy="42" r="36" fill="none" stroke="var(--mint)" stroke-width="7" stroke-linecap="round"/>
             </svg>
@@ -116,40 +153,81 @@
 
     <div class="hcopy rv">
       <span class="eyebrow"><span class="dot"></span>AI-Forward Sales &amp; Partnerships Leader</span>
-      <h1>I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
-      <p class="heavy-lede">I founded <b>Dreamship</b> and, in year one, <b>closed Google as a partner</b> — <b>$45M+ in ad spend through the channel</b>, on its climb to <b>$35M+ revenue</b>, EBITDA-profitable four years. Then I 10x the work with AI-native workflows.</p>
+      <h1>I close the deals the biggest<br>names in tech <span class="spectrum">say yes to.</span></h1>
+      <p class="heavy-lede">I founded Dreamship and, in year one, closed Google as a partner — <b>$45M+ in ad spend through the channel</b>, on its climb to <b>$35M+ revenue</b>, EBITDA-profitable four years. Then I 10x the work with AI-native workflows.</p>
       <div class="hctas">
         <a class="pill solid" href="#center">See the deal →</a>
         <a class="pill ghost" href="../assets/Bill_Bricker_Resume.pdf" download>Download résumé</a>
       </div>
       <div class="cred">
-        <span class="lab">Closed</span>
-        <b>Google</b><span class="sep">·</span><b>Microsoft</b><span class="sep">·</span><b>Stripe</b><span class="sep">·</span><b>PayPal</b><span class="sep">·</span><b>Payoneer</b><span class="sep">·</span><b>Meta</b>
+        <span class="lab">Partnerships closed</span>
+        <span class="logos"><b>Google</b> · <b>Microsoft</b> · <b>Stripe</b> · <b>PayPal</b> · <b>Payoneer</b> · <b>Meta</b></span>
       </div>
     </div>
   </header>
 
-  <!-- 01 — THE CENTERPIECE: DREAMSHIP / GOOGLE -->
+  <!-- 01 — THE CENTERPIECE: DREAMSHIP / GOOGLE (compact) -->
   <section class="wrap" id="center">
     <div class="rv"><div class="kick"><span class="num">01</span>The centerpiece</div>
-    <h2>The deal that <span class="spectrum">made Dreamship.</span></h2></div>
+    <h2>The deal that made Dreamship.</h2></div>
     <div class="glass center rv">
-      <div class="heavy">A first-of-its-kind Google partnership — won director-level sign-off across <b>5–6 internal teams</b> in year one.</div>
-      <div class="gloss">Trust &amp; safety, business integrity, commercial — a trust layer verifying high-volume merchants on Google Vision. That one yes drove a <b>$45M+ ad-spend channel</b> for 5+ years and put the company on the map. I built it and ran the operation behind it: <b>21 fulfillment locations across 6 countries, delivery to 150+</b>.</div>
+      <div class="heavy">A first-of-its-kind Google partnership — director-level sign-off across <b>5–6 internal teams</b> in year one: a trust layer verifying high-volume merchants on Google Vision.</div>
+      <div class="gloss">That one yes drove a <b>$45M+ ad-spend channel</b> for 5+ years and made the company. I built it and ran the operation behind it — 21 fulfillment locations across 6 countries.</div>
       <div class="dstats">
-        <div class="dst"><div class="n"><span data-count="35" data-pre="$" data-suf="M+">$35M+</span></div><div class="l"><b>peak revenue</b> at scale</div></div>
+        <div class="dst"><div class="n"><span data-count="35" data-pre="$" data-suf="M+">$35M+</span></div><div class="l"><b>peak revenue</b></div></div>
         <div class="dst"><div class="n"><span data-count="11" data-suf="x">11x</span></div><div class="l">growth in 2020<br>$1.6M → $17M</div></div>
-        <div class="dst"><div class="n">$45M+</div><div class="l"><b>ad spend through the Google channel</b> — not our revenue</div></div>
+        <div class="dst"><div class="n">$45M+</div><div class="l"><b>ad spend</b> through the channel — not revenue</div></div>
         <div class="dst"><div class="n"><span data-count="4">4</span></div><div class="l">years EBITDA-profitable. <b>Profitable today.</b></div></div>
       </div>
       <div class="foot8"><i></i> ~$85M GMV · 2.3M+ units · 323% revenue CAGR (2019–21)</div>
     </div>
   </section>
 
+  <!-- SIGNATURE TERMINAL (under the deal) -->
+  <section class="wrap termsec" id="brickeros">
+    <div class="rv" style="margin-bottom:14px">
+      <div class="kick"><span class="num">//</span>bricker.os · live</div>
+      <h2>Don't take my word for it. <span class="spectrum">Ask the machine.</span></h2>
+      <p class="sub">A real terminal, wired to my record and built solo with the AI stack it describes. It boots <span class="mono" style="color:var(--mint)">whoami</span> on arrival — tap a command or ask your own.</p>
+    </div>
+    <div class="term-shell rv" id="termShell">
+      <div class="term-bar">
+        <div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+        <div class="ttl"><b>bill@bricker-os</b> — zsh — 80×24</div>
+        <div class="badge"><i></i> LIVE</div>
+      </div>
+      <div id="term">
+        <div id="termLog"></div>
+        <div id="termPrompt" class="hide"><span class="pr">bill@bricker-os</span><span class="sep">:</span><span class="pa">~</span><span class="dl">$</span><input id="termInput" autocomplete="off" spellcheck="false" aria-label="terminal command" placeholder="type a command — or ask me anything…"/></div>
+      </div>
+      <div class="cmds3">
+        <div class="cmdrow green">
+          <span class="rowlbl green">▸ the record</span>
+          <button class="cmd-chip" data-cmd="whoami"><span class="c">$</span>whoami</button>
+          <button class="cmd-chip" data-cmd="dreamship"><span class="c">$</span>dreamship</button>
+          <button class="cmd-chip" data-cmd="flywheel"><span class="c">$</span>flywheel</button>
+          <button class="cmd-chip" data-cmd="pedigree"><span class="c">$</span>pedigree</button>
+        </div>
+        <div class="cmdrow orange">
+          <span class="rowlbl orange">▸ hiring me?</span>
+          <button class="cmd-chip" data-cmd="ai"><span class="c">$</span>ai</button>
+          <button class="cmd-chip" data-cmd="why-you"><span class="c">$</span>why-you</button>
+          <button class="cmd-chip" data-cmd="hire"><span class="c">$</span>hire</button>
+        </div>
+        <div class="cmdrow violet">
+          <span class="rowlbl violet">▸ wildcards</span>
+          <button class="cmd-chip" data-cmd="billygoat"><span class="c">$</span>billygoat</button>
+          <button class="cmd-chip" data-cmd="surprise"><span class="c">$</span>surprise</button>
+          <button class="cmd-chip" data-cmd="help"><span class="c">$</span>help</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 02 — FLYWHEEL -->
   <section class="wrap">
     <div class="rv"><div class="kick"><span class="num">02</span>Made repeatable</div>
-    <h2>One credible yes <span class="spectrum">unlocked the next.</span></h2>
+    <h2>One credible yes unlocked the next.</h2>
     <p class="sub">Off the Google credibility I sequenced the flywheel — closing the biggest names in tech became a system, not a one-off.</p></div>
     <div class="fly rv">
       <div class="glass partner anchor"><div class="pseq">ANCHOR</div><div class="pn">Google</div><div class="pl">first-of-its-kind partnership · $45M+ channel</div></div>
@@ -161,73 +239,52 @@
     </div>
   </section>
 
-  <!-- 03 — PEDIGREE / CLIMB -->
+  <!-- 03 — PEDIGREE / CLIMB (one panel + zoom image) -->
   <section class="wrap">
     <div class="rv"><div class="kick"><span class="num">03</span>The pedigree</div>
-    <h2>Twenty years, <span class="spectrum">cold calls to closes.</span></h2></div>
+    <h2>Twenty years, cold calls to closes.</h2></div>
     <a class="glass climbrow rv" href="climb.html">
       <div class="ctext">
-        <p>Where I cut my teeth: <b>Northwestern Mutual</b> — recruited and led a team, ranked <b>top 10 nationally</b> across 150+ accounts. Then <b>IBM / Netezza</b> — seven-figure analytics and early-AI (Watson) deals into the enterprise; achieved quota; <b>IBM Summit Sales Program</b>. The instinct never changed: open the door, earn the trust, close the deal.</p>
+        <p>Where I cut my teeth: <b>Northwestern Mutual</b> — recruited and led a team, ranked <b>top 10 nationally</b> across 150+ accounts. Then <b>IBM / Netezza</b> — seven-figure analytics and early-AI (Watson) deals; achieved quota; IBM Summit Sales Program. The instinct never changed: open the door, earn the trust, close the deal.</p>
         <span class="ogo">Walk the climb <span class="ar">→</span></span>
       </div>
-      <div class="cviz">
-        <svg viewBox="0 0 320 130" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M8 116 L60 104 L112 96 L168 70 L224 46 L280 26 L312 12" fill="none" stroke="var(--mint)" stroke-width="2.5" stroke-linejoin="round"/>
-          <path d="M8 116 L60 104 L112 96 L168 70 L224 46 L280 26 L312 12 L312 130 L8 130 Z" fill="rgba(111,239,180,.08)"/>
-          <circle cx="168" cy="70" r="4" fill="var(--cyan)"/>
-          <circle cx="280" cy="26" r="5" fill="var(--coral)"/>
-        </svg>
+      <div class="cviz climbimg">
+        <img src="../assets/climb-preview.png" alt="The Climb — Bill's 20-year career map" loading="lazy"/>
+        <span class="cp-hint">walk it ↗</span>
       </div>
     </a>
     <div class="nodes rv" style="margin-top:14px;text-align:center"><b>Northwestern Mutual</b> → <b>IBM / Netezza</b> → <b>WibiData</b> → <b>GearLaunch</b> → <b>Dreamship</b> → <b>Courtana</b></div>
   </section>
 
-  <!-- 04 — AI MULTIPLIER (COURTANA, COMPACT) + TERMINAL -->
+  <!-- 04 — AI MULTIPLIER (COURTANA, COMPACT) + VIDEO -->
   <section class="wrap" id="ai">
     <div class="rv"><div class="kick"><span class="num">04</span>The multiplier</div>
-    <h2>I build the AI workflows <span class="spectrum">that 10x my selling.</span></h2>
-    <p class="sub">At <b>Courtana</b> I run the frontier-AI stack hands-on. This site is itself the proof — a real terminal, built solo. Tap a command.</p></div>
-
-    <div class="aiblock rv" style="margin-bottom:18px">
+    <h2>I build the AI workflows that 10x my selling.</h2>
+    <p class="sub">At <b>Courtana</b> I run the frontier-AI stack hands-on — proof I sell the new way, not a traction story.</p></div>
+    <div class="aiblock rv">
+      <div class="vcard">
+        <video muted loop playsinline autoplay preload="metadata" poster="../assets/shots/courtana.png">
+          <source src="../assets/courtana-shot.mp4" type="video/mp4"/>
+        </video>
+        <div class="vgrad"></div>
+        <div class="vbadge" style="--x:7%;--y:10%;--c:#6EEFC0"><b>Player DNA</b> · Power 9 · IQ 8</div>
+        <div class="vbadge" style="--x:52%;--y:60%;--c:#BD93F9"><b>Viral</b> 7.4 / 10</div>
+        <span class="vlabel">▸ live CV pipeline · $0.0054/clip</span>
+      </div>
       <div class="glass aicard">
         <div class="ck">Pickle DaaS · computer-vision pipeline</div>
         <h3>Raw court video → player, coaching &amp; venue intelligence.</h3>
-        <p>A full AI video-analysis pipeline I built and run myself — a self-serve analytics warehouse from video, <b>not a slide</b>.</p>
+        <p>A full AI video-analysis pipeline I built and run myself — a self-serve analytics warehouse from video, <b>not a slide</b>. I build the AI-native workflows (Claude, Codex, Gemini) that compress weeks of GTM into days. One operator, the output of ten.</p>
         <div class="aimetrics">
           <div class="aim"><div class="v">21K+</div><div class="k">clips processed</div></div>
           <div class="aim"><div class="v">$0.0054</div><div class="k">per clip</div></div>
           <div class="aim"><div class="v">40+</div><div class="k">apps · 31 repos</div></div>
         </div>
-      </div>
-      <div class="glass aicard">
-        <div class="ck">AI-native GTM · built &amp; run solo</div>
-        <h3>Dynamic, AI-built collateral that closes.</h3>
-        <p>I build the AI-native workflows — Claude, Codex, Gemini — that compress weeks of GTM work into days. One operator, the output of ten.</p>
         <div class="ailinks">
           <a class="pk hero" href="https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html" target="_blank" rel="noopener">▸ Pickle DaaS walkthrough</a>
           <a class="pk" href="https://vibeco.lovable.app/simulate" target="_blank" rel="noopener">VibeCo simulator</a>
           <a class="pk" href="#center">all work →</a>
         </div>
-      </div>
-    </div>
-
-    <div class="term-shell rv aiterm" id="termShell">
-      <div class="term-bar">
-        <div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div>
-        <div class="ttl"><b>bill@bricker-os</b> — zsh — 80×24</div>
-        <div class="badge"><i></i> LIVE</div>
-      </div>
-      <div id="term">
-        <div id="termLog"></div>
-        <div id="termPrompt" class="hide"><span class="pr">bill@bricker-os</span><span class="sep">:</span><span class="pa">~</span><span class="dl">$</span><input id="termInput" autocomplete="off" spellcheck="false" aria-label="terminal command" placeholder="type a command — or ask me anything…"/></div>
-      </div>
-      <div class="chips">
-        <span class="lbl">try:</span>
-        <button class="cmd-chip" data-cmd="whoami"><span class="c">$</span>whoami</button>
-        <button class="cmd-chip" data-cmd="dreamship"><span class="c">$</span>dreamship</button>
-        <button class="cmd-chip" data-cmd="flywheel"><span class="c">$</span>flywheel</button>
-        <button class="cmd-chip" data-cmd="ai"><span class="c">$</span>ai</button>
-        <button class="cmd-chip" data-cmd="hire"><span class="c">$</span>hire</button>
       </div>
     </div>
   </section>
@@ -246,6 +303,13 @@
   <div class="foot">Bill Bricker · Raleigh, NC · AI-Forward Sales &amp; Partnerships · built solo with the AI-native stack it describes.</div>
 </main>
 
+<script>
+  (function(){var f=document.getElementById('flip');if(!f)return;
+    function flip(){f.classList.toggle('flipped');}
+    f.addEventListener('click',flip);
+    f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});
+  })();
+</script>
 <script src="ai-forward.js"></script>
 </body>
 </html>

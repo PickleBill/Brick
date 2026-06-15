@@ -128,9 +128,27 @@
       { k: 'linkedin', t: 'linkedin.com/in/williambricker' },
       { d: 'AI-forward sales \u2014 I close, then 10x it with AI.' }
     ],
+    'why-you': [
+      { c: 'hd', t: 'Why me, not a forward-deployed engineer:' },
+      { t: 'Plenty of people can build with AI. Far fewer can walk into' },
+      { t: 'Google and close a first-of-its-kind partnership \u2014 then build' },
+      { t: 'the product too. I do both; that seam is the rare part.' },
+      { d: 'I close the room, then ship what it needs.' }
+    ],
+    billygoat: [
+      { c: 'sp', t: 'DJ Billygoat \ud83d\udc10' },
+      { t: 'Yes, that was me. Some closers warm up the room differently.' },
+      { d: 'ask me about it sometime.' }
+    ],
+    surprise: [
+      { c: 'hd', t: 'A few things that don\u2019t fit on a r\u00e9sum\u00e9:' },
+      { t: 'Father of three. Shipped 40+ apps solo. fka DJ Billygoat.' },
+      { t: 'I close the room, then build the thing it needs.' },
+      { d: 'tell the best story, not the full story.' }
+    ],
     help: [
       { c: 'hd', t: 'Available commands:' },
-      { t: 'whoami \u00b7 dreamship \u00b7 flywheel \u00b7 pedigree \u00b7 ai \u00b7 hire \u00b7 clear' },
+      { t: 'whoami \u00b7 dreamship \u00b7 flywheel \u00b7 pedigree \u00b7 ai \u00b7 why-you \u00b7 hire \u00b7 billygoat \u00b7 surprise \u00b7 clear' },
       { d: 'tap a chip, type a command, or ask me anything + Enter.' }
     ]
   };
