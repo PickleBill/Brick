@@ -154,9 +154,9 @@
   @keyframes tpulse { 0%,100%{opacity:1} 50%{opacity:.35} }
   @media (prefers-reduced-motion: reduce){ .inroom i{ animation:none; } }
   .idlines { display:flex; flex-direction:column; gap:3px; }
-  .idl { font-family:var(--display); font-weight:800; font-size:clamp(25px,3vw,35px); letter-spacing:-.04em; line-height:1.04; color:var(--text); }
+  .idl { font-family:var(--display); font-weight:800; font-size:clamp(22px,2.7vw,33px); letter-spacing:-.04em; line-height:1.06; color:var(--text); white-space:nowrap; }
   .idl.s2 { color:var(--cyan); }
-  .idl.spectrum { filter:drop-shadow(0 0 16px rgba(91,232,160,.55)); animation:idlglow 3.6s ease-in-out infinite, drift 9s linear infinite; }
+  .idl.spectrum { background:var(--spectrum); background-size:280% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 13px rgba(91,232,160,.45)); animation:idlglow 3.6s ease-in-out infinite, drift 9s linear infinite; }
   @keyframes idlglow { 0%,100%{ filter:drop-shadow(0 0 10px rgba(91,232,160,.4)); } 50%{ filter:drop-shadow(0 0 22px rgba(123,232,200,.85)); } }
   @media (prefers-reduced-motion: reduce){ .idl.spectrum{ animation:none; filter:drop-shadow(0 0 12px rgba(91,232,160,.5)); } }
   .cf-tag { margin-top:13px; font-family:var(--mono); font-size:10.5px; letter-spacing:.04em; color:var(--faint); }
@@ -236,7 +236,9 @@
   .mic svg { width:15px; height:15px; }
   /* color-coded command rows */
   .cmds { margin-top:15px; display:flex; flex-direction:column; gap:9px; }
-  .cmdrow { display:flex; flex-wrap:wrap; align-items:center; gap:7px; }
+  .cmdrow { display:flex; flex-wrap:nowrap; align-items:center; gap:7px; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -ms-overflow-style:none; scroll-behavior:smooth; padding:1px 0; }
+  .cmdrow::-webkit-scrollbar { display:none; }
+  .cmdrow > .chip { flex:0 0 auto; }
   .rowlbl { font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; padding:3px 0; margin-right:3px; }
   .rowlbl.green { color:var(--accent); } .rowlbl.orange { color:var(--amber); } .rowlbl.wild { color:var(--violet); }
   .chip { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:var(--glass2); padding:7px 11px; border-radius:99px; cursor:pointer; transition:.14s; white-space:nowrap; }
@@ -381,6 +383,10 @@
   .climb-prev .cp-hint { position:absolute; bottom:10px; right:10px; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:#f4f2ec; background:rgba(8,9,10,.6); border:1px solid var(--line); padding:4px 9px; border-radius:99px; backdrop-filter:blur(4px); transition:.2s; }
   .story:hover .cp-hint { color:var(--accent); }
   @media (prefers-reduced-motion: reduce){ .climb-prev img{ transition:none; } .story:hover .climb-prev img{ transform:none; } }
+
+  .head .hl { white-space:nowrap; }
+  @media (max-width:560px){ .idl { font-size:18px; } .cf-left { gap:12px; } }
+  .cmdrow .rowlbl { position:sticky; left:0; z-index:2; flex:0 0 auto; padding-right:9px; background:linear-gradient(90deg,var(--bg2) 72%,transparent); }
   .sr-only{ position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
 </style>
 </head>
@@ -394,7 +400,7 @@
     <a class="brand" href="#top"><span class="pk">🥒</span>brick<span class="sl">.</span>os<span class="caret" aria-hidden="true"></span></a>
     <button class="navtoggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="navlinks" id="navLinks" aria-label="Primary">
-      <a href="#interface">Ask</a>
+      <a href="#interface">Prompt</a>
       <a href="#work">Companies</a>
       <a href="#engine">Builds</a>
       <a href="climb.html">Story</a>
@@ -423,10 +429,10 @@
         <!-- left -->
         <div class="hero-left rv">
           <span class="avail"><i></i> Open to frontier-lab GTM / partnerships</span>
-          <h1 class="head">Forward-deployed<br>GTM operator.</h1>
+          <h1 class="head"><span class="hl">Forward-deployed</span><br><span class="hl">GTM operator.</span></h1>
           <p class="lede">I <b>close the partnerships</b> frontier tech needs — then <span class="g">build the product myself.</span> 20 years carrying a number; now I ship production AI daily.</p>
           <div class="hero-cta">
-            <a class="pill solid" href="#interface">Ask my résumé ↓</a>
+            <a class="pill solid" href="#interface">Prompt my résumé ↓</a>
             <a class="pill ghost" href="climb.html">Walk the climb</a>
           </div>
         </div>
@@ -516,7 +522,7 @@
       <div class="interface-grid">
         <div class="sec-head rv">
           <div class="kick"><span class="num">01</span> The interface</div>
-          <h2>Don't read the résumé.<br><span class="flat">Ask it.</span></h2>
+          <h2>Don't read the résumé.<br><span class="flat">Prompt it.</span></h2>
           <p>A live AI that answers from a fact-checked ledger of twenty years. Tap a command, talk to it, or ask anything — it's the product, answering for me.</p>
           <a class="e-go" href="work.html" style="margin-top:16px;">Open the full terminal <span class="ar">→</span></a>
         </div>
@@ -639,9 +645,15 @@
           <img src="assets/shots/venue-connect.png" alt="Venue Connect" loading="lazy" onerror="this.style.opacity=0" />
           <span class="vp-name">Venue Connect</span>
         </a>
-        <a class="vpanel slot" href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener"><span class="vp-name">+ backfill app</span></a>
-        <a class="vpanel slot" href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener"><span class="vp-name">+ backfill app</span></a>
-        <a class="vpanel slot" href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener"><span class="vp-name">+ backfill app</span></a>
+        <a class="vpanel" href="https://pickleball-freakshow.lovable.app/" target="_blank" rel="noopener" data-name="Freak Show" data-gif="">
+          <img src="assets/shots/freakshow.jpg" alt="Pickleball Freak Show" loading="lazy" onerror="this.style.opacity=0" />
+          <span class="vp-name">Freak Show</span>
+        </a>
+        <a class="vpanel" href="https://layuplab.lovable.app/" target="_blank" rel="noopener" data-name="Layup Lab" data-gif="">
+          <img src="assets/shots/layuplab.png" alt="Layup Lab — AI pickleball coach" loading="lazy" onerror="this.style.opacity=0" />
+          <span class="vp-name">Layup Lab</span>
+        </a>
+        <a class="vpanel slot" href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener"><span class="vp-name">+ one more</span></a>
       </div>
       <div class="feat-strip rv">+ HeadsUpTime · LayupLab · FreakFoSho · 30 more — <a href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener">browse the full ecosystem →</a></div>
     </div>
