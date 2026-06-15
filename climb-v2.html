@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Bill Bricker — The Climb</title>
+<meta name="description" content="Twenty years, one climb — Northwestern Mutual to IBM to founder-CEO to AI-native builder. The first-of-its-kind Google partnership, and the figuring-out chapter."/>
+<meta property="og:title" content="Bill Bricker — The Climb"/>
+<meta property="og:description" content="Twenty years, one climb. IBM seven-figure deals, the Google partnership, building through cancer, three kids unimpressed by all of it."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://picklebill.github.io/Brick/climb-v2.html"/>
+<meta property="og:image" content="https://picklebill.github.io/Brick/assets/og-card.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --paper:#efe3c4;--paper2:#e7d9b6;--ink:#2b1f10;--ink2:#5b4a30;--faint:#8a7853;
+    --sienna:#a8421d;--ochre:#c47d22;--moss:#5e7a2a;--rose:#b05b54;--teal:#2f7d72;
+    --line:rgba(43,31,16,.16);--line2:rgba(43,31,16,.28);
+    --serif:'Spectral',Georgia,serif;--hand:'Caveat',cursive;--mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:
+      radial-gradient(120% 80% at 50% -10%,rgba(196,125,34,.10),transparent 60%),
+      repeating-linear-gradient(0deg,rgba(43,31,16,.022) 0 1px,transparent 1px 26px),
+      var(--paper);
+    color:var(--ink);font-family:var(--serif);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--ochre);color:var(--paper)}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  @media(max-width:560px){.wrap{padding:0 18px}}
+
+  /* nav (matches site, paper-toned) */
+  nav{position:sticky;top:0;z-index:50;background:rgba(239,227,196,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .row{max-width:760px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px}
+  .brand{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:-.01em}
+  .brand .pk{font-size:18px}
+  .nl{display:flex;gap:2px;font-family:var(--mono);font-size:12.5px;color:var(--ink2)}
+  .nl a{padding:7px 11px;border-radius:99px;transition:.15s}
+  .nl a:hover{background:rgba(43,31,16,.07)}
+  .nl a.here{background:var(--ink);color:var(--paper)}
+  @media(max-width:560px){nav .row{flex-direction:column;height:auto;gap:6px;padding-top:8px;padding-bottom:9px}.nl{font-size:11.5px}.nl a{padding:6px 9px}}
+
+  /* hero */
+  header{padding:54px 0 8px;text-align:center}
+  .kick{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sienna)}
+  h1{font-size:clamp(38px,8vw,66px);font-weight:700;letter-spacing:-.02em;line-height:1.02;margin:12px 0 0}
+  h1 .hand{font-family:var(--hand);font-weight:700;color:var(--sienna);font-size:1.05em}
+  .lede{font-size:clamp(16px,2.4vw,19px);color:var(--ink2);max-width:46ch;margin:16px auto 0}
+  .sig{font-family:var(--hand);font-size:22px;color:var(--moss);margin-top:10px}
+
+  /* view toggle (segmented) */
+  .toggle{display:inline-flex;gap:3px;margin:26px auto 0;padding:4px;border:1px solid var(--line2);border-radius:99px;background:var(--paper2)}
+  .toggle button{font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--ink2);background:none;border:0;padding:8px 18px;border-radius:99px;cursor:pointer;transition:.16s;display:inline-flex;align-items:center;gap:7px}
+  .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .toggle button:not([aria-pressed="true"]):hover{background:rgba(43,31,16,.07)}
+  .togglehint{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:9px;letter-spacing:.03em}
+
+  main{padding:34px 0 70px}
+
+  /* ===== shared pin content ===== */
+  .yr{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--paper);background:var(--ink);padding:3px 9px;border-radius:99px;display:inline-block;white-space:nowrap}
+  .pin .ttl{font-weight:700;font-size:20px;letter-spacing:-.01em;margin:8px 0 2px;line-height:1.2}
+  .pin .fact{font-size:15px;color:var(--ink2);line-height:1.55}
+  .pin .note{font-size:14.5px;color:var(--ink2);line-height:1.6;margin-top:9px;padding-left:13px;border-left:2px solid var(--line2);font-style:italic;display:none}
+  .pin.open .note{display:block}
+  .pin .acts{display:flex;flex-wrap:wrap;gap:14px;margin-top:11px}
+  .pin .act{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.02em;cursor:pointer;border-bottom:1px solid currentColor;padding-bottom:1px}
+  .pin .act.visit{color:var(--sienna)}
+  .pin .act.note-t{color:var(--moss)}
+  .dot{width:15px;height:15px;border-radius:50%;border:3px solid var(--paper);box-shadow:0 0 0 2px currentColor;flex-shrink:0}
+
+  /* ===== TIMELINE view (compact left-rail; mobile-first, zero overlap) ===== */
+  #timeline{position:relative;padding-left:30px}
+  #timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--sienna),var(--ochre),var(--moss))}
+  #timeline .pin{position:relative;padding:0 0 30px}
+  #timeline .pin .dot{position:absolute;left:-30px;top:4px}
+  #timeline .pin .head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+  /* ===== TRAIL view (spacious, self-drawing ascent spine) ===== */
+  #trail{position:relative;display:none}
+  #trail .spinewrap{position:absolute;left:0;top:0;bottom:0;width:46px;pointer-events:none}
+  #trail .spine{position:absolute;inset:0;width:100%;height:100%}
+  #trail .spine path{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+  #trail .pin{position:relative;margin-left:64px;padding:0 0 46px;max-width:560px}
+  #trail .pin .dot{position:absolute;left:-64px;top:6px;width:18px;height:18px}
+  #trail .pin .ttl{font-size:23px}
+  #trail .pin .fact{font-size:16px}
+  #trail .summit{margin-left:64px;font-family:var(--hand);font-size:26px;color:var(--sienna);padding-top:4px}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(16px);transition:.7s cubic-bezier(.16,1,.3,1)}
+  .rv.in{opacity:1;transform:none}
+  .no-js .rv{opacity:1;transform:none}
+
+  /* footer */
+  .foot{text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--faint);padding:30px 0 50px;letter-spacing:.03em}
+  .foot a{color:var(--sienna);border-bottom:1px solid var(--line2)}
+
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body class="no-js">
+<nav><div class="row">
+  <a class="brand" href="index.html"><span class="pk">🥒</span><span>Bill Bricker</span></a>
+  <div class="nl">
+    <a href="index.html">Home</a>
+    <a href="climb-v2.html" class="here">Story</a>
+    <a href="work.html">Work</a>
+    <a href="resume-v2.html">Résumé</a>
+    <a href="mailto:bricker3@gmail.com">Email</a>
+  </div>
+</div></nav>
+
+<header class="wrap">
+  <div class="kick">The Climb · 2006 → now</div>
+  <h1>Twenty years,<br><span class="hand">one climb.</span></h1>
+  <p class="lede">Carrying a quota at IBM. The Google partnership. Cancer in 2023 — the pipeline kept moving. Three kids, unimpressed by all of it.</p>
+  <div class="toggle" role="group" aria-label="Choose a view">
+    <button id="tTimeline" aria-pressed="true" onclick="setView('timeline')">⊟ Timeline</button>
+    <button id="tTrail" aria-pressed="false" onclick="setView('trail')">⛰ Trail</button>
+  </div>
+  <div class="togglehint" id="hint">Tip: Timeline reads best on a phone · Trail has more room to breathe</div>
+</header>
+
+<main class="wrap">
+  <div id="timeline"></div>
+  <div id="trail"><div class="spinewrap"><svg class="spine" id="spineSvg" preserveAspectRatio="none" aria-hidden="true"><path id="spinePath"/></svg></div><div id="trailPins"></div><div class="summit rv">↑ still climbing.</div></div>
+</main>
+
+<div class="foot wrap">Built solo with the AI-native stack it describes · <a href="work.html">ask my résumé anything →</a></div>
+
+<script>
+document.body.classList.remove('no-js');
+
+/* Single source of truth — mirrors source/content.json narrative_nodes, chronological.
+   note = optional field-note (story-bank); accent = paper-ink accent var. */
+const NODES = [
+  {year:"2006", title:"Northwestern Mutual", fact:"Top 10 nationally · $6M+ TCV · 150+ accounts.", accent:"sienna"},
+  {year:"2010", title:"UNC Kenan-Flagler MBA", fact:"Entrepreneurship · GMAT 730.", accent:"ochre"},
+  {year:"2012–14", title:"IBM / Netezza", fact:"Seven-figure big-data deals — Zillow, Avalara, an 8-figure McKesson contribution — at >100% quota.", accent:"sienna",
+    note:"The enterprise-credibility spine: a complex, multi-stakeholder cycle, run end to end."},
+  {year:"2014", title:"WibiData", fact:"F500 Big-Data pilots — Macy's, Nordstrom.", accent:"sienna"},
+  {year:"2015", title:"The Networking Manifesto", fact:"“Who can I introduce you to?” — give-first, still operative.", accent:"moss",
+    note:"Lead relationships by offering introductions, not asking favors. It's also the right first move in a job hunt."},
+  {year:"2016", title:"GroupOrDare", fact:"Shipped a party card game — the builder itch, early.", accent:"ochre"},
+  {year:"2017", title:"GearLaunch", fact:"VP Sales & Marketing — ecommerce / print-on-demand.", accent:"sienna"},
+  {year:"2018–25", title:"Dreamship", fact:"Cofounder/CEO → Board Chair. $35M+ revenue, 11x in a single year.", accent:"moss", link:"https://dreamship.com",
+    note:"Closed a first-of-its-kind cross-division Google partnership as a sub-one-year-old startup — an 8-figure channel run 5+ years. Then Stripe, PayPal, Payoneer & Meta wanted the same access. We didn't sell to Google; we built something Google hadn't done before."},
+  {year:"2023+", title:"The Long Walk", fact:"Cancer in 2023. The pipeline kept moving. Still walking.", accent:"rose",
+    note:"I stepped back to Board Chair with the Google deal already in flight, did chemo through 2025, and built anyway — even cutting the Microsoft/Bing deal from a hospital chair, mid-treatment. Not the cancer chapter — the figuring-out chapter."},
+  {year:"2023+", title:"Courtana", fact:"AI smart-court platform — highlights, scoring, coaching, venue intelligence.", accent:"teal", link:"https://courtana.com"},
+  {year:"2026", title:"Pickle DaaS", fact:"Raw court video → player DNA, shot analytics, brand intelligence at ~$0.0054/clip.", accent:"ochre", link:"https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html"},
+  {year:"2026", title:"VibeCo", fact:"An 11-agent simulator I built solo — 40+ apps across 31 repos.", accent:"moss", link:"https://vibeco.lovable.app/simulate"},
+  {year:"now", title:"Home · three kids", fact:"The reason any of this matters.", accent:"rose"}
+];
+
+const V=(a)=>getComputedStyle(document.documentElement).getPropertyValue('--'+a).trim();
+
+function pinHTML(n,i){
+  const c=V(n.accent);
+  const acts=[];
+  if(n.link) acts.push(`<a class="act visit" href="${n.link}" target="_blank" rel="noopener">visit →</a>`);
+  if(n.note) acts.push(`<span class="act note-t" data-note="${i}">field note +</span>`);
+  return `<div class="pin rv" id="pin${i}">
+    <span class="dot" style="color:${c}"></span>
+    <div class="head"><span class="yr">${n.year}</span></div>
+    <div class="ttl">${n.title}</div>
+    <div class="fact">${n.fact}</div>
+    ${n.note?`<div class="note">${n.note}</div>`:""}
+    ${acts.length?`<div class="acts">${acts.join("")}</div>`:""}
+  </div>`;
+}
+
+document.getElementById('timeline').innerHTML = NODES.map(pinHTML).join('');
+document.getElementById('trailPins').innerHTML = NODES.map(pinHTML).join('');
+
+/* field-note expand (event delegation, both views) */
+document.querySelectorAll('.note-t').forEach(b=>b.addEventListener('click',e=>{
+  const pin=e.target.closest('.pin'); const open=pin.classList.toggle('open');
+  e.target.textContent = open ? 'field note −' : 'field note +';
+}));
+
+/* draw the trail spine to match the rendered pin column height */
+function drawSpine(){
+  const wrap=document.querySelector('#trail .spinewrap'), svg=document.getElementById('spineSvg'), path=document.getElementById('spinePath');
+  const h=document.getElementById('trail').offsetHeight||600; const w=46;
+  svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+  // gentle ascending switchback so the line has life without crossing text
+  let d=`M ${w*0.5} ${h-8}`;
+  const n=NODES.length;
+  for(let i=0;i<n;i++){const y=h-8-(h-40)*(i+1)/n; const x=w*(i%2?0.78:0.22); d+=` Q ${w*0.5} ${y+18} ${x} ${y}`;}
+  path.setAttribute('d',d);
+  path.setAttribute('stroke',V('sienna'));
+  const len=path.getTotalLength(); path.style.strokeDasharray=len;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  path.style.strokeDashoffset=reduce?0:len;
+  if(!reduce){requestAnimationFrame(()=>{path.style.transition='stroke-dashoffset 2.2s cubic-bezier(.4,0,.2,1)';path.style.strokeDashoffset=0;});}
+}
+
+/* view toggle + persistence; default Timeline on mobile, Trail on desktop */
+function setView(v){
+  const tl=document.getElementById('timeline'), tr=document.getElementById('trail');
+  tl.style.display = v==='timeline'?'block':'none';
+  tr.style.display = v==='trail'?'block':'none';
+  document.getElementById('tTimeline').setAttribute('aria-pressed', v==='timeline');
+  document.getElementById('tTrail').setAttribute('aria-pressed', v==='trail');
+  try{localStorage.setItem('climbView',v);}catch(e){}
+  if(v==='trail') requestAnimationFrame(drawSpine);
+  io.disconnect(); document.querySelectorAll((v==='timeline'?'#timeline':'#trail')+' .rv,.summit').forEach(el=>io.observe(el));
+}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+
+const saved=(()=>{try{return localStorage.getItem('climbView')}catch(e){return null}})();
+const isMobile=matchMedia('(max-width:760px)').matches;
+setView(saved || (isMobile?'timeline':'trail'));
+setTimeout(()=>document.querySelectorAll('.rv,.summit').forEach(el=>el.classList.add('in')),2500); // failsafe
+addEventListener('resize',()=>{ if(document.getElementById('trail').style.display!=='none') drawSpine(); });
+</script>
+</body>
+</html>
