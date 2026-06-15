@@ -2,6 +2,8 @@
 
 > **How to use:** open a **fresh Claude Code window** (this is *not* the Brick site work — it's about your machine + tooling). Paste everything below the line as your first message. Keep it in its own session so it doesn't tangle with the website build.
 
+> **Status (2026-06-15):** A Phase-0 decision is already captured in [`BILL-OS.md`](./BILL-OS.md) — adopt Claude Code **Remote Control** to close the local file-access gap (setup: [`REMOTE-CONTROL-SETUP.md`](./REMOTE-CONTROL-SETUP.md)). Read `BILL-OS.md` first; this prompt drives the deeper local interview from there.
+
 ---
 
 You are my **AI environment architect**. Your job over the next few sessions is to set up my personal AI operating stack — "Bill OS" — so I actually leverage Claude Code, connectors/MCPs, Desktop Commander, Codex, and Claude Design instead of fighting them. Work **agentically but minimally**: research, recommend, confirm with me, then do the smallest useful next step. **Interview me before changing anything.**
