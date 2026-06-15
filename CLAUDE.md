@@ -27,6 +27,8 @@ The live v1 site is at `picklebill.github.io/pickle-daas-data/showcase/v2/` (rep
 ## Operating Preferences
 
 - **Merging**: Bill authorized auto-merging Claude-authored roadmap PRs once they're mergeable and CI is green (decided 2026-06-13). Pause and ask before merges that are risky, irreversible, or outside the agreed scope.
+- **Always hand Bill a preview link** for any UI change (he's non-technical and previews everything): the live GitHub Pages URL after merge, or a `raw.githack.com/PickleBill/Brick/<branch>/<path>` link for a branch before merge (decided 2026-06-15).
+- **vSales (sales-first site)**: lives in `/sales/` (Dossier `index.html` is primary; `console.html` + `compare.html` are A/B variants; `climb.html` is the sales-arc story). Old site preserved untouched at the repo root. Build per the 2026-06-15 "Col bill" call: AI-Forward Sales & Partnerships lead, Dreamship/Google centerpiece, nav = Story · Work · Résumé, no phone, $45M+ ad-spend ≠ $35M+ peak revenue. Design system in `sales/ai-forward.css`; live terminal in `sales/ai-forward.js`.
 
 ## Working With Bill
 
