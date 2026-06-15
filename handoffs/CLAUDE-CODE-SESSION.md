@@ -30,13 +30,13 @@ Static site, **plain HTML/CSS/JS on GitHub Pages** (no framework — don't add o
 - `assets/` — `courtana-shot.mp4`, photos (`family.jpg`, `dreamship-donate.jpg`, `family-ski.jpg`), `logos/`, `shots/` (VibeCo panels incl. `freakshow.jpg`, `layuplab.png`).
 - `content/FACTS.md` — **the ledger.** Every number/claim must trace here; ⚠️ = unconfirmed. "Closed Google as a **partner**," never "sold."
 
-**Conventions:** content-first (no facts hardcoded into a page that aren't in the ledger); the `--spectrum` gradient for one phrase per surface; the terminal's LLM backend lives in the **vibeco** Supabase project (`ask-bill` edge function, endpoint already wired in `home.js`). Verify changes with headless Chromium screenshots + `node --check home.js` before pushing. Develop on the assigned branch; open a **draft PR**; auto-merge of clean/green roadmap PRs is authorized.
+**Conventions:** content-first (no facts hardcoded into a page that aren't in the ledger); the `--spectrum` gradient for one phrase per surface; the terminal's `ask-bill` LLM endpoint is **already wired in `home.js`** — treat it as a deployed backend you call by URL. **All your work stays in this `picklebill/Brick` repo — you don't need any other repo.** Verify changes with headless Chromium screenshots + `node --check home.js` before pushing. Develop on the assigned branch; open a **draft PR**; auto-merge of clean/green roadmap PRs is authorized.
 
 ---
 
 ## Part 3 — Ingest Design + clear the backlog
 1. **Port the Claude Design output:** take its tokens (hex/px/timing) + comps + asset files, and implement the agreed surfaces. Drop its **clean app screenshots** in `assets/shots/` (replace the browser-chrome frames), wire any **real GIFs/MP4s** into the VibeCo panels via the existing `data-gif` hook, and place the **couple photo** on the card front (front slot is wired for a vertical portrait).
-2. **Pickle-DaaS gallery modal** (deferred, highest backlog item): from the data section, a **"▸ explore the live lab"** trigger → a gallery modal of the coolest dashboards (Coaching Studio, Venue Report, Player Lab, Lobby Display, Brand Intel, Investor walkthrough), each opening a **lazy-loaded live `<iframe>` lightbox**. Source the dashboard list from the `pickle-daas-data` repo's Lobby Display.
+2. **Pickle-DaaS gallery modal** (deferred, highest backlog item): from the data section, a **"▸ explore the live lab"** trigger → a gallery modal of the coolest dashboards (Coaching Studio, Venue Report, Player Lab, Lobby Display, Brand Intel, Investor walkthrough), each opening a **lazy-loaded live `<iframe>` lightbox** pointing at the **already-deployed public dashboard URLs** (Bill will supply the list — you don't need any other repo; everything lives in `picklebill/Brick`).
 3. **Remaining feedback / polish** per Design's critique: VibeCo grid tidy, terminal-wheel legibility, section rhythm/scannability.
 4. **Asset inbox to chase Bill for:** couple photo (Drive `_intake MEDIA`), animated GIFs for Freak Show/Layup Lab/Venue Connect (attach as files), the real Freak Show URL.
 
