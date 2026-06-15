@@ -126,7 +126,14 @@
     h2{color:#5a5fe0}.kick,.role b,.hl b,.b b,.bd .n,.jhead .l,.mc b{color:#111}
     .bd,.mc{background:#f6f6fa;border-color:#e2e2ea;break-inside:avoid}
     .hl,.b,.role,.bd .d,.contact,.mc{color:#3a3a44}.bd .m{color:#0a8f7a}
-    .job{border-color:#e6e6ee}
+    .job{border-color:#e6e6ee;break-inside:avoid}
+    .hl{break-inside:avoid}
+    h2{break-after:avoid}
+    /* keep the partnerships credibility strip in the PDF (operating-companies strip stays hidden — redundant with Experience) */
+    .strip.partners{display:block;margin-top:16px;padding-top:14px;border-top:1px solid #e6e6ee;break-inside:avoid}
+    .strip.partners .lab{color:#5a5fe0}
+    .strip.partners .chip{color:#222;border:1px solid #cfcfe0;background:#fff}
+    .strip.partners .chip.on{color:#fff;background:#7a3df0;border-color:#7a3df0}
   }
 </style>
 </head>
@@ -156,7 +163,7 @@
     </div>
     <div class="term"><span class="p">$</span> <span class="c">npx hire bill-bricker</span> <span style="opacity:.5">--role=gtm --build=yes</span></div>
 
-    <div class="strip">
+    <div class="strip partners">
       <div class="lab">Partnerships closed — first-of-their-kind</div>
       <div class="row">
         <span class="chip on">Google</span><span class="chip">Microsoft</span><span class="chip">Stripe</span><span class="chip">PayPal</span><span class="chip">Payoneer</span><span class="chip">Meta</span>
