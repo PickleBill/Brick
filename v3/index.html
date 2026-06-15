@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en" data-theme="operator">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Bill Bricker — bricker.os · the live operator console</title>
+<meta name="description" content="Bill Bricker — I sell frontier tech and I build it myself. A live, AI-native operator console: closed Google as a partner at a sub-one-year-old startup, led Dreamship to $35M+ (11x in a year), now ships production AI solo. Ask it anything."/>
+<meta property="og:title" content="bricker.os — I sell frontier tech, and I build it myself."/>
+<meta property="og:description" content="A live operator console you can interrogate. Closed Google as a partner. $35M+ at Dreamship, 11x in a year. 40+ AI apps shipped solo. Type a question — it answers from a fact ledger."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://picklebill.github.io/Brick/v3/"/>
+<meta property="og:image" content="https://picklebill.github.io/Brick/assets/og-card.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#08090a; --bg2:#0b0d0f; --panel:rgba(255,255,255,.026); --panel2:rgba(255,255,255,.045);
+    --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.15);
+    --text:#e9ede9; --mute:#8b938f; --faint:#5f6764;
+    --mint:#6fefb4; --mint-dim:#4cc890; --cyan:#5ee0d6; --violet:#a78bfa; --coral:#ff8a5c; --amber:#ffb454; --cream:#f3ecdc;
+    --spectrum:linear-gradient(100deg,#5be8a0 0%,#36c6e0 33%,#8b7cf0 66%,#ff8a6b 100%);
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Hanken Grotesk',system-ui,sans-serif;
+    --r:12px; --maxw:1180px; --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  ::selection{background:var(--mint);color:#06100b}
+  .mono{font-family:var(--mono)}
+  /* ambient instrument field: dot-grid + faint scanlines + one drifting bloom */
+  .field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .field .grid{position:absolute;inset:-2px;background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px);background-size:34px 34px;mask:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 78%);opacity:.5}
+  .field .scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);opacity:.5}
+  .field .bloom{position:absolute;width:760px;height:760px;border-radius:50%;filter:blur(90px);mix-blend-mode:screen;background:radial-gradient(circle,#16a88a,transparent 64%);top:-260px;left:50%;transform:translateX(-50%);opacity:.4;animation:drift 30s ease-in-out infinite}
+  @keyframes drift{0%,100%{transform:translate(-50%,0) scale(1)}50%{transform:translate(-46%,40px) scale(1.1)}}
+  @media (prefers-reduced-motion:reduce){.bloom{animation:none}}
+  .wrap{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 26px}
+  @media(max-width:560px){.wrap{padding:0 18px}}
+
+  /* spectrum — reserved for exactly one phrase */
+  .spectrum{background:var(--spectrum);background-size:280% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sweep 9s linear infinite}
+  @keyframes sweep{to{background-position:280% 0}}
+  @media (prefers-reduced-motion:reduce){.spectrum{animation:none}}
+
+  /* ---------- status bar ---------- */
+  header.bar{position:sticky;top:0;z-index:60;background:rgba(8,9,10,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .bar-in{max-width:var(--maxw);margin:0 auto;padding:11px 26px;display:flex;align-items:center;gap:16px;font-family:var(--mono);font-size:13px}
+  .brand{font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .brand .pk{filter:drop-shadow(0 0 5px rgba(111,239,180,.6))}
+  .brand .at{color:var(--faint)}
+  .stat-strip{display:flex;align-items:center;gap:14px;color:var(--faint);font-size:11.5px;letter-spacing:.02em;margin-left:4px}
+  .stat-strip .live{color:var(--mint);display:inline-flex;align-items:center;gap:6px}
+  .stat-strip .live i{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 9px var(--mint);animation:bp 1.9s infinite}
+  @keyframes bp{0%,100%{opacity:1}50%{opacity:.35}}
+  @media (prefers-reduced-motion:reduce){.stat-strip .live i{animation:none}}
+  .bar nav{margin-left:auto;display:flex;align-items:center;gap:2px;font-size:12.5px;color:var(--mute)}
+  .bar nav a{padding:7px 11px;border-radius:8px;transition:.15s;white-space:nowrap}
+  .bar nav a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+  .bar nav a.book{color:#06100b;background:var(--mint);font-weight:600}
+  .bar nav a.book:hover{background:#8ff5c6}
+  @media(max-width:880px){.stat-strip .sx{display:none}.bar nav a.hideable{display:none}}
+  @media(max-width:560px){.stat-strip{display:none}.bar-in{padding:10px 18px}}
+
+  /* ---------- hero / console ---------- */
+  .hero{padding:54px 0 18px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);background:var(--panel);padding:7px 13px;border-radius:99px}
+  .eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px var(--mint)}
+  h1.head{font-family:var(--display);font-weight:800;font-size:clamp(34px,6vw,68px);line-height:1;letter-spacing:-.035em;margin:22px 0 0;max-width:16ch}
+  .lede{font-size:clamp(15px,1.7vw,18px);color:var(--mute);margin-top:20px;max-width:60ch;line-height:1.6}
+  .lede b{color:var(--text);font-weight:600}
+  .fde{font-family:var(--mono);font-size:12.5px;color:var(--mint-dim);margin-top:16px;letter-spacing:.01em}
+
+  /* hiring-manager mode bar */
+  .hm{margin-top:26px;border:1px solid var(--line2);background:linear-gradient(180deg,var(--panel2),var(--panel));border-radius:14px;padding:16px 16px}
+  .hm .hm-lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:8px;margin-bottom:11px}
+  .hm .hm-lbl i{width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+  .hm-row{display:flex;gap:10px;flex-wrap:wrap}
+  .hm-row input{flex:1;min-width:200px;background:#0a0c0d;border:1px solid var(--line);border-radius:9px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:13.5px;outline:none;transition:.15s}
+  .hm-row input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(111,239,180,.16)}
+  .hm-row input::placeholder{color:var(--faint)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;font-weight:600;padding:12px 18px;border-radius:9px;cursor:pointer;border:1px solid transparent;transition:.16s var(--ease);white-space:nowrap}
+  .btn.solid{background:var(--mint);color:#06100b}
+  .btn.solid:hover{transform:translateY(-1px);box-shadow:0 12px 28px -12px rgba(111,239,180,.5)}
+  .btn.ghost{background:var(--panel);border-color:var(--line2);color:var(--text)}
+  .btn.ghost:hover{border-color:var(--mint);transform:translateY(-1px)}
+  .hm-eg{margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .hm-eg button{background:none;border:none;color:var(--mint-dim);cursor:pointer;font:inherit;text-decoration:underline;text-underline-offset:2px}
+  .hm-eg button:hover{color:var(--mint)}
+
+  /* terminal */
+  .term-wrap{margin-top:18px}
+  .term{background:#0a0c0d;border:1px solid var(--line2);border-radius:14px;overflow:hidden;box-shadow:0 40px 90px -50px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.03)}
+  .term-bar{display:flex;align-items:center;gap:8px;padding:12px 15px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.018)}
+  .term-bar i{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .term-bar .r{background:#ff5f57}.term-bar .y{background:#febc2e}.term-bar .g{background:#28c840}
+  .term-bar .ttl{margin-left:8px;font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .term-bar .right{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mint);display:inline-flex;align-items:center;gap:7px}
+  .term-bar .right i{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 9px var(--mint);animation:bp 1.9s infinite}
+  .term-body{padding:18px 18px 16px}
+  .term-out{font-family:var(--mono);font-size:13.5px;line-height:1.7;color:#d8ddd6;min-height:188px;max-height:430px;overflow-y:auto;padding-right:6px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.16) transparent}
+  .term-out::-webkit-scrollbar{width:6px}.term-out::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:4px}
+  .term-out .echo{color:var(--text)}.term-out .echo .ps{color:var(--mint)}
+  .term-out .ln{white-space:pre-wrap;word-break:break-word}
+  .term-out .m{color:var(--mint)}
+  .term-out .am{color:var(--amber)}
+  .term-out .a{color:#8fb6ff;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+  .term-out .dim{color:var(--faint)}
+  .term-out .blk{margin:7px 0 13px}
+  .term-out .rcpt{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--mint-dim);border:1px solid rgba(111,239,180,.28);background:rgba(111,239,180,.05);border-radius:99px;padding:2px 9px;margin:5px 6px 0 0;cursor:pointer;transition:.14s}
+  .term-out .rcpt:hover{border-color:var(--mint);color:var(--mint)}
+  .term-out .err{color:var(--coral)}
+  .term-inline{display:flex;align-items:center;gap:9px;margin-top:13px;border-top:1px solid var(--line);padding-top:13px;font-family:var(--mono);font-size:13.5px}
+  .term-inline .ps{color:var(--mint)}
+  .term-inline input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--text);font-family:var(--mono);font-size:13.5px;caret-color:var(--mint)}
+  .term-inline input::placeholder{color:var(--faint)}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .chip{font-family:var(--mono);font-size:11.5px;color:var(--mute);border:1px solid var(--line);background:var(--panel);padding:7px 12px;border-radius:99px;cursor:pointer;transition:.14s}
+  .chip:hover{color:var(--text);border-color:var(--mint);transform:translateY(-1px)}
+  .chip .s{color:var(--mint);font-weight:600}
+  .chip.hot{border-color:rgba(255,180,84,.4);color:#e9d6b6}
+  .chip.hot .s{color:var(--amber)}
+  .chips-lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:16px 0 9px;display:flex;align-items:center;gap:8px}
+
+  /* ---------- sells / builds split ---------- */
+  section.act{padding:64px 0 0}
+  .seg{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mint-dim)}
+  .seg .n{color:var(--faint)}
+  h2.sec{font-family:var(--display);font-weight:700;font-size:clamp(26px,3.6vw,40px);letter-spacing:-.03em;line-height:1.05;margin:12px 0 0}
+  .sec-sub{color:var(--mute);font-size:15.5px;margin-top:10px;max-width:62ch;line-height:1.6}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+  @media(max-width:820px){.split{grid-template-columns:1fr}}
+  .pane{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));border-radius:var(--r);padding:22px 22px 20px;position:relative;overflow:hidden}
+  .pane::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--mint);opacity:.7}
+  .pane.build::before{background:var(--violet)}
+  .pane .ph{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);display:flex;align-items:center;gap:9px}
+  .pane.build .ph{color:var(--violet)}
+  .pane h3{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.02em;margin:9px 0 0}
+  .pane .pd{color:var(--mute);font-size:14.5px;line-height:1.55;margin-top:9px}
+  .pane .pd b{color:var(--text);font-weight:600}
+  .rcpts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .pane .feat{margin-top:15px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+  .pane .feat a{color:var(--mint-dim);border-bottom:1px solid rgba(111,239,180,.3)}
+  .pane.build .feat a{color:var(--violet);border-color:rgba(167,139,250,.4)}
+
+  /* receipt buttons (prove-it) */
+  .rcpt-btn{font-family:var(--mono);font-size:12px;color:var(--text);border:1px solid var(--line2);background:#0a0c0d;border-radius:9px;padding:9px 12px;cursor:pointer;transition:.15s;text-align:left;line-height:1.25}
+  .rcpt-btn:hover{border-color:var(--mint);transform:translateY(-1px)}
+  .rcpt-btn .v{color:var(--mint);font-weight:600}
+  .pane.build .rcpt-btn:hover{border-color:var(--violet)}
+  .pane.build .rcpt-btn .v{color:var(--violet)}
+  .rcpt-btn .k{color:var(--faint);font-size:10px;display:block;margin-top:2px;letter-spacing:.03em}
+
+  /* receipt drawer */
+  .drawer-scrim{position:fixed;inset:0;z-index:90;background:rgba(4,6,5,.66);backdrop-filter:blur(3px);display:none;align-items:flex-end;justify-content:center}
+  .drawer-scrim.on{display:flex}
+  @media(min-width:640px){.drawer-scrim{align-items:center;padding:22px}}
+  .drawer{width:min(560px,100%);background:linear-gradient(180deg,#0e1311,#0a0c0d);border:1px solid var(--line2);border-radius:16px 16px 0 0;padding:24px 24px 22px;position:relative;box-shadow:0 -20px 60px rgba(0,0,0,.6);animation:rise .28s var(--ease)}
+  @media(min-width:640px){.drawer{border-radius:16px}}
+  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.drawer{animation:none}}
+  .drawer .x{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--mute);cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.08em}
+  .drawer .dk{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint)}
+  .drawer .dv{font-family:var(--display);font-weight:800;font-size:clamp(30px,5vw,44px);letter-spacing:-.03em;margin:6px 0 2px;line-height:1}
+  .drawer .dc{font-size:15px;color:var(--text);line-height:1.6;margin-top:12px}
+  .drawer .dc b{color:var(--mint)}
+  .drawer .dsrc{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:16px;padding-top:13px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .drawer .dsrc .tag{color:var(--mint-dim);border:1px solid rgba(111,239,180,.3);border-radius:99px;padding:2px 9px}
+  .drawer .dsrc a{color:#8fb6ff;border-bottom:1px solid rgba(143,182,255,.4)}
+
+  /* ---------- proof grid (the ledger, visible) ---------- */
+  .ledger{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px}
+  @media(max-width:820px){.ledger{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:420px){.ledger{grid-template-columns:1fr 1fr}}
+
+  /* ---------- story teaser ---------- */
+  .story{margin-top:64px;display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));border-radius:var(--r);padding:28px}
+  @media(max-width:700px){.story{grid-template-columns:1fr;gap:18px}}
+  .story h3{font-family:var(--display);font-weight:700;font-size:clamp(22px,3vw,30px);letter-spacing:-.025em;margin:10px 0 0}
+  .story p{color:var(--mute);font-size:15px;line-height:1.6;margin-top:11px;max-width:46ch}
+  .story svg{width:100%;height:120px}
+  .go{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--mint)}
+  .go .ar{transition:.16s}a:hover .go .ar,.story:hover .go .ar{transform:translateX(4px)}
+
+  /* ---------- contact ---------- */
+  .contact{text-align:center;padding:80px 0 30px}
+  .contact h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,4.6vw,46px);letter-spacing:-.03em;line-height:1.05}
+  .contact p{color:var(--mute);font-size:15.5px;max-width:54ch;margin:14px auto 0}
+  .ctas{display:flex;justify-content:center;flex-wrap:wrap;gap:11px;margin-top:24px}
+  .fwd{margin-top:22px;font-family:var(--mono);font-size:11.5px;color:var(--faint);display:inline-flex;align-items:center;gap:9px;flex-wrap:wrap;justify-content:center}
+  .fwd code{color:var(--mute)}
+  .fwd button{background:var(--panel);border:1px solid var(--line2);color:var(--mint-dim);border-radius:7px;padding:5px 10px;cursor:pointer;font:inherit;transition:.14s}
+  .fwd button:hover{border-color:var(--mint);color:var(--mint)}
+
+  footer{margin-top:40px;padding:24px 0 60px;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;align-items:center;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+  .foot b{color:var(--mint-dim);font-weight:500}
+  .foot a{color:var(--mute)}.foot a:hover{color:var(--text)}
+
+  /* boot reveal */
+  .rv{opacity:0;transform:translateY(16px)}
+  .rv.in{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+  /* focus visibility */
+  a:focus-visible,button:focus-visible,input:focus-visible,.chip:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:6px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+</style>
+</head>
+<body>
+<div class="field" aria-hidden="true"><div class="grid"></div><div class="scan"></div><div class="bloom"></div></div>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#top"><span class="pk">🥒</span>bill<span class="at">@</span>bricker.os</a>
+    <div class="stat-strip" aria-hidden="true">
+      <span class="live"><i></i> live</span>
+      <span class="sx">last shipped <span id="lastShip">…</span></span>
+      <span class="sx"><span id="repoCount">31</span> repos · 40+ apps</span>
+    </div>
+    <nav aria-label="Primary">
+      <a href="#proof" class="hideable">Proof</a>
+      <a href="../climb.html" class="hideable">Story</a>
+      <a href="../resume-v2.html" class="hideable">Résumé</a>
+      <a href="mailto:bricker3@gmail.com?subject=Forward-deployed%20%E2%80%94%20let%27s%20talk" class="book">Book 20 min</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ===== HERO / CONSOLE ===== -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow rv"><i></i> Forward-deployed operator · Raleigh, NC · fka DJ Billygoat</span>
+      <h1 class="head rv">I sell frontier tech, and&nbsp;I <span class="spectrum">build it myself.</span></h1>
+      <p class="lede rv">This site is the proof — it's a production AI product I built, and it's <b>answering for me right now</b>. Ask it anything; every number traces back to a fact ledger.</p>
+      <p class="fde rv">// the profile frontier labs are racing to hire — carries the number <b style="color:var(--mint)">and</b> ships the product — is just my résumé, in order.</p>
+
+      <!-- Hiring-Manager Mode -->
+      <div class="hm rv">
+        <div class="hm-lbl"><i></i> Hiring-manager mode</div>
+        <div class="hm-row">
+          <input id="hmInput" autocomplete="off" placeholder="e.g. Partnerships Lead at Anthropic" aria-label="The role you're hiring for"/>
+          <button class="btn solid" id="hmGo">Make the case →</button>
+        </div>
+        <div class="hm-eg">try:
+          <button data-eg="Partnerships Lead at Anthropic">Partnerships @ Anthropic</button> ·
+          <button data-eg="Forward-Deployed Engineer at OpenAI">FDE @ OpenAI</button> ·
+          <button data-eg="GTM at a seed-stage AI startup">GTM @ a seed startup</button>
+        </div>
+      </div>
+
+      <!-- Terminal -->
+      <div class="term-wrap rv">
+        <div class="term" id="term">
+          <div class="term-bar">
+            <i class="r"></i><i class="y"></i><i class="g"></i>
+            <span class="ttl">bill@bricker.os — ask-bill</span>
+            <span class="right"><i></i> grounded</span>
+          </div>
+          <div class="term-body">
+            <div class="term-out" id="termOut" role="log" aria-live="polite" aria-label="Console output"></div>
+            <div class="term-inline" id="termLine" style="display:none">
+              <span class="ps">→ ~</span>
+              <input id="termIn" autocomplete="off" spellcheck="false" placeholder="type a command, or ask a real question…" aria-label="Ask the console"/>
+            </div>
+            <div class="chips-lbl">⌁ the proof, on demand — tap to run</div>
+            <div class="chips" id="termChips">
+              <button class="chip hot" data-cmd="why-you"><span class="s">$</span> why you, not an FDE?</button>
+              <button class="chip hot" data-cmd="shipped-this-week"><span class="s">$</span> what did you ship this week?</button>
+              <button class="chip" data-cmd="google-deal"><span class="s">$</span> google-deal</button>
+              <button class="chip" data-cmd="companies"><span class="s">$</span> companies</button>
+              <button class="chip" data-cmd="builds"><span class="s">$</span> builds</button>
+              <button class="chip" data-cmd="pickle-daas"><span class="s">$</span> pickle-daas</button>
+              <button class="chip" data-cmd="stats"><span class="s">$</span> stats</button>
+              <button class="chip" data-cmd="chuck"><span class="s">$</span> chuck</button>
+              <button class="chip" data-cmd="contact"><span class="s">$</span> contact</button>
+              <button class="chip" data-cmd="help"><span class="s">$</span> help</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SELLS / BUILDS — the thesis, split ===== -->
+  <section class="act" id="proof">
+    <div class="wrap">
+      <div class="rv">
+        <div class="seg"><span class="n">01</span> &nbsp;The whole claim, in two halves</div>
+        <h2 class="sec">Carries the number. Ships the product.</h2>
+        <p class="sec-sub">Most "AI-fluent" sellers used a tool. Most engineers who build can't walk into Google and leave with a partnership. The seam labs keep failing to hire for is just my résumé, in order. <b style="color:var(--text)">Tap any number for the receipt.</b></p>
+      </div>
+      <div class="split">
+        <div class="pane sells rv">
+          <div class="ph">◢ Sells &nbsp;·&nbsp; 20 years carrying a number</div>
+          <h3>Closed the deals you'd call impossible.</h3>
+          <p class="pd">Enterprise seller → founder-CEO. <b>Closed Google as a partner</b> — not a customer — at a sub-one-year-old startup, threading 5–6 internal teams, then Stripe, PayPal, Meta &amp; Payoneer followed off it.</p>
+          <div class="rcpts" id="rcptsSells"></div>
+          <div class="feat">enterprise pedigree: Northwestern Mutual top-10 · IBM/Netezza 8-figure deals · <a href="../resume-v2.html">full résumé →</a></div>
+        </div>
+        <div class="pane build rv">
+          <div class="ph">◣ Builds &nbsp;·&nbsp; ships production AI solo</div>
+          <h3>Then stopped delegating the build.</h3>
+          <p class="pd">No-code? No. <b>31 repos with my name on the commits.</b> An 11-agent build engine, a self-serve sports-data warehouse at <b>$0.0054/clip</b>, 40+ apps — designed and shipped by one operator.</p>
+          <div class="rcpts" id="rcptsBuild"></div>
+          <div class="feat">live builds: <a href="https://vibeco.lovable.app/simulate" target="_blank" rel="noopener">VibeCo simulator ↗</a> · <a href="https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html" target="_blank" rel="noopener">Pickle DaaS ↗</a></div>
+        </div>
+      </div>
+
+      <!-- the ledger, visible -->
+      <div class="rv" style="margin-top:48px">
+        <div class="seg"><span class="n">02</span> &nbsp;The ledger, in the open</div>
+        <h2 class="sec">Grounded. Every number traceable.</h2>
+        <p class="sec-sub">No hero-speak, no rounding. These are the load-bearing numbers — each one links to its source. The same ledger the console answers from.</p>
+      </div>
+      <div class="ledger" id="ledger"></div>
+
+      <!-- story teaser -->
+      <a class="story rv" href="../climb.html">
+        <div>
+          <div class="seg"><span class="n">03</span> &nbsp;The person</div>
+          <h3>Twenty years, one climb.</h3>
+          <p>Cold calls → the Google partnership → building AI solo — through cancer in 2023, still walking. Three kids, unimpressed by all of it. The chapter is still being written.</p>
+          <span class="go">Walk The Climb <span class="ar">→</span></span>
+        </div>
+        <svg viewBox="0 0 320 120" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 108 L46 92 L92 86 L140 62 L196 44 L252 26 L320 10" fill="none" stroke="var(--mint)" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M0 108 L46 92 L92 86 L140 62 L196 44 L252 26 L320 10 L320 120 L0 120 Z" fill="rgba(111,239,180,.1)"/>
+          <circle cx="252" cy="26" r="5.5" fill="var(--coral)"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact">
+    <div class="wrap rv">
+      <h2>Hiring forward-deployed? <span class="flat" style="color:var(--mint)">Let's talk this week.</span></h2>
+      <p>15 minutes. I'll show you something I built, not slides. Or ask the console anything above — the close is a demo of me building.</p>
+      <div class="ctas">
+        <a class="btn solid" href="mailto:bricker3@gmail.com?subject=Forward-deployed%20%E2%80%94%20let%27s%20talk">bricker3@gmail.com →</a>
+        <a class="btn ghost" href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn ghost" href="#top">↑ Ask the console</a>
+      </div>
+      <div class="fwd">
+        <span>forward-ready:</span> <code id="fwdLine">"Bill Bricker — closed Google as a partner, $35M+ at Dreamship, now ships production AI solo. His site answers for him: picklebill.github.io/Brick/v3"</code>
+        <button id="fwdCopy">copy</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <span>bill@bricker.os · Raleigh, NC · <b>built solo with the AI-native stack it describes.</b></span>
+        <span><span id="footCommit">last commit: …</span> &nbsp;·&nbsp; <a href="../index.html">classic site</a> · <a href="../climb.html">the climb</a></span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- receipt drawer -->
+<div class="drawer-scrim" id="drawerScrim" role="dialog" aria-modal="true" aria-label="Receipt">
+  <div class="drawer">
+    <button class="x" id="drawerX">close ✕</button>
+    <div class="dk" id="dK"></div>
+    <div class="dv" id="dV"></div>
+    <div class="dc" id="dC"></div>
+    <div class="dsrc" id="dSrc"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
