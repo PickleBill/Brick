@@ -373,6 +373,11 @@
   .cp-panel .x:hover{color:var(--text);border-color:var(--line2)}
   .cp-gif{width:100%;aspect-ratio:16/10;border-radius:12px;overflow:hidden;border:1px solid var(--line);margin:8px 0 6px;background:#0d0f12}
   .cp-gif img{width:100%;height:100%;object-fit:cover;display:block}
+  .cp-gif svg{width:100%;height:100%;display:block;background:#0d0f12}
+  .cp-gif path{stroke-dasharray:430;stroke-dashoffset:430}
+  .cp-modal.open .cp-gif path{animation:cpdraw 1.7s cubic-bezier(.4,0,.2,1) forwards}
+  @keyframes cpdraw{to{stroke-dashoffset:0}}
+  @media(prefers-reduced-motion:reduce){.cp-gif path{stroke-dashoffset:0;animation:none}}
   .cp-steps{list-style:none;margin:10px 0 4px;padding:0;position:relative}
   .cp-steps::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--sage),var(--cyan),var(--violet))}
   .cp-steps li{position:relative;padding:0 0 16px 26px;font-size:14px;color:var(--mute)}
@@ -409,7 +414,15 @@
 <div class="cp-modal" id="cpModal" role="dialog" aria-modal="true" aria-label="The Climb preview" onclick="if(event.target===this)cpClose()">
   <div class="glass cp-panel">
     <div class="ph"><div class="kick">The Climb · preview</div><div class="x" onclick="cpClose()" aria-label="Close">✕</div></div>
-    <div class="cp-gif"><img src="assets/climb-preview.gif" alt="The Climb — animated preview" onerror="this.closest('.cp-gif').style.display='none'"></div>
+    <!-- Self-drawing preview line (no external file → no 404). Swap for a real GIF/Loom later:
+         replace this <svg> with <img src="assets/climb-preview.gif" alt="The Climb"> once you have one. -->
+    <div class="cp-gif" aria-hidden="true">
+      <svg viewBox="0 0 320 130" preserveAspectRatio="none">
+        <path d="M14 116 L74 100 L134 84 L198 54 L258 30 L306 14" fill="none" stroke="url(#cpg2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="cpg2" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#8cf0a0"/><stop offset=".5" stop-color="#5ee0d6"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+        <circle cx="14" cy="116" r="4.5" fill="#8cf0a0"/><circle cx="134" cy="84" r="4.5" fill="#5ee0d6"/><circle cx="258" cy="30" r="5.5" fill="#ff8a5c"/><circle cx="306" cy="14" r="4.5" fill="#a78bfa"/>
+      </svg>
+    </div>
     <ol class="cp-steps">
       <li><span class="yr">2012–14</span><b>IBM / Netezza</b> — seven-figure big-data deals at &gt;100% quota.</li>
       <li><span class="yr">2018–25</span><b>Dreamship</b> — $35M+, 11x in a year, the first-of-its-kind Google partnership.</li>
