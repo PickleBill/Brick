@@ -1,11 +1,19 @@
 /* bill@bricker-os — home behavior
-   reveal · count-ups · identity card (flip + auto-cycling bars + shine) ·
-   terminal (commands + ask-bill + voice) · video stat overlay · scroll-spy */
+   reveal · count-ups · identity card (flip + auto-cycling bars + hover logos) ·
+   terminal (commands + ask-bill + hiring-manager/reference modes) ·
+   cycling video stat overlay · scroll-spy · mobile nav */
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  /* ---------- mobile nav ---------- */
+  var navToggle=$('#navToggle'), navLinks=$('#navLinks');
+  if(navToggle && navLinks){
+    navToggle.addEventListener('click', function(){ var open=navLinks.classList.toggle('open'); navToggle.classList.toggle('open',open); navToggle.setAttribute('aria-expanded',open?'true':'false'); });
+    navLinks.addEventListener('click', function(e){ if(e.target.closest('a')){ navLinks.classList.remove('open'); navToggle.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); } });
+  }
 
   /* ---------- reveal ---------- */
   var rvEls = [].slice.call(document.querySelectorAll('.rv'));
@@ -19,20 +27,16 @@
   /* ---------- count-ups (green stats band) ---------- */
   var counted=false;
   function countUps(){ if(counted) return; var band=$('.statband'); if(!band) return;
-    var r=band.getBoundingClientRect(), vh=innerHeight||800;
-    if(r.top>vh*0.95) return; counted=true;
+    var r=band.getBoundingClientRect(), vh=innerHeight||800; if(r.top>vh*0.95) return; counted=true;
     document.querySelectorAll('.statband [data-count]').forEach(function(el){
       var t=+el.dataset.count, pre=el.dataset.pre||'', suf=el.dataset.suf||'';
       if(reduce){ el.textContent=pre+t+suf; return; }
-      var c=0, step=Math.max(1,Math.ceil(t/30));
-      el.textContent=pre+'0'+suf;
+      var c=0, step=Math.max(1,Math.ceil(t/30)); el.textContent=pre+'0'+suf;
       var iv=setInterval(function(){ c+=step; if(c>=t){ c=t; clearInterval(iv); } el.textContent=pre+c+suf; },28);
     }); }
   countUps(); addEventListener('scroll',countUps,{passive:true}); addEventListener('load',countUps);
 
-  /* ====================================================================
-     IDENTITY CARD — flip + auto-flip teaser + interactive bars + readout
-  ==================================================================== */
+  /* ---------- identity card: flip + auto-flip teaser + interactive bars ---------- */
   var flip=$('#flip');
   if(flip){
     var flipped=false, userTouched=false, barsOn=false;
@@ -40,19 +44,14 @@
     function toggle(){ userTouched=true; setFlip(!flipped); }
     flip.addEventListener('click', toggle);
     flip.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
-    // auto-flip teaser: once, to advertise the back — unless reduced-motion or already touched
-    if(!reduce){
-      setTimeout(function(){ if(userTouched) return; setFlip(true);
-        setTimeout(function(){ if(userTouched) return; setFlip(false); }, 2500); }, 3400);
-    }
-    // interactive bars (auto-cycle + hover + readout), activated on first flip-to-back
+    if(!reduce){ setTimeout(function(){ if(userTouched) return; setFlip(true);
+      setTimeout(function(){ if(userTouched) return; setFlip(false); }, 2500); }, 3400); }
     var bars=[].slice.call(document.querySelectorAll('#bars .bar'));
     var rN=$('#ringN'), rL=$('#ringL'), ai=-1, timer=null;
     function setActive(i){ bars.forEach(function(b,j){ b.classList.toggle('on',j===i); });
       if(i<0){ rN.textContent='20'; rL.textContent='years carrying a number'; }
       else { rN.textContent=bars[i].dataset.m; rL.textContent=bars[i].dataset.ml; } }
-    function cycle(){ if(reduce) return; clearInterval(timer);
-      timer=setInterval(function(){ ai=(ai+1)%bars.length; setActive(ai); }, 2600); }
+    function cycle(){ if(reduce) return; clearInterval(timer); timer=setInterval(function(){ ai=(ai+1)%bars.length; setActive(ai); }, 2600); }
     function activateBars(){ if(barsOn) return; barsOn=true;
       setTimeout(function(){ document.querySelectorAll('#bars .fill').forEach(function(f){ f.style.width=f.dataset.w+'%'; }); }, 180);
       setActive(0); ai=0; cycle(); }
@@ -81,9 +80,9 @@
   var CMDS={
     help:function(){ block([
       '<span class="dim">ask Bill:</span> <span class="m">whoami companies google-deal builds pickle-daas stats enterprise</span>',
-      '<span class="dim">hiring me:</span> <span class="am">why-you  shipped-this-week  the-fit  sudo hire-bill</span>',
+      '<span class="dim">hiring me:</span> <span class="am">tailor &lt;role&gt;  reference-check  why-you  the-fit  shipped-this-week</span>',
       '<span class="dim">wildcards:</span> <span style="color:#a78bfa">chuck  billygoat  surprise</span>',
-      '<span class="dim">…or just ask a real question — or tap the mic and talk to it.</span>']); },
+      '<span class="dim">tip:</span> <span class="am">tailor Partnerships Lead at Anthropic</span> <span class="dim">— or paste a job description.</span>']); },
     whoami:function(){ block([
       '<span class="m">Bill Bricker</span> — forward-deployed GTM operator.',
       'I sell frontier tech AND I build it. Closed &amp; ran the Google',
@@ -107,7 +106,7 @@
     builds:function(){ block([
       '<span class="m"># VibeCo</span> — 11 AI agents (Gemini + Claude). Idea → brief → working app.',
       '<span class="m">40+ apps</span> across <span class="m">31 repos</span>, shipped solo:',
-      '  Venue Connect · NaughtyData · Litigator · HeadsUpTime · +30 more.',
+      '  Venue Connect · Litigator · HeadsUpTime · +30 more.',
       '<span class="dim">→ vibeco.lovable.app</span>']);
       suggest(['pickle-daas','shipped-this-week']); },
     'pickle-daas':function(){ block([
@@ -138,14 +137,22 @@
       '20 years carrying an 8-figure number AND I ship production AI solo',
       'today (31 repos, my commits). The seam labs keep missing is my résumé.']);
       ask('Make the sharp case for why Bill is a stronger forward-deployed / GTM hire than a typical engineer, grounded in his record.', true);
-      suggest(['the-fit','google-deal']); },
+      suggest(['tailor Partnerships Lead at Anthropic','reference-check']); },
     'the-fit':function(){ block([
       '<span class="am"># The frontier-lab fit.</span>',
       'Labs are hiring the <span class="m">forward-deployed / GTM engineer</span> hardest —',
       '"the line between selling and building has collapsed." That\'s the job',
       'I\'ve already been doing for two companies: close the room, then ship',
       'the integration myself. I translate frontier capability into a signed yes.']);
-      suggest(['why-you','contact']); },
+      suggest(['tailor GTM lead at a frontier lab','reference-check']); },
+    'reference-check':function(){ block([
+      '<span class="am"># Reference check — a former Dreamship colleague speaks:</span>',
+      '"Would I work with Bill again? In a heartbeat. He closed Google as a',
+      'partner when the rest of us thought it was impossible — then actually',
+      'ran it for five years. He carries the number AND ships the product.',
+      'The rare one who does both."  <span class="dim">— grounded in the record; ask for a real intro.</span>']);
+      ask('Role-play a former Dreamship / Google-era colleague giving a candid, specific reference for Bill — would you hire him again, grounded only in his real record.', true);
+      suggest(['tailor Partnerships Lead at Anthropic','contact']); },
     'shipped-this-week':function(){ shipped(); },
     'hire-bill':function(){ block([
       '<span class="dim">[sudo] authenticating hiring manager…</span>',
@@ -160,6 +167,17 @@
     surprise:function(){ var picks=[chuck,CMDS.billygoat,CMDS['git log'],function(){ block(['<span class="m">fun fact:</span> my kids think the party card game I shipped (GroupOrDare) is the most impressive thing I\'ve done. They\'re probably right.']); },CMDS['why-you']]; picks[Math.floor(Math.random()*picks.length)](); },
     clear:function(){ out.innerHTML=''; }
   };
+
+  /* ---- hiring-manager mode: tailor the pitch to a role / pasted JD ---- */
+  function tailor(role){ role=(role||'').trim();
+    if(!role){ block(['<span class="am"># hiring-manager mode</span> — type e.g. <span class="m">tailor Partnerships Lead at Anthropic</span>, or paste a job description, and I\'ll make the case for that exact role.']); return; }
+    block(['<span class="am"># tailoring the case for:</span> '+esc(role.slice(0,120))]);
+    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner at a <1-yr-old startup; led Dreamship to $35M+ and 11x; ships production AI solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; 20 years carrying an enterprise number). Address the role directly; be concrete and confident; no generic filler.';
+    askQuiet(q, function(){ // local fallback
+      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner at a sub-one-year-old startup, turned it into $35M+ and 11x at Dreamship, and today I build production AI solo — 40+ apps across 31 repos. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
+      suggest(['reference-check','why-you','contact']);
+    }, function(){ suggest(['reference-check','why-you','contact']); });
+  }
 
   function localAnswer(q){ var s=q.toLowerCase();
     if(/google/.test(s)) return CMDS['google-deal'];
@@ -176,7 +194,9 @@
     return null; }
 
   var ASK_URL='https://ulgoahsxkrkzoquvntei.supabase.co/functions/v1/ask-bill';
-  function ask(q, quiet){
+  function ask(q, quiet){ askQuiet(q, function(){ // standard fallback
+      if(quiet) return; var f=localAnswer(q); if(f) f(); else block(['<span class="dim">live answer unavailable — try:</span> <span class="m">companies · google-deal · builds · stats</span>']); }); }
+  function askQuiet(q, onFail, onOk){
     var thinking=el('<span class="dim">thinking…</span>','blk'); out.appendChild(thinking); scroll();
     var done=false, ctrl=('AbortController' in window)?new AbortController():null;
     var to=setTimeout(function(){ if(ctrl)ctrl.abort(); },18000);
@@ -184,9 +204,8 @@
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
       .then(function(d){ clearTimeout(to); done=true; thinking.remove();
         var a=d.answer||d.response||d.text||d.message;
-        if(a){ history.push({role:'assistant',content:a}); typed(String(a)); } else fb(); })
-      .catch(function(){ clearTimeout(to); if(done) return; thinking.remove(); fb(); });
-    function fb(){ if(quiet) return; var f=localAnswer(q); if(f) f(); else block(['<span class="dim">live answer unavailable — try:</span> <span class="m">companies · google-deal · builds · stats</span>']); }
+        if(a){ history.push({role:'assistant',content:a}); typed(String(a)); if(onOk) onOk(); } else if(onFail) onFail(); })
+      .catch(function(){ clearTimeout(to); if(done) return; thinking.remove(); if(onFail) onFail(); });
   }
   function typed(text){ var b=document.createElement('div'); b.className='blk'; out.appendChild(b);
     var lines=text.split(/\n+/);
@@ -213,10 +232,13 @@
 
   function run(raw){ var cmd=(raw||'').trim(); if(!cmd) return; echo(cmd); history.push({role:'user',content:cmd});
     var lc=cmd.toLowerCase(); var am=lc.match(/^ask\s+(.+)/); if(am){ ask(am[1]); return; }
+    var tm=cmd.match(/^tailor\s+([\s\S]+)/i); if(tm){ tailor(tm[1]); return; }
+    if(lc==='tailor'){ tailor(''); return; }
+    if(/^(i'?m\s+hiring|we'?re\s+hiring|hiring\s+for|paste.*jd|here'?s?\s+the\s+jd)/.test(lc)){ tailor(cmd); return; }
     if(CMDS[lc]){ CMDS[lc](); return; }
     if(lc==='git'||lc==='gitlog'){ CMDS['git log'](); return; }
     if(lc==='ls'){ CMDS.help(); return; }
-    if(/hire.?bill|sudo/.test(lc)){ CMDS['hire-bill'](); return; }
+    if(/hire.?bill|^sudo/.test(lc)){ CMDS['hire-bill'](); return; }
     if(lc==='climb'||lc==='story'){ block(['Twenty years, one climb. <span class="a" data-href="climb.html">→ walk it</span>']); return; }
     ask(cmd); }
 
@@ -227,7 +249,7 @@
   /* boot */
   function showInput(){ if(line){ line.style.display='flex'; scroll(); } }
   function boot(after){ var ls=[
-      {t:'bricker-os — forward-deployed operator console. booting…',c:'dim'},
+      {t:'brick.os — forward-deployed operator console. booting…',c:'dim'},
       {t:'Bill Bricker — I sell frontier tech AND I build it myself.',c:'m'},
       {t:'Closed & ran the Google partnership at a <1-yr-old startup.',c:''},
       {t:'Now shipping production AI daily — 40+ apps, solo. Ask me anything.',c:''}];
@@ -243,27 +265,16 @@
   if(chips){ chips.addEventListener('click',function(e){ var b=e.target.closest('.chip[data-cmd]'); if(!b) return;
     if(!booted){ booted=true; boot(function(){ showInput(); }); } run(b.dataset.cmd); showInput(); if(input) input.focus(); }); }
 
-  /* voice input (Web Speech API) */
-  var mic=$('#mic'), SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(mic){ if(!SR){ mic.style.display='none'; } else {
-    var rec=new SR(); rec.lang='en-US'; rec.interimResults=false; rec.maxAlternatives=1; var listening=false;
-    mic.addEventListener('click',function(){ if(!booted){ booted=true; boot(function(){ showInput(); }); }
-      if(listening){ rec.stop(); return; } try{ rec.start(); }catch(e){} });
-    rec.onstart=function(){ listening=true; mic.classList.add('rec'); if(input) input.placeholder='listening…'; };
-    rec.onend=function(){ listening=false; mic.classList.remove('rec'); if(input) input.placeholder='type a command, or ask anything…'; };
-    rec.onerror=function(){ listening=false; mic.classList.remove('rec'); };
-    rec.onresult=function(e){ var t=e.results[0][0].transcript; if(t){ showInput(); run(t); } };
-  }}
-
-  /* ====================================================================
-     VIDEO — autoplay in view, staggered stat badges, reduced-motion aware
-  ==================================================================== */
+  /* ---------- video: autoplay in view + cycling glow stat badges ---------- */
   var vid=$('#cvid'), vw=$('#vidwrap');
   if(vw){
-    var badges=[].slice.call(vw.querySelectorAll('.statbadge')), revealedV=false, step=-1, bt=null;
-    function badgeCycle(){ bt=setInterval(function(){ step++; if(step>=badges.length){ clearInterval(bt); return; } badges[step].classList.add('show'); }, 1700); }
+    var badges=[].slice.call(vw.querySelectorAll('.statbadge')), started=false, idx=0, bt=null;
+    function cycleBadges(){ bt=setInterval(function(){
+      badges[idx % badges.length].classList.add('show');
+      badges[(idx + badges.length - 2) % badges.length].classList.remove('show');
+      idx++; }, 1500); }
     function vCheck(){ var r=vw.getBoundingClientRect(), vh=innerHeight||800, inView=r.top<vh*0.85 && r.bottom>0;
-      if(inView){ if(!revealedV){ revealedV=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { badges[0]&&badges[0].classList.add('show'); step=0; badgeCycle(); } }
+      if(inView){ if(!started){ started=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); } }
         if(vid && !reduce){ var p=vid.play(); if(p&&p.catch) p.catch(function(){}); } }
       else if(vid){ vid.pause(); } }
     vCheck(); addEventListener('scroll',vCheck,{passive:true}); addEventListener('load',vCheck);
@@ -272,12 +283,12 @@
   /* ---------- scroll-spy ---------- */
   var spy=$('#spy');
   if(spy){ var links=[].slice.call(spy.querySelectorAll('a')), secs=links.map(function(a){ return document.getElementById(a.dataset.s); });
-    function spyCheck(){ var y=scrollY+ (innerHeight||800)*0.38, best=0;
+    function spyCheck(){ var y=scrollY+(innerHeight||800)*0.3, best=0;
       secs.forEach(function(s,i){ if(s && s.offsetTop<=y) best=i; });
       links.forEach(function(a,i){ a.classList.toggle('on',i===best); }); }
     spyCheck(); addEventListener('scroll',spyCheck,{passive:true}); addEventListener('resize',spyCheck); }
 
-  /* ---------- konami → billygoat flourish ---------- */
+  /* ---------- konami → billygoat ---------- */
   (function(){ var seq=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'], i=0;
     addEventListener('keydown',function(e){ var k=e.key.length===1?e.key.toLowerCase():e.key; i=(k===seq[i])?i+1:(k===seq[0]?1:0);
       if(i===seq.length){ i=0; if(!booted){ booted=true; boot(function(){ showInput(); }); } var t=$('#term'); if(t) t.scrollIntoView({block:'center'});
