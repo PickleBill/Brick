@@ -78,6 +78,8 @@
   const vcard = document.querySelector('.vcard');
   if (vcard) {
     const badges = Array.from(vcard.querySelectorAll('.statbadge'));
+    const vtap = vcard.querySelector('video');
+    if (vtap) { vtap.style.cursor = 'pointer'; vtap.addEventListener('click', () => { if (vtap.paused) { vtap.preload = 'auto'; vtap.play().catch(() => {}); } else { vtap.pause(); } }); }
     let shown = false;
     const showBadges = () => {
       if (shown) return; shown = true;
