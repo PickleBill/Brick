@@ -116,8 +116,8 @@
       { c: 'sp', t: 'Bill Bricker' },
       { t: 'AI-Forward Sales & Partnerships Leader.' },
       { t: 'I close what the biggest names in tech say yes to,' },
-      { t: 'then 10x my output with AI.' },
-      { d: 'Raleigh, NC · founder · FANG-tier closer who also ships the product.' }
+      { t: 'then build the AI workflows that do the work.' },
+      { d: 'Raleigh, NC · founder · closed Google as a partner — and ships the product too.' }
     ],
     dreamship: [
       { c: 'hd', t: 'Dreamship — the deal everything came off:' },
@@ -143,13 +143,13 @@
       { c: 'hd', t: 'AI is my multiplier, not my headline:' },
       { k: 'Pickle DaaS', t: 'raw court video \u2192 player/coaching/venue intel at $0.0054/clip.' },
       { k: 'Shipped', t: '40+ apps across 31 repos \u2014 built & run solo.' },
-      { d: 'I build the AI-native workflows that 10x my selling.' }
+      { d: 'I build the AI-native workflows that compress weeks of GTM into days.' }
     ],
     hire: [
       { c: 'sp', t: 'Let\u2019s talk.' },
       { k: 'email', t: 'bricker3@gmail.com' },
       { k: 'linkedin', t: 'linkedin.com/in/williambricker' },
-      { d: 'AI-forward sales \u2014 I close, then 10x it with AI.' }
+      { d: 'AI-forward sales \u2014 I close, then build the workflows that scale it.' }
     ],
     'why-you': [
       { c: 'hd', t: 'Why me, not a forward-deployed engineer:' },
