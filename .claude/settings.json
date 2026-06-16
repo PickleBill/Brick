@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Impeccable design skill ready — /impeccable <command> (init · distill · layout · typeset · adapt · clarify · overdrive · audit · critique · polish · detect). Plus /review-site for the 4-lens ICP critique. (Committed at .claude/skills/impeccable; update with: npx impeccable update.)'"
+          }
+        ]
+      }
+    ]
+  }
+}
