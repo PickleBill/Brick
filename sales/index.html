@@ -19,7 +19,7 @@
 <style>
   /* DOSSIER v2 — flip-panel operator ID, smaller image, top-aligned 2-line header */
   .hero{display:grid;grid-template-columns:.7fr 1.3fr;gap:44px;align-items:start;padding:52px 28px 12px;max-width:var(--maxw);margin:0 auto}
-  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding:30px 22px 6px}.hero .hcopy{order:-1}.hero .hcard{max-width:340px;margin:0 auto}}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding:30px 22px 6px}.hero .hcopy{order:-1}.hero .hcard{max-width:300px;margin:0 auto}}
   h1{font-family:var(--disp);font-size:clamp(33px,4.6vw,52px);font-weight:700;letter-spacing:-.035em;line-height:1.04;margin:18px 0 0;max-width:none;text-wrap:balance}
   .heavy-lede{font-size:clamp(15px,1.6vw,17.5px);color:var(--mute);margin-top:20px;max-width:48ch;line-height:1.6}
   .heavy-lede b{color:var(--ink);font-weight:600}
@@ -38,18 +38,24 @@
   .flip-inner{position:relative;width:100%;aspect-ratio:1/1;transition:transform .72s var(--ease);transform-style:preserve-3d}
   .flip.flipped .flip-inner{transform:rotateY(180deg)}
   .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
-  .flip-back{transform:rotateY(180deg)}
+  .flip-back{transform:rotateY(180deg);background:linear-gradient(155deg,#101614,#0a0c0d);display:flex;align-items:center}
   .flip-face img{width:100%;height:100%;object-fit:cover;display:block}
   .flip-face::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);transform:skewX(-18deg);animation:sheen 7s ease-in-out infinite;pointer-events:none;z-index:1}
   @keyframes sheen{0%,14%{left:-70%}58%,100%{left:130%}}
   .flip .grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(8,9,10,.88));z-index:2;pointer-events:none}
   .flip .cap{position:absolute;left:12px;right:12px;bottom:10px;z-index:3;font-family:var(--mono);font-size:10px;letter-spacing:.03em;color:#dfe3e6;pointer-events:none}
   .flip .cap b{color:#fff;font-weight:600}
-  .flip .cap .obtag{display:block;font-family:var(--disp);font-size:14px;font-weight:700;letter-spacing:-.01em;line-height:1.18;color:#fff;margin-bottom:4px;text-shadow:0 1px 12px rgba(0,0,0,.6)}
-  .flip .cap .capsub{display:block;font-weight:400;color:#cfd4d8}
+  .hcard{max-width:320px}
+  .idback{width:100%;padding:24px 22px;display:flex;flex-direction:column;gap:8px}
+  .ibk-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint);margin-bottom:6px}
+  .idback .ibl{font-family:var(--disp);font-size:clamp(21px,4.4vw,27px);font-weight:800;letter-spacing:-.022em;line-height:1.05;color:var(--mute);transition:color .25s}
+  .idback .ibl:not(.spectrum){animation:iblglow 5.4s ease-in-out infinite}
+  .idback .ibl:hover{color:var(--ink)}
+  .idback .ibl.spectrum{color:transparent;background:var(--spectrum);background-size:280% 100%;-webkit-background-clip:text;background-clip:text}
+  @keyframes iblglow{0%,100%{color:var(--mute)}45%{color:var(--ink)}}
   .flip .cue{position:absolute;top:10px;right:11px;z-index:5;font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);background:rgba(8,9,10,.5);border:1px solid var(--line);padding:4px 8px;border-radius:99px;transition:.2s}
   .flip:hover .cue{color:var(--mint);border-color:rgba(111,239,180,.3)}
-  @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}.flip-face::after{animation:none}}
+  @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}.flip-face::after{animation:none}.idback .ibl{animation:none}}
 
   .opmeta{padding:13px 6px 2px}
   .opyears{display:flex;align-items:baseline;gap:8px;padding:0 1px 11px}
@@ -95,7 +101,8 @@
   .statbadge .bb b{color:#fff}
   @media(max-width:560px){
     .vcard{aspect-ratio:auto;overflow:visible}
-    .vcard>video{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;border-radius:13px}
+    .vcard>video{position:static;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;display:block;border-radius:13px}
+    .vcard{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
     .vcard .vgrad{display:none}
     .vcard .vlabel{position:static;display:inline-block;margin-top:8px}
     .statbadge{position:static;left:auto;top:auto;opacity:1;transform:none;max-width:none;display:inline-flex;margin:8px 8px 0 0;animation:none}
@@ -177,9 +184,12 @@
             </div>
             <div class="flip-face flip-back">
               <span class="cue">⟲ back</span>
-              <img src="../assets/dreamship-donate.jpg" alt="Bill on stage — Dreamship's give-back to Freedom United, 2019" loading="lazy" style="object-position:50% 38%"/>
-              <div class="grad"></div>
-              <div class="cap"><b class="obtag">Zero-to-one builder · forward-deployed GTM operator</b><span class="capsub">Dreamship × Freedom United · on-stage give-back, 2019</span></div>
+              <div class="idback">
+                <span class="ibk-label">▸ the operator</span>
+                <span class="ibl">Zero-to-one builder</span>
+                <span class="ibl" style="animation-delay:2.7s">Forward-deployed</span>
+                <span class="ibl spectrum">GTM operator</span>
+              </div>
             </div>
           </div>
         </div>
