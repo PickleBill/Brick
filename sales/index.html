@@ -48,15 +48,10 @@
   .flip .live i{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 9px var(--mint);animation:pulse 2s infinite}
   .flip .cue{position:absolute;top:10px;right:11px;z-index:3;font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);background:rgba(8,9,10,.5);border:1px solid var(--line);padding:4px 8px;border-radius:99px;transition:.2s}
   .flip:hover .cue{color:var(--mint);border-color:rgba(111,239,180,.3)}
-  @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}}
-  .opback{position:absolute;inset:0;background:linear-gradient(165deg,#0e1614,#0a0c0d);display:flex;flex-direction:column;justify-content:center;gap:12px;padding:22px 20px}
-  .opback-k{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint2)}
-  .opback-h{font-family:var(--disp);font-size:23px;font-weight:700;letter-spacing:-.02em;line-height:1.06;color:var(--ink)}
-  .opback-rows{display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--mute);line-height:1.4}
-  .opback-rows b{color:var(--ink);font-weight:600}
-  .opback-rows div{padding-left:14px;position:relative}
-  .opback-rows div::before{content:"›";position:absolute;left:0;color:var(--mint)}
-  .opback-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--faint);margin-top:2px}
+  /* moving glint — ported from the root identity card for the "glow" feel */
+  .flip-face::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);transform:skewX(-18deg);animation:sheen 7s ease-in-out infinite;pointer-events:none;z-index:4}
+  @keyframes sheen{0%,100%{left:-70%}55%{left:130%}}
+  @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}.flip-face::after{animation:none}}
 
   .opmeta{padding:13px 6px 2px}
   .opyears{display:flex;align-items:baseline;gap:8px;padding:0 1px 11px}
@@ -118,7 +113,7 @@
   @media(prefers-reduced-motion:reduce){.climbimg img{transition:none}}
   /* ecosystem logo wall (replaces flywheel panels) */
   .ecosystem{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
-  .eco{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;min-height:100px;padding:18px 14px;border:1px solid var(--line);border-radius:16px;background:var(--glass);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));text-align:center;transition:.2s var(--ease)}
+  .eco{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;min-height:78px;padding:16px 14px;border:1px solid var(--line);border-radius:16px;background:var(--glass);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));text-align:center;transition:.2s var(--ease)}
   .eco:hover{transform:translateY(-3px);border-color:var(--line2);background:rgba(255,255,255,.06)}
   .eco img{height:23px;width:auto;max-width:88px;object-fit:contain;filter:brightness(0) invert(.82);opacity:.85;transition:.18s}
   .eco:hover img{opacity:1;filter:brightness(0) invert(1)}
@@ -150,7 +145,7 @@
   <header class="hero">
     <div class="hcard rv">
       <div class="opcard">
-        <div class="flip" id="flip" tabindex="0" role="button" aria-label="Identity card — tap to flip between portrait and the operator photo.">
+        <div class="flip" id="flip" tabindex="0" role="button" aria-label="Identity card — tap to flip between the family portrait and an on-stage give-back photo.">
           <div class="flip-inner">
             <div class="flip-face flip-front">
               <span class="cue">⟲ flip</span>
@@ -160,16 +155,9 @@
             </div>
             <div class="flip-face flip-back">
               <span class="cue">⟲ back</span>
-              <div class="opback">
-                <div class="opback-k">// operator profile</div>
-                <div class="opback-h">Forward-deployed<br><span class="spectrum">GTM operator.</span></div>
-                <div class="opback-rows">
-                  <div><b>Zero-to-one</b> — three companies founded</div>
-                  <div><b>Closes</b> the biggest names in tech</div>
-                  <div><b>Ships</b> the product itself, with AI</div>
-                </div>
-                <div class="opback-tag">cold calls → Google → AI-forward GTM</div>
-              </div>
+              <img src="../assets/dreamship-donate.jpg" alt="Bill on stage — Dreamship's give-back to Freedom United, 2019"/>
+              <div class="grad"></div>
+              <div class="cap"><b>Dreamship × Freedom United</b> · on-stage give-back, 2019</div>
             </div>
           </div>
         </div>
@@ -188,7 +176,7 @@
     <div class="hcopy rv">
       <span class="eyebrow"><span class="dot"></span>AI-Forward Sales &amp; Partnerships Leader</span>
       <h1>I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
-      <p class="heavy-lede">I founded Dreamship and closed Google as a partner in year one — a <b>$45M+ ad-spend channel</b> that drove the company to <b>$35M+ peak revenue</b>, profitable every year. Then I built the AI-native workflows that 10x my output.</p>
+      <p class="heavy-lede">I founded Dreamship and closed Google as a partner in year one — a first-of-its-kind deal that opened a <b>$45M+ ad-spend channel</b>. I led the company to <b>$35M+ peak revenue</b>, profitable every year — then built the AI-native workflows that 10x my output.</p>
       <div class="hctas">
         <a class="pill solid" href="#center">See the deal →</a>
         <a class="pill ghost" href="../assets/Bill_Bricker_Resume.pdf" download>Download résumé</a>
@@ -261,17 +249,17 @@
     <p class="sub">One credible yes unlocked the next — first-of-its-kind partnerships, then enterprise clients and the retail floor.</p></div>
     <div class="ecosystem rv">
       <div class="eco anchor"><img src="../assets/logos/google.svg" alt="Google"/><span class="tag">first-of-its-kind partnership · $45M+ channel</span></div>
-      <div class="eco"><img src="../assets/logos/microsoft.svg" alt="Microsoft"/><span class="tag">Bing–ChatGPT deal</span></div>
-      <div class="eco"><img src="../assets/logos/stripe.svg" alt="Stripe"/><span class="tag">partnership</span></div>
-      <div class="eco"><img src="../assets/logos/paypal.svg" alt="PayPal"/><span class="tag">partnership</span></div>
-      <div class="eco"><img src="../assets/logos/payoneer.svg" alt="Payoneer"/><span class="tag">partnership</span></div>
-      <div class="eco"><img src="../assets/logos/meta.svg" alt="Meta"/><span class="tag">partnership</span></div>
-      <div class="eco"><span class="wm">IBM</span><span class="tag">seven-figure analytics</span></div>
-      <div class="eco"><span class="wm">McKesson</span><span class="tag">8-figure deal</span></div>
-      <div class="eco"><img src="../assets/logos/zillow.svg" alt="Zillow"/><span class="tag">enterprise client</span></div>
-      <div class="eco"><span class="wm">Avalara</span><span class="tag">enterprise client</span></div>
-      <div class="eco"><img src="../assets/logos/macys.svg" alt="Macy's"/><span class="tag">retail · big-data pilot</span></div>
-      <div class="eco"><span class="wm">Nordstrom</span><span class="tag">retail · big-data pilot</span></div>
+      <div class="eco"><img src="../assets/logos/microsoft.svg" alt="Microsoft"/></div>
+      <div class="eco"><img src="../assets/logos/stripe.svg" alt="Stripe"/></div>
+      <div class="eco"><img src="../assets/logos/paypal.svg" alt="PayPal"/></div>
+      <div class="eco"><img src="../assets/logos/payoneer.svg" alt="Payoneer"/></div>
+      <div class="eco"><img src="../assets/logos/meta.svg" alt="Meta"/></div>
+      <div class="eco"><span class="wm">IBM</span></div>
+      <div class="eco"><span class="wm">McKesson</span></div>
+      <div class="eco"><img src="../assets/logos/zillow.svg" alt="Zillow"/></div>
+      <div class="eco"><span class="wm">Avalara</span></div>
+      <div class="eco"><img src="../assets/logos/macys.svg" alt="Macy's"/></div>
+      <div class="eco"><span class="wm">Nordstrom</span></div>
     </div>
   </section>
 
@@ -303,11 +291,9 @@
           <source src="../assets/courtana-shot.mp4" type="video/mp4"/>
         </video>
         <div class="vgrad"></div>
-        <div class="statbadge" style="--x:6%;--y:9%;--c:#F1C40F;animation-delay:.3s"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
-        <div class="statbadge" style="--x:55%;--y:11%;--c:#6BA3FF;animation-delay:.55s"><span class="edge"></span><span class="bd"><span class="bt">Shot</span><span class="bb"><b>Overhead smash</b></span></span></div>
-        <div class="statbadge" style="--x:7%;--y:64%;--c:#6EEFC0;animation-delay:.8s"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
-        <div class="statbadge" style="--x:54%;--y:62%;--c:#BD93F9;animation-delay:1.05s"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
-        <div class="statbadge" style="--x:33%;--y:40%;--c:#FF6B6B;animation-delay:1.3s"><span class="edge"></span><span class="bd"><span class="bt">Routed</span><span class="bb"><b>Player Gear</b> lane</span></span></div>
+        <div class="statbadge" style="--x:6%;--y:10%;--c:#F1C40F;animation-delay:.35s"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
+        <div class="statbadge" style="--x:6%;--y:66%;--c:#6EEFC0;animation-delay:.65s"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
+        <div class="statbadge" style="--x:57%;--y:66%;--c:#BD93F9;animation-delay:.95s"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
         <span class="vlabel">▸ live CV pipeline · $0.0054/analyzed clip</span>
       </div>
       <div class="glass aicard">
