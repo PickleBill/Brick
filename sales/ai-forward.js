@@ -65,7 +65,7 @@
       if (i < 0) { ringN.textContent = base.n; ringL.textContent = base.l; }
       else { ringN.textContent = bars[i].dataset.m; ringL.textContent = bars[i].dataset.ml; }
     }
-    function cycle() { if (reduce) return; timer = setInterval(() => { active = (active + 1) % bars.length; set(active); }, 2600); }
+    function cycle() { if (reduce) return; let n = 0; timer = setInterval(() => { active = (active + 1) % bars.length; set(active); if (++n >= bars.length) { clearInterval(timer); active = 0; set(0); } }, 4000); }
     bars.forEach((b, i) => {
       b.addEventListener('mouseenter', () => { clearInterval(timer); set(i); });
       b.addEventListener('mouseleave', () => { set(-1); active = -1; cycle(); });

@@ -6,7 +6,7 @@
 <title>Bill Bricker — AI-Forward Sales &amp; Partnerships Leader</title>
 <meta name="description" content="AI-Forward Sales & Partnerships Leader. I close the deals the biggest names in tech say yes to — then 10x the work with AI. Founded Dreamship, closed Google as a partner in year one."/>
 <meta property="og:title" content="Bill Bricker — AI-Forward Sales &amp; Partnerships Leader"/>
-<meta property="og:description" content="I close the deals the biggest names in tech say yes to. Founded Dreamship, closed Google as a partner in year one — a $45M+ ad-spend channel — on its climb to $35M+ revenue. Then I 10x GTM with AI."/>
+<meta property="og:description" content="I close the deals the biggest names in tech say yes to. Founded Dreamship, closed Google as a partner in year one — opening a $45M+ ad-spend channel — and led the company to $35M+ peak revenue. Then I 10x GTM with AI."/>
 <meta property="og:type" content="website"/>
 <meta property="og:image" content="https://picklebill.github.io/Brick/assets/og-card.png"/>
 <meta property="og:image:width" content="1200"/>
@@ -33,7 +33,7 @@
   .avail i{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 7px rgba(111,239,180,.55);flex-shrink:0}
 
   /* operator card */
-  .opcard{background:linear-gradient(180deg,var(--glass),var(--glass2));border:1px solid var(--line);border-radius:var(--radius);padding:14px;backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));box-shadow:0 40px 90px -44px rgba(0,0,0,.85);position:relative;overflow:hidden}
+  .opcard{background:linear-gradient(180deg,var(--glass),var(--glass2));border:1px solid var(--line);border-radius:var(--radius);padding:14px;backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));box-shadow:0 40px 90px -44px rgba(0,0,0,.85),0 0 38px -16px rgba(111,239,180,.20);position:relative;overflow:hidden}
   /* flip image (from the original build) — smaller */
   .flip{position:relative;perspective:1500px;cursor:pointer;border-radius:14px}
   .flip-inner{position:relative;width:100%;aspect-ratio:1/1;transition:transform .72s var(--ease);transform-style:preserve-3d}
@@ -48,10 +48,7 @@
   .flip .live i{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 9px var(--mint);animation:pulse 2s infinite}
   .flip .cue{position:absolute;top:10px;right:11px;z-index:3;font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);background:rgba(8,9,10,.5);border:1px solid var(--line);padding:4px 8px;border-radius:99px;transition:.2s}
   .flip:hover .cue{color:var(--mint);border-color:rgba(111,239,180,.3)}
-  /* moving glint — ported from the root identity card for the "glow" feel */
-  .flip-face::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);transform:skewX(-18deg);animation:sheen 7s ease-in-out infinite;pointer-events:none;z-index:4}
-  @keyframes sheen{0%,100%{left:-70%}55%{left:130%}}
-  @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}.flip-face::after{animation:none}}
+  @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}.flip .live i{animation:none}}
 
   .opmeta{padding:13px 6px 2px}
   .opyears{display:flex;align-items:baseline;gap:8px;padding:0 1px 11px}
@@ -149,13 +146,13 @@
           <div class="flip-inner">
             <div class="flip-face flip-front">
               <span class="cue">⟲ flip</span>
-              <img src="../assets/family.jpg" alt="Bill Bricker with his family"/>
+              <img src="../assets/family.jpg" alt="Bill Bricker with his family" decoding="async"/>
               <div class="grad"></div>
               <div class="cap"><b>Bill Bricker</b> · Raleigh, NC · father of three</div>
             </div>
             <div class="flip-face flip-back">
               <span class="cue">⟲ back</span>
-              <img src="../assets/dreamship-donate.jpg" alt="Bill on stage — Dreamship's give-back to Freedom United, 2019"/>
+              <img src="../assets/dreamship-donate.jpg" alt="Bill on stage — Dreamship's give-back to Freedom United, 2019" loading="lazy" style="object-position:50% 38%"/>
               <div class="grad"></div>
               <div class="cap"><b>Dreamship × Freedom United</b> · on-stage give-back, 2019</div>
             </div>
@@ -167,7 +164,7 @@
             <div class="bar" data-m="$45M+" data-ml="Google channel"><span class="t">Enterprise &amp; partnership GTM</span><span class="v">IBM · Google</span><span class="track"><i data-w="95" style="background:linear-gradient(90deg,#5be8a0,#36c6e0)"></i></span></div>
             <div class="bar" data-m="6" data-ml="big-tech partners"><span class="t">Closed big-tech partners</span><span class="v">Stripe · Meta</span><span class="track"><i data-w="80" style="background:linear-gradient(90deg,#36c6e0,#8b7cf0)"></i></span></div>
             <div class="bar" data-m="11x" data-ml="in 2020"><span class="t">Zero-to-one scale</span><span class="v">$35M+</span><span class="track"><i data-w="90" style="background:linear-gradient(90deg,#5be8a0,#36c6e0)"></i></span></div>
-            <div class="bar" data-m="0→40+" data-ml="AI apps shipped"><span class="t">AI-native workflows</span><span class="v">40+ apps</span><span class="track"><i data-w="72" style="background:linear-gradient(90deg,#8b7cf0,#ff8a6b)"></i></span></div>
+            <div class="bar" data-m="0→40+" data-ml="AI apps shipped"><span class="t">AI-native workflows</span><span class="v">40+ apps</span><span class="track"><i data-w="90" style="background:linear-gradient(90deg,#8b7cf0,#ff8a6b)"></i></span></div>
           </div>
         </div>
       </div>
@@ -181,6 +178,7 @@
         <a class="pill solid" href="#center">See the deal →</a>
         <a class="pill ghost" href="../assets/Bill_Bricker_Resume.pdf" download>Download résumé</a>
       </div>
+      <div class="avail"><i></i> Open to GTM &amp; partnerships leadership · founder · fractional · board</div>
     </div>
   </header>
 
@@ -194,7 +192,7 @@
       <div class="dstats">
         <div class="dst"><div class="n"><span data-count="35" data-pre="$" data-suf="M+">$35M+</span></div><div class="l"><b>peak revenue</b></div></div>
         <div class="dst"><div class="n"><span data-count="11" data-suf="x">11x</span></div><div class="l">growth in 2020<br>$1.6M → $17M</div></div>
-        <div class="dst"><div class="n">$45M+</div><div class="l"><b>ad spend</b> through the channel — not revenue</div></div>
+        <div class="dst"><div class="n"><span data-count="45" data-pre="$" data-suf="M+">$45M+</span></div><div class="l"><b>ad spend</b> through the channel — not revenue</div></div>
         <div class="dst"><div class="n"><span data-count="4">4</span></div><div class="l">years EBITDA-profitable. <b>Profitable today.</b></div></div>
       </div>
       <div class="foot8"><i></i> ~$85M GMV · 2.3M+ units · 323% revenue CAGR (2019–21)</div>
@@ -294,7 +292,7 @@
         <div class="statbadge" style="--x:6%;--y:10%;--c:#F1C40F;animation-delay:.35s"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
         <div class="statbadge" style="--x:6%;--y:66%;--c:#6EEFC0;animation-delay:.65s"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
         <div class="statbadge" style="--x:57%;--y:66%;--c:#BD93F9;animation-delay:.95s"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
-        <span class="vlabel">▸ live CV pipeline · $0.0054/analyzed clip</span>
+        <span class="vlabel">▸ CV pipeline · recorded walkthrough</span>
       </div>
       <div class="glass aicard">
         <div class="ck">Pickle DaaS · computer-vision pipeline</div>
