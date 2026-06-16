@@ -1,0 +1,6 @@
+{
+  "files": ["sales/**/*.html", "*.html"],
+  "insertBefore": "</body>",
+  "commentSyntax": "<!-- -->",
+  "cspChecked": true
+}

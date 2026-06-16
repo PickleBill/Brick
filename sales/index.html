@@ -32,40 +32,37 @@
   .avail{margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.02em}
   .avail i{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 7px rgba(111,239,180,.55);flex-shrink:0}
 
-  /* operator identity card — whole-card flip (front portrait ⇄ back operator profile) */
-  .opcard{background:linear-gradient(180deg,var(--glass),var(--glass2));border:1px solid var(--line);border-radius:var(--radius);padding:10px;backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));box-shadow:0 40px 90px -44px rgba(0,0,0,.85),0 0 42px -16px rgba(111,239,180,.22);position:relative}
-  .flip{position:relative;perspective:1800px;cursor:pointer}
-  .flip-inner{position:relative;width:100%;min-height:clamp(446px,58vh,492px);transition:transform .82s var(--ease);transform-style:preserve-3d}
+  /* operator card — restored simple two-photo flip (front family / back give-back) + bars below */
+  .opcard{background:linear-gradient(180deg,var(--glass),var(--glass2));border:1px solid var(--line);border-radius:var(--radius);padding:14px;backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));box-shadow:0 40px 90px -44px rgba(0,0,0,.85),0 0 42px -16px rgba(111,239,180,.22);position:relative;overflow:hidden}
+  .flip{position:relative;perspective:1500px;cursor:pointer;border-radius:14px}
+  .flip-inner{position:relative;width:100%;aspect-ratio:1/1;transition:transform .72s var(--ease);transform-style:preserve-3d}
   .flip.flipped .flip-inner{transform:rotateY(180deg)}
-  .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,#0e1413,#0a0c0d)}
-  .flip-back{transform:rotateY(180deg);display:flex;flex-direction:column;overflow-y:auto}
-  .flip-front .cf-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
-  .flip-front .grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(8,9,10,.88));z-index:2;pointer-events:none}
-  .flip .cap{position:absolute;left:14px;right:14px;bottom:12px;z-index:3;font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;color:#dfe3e6;pointer-events:none}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .flip-back{transform:rotateY(180deg)}
+  .flip-face img{width:100%;height:100%;object-fit:cover;display:block}
+  .flip-face::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);transform:skewX(-18deg);animation:sheen 7s ease-in-out infinite;pointer-events:none;z-index:1}
+  @keyframes sheen{0%,14%{left:-70%}58%,100%{left:130%}}
+  .flip .grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(8,9,10,.88));z-index:2;pointer-events:none}
+  .flip .cap{position:absolute;left:12px;right:12px;bottom:10px;z-index:3;font-family:var(--mono);font-size:10px;letter-spacing:.03em;color:#dfe3e6;pointer-events:none}
   .flip .cap b{color:#fff;font-weight:600}
-  .flipcue{position:absolute;top:11px;right:12px;z-index:5;font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);background:rgba(8,9,10,.55);border:1px solid var(--line);padding:4px 9px;border-radius:99px;display:inline-flex;align-items:center;gap:6px;transition:.2s;pointer-events:none}
-  .flip:hover .flipcue{color:var(--mint);border-color:rgba(111,239,180,.32)}
-  .js .flip:not(.flipped) .flipcue .rot{display:inline-block;animation:rotcue 3.4s ease-in-out infinite}
-  @keyframes rotcue{0%,74%,100%{transform:rotate(0)}84%{transform:rotate(-26deg)}93%{transform:rotate(7deg)}}
-  .ob-photo{position:relative;flex:0 0 31%;overflow:hidden}
-  .ob-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 34%;display:block}
-  .ob-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(10,12,13,.92))}
-  .ob-body{flex:1;display:flex;flex-direction:column;gap:7px;padding:11px 15px 13px}
-  .ob-tag{font-family:var(--disp);font-size:14.5px;font-weight:700;letter-spacing:-.012em;line-height:1.22;color:var(--mute)}
-  .ob-tag b{color:var(--ink);font-weight:700}
-  .ob-meta{display:flex;align-items:baseline;gap:8px}
-  .ob-meta .n{font-family:var(--disp);font-size:18px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
-  .ob-meta .l{font-family:var(--mono);font-size:9px;color:var(--mute);letter-spacing:.02em;text-transform:uppercase}
-  .bars{display:flex;flex-direction:column;gap:6px;min-width:0}
-  .bar{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:11px;cursor:pointer;border-radius:8px;padding:3px 7px;margin:0 -7px;transition:background .2s}
+  .flip .cap .obtag{display:block;font-family:var(--disp);font-size:14px;font-weight:700;letter-spacing:-.01em;line-height:1.18;color:#fff;margin-bottom:4px;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+  .flip .cap .capsub{display:block;font-weight:400;color:#cfd4d8}
+  .flip .cue{position:absolute;top:10px;right:11px;z-index:5;font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);background:rgba(8,9,10,.5);border:1px solid var(--line);padding:4px 8px;border-radius:99px;transition:.2s}
+  .flip:hover .cue{color:var(--mint);border-color:rgba(111,239,180,.3)}
+  @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}.flip-face::after{animation:none}}
+
+  .opmeta{padding:13px 6px 2px}
+  .opyears{display:flex;align-items:baseline;gap:8px;padding:0 1px 11px}
+  .opyears .n{font-family:var(--disp);font-size:21px;font-weight:800;letter-spacing:-.03em;background:linear-gradient(120deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .opyears .l{font-family:var(--mono);font-size:10px;color:var(--mute);letter-spacing:.02em;text-transform:uppercase}
+  .bars{display:flex;flex-direction:column;gap:7px;min-width:0}
+  .bar{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:11.5px;cursor:pointer;border-radius:8px;padding:3px 7px;margin:0 -7px;transition:background .2s}
   .bar:hover,.bar.on{background:rgba(111,239,180,.08)}
   .bar.on .t{color:var(--mint)}
   .bar .t{color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .bar .v{font-family:var(--mono);font-size:9px;color:var(--mute);text-align:right;white-space:nowrap}
-  .bar .track{grid-column:1/-1;height:4px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+  .bar .v{font-family:var(--mono);font-size:9.5px;color:var(--mute);text-align:right;white-space:nowrap}
+  .bar .track{grid-column:1/-1;height:5px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
   .bar .track i{display:block;height:100%;border-radius:99px;width:0;transition:width 1.3s var(--ease)}
-  @media(max-width:600px){.bar{padding:6px 7px}.bar .v{display:none}}
-  @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}.flipcue .rot{animation:none}.bar .track i{transition:none}}
 
   /* tighter centerpiece */
   #center .glass.center{padding:24px 26px}
@@ -77,6 +74,7 @@
   .cmdrow{display:flex;flex-wrap:nowrap;align-items:center;gap:7px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:1px 0}
   .cmdrow::-webkit-scrollbar{display:none}
   .cmdrow .cmd-chip{flex:0 0 auto}
+  @media(max-width:600px){.cmdrow{flex-wrap:wrap;overflow-x:visible}.cmdrow .cmd-chip{flex:0 1 auto}}
   .rowlbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;margin-right:3px;flex:0 0 auto}
   .rowlbl.green{color:var(--mint2)} .rowlbl.orange{color:#e0a86b} .rowlbl.violet{color:#9b86e6}
   .cmdrow.orange .cmd-chip{border-color:rgba(224,168,107,.26)} .cmdrow.orange .cmd-chip .c{color:#e0a86b}
@@ -95,7 +93,14 @@
   .statbadge .bt{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}
   .statbadge .bb{display:block;font-family:var(--mono);font-size:11px;color:#f4f6f7;margin-top:2px}
   .statbadge .bb b{color:#fff}
-  @media(max-width:560px){.statbadge{display:none}}
+  @media(max-width:560px){
+    .vcard{aspect-ratio:auto;overflow:visible}
+    .vcard>video{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;border-radius:13px}
+    .vcard .vgrad{display:none}
+    .vcard .vlabel{position:static;display:inline-block;margin-top:8px}
+    .statbadge{position:static;left:auto;top:auto;opacity:1;transform:none;max-width:none;display:inline-flex;margin:8px 8px 0 0;animation:none}
+    .statbadge .edge{display:none}
+  }
   @media(prefers-reduced-motion:reduce){.statbadge{animation:none;opacity:1;transform:none}.statbadge .edge{animation:none}}
   .contact{padding-top:84px}
   .contact h2 .spectrum{animation:none}
@@ -125,7 +130,7 @@
   .star.anchor img{height:38px;opacity:1;filter:brightness(0) invert(1)}
   .star.anchor::before{background:radial-gradient(circle,rgba(91,232,160,.20),transparent 68%);opacity:1}
   @keyframes starfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-  @media(max-width:560px){.constellation{min-height:0;padding:16px 0}.constel-logos{gap:15px 22px;max-width:320px}.star img{height:22px}.star.anchor img{height:30px}.star.wm{font-size:18px}.star{animation:none}.constel-lines{display:none}}
+  @media(max-width:560px){.constellation{min-height:0;padding:16px 0}.constel-logos{gap:15px 22px;max-width:320px}.star img{height:22px}.star.anchor img{height:30px}.star.wm{font-size:18px}.star{animation:none}.constel-lines{opacity:.45}}
   @media(prefers-reduced-motion:reduce){.star{animation:none}}
 
   /* ecosystem logo wall (replaces flywheel panels) */
@@ -162,32 +167,29 @@
   <header class="hero">
     <div class="hcard rv">
       <div class="opcard">
-        <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card — front: portrait. Activate to flip to the operator profile.">
+        <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card — tap to flip between the family portrait and the on-stage give-back photo.">
           <div class="flip-inner">
-            <!-- FRONT · portrait -->
             <div class="flip-face flip-front">
-              <span class="flipcue"><span class="rot">⟲</span> tap to flip</span>
-              <img class="cf-photo" src="../assets/family.jpg" alt="Bill Bricker with his family" decoding="async"/>
+              <span class="cue">⟲ flip</span>
+              <img src="../assets/family.jpg" alt="Bill Bricker with his family" decoding="async"/>
               <div class="grad"></div>
               <div class="cap"><b>Bill Bricker</b> · Raleigh, NC · father of three</div>
             </div>
-            <!-- BACK · operator profile: photo → tagline → interactive proof bars -->
             <div class="flip-face flip-back">
-              <span class="flipcue"><span class="rot">⟲</span> flip back</span>
-              <div class="ob-photo">
-                <img src="../assets/dreamship-donate.jpg" alt="Bill on stage — Dreamship's give-back to Freedom United, 2019" loading="lazy"/>
-              </div>
-              <div class="ob-body">
-                <div class="ob-tag">Zero-to-one builder · <b>forward-deployed GTM operator.</b></div>
-                <div class="ob-meta"><span class="n" id="ringN">20</span><span class="l" id="ringL">years in enterprise GTM</span></div>
-                <div class="bars" id="bars">
-                  <div class="bar" data-m="$45M+" data-ml="Google channel"><span class="t">Enterprise &amp; partnership GTM</span><span class="v">IBM · Google</span><span class="track"><i data-w="95" style="background:linear-gradient(90deg,#5be8a0,#36c6e0)"></i></span></div>
-                  <div class="bar" data-m="6" data-ml="big-tech partners"><span class="t">Closed big-tech partners</span><span class="v">Stripe · Meta</span><span class="track"><i data-w="80" style="background:linear-gradient(90deg,#36c6e0,#8b7cf0)"></i></span></div>
-                  <div class="bar" data-m="11x" data-ml="in 2020"><span class="t">Zero-to-one scale</span><span class="v">$35M+</span><span class="track"><i data-w="90" style="background:linear-gradient(90deg,#5be8a0,#36c6e0)"></i></span></div>
-                  <div class="bar" data-m="0→40+" data-ml="AI apps shipped"><span class="t">AI-native workflows</span><span class="v">40+ apps</span><span class="track"><i data-w="90" style="background:linear-gradient(90deg,#8b7cf0,#ff8a6b)"></i></span></div>
-                </div>
-              </div>
+              <span class="cue">⟲ back</span>
+              <img src="../assets/dreamship-donate.jpg" alt="Bill on stage — Dreamship's give-back to Freedom United, 2019" loading="lazy" style="object-position:50% 38%"/>
+              <div class="grad"></div>
+              <div class="cap"><b class="obtag">Zero-to-one builder · forward-deployed GTM operator</b><span class="capsub">Dreamship × Freedom United · on-stage give-back, 2019</span></div>
             </div>
+          </div>
+        </div>
+        <div class="opmeta">
+          <div class="opyears"><span class="n" id="ringN">20</span><span class="l" id="ringL">years in enterprise GTM</span></div>
+          <div class="bars">
+            <div class="bar" data-m="$45M+" data-ml="Google channel"><span class="t">Enterprise &amp; partnership GTM</span><span class="v">IBM · Google</span><span class="track"><i data-w="95" style="background:linear-gradient(90deg,#5be8a0,#36c6e0)"></i></span></div>
+            <div class="bar" data-m="6" data-ml="big-tech partners"><span class="t">Closed big-tech partners</span><span class="v">Stripe · Meta</span><span class="track"><i data-w="80" style="background:linear-gradient(90deg,#36c6e0,#8b7cf0)"></i></span></div>
+            <div class="bar" data-m="11x" data-ml="in 2020"><span class="t">Zero-to-one scale</span><span class="v">$35M+</span><span class="track"><i data-w="90" style="background:linear-gradient(90deg,#5be8a0,#36c6e0)"></i></span></div>
+            <div class="bar" data-m="0→40+" data-ml="AI apps shipped"><span class="t">AI-native workflows</span><span class="v">40+ apps</span><span class="track"><i data-w="90" style="background:linear-gradient(90deg,#8b7cf0,#ff8a6b)"></i></span></div>
           </div>
         </div>
       </div>
@@ -373,7 +375,7 @@
     f.addEventListener('click',toggle);
     f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
     try{if(!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){
-      setTimeout(function(){if(touched)return;setFlip(true);setTimeout(function(){if(touched)return;setFlip(false);},2600);},3200);
+      setTimeout(function loop(){if(touched)return;setFlip(true);setTimeout(function(){if(touched)return;setFlip(false);setTimeout(loop,6000);},2700);},3000);
     }}catch(e){}
   }
   // honor reduced-motion: don't autoplay the clip
