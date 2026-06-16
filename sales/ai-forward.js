@@ -65,13 +65,12 @@
       if (i < 0) { ringN.textContent = base.n; ringL.textContent = base.l; }
       else { ringN.textContent = bars[i].dataset.m; ringL.textContent = bars[i].dataset.ml; }
     }
-    function cycle() { if (reduce) return; let n = 0; timer = setInterval(() => { active = (active + 1) % bars.length; set(active); if (++n >= bars.length) { clearInterval(timer); active = 0; set(0); } }, 4000); }
     bars.forEach((b, i) => {
-      b.addEventListener('mouseenter', () => { clearInterval(timer); set(i); });
-      b.addEventListener('mouseleave', () => { set(-1); active = -1; cycle(); });
-      b.addEventListener('click', () => { clearInterval(timer); active = i; set(i); });
+      b.addEventListener('mouseenter', () => { set(i); });
+      b.addEventListener('mouseleave', () => { set(0); active = 0; });
+      b.addEventListener('click', () => { active = i; set(i); });
     });
-    setTimeout(() => { set(0); active = 0; cycle(); }, reduce ? 0 : 900);
+    setTimeout(() => { set(0); active = 0; }, reduce ? 0 : 900);
     setTimeout(() => { document.querySelectorAll('.track i').forEach((i) => { i.style.width = i.dataset.w + '%'; }); }, reduce ? 0 : 350);
   }
 

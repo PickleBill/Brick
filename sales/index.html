@@ -35,10 +35,10 @@
   /* operator identity card — whole-card flip (front portrait ⇄ back operator profile) */
   .opcard{background:linear-gradient(180deg,var(--glass),var(--glass2));border:1px solid var(--line);border-radius:var(--radius);padding:10px;backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));box-shadow:0 40px 90px -44px rgba(0,0,0,.85),0 0 42px -16px rgba(111,239,180,.22);position:relative}
   .flip{position:relative;perspective:1800px;cursor:pointer}
-  .flip-inner{position:relative;width:100%;min-height:clamp(404px,52vh,452px);transition:transform .82s var(--ease);transform-style:preserve-3d}
+  .flip-inner{position:relative;width:100%;min-height:clamp(446px,58vh,492px);transition:transform .82s var(--ease);transform-style:preserve-3d}
   .flip.flipped .flip-inner{transform:rotateY(180deg)}
   .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,#0e1413,#0a0c0d)}
-  .flip-back{transform:rotateY(180deg);display:flex;flex-direction:column}
+  .flip-back{transform:rotateY(180deg);display:flex;flex-direction:column;overflow-y:auto}
   .flip-front .cf-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
   .flip-front .grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(8,9,10,.88));z-index:2;pointer-events:none}
   .flip .cap{position:absolute;left:14px;right:14px;bottom:12px;z-index:3;font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;color:#dfe3e6;pointer-events:none}
@@ -47,14 +47,14 @@
   .flip:hover .flipcue{color:var(--mint);border-color:rgba(111,239,180,.32)}
   .js .flip:not(.flipped) .flipcue .rot{display:inline-block;animation:rotcue 3.4s ease-in-out infinite}
   @keyframes rotcue{0%,74%,100%{transform:rotate(0)}84%{transform:rotate(-26deg)}93%{transform:rotate(7deg)}}
-  .ob-photo{position:relative;flex:0 0 39%;overflow:hidden}
+  .ob-photo{position:relative;flex:0 0 31%;overflow:hidden}
   .ob-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 34%;display:block}
   .ob-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(10,12,13,.92))}
-  .ob-body{flex:1;display:flex;flex-direction:column;gap:9px;padding:11px 15px 13px}
+  .ob-body{flex:1;display:flex;flex-direction:column;gap:7px;padding:11px 15px 13px}
   .ob-tag{font-family:var(--disp);font-size:14.5px;font-weight:700;letter-spacing:-.012em;line-height:1.22;color:var(--mute)}
   .ob-tag b{color:var(--ink);font-weight:700}
   .ob-meta{display:flex;align-items:baseline;gap:8px}
-  .ob-meta .n{font-family:var(--disp);font-size:18px;font-weight:800;letter-spacing:-.03em;background:linear-gradient(120deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .ob-meta .n{font-family:var(--disp);font-size:18px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
   .ob-meta .l{font-family:var(--mono);font-size:9px;color:var(--mute);letter-spacing:.02em;text-transform:uppercase}
   .bars{display:flex;flex-direction:column;gap:6px;min-width:0}
   .bar{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:11px;cursor:pointer;border-radius:8px;padding:3px 7px;margin:0 -7px;transition:background .2s}
@@ -64,6 +64,7 @@
   .bar .v{font-family:var(--mono);font-size:9px;color:var(--mute);text-align:right;white-space:nowrap}
   .bar .track{grid-column:1/-1;height:4px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
   .bar .track i{display:block;height:100%;border-radius:99px;width:0;transition:width 1.3s var(--ease)}
+  @media(max-width:600px){.bar{padding:6px 7px}.bar .v{display:none}}
   @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}.flipcue .rot{animation:none}.bar .track i{transition:none}}
 
   /* tighter centerpiece */
@@ -88,10 +89,9 @@
   .vlabel{position:absolute;right:13px;bottom:12px;z-index:4;font-family:var(--mono);font-size:11px;color:var(--mint);letter-spacing:.02em;background:rgba(8,9,10,.62);padding:5px 10px;border-radius:99px;border:1px solid var(--line)}
   .statbadge{position:absolute;left:var(--x);top:var(--y);z-index:3;display:flex;align-items:stretch;max-width:190px;opacity:0;transform:scale(.85) translateY(8px);transition:opacity .45s var(--ease),transform .55s cubic-bezier(.34,1.56,.64,1)}
   .statbadge.show{opacity:1;transform:scale(1) translateY(0)}
-  .statbadge .edge{width:3px;border-radius:9px 0 0 9px;background:var(--c);box-shadow:0 0 9px var(--c);animation:edgepulse 1.8s ease-in-out infinite}
-  @keyframes edgepulse{0%,100%{box-shadow:0 0 8px var(--c)}50%{box-shadow:0 0 16px var(--c),0 0 26px var(--c)}}
-  .statbadge .edge{width:3.5px}
-  .statbadge .bd{background:rgba(9,11,15,.94);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.18);border-left:0;border-radius:0 9px 9px 0;padding:7px 11px;box-shadow:0 12px 36px rgba(0,0,0,.7),0 0 22px -5px var(--c)}
+  .statbadge .edge{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c);animation:edgepulse 1.8s ease-in-out infinite;z-index:2}
+  @keyframes edgepulse{0%,100%{box-shadow:0 0 7px var(--c)}50%{box-shadow:0 0 14px var(--c)}}
+  .statbadge .bd{background:rgba(9,11,15,.94);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:7px 12px 7px 24px;box-shadow:0 12px 36px rgba(0,0,0,.7),0 0 18px -7px var(--c)}
   .statbadge .bt{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}
   .statbadge .bb{display:block;font-family:var(--mono);font-size:11px;color:#f4f6f7;margin-top:2px}
   .statbadge .bb b{color:#fff}
@@ -125,7 +125,7 @@
   .star.anchor img{height:38px;opacity:1;filter:brightness(0) invert(1)}
   .star.anchor::before{background:radial-gradient(circle,rgba(91,232,160,.20),transparent 68%);opacity:1}
   @keyframes starfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-  @media(max-width:560px){.constellation{min-height:0;padding:18px 0}.constel-logos{gap:18px 26px}.star img{height:22px}.star.anchor img{height:30px}.star.wm{font-size:18px}.constel-lines{opacity:.6}}
+  @media(max-width:560px){.constellation{min-height:0;padding:16px 0}.constel-logos{gap:15px 22px;max-width:320px}.star img{height:22px}.star.anchor img{height:30px}.star.wm{font-size:18px}.star{animation:none}.constel-lines{display:none}}
   @media(prefers-reduced-motion:reduce){.star{animation:none}}
 
   /* ecosystem logo wall (replaces flywheel panels) */
@@ -311,7 +311,7 @@
   <section class="wrap termsec" id="brickeros">
     <div class="rv" style="margin-bottom:14px">
       <div class="kick"><span class="num">//</span>bricker.os · live</div>
-      <h2>Don't take my word for it. <span class="spectrum">Ask the machine.</span></h2>
+      <h2>Don't take my word for it. Ask the machine.</h2>
       <p class="sub">A real terminal, wired to my record and built solo with the AI stack it describes. It boots <span class="mono" style="color:var(--mint)">whoami</span> when you reach it — tap a command or ask your own.</p>
     </div>
     <div class="term-shell rv" id="termShell">
