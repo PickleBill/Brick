@@ -83,7 +83,7 @@
     const showBadges = () => {
       if (shown) return; shown = true;
       badges.forEach((b, i) => setTimeout(() => b.classList.add('show'), reduce ? 0 : 160 + i * 230));
-      const v = vcard.querySelector('video'); if (v && v.paused) { try { v.play(); } catch (e) {} }
+      const v = vcard.querySelector('video'); const big = window.matchMedia && window.matchMedia('(min-width: 760px)').matches; const saveData = navigator.connection && navigator.connection.saveData; if (v && v.paused && !reduce && big && !saveData) { try { v.preload = 'auto'; v.play(); } catch (e) {} }
       window.removeEventListener('scroll', badgeCheck);
     };
     function badgeCheck() {
