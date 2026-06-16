@@ -43,8 +43,9 @@
 
   nav{position:sticky;top:0;z-index:60;background:rgba(245,238,213,.92);backdrop-filter:blur(8px);border-bottom:.5px solid var(--rule)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
-  .brand{font-style:italic;font-weight:500;font-size:19px;text-decoration:none;white-space:nowrap}
-  .brand .pk{font-style:normal;font-size:18px;filter:drop-shadow(0 0 5px rgba(168,66,29,.5))}
+  .brand{font-family:var(--mono);font-weight:600;font-size:15px;letter-spacing:-.01em;text-decoration:none;white-space:nowrap;color:var(--ink)}
+  .brand .d{color:var(--sienna)}
+  .brand .dot{color:var(--mute)}
   .nl{display:flex;gap:4px;align-items:center;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
   .nl a{color:var(--mute);text-decoration:none;transition:.15s;padding:8px 11px;border-radius:7px}
   .nl a:hover{color:var(--sienna)}
@@ -313,7 +314,7 @@
 </head>
 <body>
 <nav><div class="wrap">
-  <a class="brand" href="index.html"><span class="pk">🥒</span> Bill Bricker</a>
+  <a class="brand" href="index.html"><span class="d">●</span> bill<span class="dot">.</span>bricker</a>
   <div class="nl">
     <a href="climb.html" class="here">Story</a><a href="index.html#center">Work</a>
     <a href="../assets/Bill_Bricker_Resume.pdf" download>Résumé</a><a href="mailto:bricker3@gmail.com" class="email">Email</a>

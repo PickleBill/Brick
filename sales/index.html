@@ -49,6 +49,14 @@
   .flip .cue{position:absolute;top:10px;right:11px;z-index:3;font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);background:rgba(8,9,10,.5);border:1px solid var(--line);padding:4px 8px;border-radius:99px;transition:.2s}
   .flip:hover .cue{color:var(--mint);border-color:rgba(111,239,180,.3)}
   @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}}
+  .opback{position:absolute;inset:0;background:linear-gradient(165deg,#0e1614,#0a0c0d);display:flex;flex-direction:column;justify-content:center;gap:12px;padding:22px 20px}
+  .opback-k{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint2)}
+  .opback-h{font-family:var(--disp);font-size:23px;font-weight:700;letter-spacing:-.02em;line-height:1.06;color:var(--ink)}
+  .opback-rows{display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--mute);line-height:1.4}
+  .opback-rows b{color:var(--ink);font-weight:600}
+  .opback-rows div{padding-left:14px;position:relative}
+  .opback-rows div::before{content:"›";position:absolute;left:0;color:var(--mint)}
+  .opback-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--faint);margin-top:2px}
 
   .opmeta{padding:13px 6px 2px}
   .opyears{display:flex;align-items:baseline;gap:8px;padding:0 1px 11px}
@@ -80,16 +88,17 @@
 
   /* AI section video card */
   .vcard{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;background:#06070a}
-  .vcard video{width:100%;height:100%;object-fit:cover;display:block}
-  .vgrad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,10,.1),transparent 30%,transparent 62%,rgba(8,9,10,.72));pointer-events:none}
+  .vcard video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:1}
+  .vgrad{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(8,9,10,.1),transparent 30%,transparent 62%,rgba(8,9,10,.72));pointer-events:none}
   .vlabel{position:absolute;right:13px;bottom:12px;z-index:4;font-family:var(--mono);font-size:11px;color:var(--mint);letter-spacing:.02em;background:rgba(8,9,10,.62);padding:5px 10px;border-radius:99px;border:1px solid var(--line)}
-  .statbadge{position:absolute;left:var(--x);top:var(--y);z-index:3;display:flex;align-items:stretch;max-width:190px;opacity:0;transform:scale(.85) translateY(8px);animation:badgein .5s var(--ease) forwards}
-  @keyframes badgein{to{opacity:1;transform:scale(1) translateY(0)}}
+  .statbadge{position:absolute;left:var(--x);top:var(--y);z-index:3;display:flex;align-items:stretch;max-width:190px;opacity:0;transform:scale(.85) translateY(8px);transition:opacity .45s var(--ease),transform .55s cubic-bezier(.34,1.56,.64,1)}
+  .statbadge.show{opacity:1;transform:scale(1) translateY(0)}
   .statbadge .edge{width:3px;border-radius:9px 0 0 9px;background:var(--c);box-shadow:0 0 9px var(--c);animation:edgepulse 1.8s ease-in-out infinite}
   @keyframes edgepulse{0%,100%{box-shadow:0 0 8px var(--c)}50%{box-shadow:0 0 16px var(--c),0 0 26px var(--c)}}
-  .statbadge .bd{background:rgba(8,8,12,.8);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.1);border-left:0;border-radius:0 9px 9px 0;padding:6px 10px;box-shadow:0 8px 32px rgba(0,0,0,.45),0 0 20px -6px var(--c)}
-  .statbadge .bt{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}
-  .statbadge .bb{display:block;font-family:var(--mono);font-size:10.5px;color:#eef0ee;margin-top:2px}
+  .statbadge .edge{width:3.5px}
+  .statbadge .bd{background:rgba(9,11,15,.94);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.18);border-left:0;border-radius:0 9px 9px 0;padding:7px 11px;box-shadow:0 12px 36px rgba(0,0,0,.7),0 0 22px -5px var(--c)}
+  .statbadge .bt{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}
+  .statbadge .bb{display:block;font-family:var(--mono);font-size:11px;color:#f4f6f7;margin-top:2px}
   .statbadge .bb b{color:#fff}
   @media(max-width:560px){.statbadge{display:none}}
   @media(prefers-reduced-motion:reduce){.statbadge{animation:none;opacity:1;transform:none}.statbadge .edge{animation:none}}
@@ -107,6 +116,18 @@
   .climbrow:hover .climbimg img{transform:scale(1.06)}
   .climbimg .cp-hint{position:absolute;right:11px;bottom:9px;font-family:var(--mono);font-size:10px;color:var(--mint);background:rgba(8,9,10,.5);border:1px solid var(--line);padding:4px 9px;border-radius:99px}
   @media(prefers-reduced-motion:reduce){.climbimg img{transition:none}}
+  /* ecosystem logo wall (replaces flywheel panels) */
+  .ecosystem{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+  .eco{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;min-height:100px;padding:18px 14px;border:1px solid var(--line);border-radius:16px;background:var(--glass);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));text-align:center;transition:.2s var(--ease)}
+  .eco:hover{transform:translateY(-3px);border-color:var(--line2);background:rgba(255,255,255,.06)}
+  .eco img{height:23px;width:auto;max-width:88px;object-fit:contain;filter:brightness(0) invert(.82);opacity:.85;transition:.18s}
+  .eco:hover img{opacity:1;filter:brightness(0) invert(1)}
+  .eco .wm{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.01em;color:var(--mute)}
+  .eco:hover .wm{color:var(--ink)}
+  .eco .tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);line-height:1.3}
+  .eco.anchor{grid-column:span 2;background:linear-gradient(180deg,rgba(91,232,160,.08),var(--glass2));border-color:rgba(91,232,160,.28)}
+  .eco.anchor img{height:30px;opacity:1;filter:brightness(0) invert(.97)}
+  @media(max-width:560px){.ecosystem{grid-template-columns:repeat(2,1fr)}.eco.anchor{grid-column:span 2}}
 </style>
 </head>
 <body>
@@ -139,9 +160,16 @@
             </div>
             <div class="flip-face flip-back">
               <span class="cue">⟲ back</span>
-              <img src="../assets/dreamship-donate.jpg" alt="Dreamship giving back on stage"/>
-              <div class="grad"></div>
-              <div class="cap"><b>Building &amp; giving — same track.</b> Dreamship on stage, 2019.</div>
+              <div class="opback">
+                <div class="opback-k">// operator profile</div>
+                <div class="opback-h">Forward-deployed<br><span class="spectrum">GTM operator.</span></div>
+                <div class="opback-rows">
+                  <div><b>Zero-to-one</b> — three companies founded</div>
+                  <div><b>Closes</b> the biggest names in tech</div>
+                  <div><b>Ships</b> the product itself, with AI</div>
+                </div>
+                <div class="opback-tag">cold calls → Google → AI-forward GTM</div>
+              </div>
             </div>
           </div>
         </div>
@@ -165,11 +193,6 @@
         <a class="pill solid" href="#center">See the deal →</a>
         <a class="pill ghost" href="../assets/Bill_Bricker_Resume.pdf" download>Download résumé</a>
       </div>
-      <div class="cred">
-        <span class="lab">Partnerships closed</span>
-        <span class="logos"><b>Google</b> · <b>Microsoft</b> · <b>Stripe</b> · <b>PayPal</b> · <b>Payoneer</b> · <b>Meta</b></span>
-      </div>
-      <a class="avail" href="mailto:bricker3@gmail.com?subject=Frontier-lab%20GTM%20%E2%80%94%20let%27s%20talk"><i></i> Open to frontier-lab GTM &amp; partnerships leadership →</a>
     </div>
   </header>
 
@@ -178,8 +201,8 @@
     <div class="rv"><div class="kick"><span class="num">01</span>The centerpiece</div>
     <h2>The deal that made Dreamship.</h2></div>
     <div class="glass center rv">
-      <div class="heavy">A first-of-its-kind Google partnership — director-level sign-off across <b>5–6 internal teams</b> in year one: a trust layer verifying high-volume merchants on Google Vision.</div>
-      <div class="gloss">That one yes ran for 5+ years and put the company on the map. I built and ran the operation behind it — 21 fulfillment locations across 6 countries.</div>
+      <div class="heavy">A first-of-its-kind Google partnership — won across <b>5–6 internal teams</b> in year one, ran 5+ years.</div>
+      <div class="gloss">The deal that made the company — I built and ran the operation behind it: 21 fulfillment locations, 6 countries.</div>
       <div class="dstats">
         <div class="dst"><div class="n"><span data-count="35" data-pre="$" data-suf="M+">$35M+</span></div><div class="l"><b>peak revenue</b></div></div>
         <div class="dst"><div class="n"><span data-count="11" data-suf="x">11x</span></div><div class="l">growth in 2020<br>$1.6M → $17M</div></div>
@@ -231,18 +254,24 @@
     </div>
   </section>
 
-  <!-- 02 — FLYWHEEL -->
+  <!-- 02 — THE ECOSYSTEM (logo wall) -->
   <section class="wrap">
-    <div class="rv"><div class="kick"><span class="num">02</span>Made repeatable</div>
-    <h2>One credible yes unlocked the next.</h2>
-    <p class="sub">Off the Google credibility I sequenced the flywheel — closing the biggest names in tech became a system, not a one-off.</p></div>
-    <div class="fly rv">
-      <div class="glass partner anchor"><div class="pseq">ANCHOR</div><div class="pn">Google</div><div class="pl">first-of-its-kind partnership · $45M+ channel</div></div>
-      <div class="glass partner"><div class="pseq">THEN</div><div class="pn">Stripe</div><div class="pl">follow-on partnership</div></div>
-      <div class="glass partner"><div class="pseq">THEN</div><div class="pn">PayPal</div><div class="pl">follow-on partnership</div></div>
-      <div class="glass partner"><div class="pseq">THEN</div><div class="pn">Payoneer</div><div class="pl">follow-on partnership</div></div>
-      <div class="glass partner"><div class="pseq">THEN</div><div class="pn">Meta</div><div class="pl">follow-on partnership</div></div>
-      <div class="glass partner"><div class="pseq">THEN</div><div class="pn">Microsoft</div><div class="pl">Bing–ChatGPT merchant deal · tier earned on volume</div></div>
+    <div class="rv"><div class="kick"><span class="num">02</span>The ecosystem</div>
+    <h2>The names I've closed, shipped &amp; sold to.</h2>
+    <p class="sub">One credible yes unlocked the next — first-of-its-kind partnerships, then enterprise clients and the retail floor.</p></div>
+    <div class="ecosystem rv">
+      <div class="eco anchor"><img src="../assets/logos/google.svg" alt="Google"/><span class="tag">first-of-its-kind partnership · $45M+ channel</span></div>
+      <div class="eco"><img src="../assets/logos/microsoft.svg" alt="Microsoft"/><span class="tag">Bing–ChatGPT deal</span></div>
+      <div class="eco"><img src="../assets/logos/stripe.svg" alt="Stripe"/><span class="tag">partnership</span></div>
+      <div class="eco"><img src="../assets/logos/paypal.svg" alt="PayPal"/><span class="tag">partnership</span></div>
+      <div class="eco"><img src="../assets/logos/payoneer.svg" alt="Payoneer"/><span class="tag">partnership</span></div>
+      <div class="eco"><img src="../assets/logos/meta.svg" alt="Meta"/><span class="tag">partnership</span></div>
+      <div class="eco"><span class="wm">IBM</span><span class="tag">seven-figure analytics</span></div>
+      <div class="eco"><span class="wm">McKesson</span><span class="tag">8-figure deal</span></div>
+      <div class="eco"><img src="../assets/logos/zillow.svg" alt="Zillow"/><span class="tag">enterprise client</span></div>
+      <div class="eco"><span class="wm">Avalara</span><span class="tag">enterprise client</span></div>
+      <div class="eco"><img src="../assets/logos/macys.svg" alt="Macy's"/><span class="tag">retail · big-data pilot</span></div>
+      <div class="eco"><span class="wm">Nordstrom</span><span class="tag">retail · big-data pilot</span></div>
     </div>
   </section>
 

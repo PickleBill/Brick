@@ -75,6 +75,29 @@
     setTimeout(() => { document.querySelectorAll('.track i').forEach((i) => { i.style.width = i.dataset.w + '%'; }); }, reduce ? 0 : 350);
   }
 
+  /* ---------------- data-warehouse overlays (pop in on scroll — mimics the original build) ---------------- */
+  const vcard = document.querySelector('.vcard');
+  if (vcard) {
+    const badges = Array.from(vcard.querySelectorAll('.statbadge'));
+    let shown = false;
+    const showBadges = () => {
+      if (shown) return; shown = true;
+      badges.forEach((b, i) => setTimeout(() => b.classList.add('show'), reduce ? 0 : 160 + i * 230));
+      const v = vcard.querySelector('video'); if (v && v.paused) { try { v.play(); } catch (e) {} }
+      window.removeEventListener('scroll', badgeCheck);
+    };
+    function badgeCheck() {
+      if (shown) return;
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const r = vcard.getBoundingClientRect();
+      if (r.top < vh * 0.8 && r.bottom > 0) showBadges();
+    }
+    badgeCheck();
+    window.addEventListener('scroll', badgeCheck, { passive: true });
+    window.addEventListener('load', badgeCheck);
+    setTimeout(() => { if (!shown) showBadges(); }, 1500);
+  }
+
   /* ---------------- the live terminal ---------------- */
   const term = document.getElementById('term');
   if (!term) return;
