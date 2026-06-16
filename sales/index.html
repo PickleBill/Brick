@@ -21,7 +21,7 @@
   .hero{display:grid;grid-template-columns:.7fr 1.3fr;gap:44px;align-items:start;padding:52px 28px 12px;max-width:var(--maxw);margin:0 auto}
   @media(max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding:30px 22px 6px}.hero .hcopy{order:-1}.hero .hcard{max-width:268px;margin:0 auto}}
   h1{font-family:var(--disp);font-size:clamp(33px,4.6vw,52px);font-weight:700;letter-spacing:-.035em;line-height:1.04;margin:18px 0 0;max-width:none;text-wrap:balance}
-  .heavy-lede{font-size:clamp(15px,1.6vw,17.5px);color:var(--mute);margin-top:20px;max-width:54ch;line-height:1.6}
+  .heavy-lede{font-size:clamp(15px,1.6vw,17.5px);color:var(--mute);margin-top:20px;max-width:48ch;line-height:1.6}
   .heavy-lede b{color:var(--ink);font-weight:600}
   .hctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
   /* minimized credibility strip (logo-style wordmarks) */
@@ -29,6 +29,8 @@
   .cred .lab{color:var(--mint2);letter-spacing:.16em;text-transform:uppercase;font-size:9.5px}
   .cred .logos{color:var(--faint);font-size:12px;letter-spacing:.06em}
   .cred .logos b{color:var(--mute);font-weight:500}
+  .avail{margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--mute);letter-spacing:.02em}
+  .avail i{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 7px rgba(111,239,180,.55);flex-shrink:0}
 
   /* operator card */
   .opcard{background:linear-gradient(180deg,var(--glass),var(--glass2));border:1px solid var(--line);border-radius:var(--radius);padding:14px;backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));box-shadow:0 40px 90px -44px rgba(0,0,0,.85);position:relative;overflow:hidden}
@@ -48,14 +50,10 @@
   .flip:hover .cue{color:var(--mint);border-color:rgba(111,239,180,.3)}
   @media(prefers-reduced-motion:reduce){.flip-inner{transition:none}}
 
-  .ringrow{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:13px 6px 4px}
-  .ring{position:relative;width:78px;height:78px;flex-shrink:0}
-  .ring svg{transform:rotate(-90deg);filter:drop-shadow(0 0 8px rgba(111,239,180,.35))}
-  .ring .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-  .ring .ctr .n{font-family:var(--disp);font-size:23px;font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(120deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .ring .ctr .l{font-size:7.5px;color:var(--mute);letter-spacing:.04em;margin-top:3px;max-width:60px;line-height:1.2}
-  .ring-fg{stroke-dasharray:226;stroke-dashoffset:226;animation:draw 1.6s var(--ease) .3s forwards}
-  @keyframes draw{to{stroke-dashoffset:46}}
+  .opmeta{padding:13px 6px 2px}
+  .opyears{display:flex;align-items:baseline;gap:8px;padding:0 1px 11px}
+  .opyears .n{font-family:var(--disp);font-size:21px;font-weight:800;letter-spacing:-.03em;background:linear-gradient(120deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .opyears .l{font-family:var(--mono);font-size:10px;color:var(--mute);letter-spacing:.02em;text-transform:uppercase}
   .bars{display:flex;flex-direction:column;gap:7px;min-width:0}
   .bar{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:11.5px;cursor:pointer;border-radius:8px;padding:3px 7px;margin:0 -7px;transition:background .2s}
   .bar:hover,.bar.on{background:rgba(111,239,180,.08)}
@@ -84,10 +82,24 @@
   .vcard{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;background:#06070a}
   .vcard video{width:100%;height:100%;object-fit:cover;display:block}
   .vgrad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,10,.1),transparent 30%,transparent 62%,rgba(8,9,10,.72));pointer-events:none}
-  .vlabel{position:absolute;left:13px;bottom:12px;z-index:3;font-family:var(--mono);font-size:11px;color:var(--mint);letter-spacing:.02em}
-  .vbadge{position:absolute;left:var(--x);top:var(--y);z-index:3;font-family:var(--mono);font-size:10px;color:#eef0ee;background:rgba(8,8,12,.78);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-left:2px solid var(--c);border-radius:0 8px 8px 0;padding:5px 9px}
-  .vbadge b{color:#fff}
-  @media(max-width:560px){.vbadge{display:none}}
+  .vlabel{position:absolute;right:13px;bottom:12px;z-index:4;font-family:var(--mono);font-size:11px;color:var(--mint);letter-spacing:.02em;background:rgba(8,9,10,.62);padding:5px 10px;border-radius:99px;border:1px solid var(--line)}
+  .statbadge{position:absolute;left:var(--x);top:var(--y);z-index:3;display:flex;align-items:stretch;max-width:190px;opacity:0;transform:scale(.85) translateY(8px);animation:badgein .5s var(--ease) forwards}
+  @keyframes badgein{to{opacity:1;transform:scale(1) translateY(0)}}
+  .statbadge .edge{width:3px;border-radius:9px 0 0 9px;background:var(--c);box-shadow:0 0 9px var(--c);animation:edgepulse 1.8s ease-in-out infinite}
+  @keyframes edgepulse{0%,100%{box-shadow:0 0 8px var(--c)}50%{box-shadow:0 0 16px var(--c),0 0 26px var(--c)}}
+  .statbadge .bd{background:rgba(8,8,12,.8);backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.1);border-left:0;border-radius:0 9px 9px 0;padding:6px 10px;box-shadow:0 8px 32px rgba(0,0,0,.45),0 0 20px -6px var(--c)}
+  .statbadge .bt{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}
+  .statbadge .bb{display:block;font-family:var(--mono);font-size:10.5px;color:#eef0ee;margin-top:2px}
+  .statbadge .bb b{color:#fff}
+  @media(max-width:560px){.statbadge{display:none}}
+  @media(prefers-reduced-motion:reduce){.statbadge{animation:none;opacity:1;transform:none}.statbadge .edge{animation:none}}
+  .contact{padding-top:84px}
+  .contact h2 .spectrum{animation:none}
+  .avail:hover{color:var(--mint)}
+  .foot{margin-top:60px}
+  .foot .foot-links{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-bottom:15px}
+  .foot .foot-links a{font-family:var(--mono);font-size:11.5px;color:var(--mute);padding:6px 13px;border:1px solid var(--line);border-radius:99px;transition:.15s}
+  .foot .foot-links a:hover{color:var(--ink);border-color:var(--mint)}
 
   /* climb image inside the pedigree panel */
   .climbimg{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);min-height:150px}
@@ -121,9 +133,9 @@
           <div class="flip-inner">
             <div class="flip-face flip-front">
               <span class="cue">⟲ flip</span>
-              <img src="../assets/portrait-sales.jpg" alt="Bill Bricker"/>
+              <img src="../assets/family.jpg" alt="Bill Bricker with his family"/>
               <div class="grad"></div>
-              <div class="cap"><b>Bill Bricker</b> · Raleigh, NC</div>
+              <div class="cap"><b>Bill Bricker</b> · Raleigh, NC · father of three</div>
             </div>
             <div class="flip-face flip-back">
               <span class="cue">⟲ back</span>
@@ -133,19 +145,13 @@
             </div>
           </div>
         </div>
-        <div class="ringrow">
-          <div class="ring">
-            <svg width="78" height="78" viewBox="0 0 84 84">
-              <circle cx="42" cy="42" r="36" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>
-              <circle class="ring-fg" cx="42" cy="42" r="36" fill="none" stroke="var(--mint)" stroke-width="7" stroke-linecap="round"/>
-            </svg>
-            <div class="ctr"><div class="n" id="ringN">20</div><div class="l" id="ringL">years selling</div></div>
-          </div>
+        <div class="opmeta">
+          <div class="opyears"><span class="n" id="ringN">20</span><span class="l" id="ringL">years in enterprise GTM</span></div>
           <div class="bars">
             <div class="bar" data-m="$45M+" data-ml="Google channel"><span class="t">Enterprise &amp; partnership GTM</span><span class="v">IBM · Google</span><span class="track"><i data-w="95" style="background:linear-gradient(90deg,#5be8a0,#36c6e0)"></i></span></div>
-            <div class="bar" data-m="6" data-ml="FANG-tier partners"><span class="t">Closed big-tech partners</span><span class="v">Stripe · Meta</span><span class="track"><i data-w="92" style="background:linear-gradient(90deg,#36c6e0,#8b7cf0)"></i></span></div>
+            <div class="bar" data-m="6" data-ml="big-tech partners"><span class="t">Closed big-tech partners</span><span class="v">Stripe · Meta</span><span class="track"><i data-w="80" style="background:linear-gradient(90deg,#36c6e0,#8b7cf0)"></i></span></div>
             <div class="bar" data-m="11x" data-ml="in 2020"><span class="t">Zero-to-one scale</span><span class="v">$35M+</span><span class="track"><i data-w="90" style="background:linear-gradient(90deg,#5be8a0,#36c6e0)"></i></span></div>
-            <div class="bar" data-m="0→40+" data-ml="AI apps shipped"><span class="t">AI-native workflows</span><span class="v">40+ apps</span><span class="track"><i data-w="86" style="background:linear-gradient(90deg,#8b7cf0,#ff8a6b)"></i></span></div>
+            <div class="bar" data-m="0→40+" data-ml="AI apps shipped"><span class="t">AI-native workflows</span><span class="v">40+ apps</span><span class="track"><i data-w="72" style="background:linear-gradient(90deg,#8b7cf0,#ff8a6b)"></i></span></div>
           </div>
         </div>
       </div>
@@ -154,7 +160,7 @@
     <div class="hcopy rv">
       <span class="eyebrow"><span class="dot"></span>AI-Forward Sales &amp; Partnerships Leader</span>
       <h1>I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
-      <p class="heavy-lede">I founded Dreamship and closed Google as a partner in year one — a <b>$45M+ ad-spend channel</b> that drove the company to <b>$35M+ peak revenue</b>, profitable every year. Then I 10x my output with AI.</p>
+      <p class="heavy-lede">I founded Dreamship and closed Google as a partner in year one — a <b>$45M+ ad-spend channel</b> that drove the company to <b>$35M+ peak revenue</b>, profitable every year. Then I built the AI-native workflows that 10x my output.</p>
       <div class="hctas">
         <a class="pill solid" href="#center">See the deal →</a>
         <a class="pill ghost" href="../assets/Bill_Bricker_Resume.pdf" download>Download résumé</a>
@@ -163,6 +169,7 @@
         <span class="lab">Partnerships closed</span>
         <span class="logos"><b>Google</b> · <b>Microsoft</b> · <b>Stripe</b> · <b>PayPal</b> · <b>Payoneer</b> · <b>Meta</b></span>
       </div>
+      <a class="avail" href="mailto:bricker3@gmail.com?subject=Frontier-lab%20GTM%20%E2%80%94%20let%27s%20talk"><i></i> Open to frontier-lab GTM &amp; partnerships leadership →</a>
     </div>
   </header>
 
@@ -228,7 +235,7 @@
   <section class="wrap">
     <div class="rv"><div class="kick"><span class="num">02</span>Made repeatable</div>
     <h2>One credible yes unlocked the next.</h2>
-    <p class="sub">Off the Google credibility I sequenced the flywheel — closing FANG-tier partners became a system, not a one-off.</p></div>
+    <p class="sub">Off the Google credibility I sequenced the flywheel — closing the biggest names in tech became a system, not a one-off.</p></div>
     <div class="fly rv">
       <div class="glass partner anchor"><div class="pseq">ANCHOR</div><div class="pn">Google</div><div class="pl">first-of-its-kind partnership · $45M+ channel</div></div>
       <div class="glass partner"><div class="pseq">THEN</div><div class="pn">Stripe</div><div class="pl">follow-on partnership</div></div>
@@ -267,14 +274,17 @@
           <source src="../assets/courtana-shot.mp4" type="video/mp4"/>
         </video>
         <div class="vgrad"></div>
-        <div class="vbadge" style="--x:7%;--y:10%;--c:#6EEFC0"><b>Player DNA</b> · Power 9 · IQ 8</div>
-        <div class="vbadge" style="--x:52%;--y:60%;--c:#BD93F9"><b>Viral</b> 7.4 / 10</div>
-        <span class="vlabel">▸ live CV pipeline · $0.0054/clip</span>
+        <div class="statbadge" style="--x:6%;--y:9%;--c:#F1C40F;animation-delay:.3s"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
+        <div class="statbadge" style="--x:55%;--y:11%;--c:#6BA3FF;animation-delay:.55s"><span class="edge"></span><span class="bd"><span class="bt">Shot</span><span class="bb"><b>Overhead smash</b></span></span></div>
+        <div class="statbadge" style="--x:7%;--y:64%;--c:#6EEFC0;animation-delay:.8s"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
+        <div class="statbadge" style="--x:54%;--y:62%;--c:#BD93F9;animation-delay:1.05s"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
+        <div class="statbadge" style="--x:33%;--y:40%;--c:#FF6B6B;animation-delay:1.3s"><span class="edge"></span><span class="bd"><span class="bt">Routed</span><span class="bb"><b>Player Gear</b> lane</span></span></div>
+        <span class="vlabel">▸ live CV pipeline · $0.0054/analyzed clip</span>
       </div>
       <div class="glass aicard">
         <div class="ck">Pickle DaaS · computer-vision pipeline</div>
         <h3>Raw court video → player, coaching &amp; venue intelligence.</h3>
-        <p>A full AI video-analysis pipeline I built and run myself — a self-serve analytics warehouse from video, <b>not a slide</b>. The point isn't the app count; it's the leverage: I build the AI-native workflows (Claude, Codex, Gemini) that <b>compress weeks of GTM into days</b> — 40+ apps across 31 repos, one operator, the output of ten.</p>
+        <p>A full AI video-analysis pipeline I built and run myself — a self-serve analytics warehouse from video, <b>not a slide</b>. The point isn't the app count; it's the leverage: I build the AI-native workflows (Claude, Codex, Gemini) that <b>compress weeks of GTM into days</b> — 40+ apps across 31 repos, built &amp; run solo.</p>
         <div class="aimetrics">
           <div class="aim"><div class="v">21K+</div><div class="k">clips processed</div></div>
           <div class="aim"><div class="v">4,097</div><div class="k">deep-analyzed</div></div>
@@ -300,7 +310,10 @@
     </div>
   </section>
 
-  <div class="foot">Bill Bricker · Raleigh, NC · AI-Forward Sales &amp; Partnerships · built solo with the AI-native stack it describes.</div>
+  <footer class="foot">
+    <div class="foot-links"><a href="climb.html">Story</a><a href="#center">Work</a><a href="../assets/Bill_Bricker_Resume.pdf" download>Résumé</a><a href="mailto:bricker3@gmail.com">Email</a></div>
+    <div>Bill Bricker · Raleigh, NC · AI-Forward Sales &amp; Partnerships · built solo with the AI-native stack it describes.</div>
+  </footer>
 </main>
 
 <script>

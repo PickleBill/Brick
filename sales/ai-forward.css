@@ -128,7 +128,7 @@ h2{font-family:var(--disp);font-size:clamp(28px,4.2vw,44px);font-weight:700;lett
 .ailinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .pk{font-family:var(--mono);font-size:11px;color:var(--mute);border:1px solid var(--line);background:var(--glass2);padding:8px 13px;border-radius:99px;transition:.15s}
 .pk:hover{color:var(--ink);border-color:var(--mint);transform:translateY(-2px)}
-.pk.hero{color:#08090a;background:var(--mint);border-color:transparent;font-weight:600}
+.pk.hero{color:var(--mint);background:rgba(111,239,180,.1);border-color:rgba(111,239,180,.45);font-weight:600}
 
 /* ---------------- terminal (signature interactive) ---------------- */
 .term-shell{background:#0a0c0d;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 50px 110px -50px rgba(0,0,0,.9),0 0 0 1px rgba(111,239,180,.06);position:relative}
@@ -179,4 +179,4 @@ h2{font-family:var(--disp);font-size:clamp(28px,4.2vw,44px);font-weight:700;lett
 /* reveal */
 .js .rv{transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .rv-hide{opacity:0;transform:translateY(24px)}
-@media(prefers-reduced-motion:reduce){.rv-hide{opacity:1 !important;transform:none !important}.js .rv{transition:none}.spectrum,.tline.sp{animation:none}}
+@media(prefers-reduced-motion:reduce){.rv-hide{opacity:1 !important;transform:none !important}.js .rv{transition:none}.spectrum,.tline.sp{animation:none}.eyebrow .dot,.term-bar .badge i,.brand .cur,.tcur{animation:none}.bars .track i{transition:none}}
