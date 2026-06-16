@@ -79,11 +79,11 @@ h2{font-family:var(--disp);font-size:clamp(28px,4.2vw,44px);font-weight:700;lett
 .center .heavy b{font-weight:700}
 .center .gloss{font-size:15px;color:var(--mute);line-height:1.62;max-width:62ch;margin-top:18px}
 .center .gloss b{color:var(--ink);font-weight:600}
-.center .foot8{margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.02em;display:flex;align-items:center;gap:8px}
+.center .foot8{margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--mute);letter-spacing:.02em;display:flex;align-items:center;gap:8px}
 .center .foot8 i{width:6px;height:6px;border-radius:50%;background:var(--violet)}
 .dstats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:30px}
 @media(max-width:760px){.dstats{grid-template-columns:repeat(2,1fr);gap:22px 18px}}
-.dst .n{font-family:var(--disp);font-size:clamp(26px,3.6vw,40px);font-weight:800;letter-spacing:-.03em;background:linear-gradient(120deg,var(--green),var(--cyan) 55%,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.dst .n{font-family:var(--disp);font-size:clamp(26px,3.6vw,40px);font-weight:800;letter-spacing:-.03em;color:var(--ink);line-height:1}
 .dst .l{font-size:11.5px;color:var(--mute);margin-top:9px;line-height:1.45;max-width:18ch}
 .dst .l b{color:var(--ink);font-weight:600}
 
@@ -123,7 +123,7 @@ h2{font-family:var(--disp);font-size:clamp(28px,4.2vw,44px);font-weight:700;lett
 .aicard p{font-size:13.5px;color:var(--mute);line-height:1.55}
 .aicard p b{color:var(--ink);font-weight:600}
 .aimetrics{display:flex;gap:22px;margin-top:auto;padding-top:18px}
-.aim .v{font-family:var(--disp);font-size:22px;font-weight:800;letter-spacing:-.02em;background:linear-gradient(120deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.aim .v{font-family:var(--disp);font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
 .aim .k{font-family:var(--mono);font-size:9.5px;color:var(--mute);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
 .ailinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .pk{font-family:var(--mono);font-size:11px;color:var(--mute);border:1px solid var(--line);background:var(--glass2);padding:8px 13px;border-radius:99px;transition:.15s}

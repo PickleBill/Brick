@@ -65,13 +65,12 @@
       if (i < 0) { ringN.textContent = base.n; ringL.textContent = base.l; }
       else { ringN.textContent = bars[i].dataset.m; ringL.textContent = bars[i].dataset.ml; }
     }
-    function cycle() { if (reduce) return; timer = setInterval(() => { active = (active + 1) % bars.length; set(active); }, 2600); }
     bars.forEach((b, i) => {
-      b.addEventListener('mouseenter', () => { clearInterval(timer); set(i); });
-      b.addEventListener('mouseleave', () => { set(-1); active = -1; cycle(); });
-      b.addEventListener('click', () => { clearInterval(timer); active = i; set(i); });
+      b.addEventListener('mouseenter', () => { set(i); });
+      b.addEventListener('mouseleave', () => { set(0); active = 0; });
+      b.addEventListener('click', () => { active = i; set(i); });
     });
-    setTimeout(() => { set(0); active = 0; cycle(); }, reduce ? 0 : 900);
+    setTimeout(() => { set(0); active = 0; }, reduce ? 0 : 900);
     setTimeout(() => { document.querySelectorAll('.track i').forEach((i) => { i.style.width = i.dataset.w + '%'; }); }, reduce ? 0 : 350);
   }
 
@@ -83,7 +82,7 @@
     const showBadges = () => {
       if (shown) return; shown = true;
       badges.forEach((b, i) => setTimeout(() => b.classList.add('show'), reduce ? 0 : 160 + i * 230));
-      const v = vcard.querySelector('video'); if (v && v.paused) { try { v.play(); } catch (e) {} }
+      const v = vcard.querySelector('video'); const big = window.matchMedia && window.matchMedia('(min-width: 760px)').matches; const saveData = navigator.connection && navigator.connection.saveData; if (v && v.paused && !reduce && big && !saveData) { try { v.preload = 'auto'; v.play(); } catch (e) {} }
       window.removeEventListener('scroll', badgeCheck);
     };
     function badgeCheck() {
@@ -116,8 +115,8 @@
       { c: 'sp', t: 'Bill Bricker' },
       { t: 'AI-Forward Sales & Partnerships Leader.' },
       { t: 'I close what the biggest names in tech say yes to,' },
-      { t: 'then 10x my output with AI.' },
-      { d: 'Raleigh, NC · founder · FANG-tier closer who also ships the product.' }
+      { t: 'then build the AI workflows that do the work.' },
+      { d: 'Raleigh, NC · founder · closed Google as a partner — and ships the product too.' }
     ],
     dreamship: [
       { c: 'hd', t: 'Dreamship — the deal everything came off:' },
@@ -143,13 +142,13 @@
       { c: 'hd', t: 'AI is my multiplier, not my headline:' },
       { k: 'Pickle DaaS', t: 'raw court video \u2192 player/coaching/venue intel at $0.0054/clip.' },
       { k: 'Shipped', t: '40+ apps across 31 repos \u2014 built & run solo.' },
-      { d: 'I build the AI-native workflows that 10x my selling.' }
+      { d: 'I build the AI-native workflows that compress weeks of GTM into days.' }
     ],
     hire: [
       { c: 'sp', t: 'Let\u2019s talk.' },
       { k: 'email', t: 'bricker3@gmail.com' },
       { k: 'linkedin', t: 'linkedin.com/in/williambricker' },
-      { d: 'AI-forward sales \u2014 I close, then 10x it with AI.' }
+      { d: 'AI-forward sales \u2014 I close, then build the workflows that scale it.' }
     ],
     'why-you': [
       { c: 'hd', t: 'Why me, not a forward-deployed engineer:' },
