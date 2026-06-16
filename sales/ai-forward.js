@@ -92,12 +92,12 @@
     whoami: [
       { c: 'sp', t: 'Bill Bricker' },
       { t: 'AI-Forward Sales & Partnerships Leader.' },
-      { t: 'I close the deals the biggest names in tech say yes to —' },
-      { t: 'then 10x the work with AI-native workflows.' },
-      { d: 'Raleigh, NC · founder · the connector who closes FANG-tier partnerships.' }
+      { t: 'I close what the biggest names in tech say yes to,' },
+      { t: 'then 10x my output with AI.' },
+      { d: 'Raleigh, NC · founder · FANG-tier closer who also ships the product.' }
     ],
     dreamship: [
-      { c: 'hd', t: 'Dreamship — the deal that made the company:' },
+      { c: 'hd', t: 'Dreamship — the deal everything came off:' },
       { t: 'I founded it and, in year one, closed Google as a partner.' },
       { k: 'Google', t: 'director sign-off across 5\u20136 internal teams \u00b7 $45M+ channel \u00b7 ran 5+ yrs.' },
       { k: 'Scale', t: '$35M+ peak revenue \u00b7 11x in 2020 ($1.6M\u2192$17M) \u00b7 ~$85M GMV.' },

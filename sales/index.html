@@ -19,8 +19,8 @@
 <style>
   /* DOSSIER v2 — flip-panel operator ID, smaller image, top-aligned 2-line header */
   .hero{display:grid;grid-template-columns:.7fr 1.3fr;gap:44px;align-items:start;padding:52px 28px 12px;max-width:var(--maxw);margin:0 auto}
-  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:26px;padding:32px 22px 6px}.hero .hcard{order:-1;max-width:300px}}
-  h1{font-family:var(--disp);font-size:clamp(34px,5vw,58px);font-weight:700;letter-spacing:-.035em;line-height:1.02;margin:18px 0 0;max-width:18ch}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding:30px 22px 6px}.hero .hcopy{order:-1}.hero .hcard{max-width:268px;margin:0 auto}}
+  h1{font-family:var(--disp);font-size:clamp(33px,4.6vw,52px);font-weight:700;letter-spacing:-.035em;line-height:1.04;margin:18px 0 0;max-width:none;text-wrap:balance}
   .heavy-lede{font-size:clamp(15px,1.6vw,17.5px);color:var(--mute);margin-top:20px;max-width:54ch;line-height:1.6}
   .heavy-lede b{color:var(--ink);font-weight:600}
   .hctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
@@ -87,6 +87,7 @@
   .vlabel{position:absolute;left:13px;bottom:12px;z-index:3;font-family:var(--mono);font-size:11px;color:var(--mint);letter-spacing:.02em}
   .vbadge{position:absolute;left:var(--x);top:var(--y);z-index:3;font-family:var(--mono);font-size:10px;color:#eef0ee;background:rgba(8,8,12,.78);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-left:2px solid var(--c);border-radius:0 8px 8px 0;padding:5px 9px}
   .vbadge b{color:#fff}
+  @media(max-width:560px){.vbadge{display:none}}
 
   /* climb image inside the pedigree panel */
   .climbimg{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);min-height:150px}
@@ -119,7 +120,6 @@
         <div class="flip" id="flip" tabindex="0" role="button" aria-label="Identity card — tap to flip between portrait and the operator photo.">
           <div class="flip-inner">
             <div class="flip-face flip-front">
-              <span class="live"><i></i> IN THE ROOM</span>
               <span class="cue">⟲ flip</span>
               <img src="../assets/portrait-sales.jpg" alt="Bill Bricker"/>
               <div class="grad"></div>
@@ -153,8 +153,8 @@
 
     <div class="hcopy rv">
       <span class="eyebrow"><span class="dot"></span>AI-Forward Sales &amp; Partnerships Leader</span>
-      <h1>I close the deals the biggest<br>names in tech <span class="spectrum">say yes to.</span></h1>
-      <p class="heavy-lede">I founded Dreamship and, in year one, closed Google as a partner — <b>$45M+ in ad spend through the channel</b>, on its climb to <b>$35M+ revenue</b>, EBITDA-profitable four years. Then I 10x the work with AI-native workflows.</p>
+      <h1>I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
+      <p class="heavy-lede">I founded Dreamship and closed Google as a partner in year one — a <b>$45M+ ad-spend channel</b> that drove the company to <b>$35M+ peak revenue</b>, profitable every year. Then I 10x my output with AI.</p>
       <div class="hctas">
         <a class="pill solid" href="#center">See the deal →</a>
         <a class="pill ghost" href="../assets/Bill_Bricker_Resume.pdf" download>Download résumé</a>
@@ -172,7 +172,7 @@
     <h2>The deal that made Dreamship.</h2></div>
     <div class="glass center rv">
       <div class="heavy">A first-of-its-kind Google partnership — director-level sign-off across <b>5–6 internal teams</b> in year one: a trust layer verifying high-volume merchants on Google Vision.</div>
-      <div class="gloss">That one yes drove a <b>$45M+ ad-spend channel</b> for 5+ years and made the company. I built it and ran the operation behind it — 21 fulfillment locations across 6 countries.</div>
+      <div class="gloss">That one yes ran for 5+ years and put the company on the map. I built and ran the operation behind it — 21 fulfillment locations across 6 countries.</div>
       <div class="dstats">
         <div class="dst"><div class="n"><span data-count="35" data-pre="$" data-suf="M+">$35M+</span></div><div class="l"><b>peak revenue</b></div></div>
         <div class="dst"><div class="n"><span data-count="11" data-suf="x">11x</span></div><div class="l">growth in 2020<br>$1.6M → $17M</div></div>
@@ -228,7 +228,7 @@
   <section class="wrap">
     <div class="rv"><div class="kick"><span class="num">02</span>Made repeatable</div>
     <h2>One credible yes unlocked the next.</h2>
-    <p class="sub">Off the Google credibility I sequenced the flywheel — closing the biggest names in tech became a system, not a one-off.</p></div>
+    <p class="sub">Off the Google credibility I sequenced the flywheel — closing FANG-tier partners became a system, not a one-off.</p></div>
     <div class="fly rv">
       <div class="glass partner anchor"><div class="pseq">ANCHOR</div><div class="pn">Google</div><div class="pl">first-of-its-kind partnership · $45M+ channel</div></div>
       <div class="glass partner"><div class="pseq">THEN</div><div class="pn">Stripe</div><div class="pl">follow-on partnership</div></div>
@@ -274,11 +274,11 @@
       <div class="glass aicard">
         <div class="ck">Pickle DaaS · computer-vision pipeline</div>
         <h3>Raw court video → player, coaching &amp; venue intelligence.</h3>
-        <p>A full AI video-analysis pipeline I built and run myself — a self-serve analytics warehouse from video, <b>not a slide</b>. I build the AI-native workflows (Claude, Codex, Gemini) that compress weeks of GTM into days. One operator, the output of ten.</p>
+        <p>A full AI video-analysis pipeline I built and run myself — a self-serve analytics warehouse from video, <b>not a slide</b>. The point isn't the app count; it's the leverage: I build the AI-native workflows (Claude, Codex, Gemini) that <b>compress weeks of GTM into days</b> — 40+ apps across 31 repos, one operator, the output of ten.</p>
         <div class="aimetrics">
           <div class="aim"><div class="v">21K+</div><div class="k">clips processed</div></div>
-          <div class="aim"><div class="v">$0.0054</div><div class="k">per clip</div></div>
-          <div class="aim"><div class="v">40+</div><div class="k">apps · 31 repos</div></div>
+          <div class="aim"><div class="v">4,097</div><div class="k">deep-analyzed</div></div>
+          <div class="aim"><div class="v">$0.0054</div><div class="k">per analyzed clip</div></div>
         </div>
         <div class="ailinks">
           <a class="pk hero" href="https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html" target="_blank" rel="noopener">▸ Pickle DaaS walkthrough</a>
@@ -304,10 +304,15 @@
 </main>
 
 <script>
-  (function(){var f=document.getElementById('flip');if(!f)return;
+  (function(){var f=document.getElementById('flip');if(f){
     function flip(){f.classList.toggle('flipped');}
     f.addEventListener('click',flip);
     f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});
+  }
+  // honor reduced-motion: don't autoplay the clip
+  try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('.vcard video').forEach(function(v){v.removeAttribute('autoplay');v.pause();});
+  }}catch(e){}
   })();
 </script>
 <script src="ai-forward.js"></script>

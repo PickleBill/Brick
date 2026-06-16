@@ -21,6 +21,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1
 ::selection{background:var(--mint);color:#08090a}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:6px}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:2}
 @media(max-width:560px){.wrap{padding:0 20px}}
 
@@ -87,8 +88,10 @@ h2{font-family:var(--disp);font-size:clamp(28px,4.2vw,44px);font-weight:700;lett
 .dst .l b{color:var(--ink);font-weight:600}
 
 /* ---------------- flywheel ---------------- */
-.fly{display:flex;flex-wrap:wrap;gap:12px}
-.partner{flex:1 1 150px;min-width:140px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:6px;transition:.2s var(--ease)}
+.fly{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:760px){.fly{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:440px){.fly{grid-template-columns:1fr}}
+.partner{padding:18px 18px 16px;display:flex;flex-direction:column;gap:6px;transition:.2s var(--ease)}
 .partner:hover{transform:translateY(-4px);border-color:var(--line2)}
 .partner .pn{font-family:var(--disp);font-size:18px;font-weight:700;letter-spacing:-.01em}
 .partner .pl{font-family:var(--mono);font-size:10.5px;color:var(--mute);letter-spacing:.02em;line-height:1.5}
