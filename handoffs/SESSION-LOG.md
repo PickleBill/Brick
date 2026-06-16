@@ -39,6 +39,11 @@ A readable chronicle of the work across this session: what was asked, what was d
 
 **Go-live:** merged `/sales/` to `main` → live at **`picklebill.github.io/Brick/sales/`** (real GitHub Pages, not raw.githack); the **old site stays untouched** at the repo root.
 
+## 6 · Ecosystem, nav unify & overlay fix (final round)
+**Ask:** unify the nav bars; make the flip-card **back show text** ("forward-deployed GTM operator"); use **logos not text**; the data-warehouse **overlays weren't showing** — mimic the original; **trim** the Dreamship-deal copy; **remove** the "Partnerships closed" strip + "Open to" line from the fold; turn the partner panels into a logo **ecosystem / mason wall** incl. history (McKesson, Zillow, Macy's, Nordstrom…); fix spacing; full navigability.
+
+**Done:** removed the hero strip + availability line (per Bill's annotated screenshot); flip-back is now a text **operator profile** (Forward-deployed GTM operator + 3 credentials); trimmed §01; replaced the flywheel with a **logo ecosystem wall** — Google anchor + Microsoft/Stripe/PayPal/Payoneer/Meta + IBM/McKesson/Zillow/Avalara/Macy's/Nordstrom (fetched brand SVGs into `assets/logos/`, hand-made the Microsoft mark; missing brands rendered as clean wordmarks). **Fixed the overlays** — they were compositing *behind* the `<video>` GPU layer; gave the video an explicit lower `z-index` so the 5 stat-badges now pop in on scroll (the original-build effect) via a JS reveal + boosted contrast. Unified the **Climb nav** brand to `● bill.bricker`. Tightened spacing.
+
 ---
 
 ## Decisions ledger
