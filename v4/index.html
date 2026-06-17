@@ -128,12 +128,15 @@
 
   /* ---------- identity flip card ---------- */
   .flip { perspective:2200px; cursor:pointer; }
-  .flip-inner { position:relative; width:100%; aspect-ratio:4/3; transition:transform .7s var(--ease); transform-style:preserve-3d; }
-  .flip-face img { width:100%; height:100%; object-fit:cover; display:block; }
-  .opcard { background:linear-gradient(180deg,var(--glass),var(--glass2)); border:1px solid var(--line2); border-radius:var(--radius); padding:14px; box-shadow:0 40px 90px -42px rgba(0,0,0,.9); }
-  .opbars { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
+  .flip-inner { position:relative; width:100%; aspect-ratio:1/1; transition:transform .7s var(--ease); transform-style:preserve-3d; }
+  .flip-front .card-img { width:100%; height:100%; object-fit:cover; object-position:50% 28%; display:block; }
+  .flip-back .cardback { display:flex; flex-direction:column; height:100%; }
+  .flip-back .card-img { width:100%; flex:1 1 auto; min-height:0; object-fit:cover; object-position:50% 22%; display:block; }
+  .idpanel { flex:0 0 auto; padding:14px 16px 15px; background:linear-gradient(180deg,#0e1311,#0a0c0d); border-top:1px solid var(--line); display:flex; flex-direction:column; gap:3px; }
+  .idpanel .idlabel { font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:3px; }
+  .idpanel .idl { font-family:var(--display); font-weight:800; font-size:clamp(14px,1.5vw,17px); letter-spacing:-.02em; line-height:1.22; white-space:normal; }
   .flip.flipped .flip-inner { transform:rotateY(180deg); }
-  @media (max-width:560px){ .flip-inner{ aspect-ratio:5/4; } }
+  @media (max-width:560px){ .flip-inner{ aspect-ratio:1/1; } }
   .flip-face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:var(--radius); border:1px solid var(--line2); overflow:hidden; box-shadow:0 40px 90px -42px rgba(0,0,0,.9); background:linear-gradient(180deg,#0e1311,#0a0c0d); }
   .flip-back { transform:rotateY(180deg); }
   /* flip cue */
@@ -217,14 +220,15 @@
   /* ---------- section heads ---------- */
   section.block { padding:calc(86px*var(--sp)) 0 0; }
   .sec-head { max-width:62ch; }
-  .sec-head h2 { font-family:var(--display); font-size:clamp(27px,4vw,42px); font-weight:700; letter-spacing:-.03em; line-height:1.04; margin:13px 0 0; }
+  .sec-head h2 { font-family:var(--display); font-size:clamp(27px,4vw,42px); font-weight:700; letter-spacing:-.03em; line-height:1.04; margin:13px 0 0; text-wrap:balance; }
   .sec-head p { color:var(--mute); font-size:16px; line-height:1.6; margin-top:11px; }
   .sec-head p em { color:var(--text); font-style:normal; font-weight:600; }
 
   /* ---------- terminal ---------- */
   .interface-grid { display:grid; grid-template-columns:0.82fr 1.18fr; gap:48px; align-items:center; margin-top:36px; }
   .interface-grid > * { min-width:0; }
-  .interface-grid .sec-head { max-width:42ch; }
+  .interface-grid .sec-head { max-width:46ch; }
+  .interface-grid .sec-head h2 { font-size:clamp(26px,2.4vw,33px); }
   @media (max-width:940px){ .interface-grid { grid-template-columns:1fr; gap:26px; } .interface-grid .sec-head{ max-width:62ch; } }
   .term { background:#0a0c0d; border:1px solid var(--line2); border-radius:16px; overflow:hidden; box-shadow:0 34px 80px -44px rgba(0,0,0,.85); }
   .term-bar { display:flex; align-items:center; gap:8px; padding:12px 15px; border-bottom:1px solid var(--line); background:rgba(255,255,255,.02); }
@@ -234,7 +238,7 @@
   .term-bar .live { margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
   .term-bar .live i { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 9px var(--accent); animation:tpulse 1.9s infinite; }
   .term-body { padding:18px 18px 16px; }
-  .term-out { font-family:var(--mono); font-size:13.5px; line-height:1.66; color:var(--term); min-height:150px; max-height:330px; overflow-y:auto; padding-right:6px; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.14) transparent; }
+  .term-out { font-family:var(--mono); font-size:13.5px; line-height:1.66; color:var(--term); min-height:150px; max-height:330px; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; padding-right:6px; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.14) transparent; }
   .term-out::-webkit-scrollbar{ width:6px; } .term-out::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.14); border-radius:4px; }
   .term-out .echo { color:var(--text); } .term-out .echo .ps { color:var(--accent); }
   .term-out .ln { white-space:pre-wrap; word-break:break-word; }
@@ -243,7 +247,8 @@
   .term-out .dim { color:var(--faint); } .term-out .blk { margin:7px 0 12px; }
   .term-inline { display:flex; align-items:center; gap:9px; margin-top:12px; font-family:var(--mono); font-size:13.5px; border-top:1px solid var(--line); padding-top:13px; }
   .term-inline .ps { color:var(--accent); }
-  .term-inline input { flex:1; min-width:0; background:transparent; border:0; outline:none; color:var(--text); font-family:var(--mono); font-size:13.5px; caret-color:var(--accent); }
+  .term-inline input { flex:1; min-width:0; background:transparent; border:0; outline:none; color:var(--text); font-family:var(--mono); font-size:16px; caret-color:var(--accent); }
+  @media (hover:hover) and (pointer:fine){ .term-inline input{ font-size:13.5px; } }
   .term-inline input::placeholder { color:var(--faint); }
   .mic { flex:none; width:32px; height:32px; border-radius:8px; border:1px solid var(--line2); background:var(--glass2); color:var(--mute); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition:.15s; }
   .mic:hover { color:var(--accent); border-color:var(--accent); }
@@ -348,7 +353,7 @@
 
   /* ---------- contact ---------- */
   .contact { text-align:center; padding:calc(96px*var(--sp)) 0 30px; }
-  .contact h2 { font-family:var(--display); font-weight:800; font-size:clamp(30px,5.2vw,52px); letter-spacing:-.03em; line-height:1.04; }
+  .contact h2 { font-family:var(--display); font-weight:800; font-size:clamp(27px,5.2vw,52px); letter-spacing:-.03em; line-height:1.04; text-wrap:balance; }
   .contact p { color:var(--mute); font-size:16px; max-width:52ch; margin:14px auto 0; }
   .contact .ctas { display:flex; justify-content:center; flex-wrap:wrap; gap:11px; margin-top:26px; }
 
@@ -438,24 +443,23 @@
       <div class="hero-grid">
         <!-- left: identity card -->
         <div class="hero-card rv">
-          <div class="opcard">
-            <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card — tap to flip between the Freedom United give-back and the family portrait.">
-              <span class="flipcue" aria-hidden="true">⟲</span>
-              <div class="flip-inner">
-                <div class="flip-face flip-front">
-                  <img src="../assets/dreamship-donate.jpg" alt="Dreamship presents a giant donation check to Freedom United on stage, 2019" onerror="this.style.display='none'" />
-                </div>
-                <div class="flip-face flip-back">
-                  <img src="../assets/family.jpg" alt="Bill Bricker with his family" onerror="this.style.display='none'" />
+          <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card. Flip between the give-back and the operator profile.">
+            <span class="flipcue" aria-hidden="true">⟲</span>
+            <div class="flip-inner">
+              <div class="flip-face flip-front">
+                <img class="card-img" src="../assets/dreamship-donate.jpg" alt="Dreamship presents a giant donation check to Freedom United on stage, 2019" onerror="this.style.display='none'" />
+              </div>
+              <div class="flip-face flip-back">
+                <div class="cardback">
+                  <img class="card-img" src="../assets/family.jpg" alt="Bill Bricker with his family" onerror="this.style.display='none'" />
+                  <div class="idpanel">
+                    <span class="idlabel">▸ the operator</span>
+                    <span class="idl">Forward-deployed GTM operator</span>
+                    <span class="idl s2">0 → 1 Builder</span>
+                    <span class="idl spectrum">Vibe Pusher</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="preadout"><span class="n" id="ringN">20</span><span class="l" id="ringL">years in enterprise GTM</span></div>
-            <div class="opbars" id="bars">
-              <div class="bar" data-m="$45M+" data-ml="Google ad-spend channel"><span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span></div>
-              <div class="bar" data-m="6" data-ml="big-tech partners"><span class="nm">Closed big-tech partners</span><span class="vl">Stripe · Meta</span><span class="track"><i class="fill" data-w="82" style="background:var(--g-violet)"></i></span></div>
-              <div class="bar" data-m="11x" data-ml="in 2020"><span class="nm">Zero-to-one scale</span><span class="vl">11x · '20</span><span class="track"><i class="fill" data-w="90" style="background:var(--g-green)"></i></span></div>
-              <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo"><span class="nm">AI-native workflows</span><span class="vl">40+ apps</span><span class="track"><i class="fill" data-w="88" style="background:var(--g-wide)"></i></span></div>
             </div>
           </div>
         </div>
@@ -464,7 +468,7 @@
         <div class="hero-copy rv">
           <span class="avail"><i></i> AI-Forward Sales &amp; Partnerships Leader</span>
           <h1 class="head">I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
-          <p class="lede">I founded Dreamship and <b>closed Google as a partner in year one</b> — then built the AI that does the work. I close what the biggest names in tech say yes to, and <span class="g">ship the product myself.</span></p>
+          <p class="lede">I founded Dreamship and <b>closed Google as a partner in year one</b>, then built the AI that does the work. I close what the biggest names in tech say yes to, and <span class="g">ship the product myself.</span></p>
           <div class="hero-cta">
             <a class="pill solid" href="#interface">Prompt my résumé ↓</a>
             <a class="pill ghost" href="../assets/Bill_Bricker_Resume_vFinal.pdf" download>Download résumé</a>
@@ -482,12 +486,12 @@
       <div class="gdeal rv">
         <div class="gdeal-copy">
           <div class="kick">The deal that made Dreamship</div>
-          <h2>I closed Google as a partner — <span class="flat">in year one.</span></h2>
+          <h2>I closed Google as a partner.<br><span class="flat">In year one.</span></h2>
           <p>A first-of-its-kind cross-division partnership, won across <b>5–6 internal Google teams</b> to <b>VP-level</b> sign-off, then run for <b>5+ years</b>. The flywheel that followed: Stripe, PayPal, Meta, and a Microsoft–Bing/ChatGPT merchant deal.</p>
           <a class="e-go" href="#interface">Ask the machine about it <span class="ar">↓</span></a>
         </div>
         <div class="gdeal-stats">
-          <div class="gstat"><span class="gn">$45M+</span><span class="gk">ad spend through the channel <em>— not revenue</em></span></div>
+          <div class="gstat"><span class="gn">$45M+</span><span class="gk">ad spend through the channel</span></div>
           <div class="gstat"><span class="gn">$35M+</span><span class="gk">peak revenue</span></div>
           <div class="gstat"><span class="gn">11x</span><span class="gk">growth in 2020 · $1.6M→$17M</span></div>
           <div class="gstat"><span class="gn">4 yrs</span><span class="gk">EBITDA-profitable · profitable today</span></div>
@@ -503,7 +507,7 @@
         <div class="sec-head rv">
           <div class="kick">The interface</div>
           <h2>Don't read the résumé.<br><span class="flat">Prompt it.</span></h2>
-          <p>A live AI that answers from a fact-checked ledger of twenty years. Tap a command, talk to it, or ask anything — it's the product, answering for me.</p>
+          <p>A live AI that answers from a fact-checked ledger of twenty years. Tap a command, talk to it, or ask anything. It's the product, answering for me.</p>
           <a class="e-go" href="../work.html" style="margin-top:16px;">Open the full terminal <span class="ar">→</span></a>
         </div>
 
@@ -701,7 +705,7 @@
   <section class="contact">
     <div class="wrap rv">
       <h2>Hiring for GTM &amp; partnerships?<br><span class="flat">Let's close something big.</span></h2>
-      <p>15 minutes. I'll show you something I built, not slides — or ask the console up top and watch the close happen live.</p>
+      <p>15 minutes. I'll show you something I built, not slides. Or ask the console up top and watch the close happen live.</p>
       <div class="ctas">
         <a class="pill solid" href="mailto:bricker3@gmail.com?subject=Let%27s%20close%20something%20big">bricker3@gmail.com →</a>
         <a class="pill ghost" href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a>

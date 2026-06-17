@@ -60,7 +60,7 @@
       b.addEventListener('mouseleave',function(){ cycle(); });
       b.addEventListener('click',function(e){ e.stopPropagation(); clearInterval(timer); ai=i; setActive(i); });
     });
-    activateBars();
+    if(bars.length) activateBars();
   }
 
   /* ====================================================================
@@ -68,7 +68,7 @@
   ==================================================================== */
   var out=$('#termOut'), line=$('#termLine'), input=$('#termIn'), chips=$('#termChips'), booted=false, history=[];
   function el(html,cls){ var d=document.createElement('div'); if(cls)d.className=cls; d.innerHTML=html; return d; }
-  function scroll(){ if(out) out.scrollTop=out.scrollHeight; }
+  function scroll(){ if(!out) return; if(out.scrollHeight-out.scrollTop-out.clientHeight<60) out.scrollTop=out.scrollHeight; }
   function print(html,cls){ out.appendChild(el(html,cls)); scroll(); }
   function block(lines){ var b=document.createElement('div'); b.className='blk';
     lines.forEach(function(l){ var d=document.createElement('div'); d.className='ln'; d.innerHTML=l; b.appendChild(d); });
@@ -211,9 +211,10 @@
   function typed(text){ var b=document.createElement('div'); b.className='blk'; out.appendChild(b);
     var lines=text.split(/\n+/);
     if(reduce){ b.innerHTML=lines.map(function(l){return '<div class="ln">'+esc(l)+'</div>';}).join(''); scroll(); return; }
+    var speed = reduce ? 0 : 9, pause = reduce ? 0 : 80;
     var li=0; (function nl(){ if(li>=lines.length) return; var d=document.createElement('div'); d.className='ln'; b.appendChild(d);
       var t=lines[li], ci=0; var iv=setInterval(function(){ d.textContent=t.slice(0,ci++); scroll();
-        if(ci>t.length){ clearInterval(iv); li++; setTimeout(nl,80); } },9); })(); }
+        if(ci>t.length){ clearInterval(iv); li++; setTimeout(nl,pause); } },speed); })(); }
 
   function chuck(){ var t=el('<span class="dim">fetching…</span>','blk'); out.appendChild(t); scroll();
     fetch('https://api.chucknorris.io/jokes/random').then(function(r){return r.json();}).then(function(d){
@@ -253,15 +254,16 @@
       {t:'brick.os — AI-forward sales console. booting…',c:'dim'},
       {t:'Bill Bricker — I close what the biggest names in tech say yes to.',c:'m'},
       {t:'Closed & ran the Google partnership in year one.',c:''},
-      {t:'Now shipping production AI daily — 40+ apps, solo. Ask me anything.',c:''}];
+      {t:'Now shipping production AI daily. 40+ apps, solo. Ask me anything.',c:''}];
     echo('whoami');
-    if(reduce){ block(ls.map(function(l){return l.c?'<span class="'+l.c+'">'+esc(l.t)+'</span>':esc(l.t);})); if(after)after(); return; }
+    var speed = reduce ? 0 : 11, pause = reduce ? 0 : 120;
     var b=document.createElement('div'); b.className='blk'; out.appendChild(b); var i=0;
     (function nl(){ if(i>=ls.length){ if(after)after(); return; } var l=ls[i], d=document.createElement('div'); d.className='ln'+(l.c?' '+l.c:''); b.appendChild(d); var ci=0;
-      var iv=setInterval(function(){ d.textContent=l.t.slice(0,ci++); scroll(); if(ci>l.t.length){ clearInterval(iv); i++; setTimeout(nl,120); } },11); })(); }
+      var iv=setInterval(function(){ d.textContent=l.t.slice(0,ci++); scroll(); if(ci>l.t.length){ clearInterval(iv); i++; setTimeout(nl,pause); } },speed); })(); }
   function bootCheck(){ if(booted) return; var term=$('#term'); if(!term) return; var r=term.getBoundingClientRect(), vh=innerHeight||800;
-    if(r.top<vh*0.9 && r.bottom>0){ booted=true; boot(function(){ showInput(); }); removeEventListener('scroll',bootCheck); } }
-  bootCheck(); addEventListener('scroll',bootCheck,{passive:true}); addEventListener('load',bootCheck);
+    if(r.top<vh*0.9 && r.bottom>0){ booted=true; boot(function(){ showInput(); }); removeEventListener('scroll',bootCheck); removeEventListener('resize',bootCheck); } }
+  if('IntersectionObserver' in window){ var _t=$('#term'); if(_t){ var _io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !booted){ booted=true; boot(function(){ showInput(); }); _io.disconnect(); } }); },{rootMargin:'0px 0px -8% 0px'}); _io.observe(_t); } }
+  bootCheck(); addEventListener('scroll',bootCheck,{passive:true}); addEventListener('resize',bootCheck,{passive:true}); addEventListener('load',bootCheck);
   if(input){ input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ var v=input.value; input.value=''; run(v); } }); }
   if(chips){ chips.addEventListener('click',function(e){ var b=e.target.closest('.chip[data-cmd]'); if(!b) return;
     if(!booted){ booted=true; boot(function(){ showInput(); }); } run(b.dataset.cmd); showInput(); if(input) input.focus(); }); }
