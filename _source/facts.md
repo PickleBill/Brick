@@ -18,7 +18,9 @@
    surface imply it was Dreamship revenue. This is the #1 defensibility line.
 2. **`$35M+` = PEAK revenue** (not "cumulative," not the vague "revenue led").
    `$45M+ ad spend` and `$35M+ peak revenue` stay visibly distinct.
-3. **Contact = `bricker3@gmail.com` + LinkedIn only. No phone on any public surface** (scrapers).
+3. **Contact = `bricker3@gmail.com` + LinkedIn only. No phone in any rendered site HTML/surface**
+   (scrapers). The downloadable résumé PDF (`vFinal`) lists the phone at Bill's discretion — fine;
+   just keep it out of the HTML.
 4. **Never render on the public site:** the `$350K` Courtana raise · "11+ sports" ·
    "sub-one-year-old startup" (→ use **"in year one" / "within its first year"**) ·
    the Microsoft-during-chemo detail as a flex (dignified only, if at all).
@@ -29,21 +31,25 @@
 ---
 
 ## Identity
-- **Bill Bricker** — **AI-Forward Sales & Partnerships Leader** · 3× founder · AI-native. Raleigh, NC.
-- `bricker3@gmail.com` · `linkedin.com/in/williambricker` · **no public phone**.
+- **Bill Bricker** — **AI-Forward Sales & Partnerships Leader** (site) / **Enterprise Sales &
+  Partnerships Leader** (résumé header) · 3× founder · AI-native. Raleigh, NC.
+- `bricker3@gmail.com` · `linkedin.com/in/williambricker` · **no phone in site HTML** (it's on the résumé PDF only).
 - Target roles: GTM / partnership leadership · founder · forward-deployed · fractional · board.
 - Positioning line (locked): *"I close the deals the biggest names in tech say yes to."*
+- Résumé tagline (copy seed): *"Two decades turning frontier technology into revenue. Now all-in on AI-native go-to-market."*
 
 ## Google partnership — the centerpiece
 - Founded Dreamship and **closed Google as a partner in year one** (use "in year one" /
   "within its first year" — **never** "sub-one-year-old startup").
 - First-of-its-kind Google **partnership** (a trust layer verifying high-volume merchants on
   Google Vision) — *closing Google as an account/partner*, **never an acquisition**.
-- Channel drove **$45M+ in partner AD SPEND over 5+ years** ⚠️→ see guardrail #1.
+- Channel drove **$45M+ in partner AD SPEND over 5+ years** (vFinal confirms) → see guardrail #1.
 - Parlayed into a repeatable flywheel: **Stripe, PayPal, Payoneer, Meta**, plus a
   **Microsoft / Bing–ChatGPT** merchant deal (partner tier earned on volume).
-- ✅ **RESOLVED (Bill, 2026-06-17): five internal Google teams → VP-level sign-off.**
-  Teams: trust & safety, business integrity, commercial. Apply in build →
+- ✅ **RESOLVED — VP-level sign-off across 5–6 internal Google teams** (vFinal résumé = source-of-truth).
+  Teams: trust & safety, business integrity, commercial. **VP-level** (résumé + Bill's pick agree) overturns
+  the old "director-level" everywhere. Team count = **5–6** per the résumé (Bill's quiz said "five"; using the
+  résumé so the page matches the doc people download). Apply in build →
   `sales/index.html:225`, `sales/ai-forward.js:126`, `v3/index.html:305`.
 
 ## Dreamship (Cofounder & CEO 2018–Sep 2023 · Board Chair Sep 2023–present)
@@ -54,7 +60,7 @@
   100+ catalog products / 2,100+ variants · 1.77-day avg production time. Authored "How We Win."
 - Built 3 product versions (distributed contributors, Ukraine & Nigeria) on ~$150K lean funding (early phase).
 - Step-back reason: cancer diagnosis, with the Google deal already in flight (Bill: "very public").
-- Raised **$2.2M** ⚠️ (confirm before use).
+- Raised **$2.2M (500 Startups)** ✅ (vFinal confirms). Team of **24 at peak** (ops hub Vietnam).
 
 ## Courtana (Founder & CEO 2023–present)
 - AI sports-intelligence platform — structured data from physical sports venues.
@@ -76,13 +82,14 @@
 - Showcase apps: Litigator, Venue Connect, Layup Lab, Pickleball Freak Show, HeadsUpTime.
 
 ## Earlier track record
-- **Northwestern Mutual (2006–10):** built book from scratch; **top-10 nationally**; **$8M+ TCV**
-  across 150+ accounts. ✅ RESOLVED (Bill, 2026-06-17): TCV = **$8M+**, and **always pair the $ with
-  the "top-10 nationally" prestige line**. Apply in build → builder card `index.html:490` ($6M+→$8M+).
-- **IBM / Netezza (2012–14):** seven-figure Watson AI + analytics deals (Zillow, Avalara);
-  contributed to an **8-figure McKesson** win; **IBM Summit Sales Program.**
-  Public surfaces say **"achieved quota" + Summit**; the directly-sent résumé may keep **">100%"**
-  ⚠️ reconcile. Title ("Watson Analytics Specialist / Netezza Brand Specialist") ⚠️ unconfirmed.
+- **Northwestern Mutual** (College Unit Director / Financial Advisor, 2006–2010, Princeton NJ): built
+  book from scratch; **top-10 nationally**; **$6M+ TCV** across 150+ accounts. ✅ TCV = **$6M+** per vFinal
+  (Bill's quiz said $8M+; using the résumé so the site matches the doc). **Always pair the $ with "top-10
+  nationally."** Builder card `index.html:490` already shows $6M+ — correct, no change.
+- **IBM / Netezza** (**Watson Analytics & Netezza Brand Specialist**, 2012–2014): seven-figure Watson AI +
+  analytics deals (Zillow, Avalara); contributed to an **8-figure McKesson** win; **achieved quota**;
+  **IBM Summit Sales Program.** ✅ Title + "achieved quota" confirmed by vFinal (were ⚠️).
+  Note: "8-figure" here = the McKesson **enterprise deal**, NOT the Google channel ($45M+ ad spend).
 - **WibiData (Dir. of Sales 2014–15):** F500 big-data; NEA / Canaan / Mike Olson / Eric Schmidt–
   backed; technical pilots with **Macy's and Nordstrom.**
 - **IntroStellar (CEO/Cofounder 2015–17)** · **GearLaunch (VP Sales & Marketing 2017–18)** ·
@@ -100,10 +107,9 @@
   ⚠️ keep name or rename. **DJ Billygoat** — easter egg ⚠️ get the story.
 
 ## Canonical assets (point every link here)
-- **Résumé (canonical):** ✅ **`assets/Bill_Bricker_Resume_vFinal.pdf`** — Bill is supplying it
-  (2026-06-17). **Bridge:** until it lands, résumé links stay on the working
-  `assets/Bill_Bricker_Resume.pdf` so nothing 404s; **one swap** to vFinal when the file arrives.
-  Point ALL surfaces at the same canonical file.
+- **Résumé (canonical):** ✅ **`assets/Bill_Bricker_Resume_vFinal.pdf`** — in the repo now (2026-06-17,
+  Bill-supplied, "safe for source truth"). **Point ALL résumé links at this one file** (front door currently
+  links `assets/Bill_Bricker_Resume.pdf`; builder links `resume-v2.html` → both repoint to vFinal in build).
 - Site hub: `PickleBill/Brick` → `picklebill.github.io/Brick/`. Front door: `/Brick/sales/`.
 - Spokes (stay independent, hub LINKS to them): `PickleBill/pickle-daas-data`
   (`…/dashboards/showcase-portal-v4.html`) · `PickleBill/vibeco` (`vibeco.lovable.app`).
@@ -116,15 +122,16 @@
 ## ✅ Conflicts resolved (Bill, 2026-06-17) — apply in the build
 | # | Fact | RESOLVED value | Surfaces to update |
 |---|------|----------------|--------------------|
-| C-1 | Google internal teams + sign-off | **five teams · VP-level** | `sales/index.html:225`, `sales/ai-forward.js:126`, `v3/index.html:305` |
-| C-2 | Northwestern Mutual TCV | **$8M+** (always pair with "top-10 nationally") | `index.html:490` ($6M+→$8M+) |
-| C-3 | Google channel magnitude | **$45M+ ad spend** (one phrasing, verbatim) | `index.html:478,511`, `v3`, design-refs |
-| C-4 | Canonical résumé PDF | **`assets/Bill_Bricker_Resume_vFinal.pdf`** (Bill supplying; bridge on current PDF) | all résumé links |
+| C-1 | Google internal teams + sign-off | **5–6 teams · VP-level** (vFinal; VP overturns "director") | `sales/index.html:225`, `sales/ai-forward.js:126`, `v3/index.html:305` |
+| C-2 | Northwestern Mutual TCV | **$6M+** (vFinal) + always "top-10 nationally" | `index.html:490` already $6M+ ✓ |
+| C-3 | Google channel magnitude | **$45M+ ad spend** (vFinal; "8-fig" = McKesson enterprise deal, not the channel) | `index.html:478,511`, `v3`, design-refs |
+| C-4 | Canonical résumé PDF | **`assets/Bill_Bricker_Resume_vFinal.pdf`** (in repo ✓) | all résumé links → vFinal |
 | D-0 | Two ledgers | **`_source/facts.md` is canonical**; retire/redirect `content/FACTS.md` | `content/FACTS.md` |
 
 ## ⚠️ Still open (lower urgency — not blocking the front-door build)
-- IBM/Netezza exact title · IBM quota ">100%" vs "achieved quota" · Dreamship $2.2M raise ·
-  directly-sent résumé contact (`bill@courtana.com` vs gmail) · "Long Walk" keep/rename · DJ Billygoat story.
+- "Long Walk" keep/rename · DJ Billygoat story.
+- ✅ Closed by vFinal: IBM title (Watson Analytics & Netezza Brand Specialist) · IBM "achieved quota" ·
+  Dreamship $2.2M (500 Startups) · contact = `bricker3@gmail.com` (résumé uses gmail, not courtana).
 
 ## 🧹 Surface audit — guardrail violations live RIGHT NOW (fix in build/Phase 2)
 - **Phone number (NO public phone):** `index.html:727` · `resume.html:90` · `resume-v2.html:157` · `work.html:255`
@@ -132,11 +139,13 @@
 - **"11+ sports" (drop):** `index.html:594-595` · `work.html:191`
 - **"sub-one-year-old startup" (→ "in year one"):** `index.html:7,608` · `resume-v2.html:155` · `v3/index.html:7,305` · `work.html:196`
 - ✅ The front door `/sales/` is already clean of phone, $350K, 11+ sports, and uses `$45M+`/`$35M+`
-  correctly — its **only** ledger conflict is C-1 (team count/level) at `sales/index.html:225` + `sales/ai-forward.js:126`.
+  correctly. Its only ledger gap vs vFinal: **"director sign-off" → "VP-level"** at `sales/ai-forward.js:126`
+  (the `5–6 internal teams` count at `sales/index.html:225` already matches the résumé).
 
 ## ✅ Resolved this pass
 Contact = `bricker3@gmail.com`, no public phone · `$45M+` = ad-spend guardrail locked ·
 `$35M+` = peak revenue · "40+ apps / 31 repos" = locked verbatim phrasing ·
 Dreamship tenure = 2018–Sep 2023, Board Chair Sep 2023–present · Adobe added to cleared logos ·
-`_source/facts.md` is now the canonical ledger · **C-1..C-4 + D-0 resolved (Bill, 2026-06-17):
-five teams / VP-level · NWM $8M+ paired with top-10 nationally · $45M+ verbatim · vFinal PDF canonical.**
+`_source/facts.md` is now the canonical ledger · **vFinal résumé reconciled as source-of-truth (2026-06-17):
+VP-level across 5–6 Google teams · NWM $6M+ with top-10 nationally · $45M+ ad spend verbatim · IBM title +
+"achieved quota" + $2.2M/500 Startups confirmed · vFinal PDF in repo (`assets/Bill_Bricker_Resume_vFinal.pdf`).**
