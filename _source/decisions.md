@@ -21,3 +21,6 @@
 | D-1 | Public contact | **`bricker3@gmail.com`** everywhere — vFinal résumé uses gmail (not `bill@courtana.com`). | 2026-06-17 |
 | D-2 | IBM quota phrasing | **"achieved quota"** — vFinal uses it; drop ">100%". | 2026-06-17 |
 | D-V | Visual verification (Rule 4) | Playwright screenshot script at `tools/shoot.mjs` (desktop 1440 + laptop 1280 + mobile 375) renders local HTML to PNG before every "done." | 2026-06-17 |
+| D-3 | `/impeccable` in the loop | `/impeccable` (layout·typeset·clarify·distill·overdrive·critique·audit·polish·detect) + `/review-site` are a **standing, iterative** build step, not one-time polish — mapped to build moments in `_source/spec.md` "Design loop". | 2026-06-17 |
+| D-4 | Facts-ledger framing | Guardrails reframed (Bill): **★ north star "tell the best story" promoted to the top**; block split into **Tier A integrity-floor** (sacred — false/harmful if broken) vs **Tier B editorial** (Bill's call, meant to flex). Ledger *order* ≠ page order (page order lives in `spec.md`). | 2026-06-17 |
+| U-1 | Terminal placement | **Pulled up — right after 01 centerpiece** (brief Q2, signed off). Current `sales/index.html:322` buries it last ("progressive disclosure"); build moves it up. One-block move, trivially reversible; confirm against real pixels in the build. | 2026-06-17 |

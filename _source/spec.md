@@ -60,8 +60,106 @@ multiplier (Courtana / Pickle DaaS, 40+ apps solo).
   Contact (email close).
 - **Known later effort (Bill):** full UX happy-path, navigation, and CTA system — a dedicated later pass.
 
-## Section-by-section spec (from Phase 1b)
-_TBD._
+### Design loop — `/impeccable` as a standing, iterative pass (Bill, 2026-06-17 · decision D-3)
+Treat `/impeccable` (and `/review-site`) as an **integrated, repeating step of the build**, not a
+one-time polish at the end. Map command → moment:
+- **Frame a section before building:** `/impeccable layout` (structure/IA) + `/impeccable typeset`
+  (type scale) → set the bones before writing HTML.
+- **Tighten copy to the ledger:** `/impeccable clarify` + `/impeccable distill` → shortest true
+  line; cross-check every number against `_source/facts.md`.
+- **The signature moment:** `/impeccable overdrive` on the terminal boot (`whoami`) — the one
+  orchestrated animation (motion budget = 1).
+- **After each render (Rule 4):** `/impeccable critique` (hierarchy/spacing) + `/impeccable audit`
+  (a11y/perf) + **`/review-site`** (4-lens ICP red-team: would a frontier-lab GTM hiring manager
+  forward it?).
+- **Pre-"done":** `/impeccable polish` + `/impeccable detect` (kill generic-AI-interface tells /
+  anti-patterns — CLAUDE.md anti-pattern guardrail).
+- **Cadence:** build a slice → render → `critique` + `audit` → fix → re-render. Each loop is a small
+  **diff** (Rule 3), screenshot-verified (Rule 4).
+
+## Section-by-section spec (from Phase 1b — ✅ ready for build)
+
+> **Tag key:** `KEEP` = stays as-is in `sales/index.html` · `FIX` = same element, ledger/copy
+> correction · `MOVE` = reorder only · `NEW` = net-new · `ABSORB` = mine from builder `index.html` /
+> spokes. Every number cites `_source/facts.md`. Lead commercial; builds are the multiplier (Tier B).
+>
+> **Locked section order** (terminal pulled up per Q2): Hero → 01 Centerpiece → ▶ Terminal →
+> 02 Ecosystem → 03 Multiplier → Pedigree row → Contact.
+>
+> ⚠️ **LIVE CONTRADICTION to resolve in build:** current `sales/index.html` ships the terminal
+> **last** (`:322`, comment *"moved below the proof — progressive disclosure"*). Brief = terminal
+> **up**, right after 01. **Recommend up** — it's the differentiated "sells AND builds" proof; burying
+> it after 04 makes it redundant payoff most readers never reach. One-block move, trivial to flip back. (Decision U-1.)
+
+**Global / chrome**
+- `KEEP` dark `bricker.os` identity, mesh + grain, nav brand (facts: identity).
+- `FIX` nav → **Story · Work · Résumé** (CLAUDE.md "Col bill"); demote **Email** from a nav peer to the
+  contact close — currently 4 items incl. Email at `:165–168`. Low priority, keep Email reachable.
+- `FIX` **every résumé link → `assets/Bill_Bricker_Resume_vFinal.pdf`** (C-4). Today they point at
+  `../assets/Bill_Bricker_Resume.pdf`: nav `:167`, hero `:214`, contact `:370`, footer `:375`.
+- `KEEP` quality floor — 375px responsive, visible focus, reduced-motion (already wired `:58,111,141`).
+
+**Hero** (`:172–218`) — *the CLAIM in words; numbers teased, not stated (Q3)*
+- `KEEP` eyebrow "AI-Forward Sales & Partnerships Leader" `:209` + H1 "I close the deals the biggest
+  names in tech **say yes to.**" `:210` (facts: positioning line).
+- `FIX` lede `:211` currently front-loads `$45M+`/`$35M+`; per Q3 the **01 centerpiece owns the
+  numbers** — hero teases ("a first-of-its-kind Google deal… then I built the AI behind it"), keep one verbal hook.
+- `KEEP` operator flip-card (family ⇄ give-back) `:177–195` — Q4 deferred; stays subordinate to terminal.
+- `KEEP` glanceable hero bars `:199–202` — verify values are ledger-clean ($45M+ channel · 6 partners · 11x · 40+ apps). ✓
+- `FIX` **primary CTA = the terminal** (Q5): add **"Ask my résumé anything ↓"** as the lead action
+  (today hero CTAs are "See the Google deal →" + "Download résumé" `:213–214`); résumé = calm secondary.
+- `KEEP` availability line `:216`.
+
+**01 — Centerpiece: Google / Dreamship** (`:220–235`) — *owns the numbers*
+- `KEEP` structure + "**5–6 internal teams**" `:225` (C-1 ✓). 
+- `KEEP` dstats verbatim: `$35M+` peak revenue · 11x ('20 $1.6M→$17M) · **`$45M+` ad spend "through
+  the channel — not revenue"** `:230` (Guardrail #1 — keep this exact caption) · 4 yrs EBITDA-profitable / profitable today.
+- `KEEP` foot8 "~$85M GMV · 2.3M+ units · 323% CAGR (2019–21)" `:233` (facts: Dreamship).
+
+**▶ Terminal — signature, pulled up** (`MOVE` `#brickeros` from `:322–361` → slot 3)
+- `MOVE` whole section to right after 01; drop the "moved below the proof" comment.
+- `FIX` the **only** ledger gap left on the front door: `sales/ai-forward.js:126` "director sign-off"
+  → **"VP-level"** (C-1).
+- `KEEP` three command rows (record / hiring me? / wildcards) `:339–358` + the `whoami` boot.
+- `NEW` wire hero's "Ask my résumé anything ↓" → focus `#termInput` + scroll here.
+- ⚠️ `billygoat` chip depends on open story **S-2** (DJ Billygoat anecdote) — keep a graceful
+  placeholder until Bill supplies it.
+
+**02 — Ecosystem** (`:237–269`) — *one credible yes unlocked the next*
+- `KEEP` constellation / logo wall; all logos on the cleared list (facts: cleared logos).
+- `KEEP` sub "first-of-its-kind partnerships, then enterprise clients and the retail floor" `:241`.
+
+**03 — Multiplier: Courtana / Pickle DaaS** (`:288–320`) — *the proof, not the headline*
+- `KEEP` "I build the AI workflows that 10x my selling" `:291` (Tier B — multiplier, not developer identity).
+- `KEEP` CV video + stat badges `:294–303`; `KEEP` "**40+ apps across 31 repos**, run solo" `:307`
+  (locked verbatim — never mix with the looser "65+").
+- `KEEP` aimetrics 21K+ clips · 4,097 deep · $0.0054/clip `:309–311` (facts: Pickle DaaS).
+- `KEEP` spoke links — Pickle DaaS walkthrough + VibeCo simulator `:314–315` (hub *links* out, never
+  re-imports — Rule 2).
+
+**Pedigree — demoted to one quiet row** (`MOVE`/`FIX` `:271–286`)
+- `MOVE` from full "03" section to a single quiet row near the close (brief: "demote to depth"). Keep
+  the `climb.html` link + node trail NWM→IBM→WibiData→GearLaunch→Dreamship→Courtana `:285`.
+- `KEEP` copy `:277`: NWM "top 10 nationally / 150+ accounts" + IBM "seven-figure analytics & early-AI
+  (Watson); achieved quota" (facts: earlier track record). The row **alludes**; the PDF carries the
+  `$6M+` TCV (C-2 — always paired with "top-10 nationally").
+
+**Contact — calm close** (`:363–377`)
+- `KEEP` "Let's close something big." + email primary `:365–368`; `FIX` résumé link → vFinal `:370`.
+- `KEEP` LinkedIn `:369`; **no phone** (Guardrail #3 — front door already clean ✓).
+- `KEEP` footer; `FIX` footer résumé link → vFinal `:375`.
+
+**Cut / defer (not on the front-door spine):** `v3/index.html`, `work.html`, `console.html`,
+`compare.html` stay optional depth, not linked from this merge (brief: "demote to depth"). They still
+carry their own ledger violations (phone / `$350K` / "11+ sports" / "sub-one-year-old" — see the facts
+surface audit) → fix or `noindex` in **Phase 2**, not this merge.
 
 ## Spacing scale (Rule 5 — one ramp, defined once)
-_TBD — token ramp 4 / 8 / 16 / 24 / 40 / 64 / 96 in `:root`; one layout primitive owns vertical rhythm._
+- **Token ramp in `:root`:** `--s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:64px; --s7:96px;`
+- **One layout primitive owns vertical rhythm:** all top-level `section.wrap` blocks get their gap from
+  a *single* owner (e.g. `section.wrap + section.wrap{margin-top:var(--s7)}` or a `.stack` parent).
+  **Children never add compensating top/bottom margins** — the documented fix for the overlap / uneven-gap problem.
+- **Build step — replace the ad-hoc margins already in `ai-forward.css` / inline:** e.g.
+  `.contact{padding-top:84px}` (`sales/index.html:112`), `.termsec{padding-top:30px}` (`:78`),
+  `.foot{margin-top:60px}` (`:115`), `.contact{padding-top:84px}` → fold into the ramp + single owner.
+- **Verify (Rule 4):** `node tools/shoot.mjs sales/index.html --tag phase1b` at desktop + 375px before "done."

@@ -12,10 +12,20 @@
 
 ---
 
-## 🔒 Guardrails (binding everywhere — not conflicts, rules)
+## 🔒 Guardrails — read top to bottom
 
+> **★ NORTH STAR (the lens for everything below): "Tell the best story, not the full story."**
+> (2026-06-15 "Col bill" call.) This is the most important line in the file — read every guardrail,
+> fact, and number through it.
+>
+> **How much a "locked" fact matters depends on its tier, not its position.** This list is grouped
+> by *kind*, not importance. And the *order* of facts in this ledger is just filing for findability —
+> it carries **zero** weight about what leads on the page. **Page order is a story/hierarchy choice
+> and lives in `_source/spec.md`, not here.**
+
+**Tier A — integrity floor (sacred; breaking one asserts something *false or harmful*, not a taste call):**
 1. **`$45M+` = partner AD SPEND through the Google channel — NOT revenue.** Never let any
-   surface imply it was Dreamship revenue. This is the #1 defensibility line.
+   surface imply it was Dreamship revenue. The #1 defensibility line.
 2. **`$35M+` = PEAK revenue** (not "cumulative," not the vague "revenue led").
    `$45M+ ad spend` and `$35M+ peak revenue` stay visibly distinct.
 3. **Contact = `bricker3@gmail.com` + LinkedIn only. No phone in any rendered site HTML/surface**
@@ -24,9 +34,12 @@
 4. **Never render on the public site:** the `$350K` Courtana raise · "11+ sports" ·
    "sub-one-year-old startup" (→ use **"in year one" / "within its first year"**) ·
    the Microsoft-during-chemo detail as a flex (dignified only, if at all).
-5. **Lead commercial, prove with builder.** Sales is the headline; the AI building is the
+
+**Tier B — editorial north star (how to choose what leads / how loud — fully Bill's call, meant to flex):**
+5. **Tell the best story, not the full story** (the ★ lens, as a working rule): the PDF is the *full
+   record*; the site is the *forward-worthy cut*. Choosing what to lead with and what to drop is craft, not a violation.
+6. **Lead commercial, prove with builder.** Sales is the headline; the AI building is the
    *multiplier* ("the AI workflows that 10x my output"), never a developer identity.
-6. **"Tell the best story, not the full story."** (2026-06-15 "Col bill" call.)
 
 ---
 
