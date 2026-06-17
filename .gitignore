@@ -1,0 +1,4 @@
+# tooling / verification artifacts — not part of the static site
+node_modules/
+tools/screens/
+package-lock.json
