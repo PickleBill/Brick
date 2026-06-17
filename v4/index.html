@@ -108,8 +108,8 @@
 
   /* ---------- hero ---------- */
   .hero { padding:56px 0 22px; }
-  .hero-grid { display:grid; grid-template-columns:.92fr 1.08fr; gap:46px; align-items:center; }
-  @media (max-width:940px){ .hero-grid{ grid-template-columns:1fr; gap:24px; } }
+  .hero-grid { display:grid; grid-template-columns:.88fr 1.12fr; gap:46px; align-items:center; }
+  @media (max-width:940px){ .hero-grid{ grid-template-columns:1fr; gap:24px; } .hero-copy{ order:-1; } }
   @media (max-width:560px){ .hero{ padding:26px 0 14px; } h1.head{ font-size:clamp(31px,8.6vw,42px); margin-top:12px; } .lede{ font-size:16.5px; margin-top:13px; max-width:none; } .hero-cta{ margin-top:16px; } .hero-grid{ gap:16px; } }
   .avail { display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-dim); }
   .avail i { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 0 var(--accent-soft); animation:pulse 2.1s infinite; }
@@ -128,10 +128,12 @@
 
   /* ---------- identity flip card ---------- */
   .flip { perspective:2200px; cursor:pointer; }
-  .flip-inner { position:relative; width:100%; min-height:498px; transition:transform .8s var(--ease); transform-style:preserve-3d; }
+  .flip-inner { position:relative; width:100%; aspect-ratio:4/3; transition:transform .7s var(--ease); transform-style:preserve-3d; }
+  .flip-face img { width:100%; height:100%; object-fit:cover; display:block; }
+  .opcard { background:linear-gradient(180deg,var(--glass),var(--glass2)); border:1px solid var(--line2); border-radius:var(--radius); padding:14px; box-shadow:0 40px 90px -42px rgba(0,0,0,.9); }
+  .opbars { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
   .flip.flipped .flip-inner { transform:rotateY(180deg); }
-  @media (max-width:940px){ .flip-inner{ min-height:520px; } }
-  @media (max-width:560px){ .flip-inner{ min-height:528px; } }
+  @media (max-width:560px){ .flip-inner{ aspect-ratio:5/4; } }
   .flip-face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:var(--radius); border:1px solid var(--line2); overflow:hidden; box-shadow:0 40px 90px -42px rgba(0,0,0,.9); background:linear-gradient(180deg,#0e1311,#0a0c0d); }
   .flip-back { transform:rotateY(180deg); }
   /* flip cue */
@@ -198,6 +200,19 @@
   .sb { display:flex; flex-direction:column; gap:5px; }
   .sb .n { font-family:var(--display); font-weight:800; font-size:clamp(24px,3vw,32px); letter-spacing:-.03em; line-height:1; color:var(--sage); }
   .sb .k { font-family:var(--mono); font-size:10px; letter-spacing:.04em; color:var(--mute); text-transform:uppercase; line-height:1.35; }
+
+  /* ---------- google deal card ---------- */
+  .gdeal { display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center; border:1px solid var(--line2); border-radius:var(--radius); background:linear-gradient(180deg,var(--glass),var(--glass2)); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur)); padding:32px 36px; box-shadow:0 40px 90px -50px rgba(0,0,0,.85); }
+  @media (max-width:780px){ .gdeal{ grid-template-columns:1fr; gap:22px; padding:26px 22px; } }
+  .gdeal-copy h2 { font-family:var(--display); font-size:clamp(26px,3.6vw,40px); font-weight:700; letter-spacing:-.03em; line-height:1.05; margin:12px 0 0; }
+  .gdeal-copy p { color:var(--mute); font-size:15.5px; line-height:1.6; margin-top:14px; max-width:48ch; }
+  .gdeal-copy p b { color:var(--text); font-weight:600; }
+  .gdeal-copy .e-go { margin-top:18px; }
+  .gdeal-stats { display:grid; grid-template-columns:1fr 1fr; gap:20px 22px; }
+  .gstat { display:flex; flex-direction:column; gap:5px; }
+  .gstat .gn { font-family:var(--display); font-weight:800; font-size:clamp(23px,2.7vw,31px); letter-spacing:-.03em; color:var(--sage); line-height:1; }
+  .gstat .gk { font-family:var(--mono); font-size:10px; letter-spacing:.03em; color:var(--mute); text-transform:uppercase; line-height:1.45; }
+  .gstat .gk em { color:var(--coral); font-style:normal; }
 
   /* ---------- section heads ---------- */
   section.block { padding:calc(86px*var(--sp)) 0 0; }
@@ -350,11 +365,7 @@
   .js .rv.in { opacity:1; transform:none; }
   @media (prefers-reduced-motion: reduce){ .js .rv{ opacity:1; transform:none; transition:none; } }
 
-  /* card-back hover logos */
-  .bar .barlogos { display:none; gap:5px; align-items:center; justify-content:flex-end; flex-wrap:wrap; }
-  .bar .barlogos b { font-family:var(--mono); font-size:9px; font-weight:600; color:var(--accent); border:1px solid rgba(111,239,180,.32); border-radius:5px; padding:2px 6px; background:rgba(111,239,180,.07); white-space:nowrap; }
-  .bar.on .barlogos, .bar:hover .barlogos { display:inline-flex; }
-  .bar.on .vl, .bar:hover .vl { display:none; }
+  /* (operator bars now live under the hero card; value stays visible on hover) */
   /* VibeCo 6-panel */
   .vgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px; }
   @media (max-width:760px){ .vgrid{ grid-template-columns:1fr 1fr; } }
@@ -425,8 +436,32 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-grid">
-        <!-- left -->
-        <div class="hero-left rv">
+        <!-- left: identity card -->
+        <div class="hero-card rv">
+          <div class="opcard">
+            <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card — tap to flip between the Freedom United give-back and the family portrait.">
+              <span class="flipcue" aria-hidden="true">⟲</span>
+              <div class="flip-inner">
+                <div class="flip-face flip-front">
+                  <img src="../assets/dreamship-donate.jpg" alt="Dreamship presents a giant donation check to Freedom United on stage, 2019" onerror="this.style.display='none'" />
+                </div>
+                <div class="flip-face flip-back">
+                  <img src="../assets/family.jpg" alt="Bill Bricker with his family" onerror="this.style.display='none'" />
+                </div>
+              </div>
+            </div>
+            <div class="preadout"><span class="n" id="ringN">20</span><span class="l" id="ringL">years in enterprise GTM</span></div>
+            <div class="opbars" id="bars">
+              <div class="bar" data-m="$45M+" data-ml="Google ad-spend channel"><span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span></div>
+              <div class="bar" data-m="6" data-ml="big-tech partners"><span class="nm">Closed big-tech partners</span><span class="vl">Stripe · Meta</span><span class="track"><i class="fill" data-w="82" style="background:var(--g-violet)"></i></span></div>
+              <div class="bar" data-m="11x" data-ml="in 2020"><span class="nm">Zero-to-one scale</span><span class="vl">11x · '20</span><span class="track"><i class="fill" data-w="90" style="background:var(--g-green)"></i></span></div>
+              <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo"><span class="nm">AI-native workflows</span><span class="vl">40+ apps</span><span class="track"><i class="fill" data-w="88" style="background:var(--g-wide)"></i></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- right: copy -->
+        <div class="hero-copy rv">
           <span class="avail"><i></i> AI-Forward Sales &amp; Partnerships Leader</span>
           <h1 class="head">I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
           <p class="lede">I founded Dreamship and <b>closed Google as a partner in year one</b> — then built the AI that does the work. I close what the biggest names in tech say yes to, and <span class="g">ship the product myself.</span></p>
@@ -434,83 +469,28 @@
             <a class="pill solid" href="#interface">Prompt my résumé ↓</a>
             <a class="pill ghost" href="../assets/Bill_Bricker_Resume_vFinal.pdf" download>Download résumé</a>
           </div>
-          <span class="avail" style="margin-top:15px"><i></i> Open to GTM &amp; partnerships leadership · founder · fractional · board</span>
-        </div>
-
-        <!-- right: identity flip card -->
-        <div class="hero-right rv">
-          <div class="flip" id="flip" tabindex="0" role="button" aria-label="Identity card — front: who I am, back: the operator profile. Activate to flip.">
-            <div class="flip-inner">
-              <!-- FRONT · identity -->
-              <div class="flip-face flip-front">
-                <span class="flipcue"><span class="rot">⟲</span> tap to flip</span>
-                <div class="cf">
-                  <div class="cf-left">
-                    <span class="inroom"><i></i> in the room</span>
-                    <div class="idlines">
-                      <span class="idl">Closes the deal</span>
-                      <span class="idl s2">Builds the product</span>
-                      <span class="idl spectrum">GTM operator</span>
-                    </div>
-                    <span class="cf-tag">3× founder · Raleigh, NC</span>
-                  </div>
-                  <div class="cf-pic">
-                    <!-- FRONT vertical photo: family (full family, faces shown). Swap to the couple shot when added to Drive. -->
-                    <img src="../assets/family.jpg" alt="Bill Bricker with his family"
-                         onerror="this.style.display='none';this.parentElement.querySelector('.ph').style.display='flex'" />
-                    <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="#6fefb4" stroke-width="1.3"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 4-6.5 8-6.5s8 2.1 8 6.5"/></svg></div>
-                  </div>
-                </div>
-              </div>
-              <!-- BACK · operator profile (interactive) -->
-              <div class="flip-face flip-back fc-back">
-                <span class="flipcue"><span class="rot">⟲</span> flip back</span>
-                <div class="op-head"><span class="l">Operator Profile</span><span class="r">Raleigh, NC · father of three</span></div>
-                <!-- BACK horizontal photo: dream-ship-donate seam (drop into Drive _intake MEDIA and I'll wire it) -->
-                <div class="op-photo">
-                  <img src="../assets/dreamship-donate.jpg" alt="Dreamship donating to Freedom United on stage"
-                       onerror="this.style.display='none';this.parentElement.querySelector('.ph').style.display='flex'" />
-                  <div class="ph" style="display:flex">Dreamship × Freedom United · give-back on stage, 2019</div>
-                  <span class="tag">building &amp; giving — same track</span>
-                </div>
-                <div class="preadout"><span class="n" id="ringN">20</span><span class="l" id="ringL">years carrying a number</span></div>
-                <div class="bars" id="bars">
-                  <div class="bar" data-m="$45M+" data-ml="Google ad-spend channel">
-                    <span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="barlogos"><b>IBM</b><b>Google</b></span>
-                    <span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span>
-                  </div>
-                  <div class="bar" data-m="11x" data-ml="in a single year">
-                    <span class="nm">Zero-to-one building</span><span class="vl">11x · $35M+</span><span class="barlogos"><b>Dreamship</b><b>Courtana</b></span>
-                    <span class="track"><i class="fill" data-w="92" style="background:var(--g-green)"></i></span>
-                  </div>
-                  <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo">
-                    <span class="nm">AI-native product</span><span class="vl">40+ apps · 31 repos</span><span class="barlogos"><b>VibeCo</b><b>31 repos</b></span>
-                    <span class="track"><i class="fill" data-w="88" style="background:var(--g-violet)"></i></span>
-                  </div>
-                  <div class="bar" data-m="$6M+" data-ml="total contract value">
-                    <span class="nm">Founder-led sales</span><span class="vl">top-10 nationally</span><span class="barlogos"><b>NWM</b><b>IBM</b></span>
-                    <span class="track"><i class="fill" data-w="90" style="background:var(--g-wide)"></i></span>
-                  </div>
-                  <div class="bar" data-m="5+" data-ml="big-tech partners landed">
-                    <span class="nm">Connector &amp; BD</span><span class="vl">Stripe · Meta · PayPal</span><span class="barlogos"><b>Stripe</b><b>Meta</b><b>PayPal</b></span>
-                    <span class="track"><i class="fill" data-w="85" style="background:var(--g-coral)"></i></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
-      <!-- green stats band (the break) -->
-      <div class="statband rv">
-        <div class="sb-in">
-          <div class="sb"><span class="n" data-count="20" data-suf="+">20+</span><span class="k">years carrying a number</span></div>
-          <div class="sb"><span class="n" data-count="35" data-pre="$" data-suf="M+">$35M+</span><span class="k">peak revenue</span></div>
-          <div class="sb"><span class="n" data-count="11" data-suf="x">11x</span><span class="k">growth in one year</span></div>
-          <div class="sb"><span class="n">$45M+</span><span class="k">Google ad spend · 5+ yrs</span></div>
-          <div class="sb"><span class="n" data-count="40" data-suf="+">40+</span><span class="k">AI apps · 31 repos</span></div>
-          <div class="sb"><span class="n" data-count="21" data-suf="K+">21K+</span><span class="k">clips processed</span></div>
+      <!-- (stat band folded into the Google deal card below) -->
+    </div>
+  </section>
+
+  <!-- ============ THE GOOGLE DEAL ============ -->
+  <section class="block" id="google">
+    <div class="wrap">
+      <div class="gdeal rv">
+        <div class="gdeal-copy">
+          <div class="kick">The deal that made Dreamship</div>
+          <h2>I closed Google as a partner — <span class="flat">in year one.</span></h2>
+          <p>A first-of-its-kind cross-division partnership, won across <b>5–6 internal Google teams</b> to <b>VP-level</b> sign-off, then run for <b>5+ years</b>. The flywheel that followed: Stripe, PayPal, Meta, and a Microsoft–Bing/ChatGPT merchant deal.</p>
+          <a class="e-go" href="#interface">Ask the machine about it <span class="ar">↓</span></a>
+        </div>
+        <div class="gdeal-stats">
+          <div class="gstat"><span class="gn">$45M+</span><span class="gk">ad spend through the channel <em>— not revenue</em></span></div>
+          <div class="gstat"><span class="gn">$35M+</span><span class="gk">peak revenue</span></div>
+          <div class="gstat"><span class="gn">11x</span><span class="gk">growth in 2020 · $1.6M→$17M</span></div>
+          <div class="gstat"><span class="gn">4 yrs</span><span class="gk">EBITDA-profitable · profitable today</span></div>
         </div>
       </div>
     </div>

@@ -40,7 +40,7 @@
   var flip=$('#flip');
   if(flip){
     var flipped=false, userTouched=false, barsOn=false;
-    function setFlip(v){ flipped=v; flip.classList.toggle('flipped',v); if(v) activateBars(); }
+    function setFlip(v){ flipped=v; flip.classList.toggle('flipped',v); flip.setAttribute('aria-pressed',v?'true':'false'); }
     function toggle(){ userTouched=true; setFlip(!flipped); }
     flip.addEventListener('click', toggle);
     flip.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
@@ -60,6 +60,7 @@
       b.addEventListener('mouseleave',function(){ cycle(); });
       b.addEventListener('click',function(e){ e.stopPropagation(); clearInterval(timer); ai=i; setActive(i); });
     });
+    activateBars();
   }
 
   /* ====================================================================
