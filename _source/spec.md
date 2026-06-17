@@ -201,3 +201,75 @@ side-by-side operating companies, single-primitive section padding (`section.blo
   janky (overflow, layout shift, reduced-motion).
 
 **Done = grader: all 3 dims ≥ 4 + GATE pass; rendered desktop + 375px; preview link to Bill.**
+
+## v4 — Revision 2 (Bill feedback, 2026-06-17) — ⏸ SPEC FOR SIGN-OFF (do not build yet)
+
+> Documents Bill's round-2 feedback on the live v4 + decisions (interview 2026-06-17). v4 is the
+> front-door lead direction; this revision gets it back onto the original roadmap track
+> (build → red-team → align → ship). Build only after Bill signs off.
+
+### A. Declutter — kill the floating labels/overlays (use only when necessary)
+**Cut** (text-heavy, low value): flip-cue text "tap to flip / flip back" (also currently reversed)
+→ one minimal ⟲ icon, no words · card photo tags ("building & giving", "Dreamship × Freedom United…",
+op-head "Raleigh, NC · father of three", cf-tag) · hero availability sub-line ("Open to GTM… fractional…
+board") — already lives at the contact close · VibeCo "11 AI agents" badge · trim the 5 video CV stat
+badges → 2–3 key ones. **Keep** (functional): terminal LIVE badge, the `whoami` boot, the avail dot.
+*(Challenge: a flip with zero affordance is undiscoverable — keep the one ⟲ icon.)*
+
+### B. Hero — flip the layout + rebuild the card
+- **Layout:** card **LEFT**, copy **RIGHT** (match the sales branch; currently reversed).
+- **Card = compact flip + 4 bars below** (the sales card pattern, not v4's tall 498px flip):
+  - FRONT = the **Freedom United giant-check photo** (`assets/dreamship-donate.jpg`), **made taller/wider**
+    (it's narrow now) — give-back seen first.
+  - BACK = the **family photo** (`assets/family.jpg`).
+  - Below the flip: the **4 operator bars from the sales version** — `$45M+` Google channel · `6` big-tech
+    partners · `11x` ('20) · `0→40+` AI apps. Compact.
+  - Minimize vertical height; fix the flip cue (single icon, correct face).
+
+### C. Google deal — ground-up centerpiece card (front & center → terminal)
+- New clean section, **brief**: first-of-its-kind Google partnership, closed **in year one**, **VP-level
+  across 5–6 teams**, ran **5+ years**.
+- **Numbers folded in, slim** (Bill likes the stat card — keep its spirit, slimmed): `$45M+` ad spend
+  *(not revenue)* · `$35M+` peak revenue · `11x` ('20) · 4 yrs profitable. The old green 6-stat band is
+  **absorbed here** — no separate band.
+- Hands off to the terminal ("ask the machine about it ↓").
+- **Design ground-up with `/impeccable craft`** — narrative-with-numbers, NOT a big-number hero-metric
+  grid (that's the slop template). Numbers support the deal story.
+
+### D. Builds — proof-of-work (featured + swipeable rail) — THE most important section
+- **Decision (Bill + my guidance):** featured item + horizontal **scroll-snap rail**, NOT a rotating
+  wheel (wheels hide proof + jank on mobile). **Don't over-engineer** — plain CSS scroll-snap, no lib.
+- **Content (companies + apps):** coalesces the old Companies + VibeCo + Pickle DaaS sections into one.
+  - **Featured slot:** the most visual proof — propose the **Pickle DaaS CV video** (raw court video →
+    player/coaching/venue intel · `$0.0054/clip`); VibeCo (engine behind 40+ apps) the alt.
+  - **Rail:** Courtana · Dreamship · VibeCo (companies) + Litigator · Venue Connect · Layup Lab · Freak
+    Show · HeadsUpTime (apps). Each card tagged Company · App · Data.
+- **Interaction:** drag/swipe + arrows (desktop) + scroll-snap (mobile); peek the next card; keyboard +
+  visible focus; reduced-motion safe; **no auto-rotate**. Sneak-peek → click/scroll through (per Bill).
+- **Approach:** `/impeccable shape` → `craft` the featured card + rail card + rail mechanics; render
+  desktop+375; grade.
+
+### E. Terminal — fix mobile
+Bug: on mobile the boot **doesn't type out** and typing input is janky. Diagnose `home.js` boot /
+`typed()` + input focus/scroll/keyboard on mobile. Desktop is great — keep it.
+
+### F. New section order
+Hero (card L / copy R) → **Google deal card** (numbers folded slim) → **Terminal** → **Builds**
+(featured + rail) → Story → Contact. *(Drops the separate green stat band + the separate
+Companies/VibeCo/Pickle-DaaS sections — all coalesced.)*
+
+### Build sequence (small diffs · render+grade each · preview link each)
+1. Declutter + hero flip + card rebuild → render/grade.
+2. Google deal card (`/impeccable craft`) → render/grade.
+3. **Builds featured + rail** (`/impeccable shape`→`craft`) → render/grade. ← the big one.
+4. Terminal mobile fix.
+5. Copy pass (thin em-dashes · sharpen hero → push *forward-able* 4→5) + `/impeccable layout` + `polish`.
+6. Red-team: `/review-site` + persona-panel (forward-able gate) → fix P0/P1.
+7. **Back on track:** formalize v4 as THE front door (supersede `/sales`), align résumé/terminal ledger, ready-for-merge.
+
+### My take on the round-1 impeccable recs (deferred items)
+- em-dash copy / sharpen hero → step 5 (sharpening the hero now would be wasted before the restructure).
+- layout/spacing pass → step 5 (the restructure changes the layout; polish after).
+- flip-card tall height → **already handled** by §B (compact card).
+- spy numbers → **keep** (deliberate nav mini-map, not the per-section tell).
+Net: the restructure subsumes most of round-1 polish — don't polish before rebuilding.
