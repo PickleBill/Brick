@@ -177,7 +177,7 @@
   .op-photo .ph { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; color:var(--faint); text-align:center; padding:6px; }
   .op-photo .tag { position:absolute; left:11px; bottom:9px; z-index:2; font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#dfe4e1; background:rgba(8,10,9,.5); border:1px solid var(--line); padding:3px 8px; border-radius:99px; backdrop-filter:blur(4px); }
   .preadout { display:flex; align-items:baseline; gap:10px; margin:13px 2px 12px; }
-  .preadout .n { font-family:var(--display); font-size:27px; font-weight:800; letter-spacing:-.03em; line-height:1; background:linear-gradient(120deg,var(--sage),var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; transition:opacity .2s; }
+  .preadout .n { font-family:var(--display); font-size:27px; font-weight:800; letter-spacing:-.03em; line-height:1; color:var(--sage); transition:opacity .2s; }
   .preadout .l { font-size:12px; color:var(--mute); }
   .bars { display:flex; flex-direction:column; gap:9px; margin-top:auto; }
   .bar { display:grid; grid-template-columns:1fr auto; gap:3px 10px; font-size:12.5px; cursor:pointer; border-radius:9px; padding:4px 8px; margin:0 -8px; transition:background .2s; }
@@ -196,7 +196,7 @@
   @media (max-width:840px){ .statband .sb-in{ grid-template-columns:repeat(3,1fr); } }
   @media (max-width:480px){ .statband .sb-in{ grid-template-columns:repeat(2,1fr); gap:22px 12px; } }
   .sb { display:flex; flex-direction:column; gap:5px; }
-  .sb .n { font-family:var(--display); font-weight:800; font-size:clamp(24px,3vw,32px); letter-spacing:-.03em; line-height:1; background:linear-gradient(120deg,#7be88f,#46d6b6 60%,#36c6e0); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .sb .n { font-family:var(--display); font-weight:800; font-size:clamp(24px,3vw,32px); letter-spacing:-.03em; line-height:1; color:var(--sage); }
   .sb .k { font-family:var(--mono); font-size:10px; letter-spacing:.04em; color:var(--mute); text-transform:uppercase; line-height:1.35; }
 
   /* ---------- section heads ---------- */
@@ -308,7 +308,7 @@
   .vidwrap { position:relative; border-radius:16px; overflow:hidden; border:1px solid var(--line2); aspect-ratio:16/11; background:#0a0c0d; box-shadow:0 30px 70px -42px rgba(0,0,0,.85); }
   .vidwrap video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .vidwrap .vgrad { position:absolute; inset:0; background:radial-gradient(ellipse at center,transparent 35%,rgba(8,8,12,.5) 92%); pointer-events:none; }
-  .statbadge { position:absolute; left:var(--x); top:var(--y); z-index:3; display:flex; align-items:stretch; gap:0; max-width:200px; opacity:0; transform:scale(.85) translateY(8px); transition:opacity .4s, transform .5s cubic-bezier(.34,1.56,.64,1); }
+  .statbadge { position:absolute; left:var(--x); top:var(--y); z-index:3; display:flex; align-items:stretch; gap:0; max-width:200px; opacity:0; transform:scale(.85) translateY(8px); transition:opacity .4s, transform .5s var(--ease); }
   .statbadge.show { opacity:1; transform:scale(1) translateY(0); }
   .statbadge .edge { width:3px; border-radius:10px 0 0 10px; background:var(--c); box-shadow:0 0 9px var(--c); }
   .statbadge .bd { background:rgba(8,8,12,.8); backdrop-filter:blur(14px) saturate(160%); border:1px solid rgba(255,255,255,.1); border-left:0; border-radius:0 10px 10px 0; padding:7px 11px; box-shadow:0 8px 32px rgba(0,0,0,.4); }
@@ -521,7 +521,7 @@
     <div class="wrap">
       <div class="interface-grid">
         <div class="sec-head rv">
-          <div class="kick"><span class="num">01</span> The interface</div>
+          <div class="kick">The interface</div>
           <h2>Don't read the résumé.<br><span class="flat">Prompt it.</span></h2>
           <p>A live AI that answers from a fact-checked ledger of twenty years. Tap a command, talk to it, or ask anything — it's the product, answering for me.</p>
           <a class="e-go" href="../work.html" style="margin-top:16px;">Open the full terminal <span class="ar">→</span></a>
@@ -577,7 +577,7 @@
   <section class="block" id="work">
     <div class="wrap">
       <div class="sec-head rv">
-        <div class="kick"><span class="num">02</span> Proof of work</div>
+        <div class="kick">Proof of work</div>
         <h2>Two operating companies.<br>Both live.</h2>
         <p>Not side projects — real companies with revenue, customers, and scar tissue. <em>Built and sold by the same person.</em></p>
       </div>
@@ -618,7 +618,7 @@
   <section class="block" id="engine">
     <div class="wrap">
       <div class="sec-head rv">
-        <div class="kick"><span class="num">03</span> The engine</div>
+        <div class="kick">The engine</div>
         <h2>One operator,<br>shipping like a team.</h2>
       </div>
       <div class="vibe-head rv" style="margin-top:26px;">
@@ -664,7 +664,7 @@
     <div class="wrap">
       <div class="edit rv">
         <div class="e-copy">
-          <div class="kick"><span class="num">04</span> The tech proof</div>
+          <div class="kick">The tech proof</div>
           <h3>A self-serve sports-data warehouse,<br>built from raw video.</h3>
           <p class="lede">I went deep on the modern data stack myself — <b>Supabase</b>, connectors, autonomous ingest agents, and a ground-truth validation loop. Every clip → player DNA, shot analytics &amp; brand intelligence. <b>A working pipeline, not a slide.</b></p>
           <div class="e-metrics">
@@ -697,7 +697,7 @@
   <!-- ============ 05 · STORY ============ -->
   <section class="block" id="person">
     <div class="wrap">
-      <div class="sec-head rv"><div class="kick"><span class="num">05</span> The person</div></div>
+      <div class="sec-head rv"><div class="kick">The person</div></div>
       <a class="story rv" href="../climb.html">
         <div>
           <h3>Twenty years,<br>one climb.</h3>

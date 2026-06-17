@@ -280,18 +280,7 @@
     vCheck(); addEventListener('scroll',vCheck,{passive:true}); addEventListener('load',vCheck);
   }
 
-  /* ---------- terminal command "wheels": gentle auto-scroll, pause on hover ---------- */
-  (function(){ if(reduce) return;
-    [].slice.call(document.querySelectorAll('.cmdrow')).forEach(function(row,k){
-      var slack=function(){ return row.scrollWidth-row.clientWidth; };
-      if(slack()<=8) return; var paused=false, dir=1;
-      ['pointerenter','focusin','pointerdown','touchstart'].forEach(function(ev){ row.addEventListener(ev,function(){ paused=true; },{passive:true}); });
-      ['pointerleave','focusout','touchend'].forEach(function(ev){ row.addEventListener(ev,function(){ paused=false; },{passive:true}); });
-      setTimeout(function(){ setInterval(function(){ if(paused||slack()<=8) return;
-        row.scrollLeft += dir*0.5;
-        if(row.scrollLeft>=slack()-1) dir=-1; else if(row.scrollLeft<=0) dir=1;
-      }, 28); }, 1200 + k*450);
-    }); })();
+  /* terminal command rows: manual scroll only (auto-scroll "wheels" removed — felt janky) */
 
   /* ---------- VibeCo panels: swap to a motion preview on hover (seam) ---------- */
   (function(){ [].slice.call(document.querySelectorAll('.vpanel[data-gif]')).forEach(function(p){
