@@ -163,3 +163,41 @@ surface audit) → fix or `noindex` in **Phase 2**, not this merge.
   `.contact{padding-top:84px}` (`sales/index.html:112`), `.termsec{padding-top:30px}` (`:78`),
   `.foot{margin-top:60px}` (`:115`), `.contact{padding-top:84px}` → fold into the ramp + single owner.
 - **Verify (Rule 4):** `node tools/shoot.mjs sales/index.html --tag phase1b` at desktop + 375px before "done."
+
+## v4 — NEW APPROACH: repurpose the root chassis (2026-06-17, post-interview)
+
+> **Supersedes the `/sales` chassis for the front-door goal** (Bill: /sales core architecture is buggy on
+> spacing & interactions). **Non-destructive** — built at **`v4/`**; `/sales` + repo-root `index.html`
+> stay untouched for side-by-side. Interview (2026-06-17): problem = **spacing/rhythm + janky interactions**
+> (not the style, not the flow); **keep the root chassis, swap the messaging**; grade on **forward-able /
+> rhythm&mobile / alive-not-slop** with a facts-integrity gate → `_source/grader.md`.
+
+**Base:** copy repo-root `index.html` + `home.js` → `v4/index.html` + `v4/home.js`. Repoint `"assets/` →
+`"../assets/"`, internal page links → `../`, résumé → `../assets/Bill_Bricker_Resume_vFinal.pdf`.
+**Why this chassis:** already terminal-first (01 "The interface"), scroll-spy nav, mobile hamburger,
+side-by-side operating companies, single-primitive section padding (`section.block{padding-top}`).
+
+**Messaging swap (keep structure, change words — Q3):**
+- Title / meta / OG → "AI-Forward Sales & Partnerships Leader" + the locked claim; fix "sub-one-year-old".
+- Hero: avail = identity eyebrow; **H1 = "I close the deals the biggest names in tech *say yes to.*"**;
+  lede = Google-in-year-one → then built the AI; **primary CTA = "Prompt my résumé ↓"** (→ terminal),
+  secondary = Download résumé (vFinal). Availability line under the CTAs.
+- Flip front idlines → operator identity; drop the public "Vibe Pusher" / "fka DJ Billygoat" (keep
+  billygoat as a terminal easter egg only).
+
+**Ledger fixes (each one is a GATE item):**
+- Bar1 + statband **"8-fig" Google channel → `$45M+` ad spend** (C-3); statband **"$35M+ revenue led" →
+  `$35M+` peak revenue** (guardrail #2).
+- Courtana opco: **drop "11+ sports" + "$350K"** → 36 courts · 760 users · 4 venues.
+- Dreamship opco: **"sub-one-year-old startup" → "in year one".**
+- Contact: **remove the phone (`tel:`)** → Download résumé (vFinal).
+- nav + footer résumé (`resume-v2.html`) → **vFinal PDF**.
+- `home.js` terminal copy: scan for 8-fig / phone / $350K / 11-sports / sub-one-year / director → fix to ledger.
+
+**The two bugs to kill (Q1) — verify against the grader, don't blind-refactor:**
+- **Rhythm:** confirm one section primitive owns vertical spacing; add the Rule-5 token ramp; kill any
+  compensating margins the render surfaces.
+- **Interactions:** flip-card fixed `min-height` + terminal/mic robustness — fix whatever the render shows
+  janky (overflow, layout shift, reduced-motion).
+
+**Done = grader: all 3 dims ≥ 4 + GATE pass; rendered desktop + 375px; preview link to Bill.**
