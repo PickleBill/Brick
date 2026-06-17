@@ -265,7 +265,7 @@ Companies/VibeCo/Pickle-DaaS sections — all coalesced.)*
 4. Terminal mobile fix.
 5. Copy pass (thin em-dashes · sharpen hero → push *forward-able* 4→5) + `/impeccable layout` + `polish`.
 6. Red-team: `/review-site` + persona-panel (forward-able gate) → fix P0/P1.
-7. **Back on track:** formalize v4 as THE front door (supersede `/sales`), align résumé/terminal ledger, ready-for-merge.
+7. **Back on track:** formalize v4 as THE front door; **keep `/sales` in place as a reference/archive — do NOT retire it** (Bill, 2026-06-17: costs nothing sitting there, may have parts worth pulling back); align résumé/terminal ledger, ready-for-merge.
 
 ### My take on the round-1 impeccable recs (deferred items)
 - em-dash copy / sharpen hero → step 5 (sharpening the hero now would be wasted before the restructure).
