@@ -135,6 +135,7 @@
   .idpanel { flex:0 0 auto; padding:14px 16px 15px; background:linear-gradient(180deg,#0e1311,#0a0c0d); border-top:1px solid var(--line); display:flex; flex-direction:column; gap:3px; }
   .idpanel .idlabel { font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:3px; }
   .idpanel .idl { font-family:var(--display); font-weight:800; font-size:clamp(14px,1.5vw,17px); letter-spacing:-.02em; line-height:1.22; white-space:normal; }
+  .opbars { display:flex; flex-direction:column; gap:9px; margin-top:14px; }
   .flip.flipped .flip-inner { transform:rotateY(180deg); }
   @media (max-width:560px){ .flip-inner{ aspect-ratio:1/1; } }
   .flip-face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:var(--radius); border:1px solid var(--line2); overflow:hidden; box-shadow:0 40px 90px -42px rgba(0,0,0,.9); background:linear-gradient(180deg,#0e1311,#0a0c0d); }
@@ -216,6 +217,45 @@
   .gstat .gn { font-family:var(--display); font-weight:800; font-size:clamp(23px,2.7vw,31px); letter-spacing:-.03em; color:var(--sage); line-height:1; }
   .gstat .gk { font-family:var(--mono); font-size:10px; letter-spacing:.03em; color:var(--mute); text-transform:uppercase; line-height:1.45; }
   .gstat .gk em { color:var(--coral); font-style:normal; }
+
+  /* ---------- builds: featured + swipe rail ---------- */
+  .feat { display:grid; grid-template-columns:1.15fr .85fr; gap:40px; align-items:center; margin-top:32px; }
+  @media (max-width:880px){ .feat{ grid-template-columns:1fr; gap:22px; } }
+  .feat-copy .okick { font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent-dim); }
+  .feat-copy h3 { font-family:var(--display); font-weight:700; font-size:clamp(22px,2.8vw,30px); letter-spacing:-.028em; line-height:1.08; margin:10px 0 0; text-wrap:balance; }
+  .feat-copy p { color:var(--mute); font-size:15px; line-height:1.6; margin-top:12px; max-width:46ch; }
+  .feat-metrics { display:flex; gap:26px; margin-top:18px; flex-wrap:wrap; }
+  .feat-metrics .v { font-family:var(--display); font-weight:700; font-size:22px; letter-spacing:-.03em; color:var(--text); }
+  .feat-metrics .k { font-family:var(--mono); font-size:9.5px; color:var(--mute); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; }
+  .feat-copy .e-links { margin-top:18px; }
+
+  .rail-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-top:46px; }
+  .rail-label { font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); }
+  .rail-nav { display:flex; gap:8px; }
+  .rail-arrow { width:38px; height:38px; border-radius:50%; border:1px solid var(--line2); background:var(--glass2); color:var(--text); font-size:15px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition:.15s; }
+  .rail-arrow:hover { border-color:var(--accent); color:var(--accent); }
+  @media (max-width:680px){ .rail-nav{ display:none; } }
+  .rail { display:flex; gap:16px; margin-top:16px; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; padding:4px 2px 14px; scrollbar-width:none; -ms-overflow-style:none; overscroll-behavior-x:contain; }
+  .rail::-webkit-scrollbar { display:none; }
+  .rail:focus-visible { outline:2px solid var(--accent); outline-offset:4px; border-radius:12px; }
+  .bcard { flex:0 0 268px; scroll-snap-align:start; display:flex; flex-direction:column; border:1px solid var(--line); border-radius:16px; background:var(--glass); overflow:hidden; transition:transform .2s var(--ease),border-color .2s var(--ease); }
+  @media (max-width:480px){ .bcard{ flex-basis:82%; } }
+  .bcard:hover { transform:translateY(-4px); border-color:var(--line2); }
+  .bshot { position:relative; aspect-ratio:16/10; overflow:hidden; background:linear-gradient(135deg,#15171b,#0d0f12); border-bottom:1px solid var(--line); }
+  .bshot img { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .5s var(--ease); }
+  .bcard:hover .bshot img { transform:scale(1.05); }
+  .btag { position:absolute; left:11px; top:11px; font-family:var(--mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); background:rgba(8,9,10,.72); border:1px solid var(--line); padding:4px 9px; border-radius:99px; backdrop-filter:blur(4px); }
+  .btag.co { color:var(--accent); border-color:rgba(111,239,180,.32); }
+  .btag.en { color:var(--cyan); border-color:rgba(94,224,214,.36); }
+  .bbody { padding:13px 15px 15px; display:flex; flex-direction:column; flex:1; }
+  .bbody h4 { font-family:var(--display); font-size:17px; font-weight:700; letter-spacing:-.012em; margin:0; display:flex; align-items:center; gap:8px; }
+  .bbody p { font-size:12.5px; color:var(--mute); line-height:1.5; margin-top:6px; }
+  .live-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent); flex:none; }
+  .bcard.more { align-items:center; justify-content:center; background:linear-gradient(180deg,rgba(111,239,180,.06),var(--glass2)); border-style:dashed; }
+  .bmore { display:flex; flex-direction:column; align-items:center; gap:5px; text-align:center; padding:22px; }
+  .bmore-n { font-family:var(--display); font-weight:800; font-size:34px; letter-spacing:-.03em; color:var(--accent); }
+  .bmore-l { font-family:var(--mono); font-size:11px; color:var(--mute); }
+  .bmore .ogo { margin-top:7px; }
 
   /* ---------- section heads ---------- */
   section.block { padding:calc(86px*var(--sp)) 0 0; }
@@ -416,9 +456,9 @@
     <a class="brand" href="#top"><span class="pk">🥒</span>brick<span class="sl">.</span>os<span class="caret" aria-hidden="true"></span></a>
     <button class="navtoggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="navlinks" id="navLinks" aria-label="Primary">
+      <a href="#google">The deal</a>
       <a href="#interface">Prompt</a>
-      <a href="#work">Companies</a>
-      <a href="#engine">Builds</a>
+      <a href="#builds">Builds</a>
       <a href="../climb.html">Story</a>
       <a href="../assets/Bill_Bricker_Resume_vFinal.pdf" download>Résumé</a>
       <a href="mailto:bricker3@gmail.com" class="email">Email</a>
@@ -429,11 +469,10 @@
 <!-- right-side scroll-spy -->
 <nav class="spy" id="spy" aria-label="Section navigation">
   <a href="#top" data-s="top"><span class="sn">00</span><span class="st">Top</span></a>
-  <a href="#interface" data-s="interface"><span class="sn">01</span><span class="st">Ask</span></a>
-  <a href="#work" data-s="work"><span class="sn">02</span><span class="st">Companies</span></a>
-  <a href="#engine" data-s="engine"><span class="sn">03</span><span class="st">Builds</span></a>
-  <a href="#proof" data-s="proof"><span class="sn">04</span><span class="st">Data</span></a>
-  <a href="#person" data-s="person"><span class="sn">05</span><span class="st">Story</span></a>
+  <a href="#google" data-s="google"><span class="sn">01</span><span class="st">Deal</span></a>
+  <a href="#interface" data-s="interface"><span class="sn">02</span><span class="st">Ask</span></a>
+  <a href="#builds" data-s="builds"><span class="sn">03</span><span class="st">Builds</span></a>
+  <a href="#person" data-s="person"><span class="sn">04</span><span class="st">Story</span></a>
 </nav>
 
 <main id="top">
@@ -461,6 +500,13 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="preadout"><span class="n" id="ringN">20</span><span class="l" id="ringL">years in enterprise GTM</span></div>
+          <div class="opbars" id="bars">
+            <div class="bar" data-m="$45M+" data-ml="Google ad-spend channel"><span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span></div>
+            <div class="bar" data-m="6" data-ml="big-tech partners"><span class="nm">Closed big-tech partners</span><span class="vl">Stripe · Meta</span><span class="track"><i class="fill" data-w="82" style="background:var(--g-violet)"></i></span></div>
+            <div class="bar" data-m="11x" data-ml="in 2020"><span class="nm">Zero-to-one scale</span><span class="vl">11x · '20</span><span class="track"><i class="fill" data-w="90" style="background:var(--g-green)"></i></span></div>
+            <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo"><span class="nm">AI-native workflows</span><span class="vl">40+ apps</span><span class="track"><i class="fill" data-w="88" style="background:var(--g-wide)"></i></span></div>
           </div>
         </div>
 
@@ -557,123 +603,80 @@
     </div>
   </section>
 
-  <!-- ============ 02 · OPERATING COMPANIES (side by side) ============ -->
-  <section class="block" id="work">
+  <!-- ============ BUILDS — featured + swipe rail ============ -->
+  <section class="block" id="builds">
     <div class="wrap">
       <div class="sec-head rv">
         <div class="kick">Proof of work</div>
-        <h2>Two operating companies.<br>Both live.</h2>
-        <p>Not side projects — real companies with revenue, customers, and scar tissue. <em>Built and sold by the same person.</em></p>
+        <h2>Two companies, 40+ apps,<br><span class="flat">shipped by one operator.</span></h2>
+        <p>Not slides. Real products with revenue, users, and scar tissue, built and sold by the same person. <em>Drag the shelf to scroll.</em></p>
       </div>
-      <div class="opco-grid">
-        <a class="opco rv" href="https://courtana.com" target="_blank" rel="noopener">
-          <div class="oshot">
-            <img src="../assets/shots/courtana.png" alt="Courtana" loading="lazy" onerror="this.parentElement.querySelector('.ph').style.display='flex';this.style.display='none'" />
-            <div class="ph">courtana.com</div>
-            <span class="obadge">▸ smart-court platform</span>
-          </div>
-          <div class="obody">
-            <div class="okick">Founder / CEO · 2023 → now</div>
-            <h3>Courtana <span class="live-tag">Live</span></h3>
-            <p class="olede">AI smart-court SaaS — live video, AI coaching &amp; venue analytics. <b>36 courts</b> live across <b>4 venues</b>, 760 users. The newest 0→1, built on everything before it.</p>
-            <div class="ometrics"><div><div class="v">36</div><div class="k">courts live</div></div><div><div class="v">760</div><div class="k">users</div></div><div><div class="v">4</div><div class="k">venues</div></div></div>
-            <span class="ogo">Visit courtana.com <span class="ar">→</span></span>
-          </div>
-        </a>
-        <a class="opco rv" href="https://dreamship.com" target="_blank" rel="noopener">
-          <div class="oshot">
-            <img src="../assets/shots/dreamship.png" alt="Dreamship" loading="lazy" onerror="this.parentElement.querySelector('.ph').style.display='flex';this.style.display='none'" />
-            <div class="ph">dreamship.com</div>
-            <span class="obadge">▸ API fulfillment</span>
-          </div>
-          <div class="obody">
-            <div class="okick">Cofounder &amp; CEO · 2018 – 23</div>
-            <h3>Dreamship <span class="live-tag">Live</span></h3>
-            <p class="olede">API fulfillment platform — <b>$35M+</b> peak revenue, <b>11x in a single year.</b> Where I <b>closed &amp; ran the Google partnership in year one</b>; Stripe, PayPal &amp; Meta followed.</p>
-            <div class="ometrics"><div><div class="v">$35M+</div><div class="k">revenue</div></div><div><div class="v">11x</div><div class="k">in a year</div></div><div><div class="v">5+ yrs</div><div class="k">Google channel</div></div></div>
-            <span class="ogo">Visit dreamship.com <span class="ar">→</span></span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
 
-  <!-- ============ 03 · VIBECO (re-architected) ============ -->
-  <section class="block" id="engine">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div class="kick">The engine</div>
-        <h2>One operator,<br>shipping like a team.</h2>
-      </div>
-      <div class="vibe-head rv" style="margin-top:26px;">
-        <div>
-          <span class="badge2">11 AI agents · multi-model · Gemini + Claude</span>
-          <div class="vname" style="margin-top:14px;">VibeCo</div>
-          <div class="vvp">Type an idea → a business brief, build prompts, and a <b>working app.</b> The build engine behind 40+ apps across 31 repos — designed and shipped by one person.</div>
-        </div>
-        <div class="vibe-cta">
-          <a class="pill solid" href="https://vibeco.lovable.app/simulate" target="_blank" rel="noopener">Run the simulator →</a>
-          <a class="pill ghost" href="https://vibeco.lovable.app/" target="_blank" rel="noopener">Visit VibeCo</a>
-        </div>
-      </div>
-      <div class="vgrid rv">
-        <a class="vpanel feature" href="https://vibeco.lovable.app/" target="_blank" rel="noopener" data-name="VibeCo">
-          <img src="../assets/shots/vibeco.png" alt="VibeCo" loading="lazy" onerror="this.style.opacity=0" />
-          <span class="vp-name">VibeCo<span class="vp-tag">the engine</span></span>
-        </a>
-        <a class="vpanel" href="https://litigator.lovable.app/dashboard" target="_blank" rel="noopener" data-name="Litigator">
-          <img src="../assets/shots/litigator.png" alt="Litigator" loading="lazy" onerror="this.style.opacity=0" />
-          <span class="vp-name">Litigator</span>
-        </a>
-        <a class="vpanel" href="https://courtana-venue-connect.lovable.app/" target="_blank" rel="noopener" data-name="Venue Connect">
-          <img src="../assets/shots/venue-connect.png" alt="Venue Connect" loading="lazy" onerror="this.style.opacity=0" />
-          <span class="vp-name">Venue Connect</span>
-        </a>
-        <a class="vpanel" href="https://pickleball-freakshow.lovable.app/" target="_blank" rel="noopener" data-name="Freak Show" data-gif="">
-          <img src="../assets/shots/freakshow.jpg" alt="Pickleball Freak Show" loading="lazy" onerror="this.style.opacity=0" />
-          <span class="vp-name">Freak Show</span>
-        </a>
-        <a class="vpanel" href="https://layuplab.lovable.app/" target="_blank" rel="noopener" data-name="Layup Lab" data-gif="">
-          <img src="../assets/shots/layuplab.png" alt="Layup Lab — AI pickleball coach" loading="lazy" onerror="this.style.opacity=0" />
-          <span class="vp-name">Layup Lab</span>
-        </a>
-        <a class="vpanel slot" href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener"><span class="vp-name">+ one more</span></a>
-      </div>
-      <div class="feat-strip rv">+ HeadsUpTime · LayupLab · FreakFoSho · 30 more — <a href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener">browse the full ecosystem →</a></div>
-    </div>
-  </section>
-
-  <!-- ============ 04 · PICKLE DAAS — video + stat overlay ============ -->
-  <section class="block" id="proof">
-    <div class="wrap">
-      <div class="edit rv">
-        <div class="e-copy">
-          <div class="kick">The tech proof</div>
-          <h3>A self-serve sports-data warehouse,<br>built from raw video.</h3>
-          <p class="lede">I went deep on the modern data stack myself — <b>Supabase</b>, connectors, autonomous ingest agents, and a ground-truth validation loop. Every clip → player DNA, shot analytics &amp; brand intelligence. <b>A working pipeline, not a slide.</b></p>
-          <div class="e-metrics">
-            <div><div class="v">21K+</div><div class="k">clips processed</div></div>
-            <div><div class="v">4,097</div><div class="k">analyzed</div></div>
-            <div><div class="v">$0.0054</div><div class="k">per clip · ~7x cheaper</div></div>
-          </div>
-          <div class="e-links">
-            <a class="hot" href="https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html" target="_blank" rel="noopener">▸ investor walkthrough</a>
-            <a href="https://picklebill.github.io/pickle-daas-data/dashboards/brand-intelligence-v4.html" target="_blank" rel="noopener">brand intel</a>
-            <a href="https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html" target="_blank" rel="noopener">all dashboards →</a>
-          </div>
-        </div>
+      <!-- featured build -->
+      <div class="feat rv">
         <div class="vidwrap" id="vidwrap">
           <video id="cvid" muted loop playsinline preload="metadata" poster="../assets/shots/courtana.png">
             <source src="../assets/courtana-shot.mp4" type="video/mp4" />
           </video>
           <div class="vgrad"></div>
           <div class="statbadge" style="--x:6%;--y:9%;--c:#F1C40F"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
-          <div class="statbadge" style="--x:58%;--y:13%;--c:#6BA3FF"><span class="edge"></span><span class="bd"><span class="bt">Shot</span><span class="bb"><b>Overhead smash</b></span></span></div>
           <div class="statbadge" style="--x:7%;--y:66%;--c:#6EEFC0"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
           <div class="statbadge" style="--x:56%;--y:64%;--c:#BD93F9"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
-          <div class="statbadge" style="--x:33%;--y:41%;--c:#FF6B6B"><span class="edge"></span><span class="bd"><span class="bt">Routed</span><span class="bb"><b>Player Gear</b> lane</span></span></div>
           <span class="vlabel">▸ live CV pipeline · $0.0054/clip</span>
         </div>
+        <div class="feat-copy">
+          <div class="okick">▸ featured · Pickle DaaS</div>
+          <h3>Raw court video, turned into a data warehouse.</h3>
+          <p>Supabase, autonomous ingest agents, and a ground-truth loop I built and run myself. Every clip becomes player DNA, shot analytics, and brand intelligence. A working pipeline, not a slide.</p>
+          <div class="feat-metrics">
+            <div><div class="v">21K+</div><div class="k">clips processed</div></div>
+            <div><div class="v">4,097</div><div class="k">deep-analyzed</div></div>
+            <div><div class="v">$0.0054</div><div class="k">per clip · ~7x cheaper</div></div>
+          </div>
+          <div class="e-links">
+            <a class="hot" href="https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html" target="_blank" rel="noopener">▸ walkthrough</a>
+            <a href="https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html" target="_blank" rel="noopener">all dashboards →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- the rail -->
+      <div class="rail-head rv">
+        <span class="rail-label">The rest of the shelf</span>
+        <div class="rail-nav"><button class="rail-arrow" id="railPrev" type="button" aria-label="Scroll builds left">←</button><button class="rail-arrow" id="railNext" type="button" aria-label="Scroll builds right">→</button></div>
+      </div>
+      <div class="rail rv" id="rail" tabindex="0" role="region" aria-label="More builds — scroll horizontally">
+        <a class="bcard" href="https://courtana.com" target="_blank" rel="noopener">
+          <div class="bshot"><img src="../assets/shots/courtana.png" alt="Courtana" loading="lazy" onerror="this.style.opacity=0" /><span class="btag co">Company</span></div>
+          <div class="bbody"><h4>Courtana <span class="live-dot" aria-hidden="true"></span></h4><p>AI smart-court SaaS. 36 courts, 4 venues, 760 users. Founder/CEO, 2023→now.</p></div>
+        </a>
+        <a class="bcard" href="https://dreamship.com" target="_blank" rel="noopener">
+          <div class="bshot"><img src="../assets/shots/dreamship.png" alt="Dreamship" loading="lazy" onerror="this.style.opacity=0" /><span class="btag co">Company</span></div>
+          <div class="bbody"><h4>Dreamship</h4><p>API fulfillment. $35M+ peak, 11x in a year, the Google partnership. Cofounder/CEO, 2018–23.</p></div>
+        </a>
+        <a class="bcard" href="https://vibeco.lovable.app/" target="_blank" rel="noopener">
+          <div class="bshot"><img src="../assets/shots/vibeco.png" alt="VibeCo" loading="lazy" onerror="this.style.opacity=0" /><span class="btag en">Engine</span></div>
+          <div class="bbody"><h4>VibeCo</h4><p>The build engine behind 40+ apps across 31 repos. Idea → brief → working app.</p></div>
+        </a>
+        <a class="bcard" href="https://litigator.lovable.app/dashboard" target="_blank" rel="noopener">
+          <div class="bshot"><img src="../assets/shots/litigator.png" alt="Litigator" loading="lazy" onerror="this.style.opacity=0" /><span class="btag">App</span></div>
+          <div class="bbody"><h4>Litigator</h4><p>AI case-analysis workspace.</p></div>
+        </a>
+        <a class="bcard" href="https://courtana-venue-connect.lovable.app/" target="_blank" rel="noopener">
+          <div class="bshot"><img src="../assets/shots/venue-connect.png" alt="Venue Connect" loading="lazy" onerror="this.style.opacity=0" /><span class="btag">App</span></div>
+          <div class="bbody"><h4>Venue Connect</h4><p>Venue &amp; court booking ops.</p></div>
+        </a>
+        <a class="bcard" href="https://layuplab.lovable.app/" target="_blank" rel="noopener">
+          <div class="bshot"><img src="../assets/shots/layuplab.png" alt="Layup Lab" loading="lazy" onerror="this.style.opacity=0" /><span class="btag">App</span></div>
+          <div class="bbody"><h4>Layup Lab</h4><p>AI pickleball coach.</p></div>
+        </a>
+        <a class="bcard" href="https://pickleball-freakshow.lovable.app/" target="_blank" rel="noopener">
+          <div class="bshot"><img src="../assets/shots/freakshow.jpg" alt="Pickleball Freak Show" loading="lazy" onerror="this.style.opacity=0" /><span class="btag">App</span></div>
+          <div class="bbody"><h4>Freak Show</h4><p>Viral pickleball highlight engine.</p></div>
+        </a>
+        <a class="bcard more" href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener">
+          <div class="bmore"><span class="bmore-n">+33</span><span class="bmore-l">more across 31 repos</span><span class="ogo">browse the ecosystem <span class="ar">→</span></span></div>
+        </a>
       </div>
     </div>
   </section>
