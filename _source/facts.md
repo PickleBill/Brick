@@ -42,12 +42,9 @@
 - Channel drove **$45M+ in partner AD SPEND over 5+ years** ⚠️→ see guardrail #1.
 - Parlayed into a repeatable flywheel: **Stripe, PayPal, Payoneer, Meta**, plus a
   **Microsoft / Bing–ChatGPT** merchant deal (partner tier earned on volume).
-- 🚩 **CONFLICT C-1 — team count + sign-off level (resolve before any publish):**
-  - Value A (attached corrected `facts.md`): **five** internal Google teams → **VP-level** sign-off.
-  - Value B (every live surface + `content/FACTS.md`): **5–6** internal teams → **director-level** sign-off.
-  - Teams cited: trust & safety, business integrity, commercial.
-  - *Recommendation:* go with **A (five / VP-level)** — it's the ledger Bill marked corrected —
-    but **do not silently change surfaces**; confirm in `decisions.md` first.
+- ✅ **RESOLVED (Bill, 2026-06-17): five internal Google teams → VP-level sign-off.**
+  Teams: trust & safety, business integrity, commercial. Apply in build →
+  `sales/index.html:225`, `sales/ai-forward.js:126`, `v3/index.html:305`.
 
 ## Dreamship (Cofounder & CEO 2018–Sep 2023 · Board Chair Sep 2023–present)
 - API-driven on-demand fulfillment platform; built and run from zero.
@@ -79,10 +76,9 @@
 - Showcase apps: Litigator, Venue Connect, Layup Lab, Pickleball Freak Show, HeadsUpTime.
 
 ## Earlier track record
-- **Northwestern Mutual (2006–10):** built book from scratch; **top-10 nationally**; 150+ accounts.
-  🚩 **CONFLICT C-2 — TCV:** **$8M+** (attached corrected `facts.md`, marked resolved) vs
-  **$6M+** (`content/FACTS.md` "locked" + builder card-back + design-refs).
-  *Recommendation:* **$8M+**; confirm in `decisions.md`. (Live front door currently omits the $.)
+- **Northwestern Mutual (2006–10):** built book from scratch; **top-10 nationally**; **$8M+ TCV**
+  across 150+ accounts. ✅ RESOLVED (Bill, 2026-06-17): TCV = **$8M+**, and **always pair the $ with
+  the "top-10 nationally" prestige line**. Apply in build → builder card `index.html:490` ($6M+→$8M+).
 - **IBM / Netezza (2012–14):** seven-figure Watson AI + analytics deals (Zillow, Avalara);
   contributed to an **8-figure McKesson** win; **IBM Summit Sales Program.**
   Public surfaces say **"achieved quota" + Summit**; the directly-sent résumé may keep **">100%"**
@@ -104,12 +100,10 @@
   ⚠️ keep name or rename. **DJ Billygoat** — easter egg ⚠️ get the story.
 
 ## Canonical assets (point every link here)
-- **Résumé:** 🚩 **CONFLICT C-4 — canonical PDF does not exist in the repo.**
-  Corrected `facts.md` says everything should point to **`Bill_Bricker_Resume_vFinal.pdf`**, but the
-  repo only has `assets/Bill_Bricker_Resume.pdf` (sales links here) and
-  `design-refs/assets/Bill_Bricker_Resume_Sales.pdf`. Front door (`/sales/`) links the former;
-  builder links `resume-v2.html`. **Bill must supply `…_vFinal.pdf` OR designate one existing PDF
-  as canonical**, then all surfaces point to it.
+- **Résumé (canonical):** ✅ **`assets/Bill_Bricker_Resume_vFinal.pdf`** — Bill is supplying it
+  (2026-06-17). **Bridge:** until it lands, résumé links stay on the working
+  `assets/Bill_Bricker_Resume.pdf` so nothing 404s; **one swap** to vFinal when the file arrives.
+  Point ALL surfaces at the same canonical file.
 - Site hub: `PickleBill/Brick` → `picklebill.github.io/Brick/`. Front door: `/Brick/sales/`.
 - Spokes (stay independent, hub LINKS to them): `PickleBill/pickle-daas-data`
   (`…/dashboards/showcase-portal-v4.html`) · `PickleBill/vibeco` (`vibeco.lovable.app`).
@@ -119,14 +113,18 @@
 
 ---
 
-## 🚩 Open conflicts (both values — resolve in `_source/decisions.md` before publish)
-| # | Fact | Value A (recommend) | Value B | Where B currently renders |
-|---|------|--------------------|---------|---------------------------|
-| C-1 | Google internal teams + sign-off | **five · VP-level** (corrected facts.md) | 5–6 · director-level | `sales/index.html:225`, `sales/ai-forward.js:126`, `v3/index.html:305`, `content/FACTS.md:43` |
-| C-2 | Northwestern Mutual TCV | **$8M+** (corrected facts.md) | $6M+ | `index.html:490`, `design-refs/dossier-ai-forward.html:163`, `content/FACTS.md:63` |
-| C-3 | Google channel magnitude (lock ONE phrasing) | **$45M+ ad spend** (front door + corrected facts.md) | "8-fig" / "eight-figure" | `index.html:478,511`, `v3`, `design-refs/*` |
-| C-4 | Canonical résumé PDF | **`…_vFinal.pdf`** (must be supplied) | `Bill_Bricker_Resume.pdf` / `…_Sales.pdf` / `resume-v2.html` | `sales/index.html` (pdf), `index.html`+footer (`resume-v2.html`) |
-| D-0 | Two ledgers exist | **`_source/facts.md` canonical** | `content/FACTS.md` | repo root (`content/FACTS.md`) |
+## ✅ Conflicts resolved (Bill, 2026-06-17) — apply in the build
+| # | Fact | RESOLVED value | Surfaces to update |
+|---|------|----------------|--------------------|
+| C-1 | Google internal teams + sign-off | **five teams · VP-level** | `sales/index.html:225`, `sales/ai-forward.js:126`, `v3/index.html:305` |
+| C-2 | Northwestern Mutual TCV | **$8M+** (always pair with "top-10 nationally") | `index.html:490` ($6M+→$8M+) |
+| C-3 | Google channel magnitude | **$45M+ ad spend** (one phrasing, verbatim) | `index.html:478,511`, `v3`, design-refs |
+| C-4 | Canonical résumé PDF | **`assets/Bill_Bricker_Resume_vFinal.pdf`** (Bill supplying; bridge on current PDF) | all résumé links |
+| D-0 | Two ledgers | **`_source/facts.md` is canonical**; retire/redirect `content/FACTS.md` | `content/FACTS.md` |
+
+## ⚠️ Still open (lower urgency — not blocking the front-door build)
+- IBM/Netezza exact title · IBM quota ">100%" vs "achieved quota" · Dreamship $2.2M raise ·
+  directly-sent résumé contact (`bill@courtana.com` vs gmail) · "Long Walk" keep/rename · DJ Billygoat story.
 
 ## 🧹 Surface audit — guardrail violations live RIGHT NOW (fix in build/Phase 2)
 - **Phone number (NO public phone):** `index.html:727` · `resume.html:90` · `resume-v2.html:157` · `work.html:255`
@@ -140,4 +138,5 @@
 Contact = `bricker3@gmail.com`, no public phone · `$45M+` = ad-spend guardrail locked ·
 `$35M+` = peak revenue · "40+ apps / 31 repos" = locked verbatim phrasing ·
 Dreamship tenure = 2018–Sep 2023, Board Chair Sep 2023–present · Adobe added to cleared logos ·
-`_source/facts.md` is now the canonical ledger.
+`_source/facts.md` is now the canonical ledger · **C-1..C-4 + D-0 resolved (Bill, 2026-06-17):
+five teams / VP-level · NWM $8M+ paired with top-10 nationally · $45M+ verbatim · vFinal PDF canonical.**
