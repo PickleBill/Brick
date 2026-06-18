@@ -119,28 +119,68 @@
   .pill.ghost { background:var(--glass); color:var(--text); border-color:var(--line2); backdrop-filter:blur(10px); }
   .pill.ghost:hover { transform:translateY(-2px); border-color:var(--accent); box-shadow:0 0 0 1px var(--accent-soft); }
 
-  /* ---------- identity flip card ---------- */
-  .flip { perspective:2200px; cursor:pointer; }
-  .flip-inner { position:relative; width:100%; aspect-ratio:1/1; transition:transform .7s var(--ease); transform-style:preserve-3d; }
-  .flip-front .card-img { width:100%; height:100%; object-fit:cover; object-position:50% 28%; display:block; }
+  /* ---------- identity flip card (signature hero moment) ----------
+     Layer model: .flip (perspective + press) › .flip-tilt (pointer 3D tilt,
+     driven by --rx/--ry/--gx/--gy from JS, rAF-throttled) › .flip-inner (the
+     one signature flip: rotateY). Tilt and flip live on separate layers so
+     they never fight. Easing is ease-out-quint only (no bounce/elastic).
+     Touch + reduced-motion: tilt neutralised, flip still works, looks great
+     static. --ease-quint:cubic-bezier(.22,1,.36,1). */
+  .flip { perspective:1500px; cursor:pointer; --rx:0deg; --ry:0deg; --gx:50%; --gy:0%; --lift:0; }
+  .flip-tilt {
+    position:relative; transform-style:preserve-3d;
+    transform:translateZ(0) rotateX(var(--rx)) rotateY(var(--ry)) scale(calc(1 + var(--lift)*.014));
+    transition:transform .5s cubic-bezier(.22,1,.36,1);
+    will-change:transform;
+  }
+  .flip-inner { position:relative; width:100%; aspect-ratio:1/1; transition:transform .82s cubic-bezier(.62,.04,.3,1); transform-style:preserve-3d; }
+  .flip-front .card-img { width:100%; height:100%; object-fit:cover; object-position:50% 28%; display:block; transform:translateZ(0.01px); }
   .flip-back .cardback { display:flex; flex-direction:column; height:100%; }
   .flip-back .card-img { width:100%; flex:1 1 auto; min-height:0; object-fit:cover; object-position:50% 22%; display:block; }
-  .idpanel { flex:0 0 auto; padding:14px 16px 15px; background:linear-gradient(180deg,#0e1311,#0a0c0d); border-top:1px solid var(--line); display:flex; flex-direction:column; gap:3px; }
+  /* depth: the readout panel floats forward of the image plane on tilt */
+  .idpanel { flex:0 0 auto; padding:14px 16px 15px; background:linear-gradient(180deg,#0e1311,#0a0c0d); border-top:1px solid var(--line); display:flex; flex-direction:column; gap:3px; transform:translateZ(26px); transform-style:preserve-3d; }
   .idpanel .idlabel { font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:3px; }
   .idpanel .idl { font-family:var(--display); font-weight:800; font-size:clamp(14px,1.5vw,17px); letter-spacing:-.02em; line-height:1.22; white-space:normal; }
   .opbars { display:flex; flex-direction:column; gap:9px; margin-top:14px; }
   .flip.flipped .flip-inner { transform:rotateY(180deg); }
   @media (max-width:560px){ .flip-inner{ aspect-ratio:1/1; } }
-  .flip-face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:var(--radius); border:1px solid var(--line2); overflow:hidden; box-shadow:0 40px 90px -42px rgba(0,0,0,.9); background:linear-gradient(180deg,#0e1311,#0a0c0d); }
+  .flip-face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:var(--radius); border:1px solid var(--line2); overflow:hidden; background:linear-gradient(180deg,#0e1311,#0a0c0d);
+    box-shadow:0 40px 90px -42px rgba(0,0,0,.9); transition:box-shadow .5s cubic-bezier(.22,1,.36,1); }
   .flip-back { transform:rotateY(180deg); }
+  /* dynamic depth shadow: deepens while lifted/turning, then settles */
+  .flip.lifted .flip-face { box-shadow:0 60px 120px -46px rgba(0,0,0,.95), 0 0 0 1px rgba(111,239,180,.12); }
+  /* pointer-tracked glare + a one-pass light sweep across the turning face */
+  .flip-face::before {
+    content:""; position:absolute; inset:0; z-index:6; pointer-events:none; border-radius:inherit;
+    background:radial-gradient(420px circle at var(--gx) var(--gy), rgba(255,255,255,.16), rgba(255,255,255,.04) 32%, transparent 60%);
+    opacity:0; transition:opacity .4s cubic-bezier(.22,1,.36,1); mix-blend-mode:screen;
+  }
+  .flip.lifted .flip-face::before { opacity:1; }
+  .flip-face::after {
+    content:""; position:absolute; top:-40%; bottom:-40%; left:0; width:42%; z-index:7; pointer-events:none;
+    background:linear-gradient(100deg, transparent, rgba(180,255,224,.10) 38%, rgba(255,255,255,.30) 50%, rgba(180,255,224,.10) 62%, transparent);
+    transform:translateX(-160%) skewX(-12deg); opacity:0; will-change:transform;
+  }
+  .flip.sweeping .flip-face::after { animation:flipSweep .82s cubic-bezier(.62,.04,.3,1); }
+  @keyframes flipSweep { 0%{ transform:translateX(-160%) skewX(-12deg); opacity:0; } 12%{ opacity:.9; } 70%{ opacity:.65; } 100%{ transform:translateX(420%) skewX(-12deg); opacity:0; } }
+  /* press feedback — tactile, restrained */
+  .flip:active .flip-tilt { transition-duration:.12s; transform:scale(.985); }
   /* flip cue */
-  .flipcue { position:absolute; top:12px; right:13px; z-index:8; font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); display:inline-flex; align-items:center; gap:6px; background:rgba(8,10,9,.55); border:1px solid var(--line); padding:5px 10px; border-radius:99px; backdrop-filter:blur(6px); transition:.2s; }
-  .flipcue .rot { display:inline-block; animation:rotcue 3.2s ease-in-out infinite; }
-  @keyframes rotcue { 0%,70%,100%{transform:rotate(0)} 80%{transform:rotate(-22deg)} 90%{transform:rotate(8deg)} }
-  .flip:hover .flipcue { color:var(--accent); border-color:rgba(111,239,180,.3); }
-  @media (prefers-reduced-motion: reduce){ .flipcue .rot{ animation:none; } }
-  /* sheen */
-  /* flip sheen removed — motion budget (the flip is the card's one signature move) */
+  .flipcue { position:absolute; top:12px; right:13px; z-index:8; font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); display:inline-flex; align-items:center; gap:6px; background:rgba(8,10,9,.55); border:1px solid var(--line); padding:5px 10px; border-radius:99px; backdrop-filter:blur(6px); transition:.2s cubic-bezier(.22,1,.36,1); transform:translateZ(40px); }
+  .flipcue .rot { display:inline-block; animation:rotcue 3.4s cubic-bezier(.22,1,.36,1) infinite; }
+  @keyframes rotcue { 0%,68%,100%{transform:rotate(0)} 80%{transform:rotate(-150deg)} 92%{transform:rotate(-186deg)} }
+  .flip:hover .flipcue, .flip.lifted .flipcue { color:var(--accent); border-color:rgba(111,239,180,.32); box-shadow:0 0 18px -4px rgba(111,239,180,.5); }
+  @media (prefers-reduced-motion: reduce){
+    .flipcue .rot{ animation:none; }
+    .flip-tilt{ transform:none !important; transition:none; }
+    .flip-face::before, .flip-face::after{ display:none; }
+    .flip-inner{ transition:none; }
+  }
+  /* touch / coarse pointer: no hover, no tilt — flip on tap, stays crisp */
+  @media (hover:none), (pointer:coarse){
+    .flip-tilt{ transform:none !important; }
+    .flip-face::before{ display:none; }
+  }
 
   /* FRONT — identity */
   .cf { display:grid; grid-template-columns:1.04fr .96fr; height:100%; }
@@ -174,10 +214,17 @@
   .op-photo .ph { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; color:var(--faint); text-align:center; padding:6px; }
   .op-photo .tag { position:absolute; left:11px; bottom:9px; z-index:2; font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#dfe4e1; background:rgba(8,10,9,.5); border:1px solid var(--line); padding:3px 8px; border-radius:99px; backdrop-filter:blur(4px); }
   .preadout { display:flex; align-items:baseline; gap:10px; margin:13px 2px 12px; }
-  .preadout .n { font-family:var(--display); font-size:27px; font-weight:800; letter-spacing:-.03em; line-height:1; color:var(--sage); transition:opacity .2s; }
+  .preadout .n { font-family:var(--display); font-size:27px; font-weight:800; letter-spacing:-.03em; line-height:1; color:var(--sage); transition:opacity .22s cubic-bezier(.22,1,.36,1), transform .22s cubic-bezier(.22,1,.36,1); }
+  .preadout.tick .n { animation:readoutTick .42s cubic-bezier(.22,1,.36,1); }
+  @keyframes readoutTick { 0%{ opacity:.2; transform:translateY(4px); } 100%{ opacity:1; transform:none; } }
   .preadout .l { font-size:12px; color:var(--mute); }
+  /* proof bars — staggered reveal once the card settles (sibling list stagger,
+     legitimate; ~4 items × 90ms = ~360ms total, capped) */
+  .opbars-card { margin-top:18px; }
   .bars { display:flex; flex-direction:column; gap:9px; margin-top:auto; }
-  .bar { display:grid; grid-template-columns:1fr auto; gap:3px 10px; font-size:12.5px; cursor:pointer; border-radius:9px; padding:4px 8px; margin:0 -8px; transition:background .2s; }
+  .bar { display:grid; grid-template-columns:1fr auto; gap:3px 10px; font-size:12.5px; cursor:pointer; border-radius:9px; padding:4px 8px; margin:0 -8px; transition:background .2s cubic-bezier(.22,1,.36,1); }
+  .js .bars.stagger .bar { opacity:0; transform:translateY(7px); }
+  .js .bars.stagger.in .bar { opacity:1; transform:none; transition:opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1), background .2s; transition-delay:calc(var(--i,0)*90ms); }
   .bar:hover, .bar.on { background:rgba(111,239,180,.09); }
   .bar.on .nm { color:var(--accent); font-weight:600; }
   .bar.on .fill { box-shadow:0 0 16px rgba(111,239,180,.85); }
@@ -185,7 +232,11 @@
   .bar .vl { font-family:var(--mono); font-size:10.5px; color:var(--faint); text-align:right; white-space:nowrap; }
   .bar .track { grid-column:1/-1; height:6px; border-radius:99px; background:rgba(255,255,255,.085); overflow:hidden; }
   .bar .fill { display:block; height:100%; border-radius:99px; width:0; transition:width 1.3s cubic-bezier(.25,1,.3,1); box-shadow:0 0 10px rgba(111,239,180,.4); }
-  @media (prefers-reduced-motion: reduce){ .bar .fill{ transition:none; } }
+  @media (prefers-reduced-motion: reduce){
+    .bar .fill{ transition:none; }
+    .js .bars.stagger .bar{ opacity:1; transform:none; }
+    .preadout.tick .n{ animation:none; }
+  }
 
   /* ---------- green stats band (the break) ---------- */
   .statband { margin-top:18px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
@@ -500,31 +551,35 @@
       <div class="hero-grid">
         <!-- left: identity card -->
         <div class="hero-card rv">
-          <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card. Flip between the give-back and the operator profile.">
-            <span class="flipcue" aria-hidden="true">⟲</span>
-            <div class="flip-inner">
-              <div class="flip-face flip-front">
-                <img class="card-img" src="assets/dreamship-donate.jpg" alt="Dreamship presents a giant donation check to Freedom United on stage, 2019" onerror="this.style.display='none'" />
-              </div>
-              <div class="flip-face flip-back">
-                <div class="cardback">
-                  <img class="card-img" src="assets/family.jpg" alt="Bill Bricker with his family" onerror="this.style.display='none'" />
-                  <div class="idpanel">
-                    <span class="idlabel">▸ the operator</span>
-                    <span class="idl">Forward-deployed GTM operator</span>
-                    <span class="idl s2">0 → 1 Builder</span>
-                    <span class="idl spectrum">Vibe Pusher</span>
+          <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card. Flip between the deal and the operator profile.">
+            <div class="flip-tilt">
+              <span class="flipcue" aria-hidden="true">⟲</span>
+              <div class="flip-inner">
+                <div class="flip-face flip-front">
+                  <img class="card-img" src="assets/dreamship-donate.jpg" alt="Dreamship presents a giant donation check to Freedom United on stage, 2019" onerror="this.style.display='none'" />
+                </div>
+                <div class="flip-face flip-back">
+                  <div class="cardback">
+                    <img class="card-img" src="assets/family.jpg" alt="Bill Bricker with his family" onerror="this.style.display='none'" />
+                    <div class="idpanel">
+                      <span class="idlabel">▸ the operator</span>
+                      <span class="idl">Forward-deployed GTM operator</span>
+                      <span class="idl s2">0 → 1 Builder</span>
+                      <span class="idl spectrum">Vibe Pusher</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="preadout"><span class="n" id="ringN">20</span><span class="l" id="ringL">years in enterprise GTM</span></div>
-          <div class="opbars" id="bars">
-            <div class="bar" data-m="$45M+" data-ml="Google ad-spend channel"><span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span></div>
-            <div class="bar" data-m="6" data-ml="big-tech partners"><span class="nm">Closed big-tech partners</span><span class="vl">Stripe · Meta</span><span class="track"><i class="fill" data-w="82" style="background:var(--g-violet)"></i></span></div>
-            <div class="bar" data-m="11x" data-ml="in 2020"><span class="nm">Zero-to-one scale</span><span class="vl">11x · '20</span><span class="track"><i class="fill" data-w="90" style="background:var(--g-green)"></i></span></div>
-            <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo"><span class="nm">AI-native workflows</span><span class="vl">40+ apps</span><span class="track"><i class="fill" data-w="88" style="background:var(--g-wide)"></i></span></div>
+          <div class="opbars-card">
+            <div class="preadout"><span class="n" id="ringN">20</span><span class="l" id="ringL">years in enterprise GTM</span></div>
+            <div class="opbars bars stagger" id="bars">
+              <div class="bar" data-m="$45M+" data-ml="Google ad-spend channel" style="--i:0"><span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span></div>
+              <div class="bar" data-m="6" data-ml="big-tech partners" style="--i:1"><span class="nm">Closed big-tech partners</span><span class="vl">Stripe · Meta</span><span class="track"><i class="fill" data-w="82" style="background:var(--g-violet)"></i></span></div>
+              <div class="bar" data-m="11x" data-ml="in 2020" style="--i:2"><span class="nm">Zero-to-one scale</span><span class="vl">11x · '20</span><span class="track"><i class="fill" data-w="90" style="background:var(--g-green)"></i></span></div>
+              <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo" style="--i:3"><span class="nm">AI-native workflows</span><span class="vl">40+ apps</span><span class="track"><i class="fill" data-w="88" style="background:var(--g-wide)"></i></span></div>
+            </div>
           </div>
         </div>
 

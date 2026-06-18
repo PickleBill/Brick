@@ -40,10 +40,14 @@ const click = (p, sel) => p.click(sel, { timeout: 2500 }).catch(() => {});
 // Scene library — each is async (page) => void. Keep clips ~4–8s.
 const SCENES = {
   'hero-card': async (p) => {           // the identity flip card (Main)
-    await sleep(p, 1100);                // see the front
-    await click(p, '#flip'); await sleep(p, 1900);   // flip to back
-    await click(p, '#flip'); await sleep(p, 1400);   // flip to front
-    await hover(p, '#bars .bar'); await sleep(p, 900);
+    const box = await p.evaluate(() => { const el = document.querySelector('#flip'); if (!el) return null; const r = el.getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height }; });
+    const pt = (fx, fy) => box ? p.mouse.move(box.x + box.w * fx, box.y + box.h * fy, { steps: 10 }) : Promise.resolve();
+    await sleep(p, 800);
+    await pt(0.22, 0.2); await sleep(p, 420); await pt(0.8, 0.28); await sleep(p, 420); await pt(0.5, 0.78); await sleep(p, 520); // tilt sweep (front)
+    await click(p, '#flip'); await sleep(p, 1700);   // cinematic flip + light sweep
+    await pt(0.3, 0.4); await sleep(p, 420); await pt(0.74, 0.68); await sleep(p, 540);                                          // tilt on back
+    await click(p, '#flip'); await sleep(p, 1300);   // flip to front
+    await hover(p, '#bars .bar'); await sleep(p, 800);
   },
   video: async (p) => {                  // featured video centerpiece (Main)
     await into(p, '#builds', 'start'); await sleep(p, 5200);

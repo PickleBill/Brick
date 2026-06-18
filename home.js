@@ -34,25 +34,64 @@
     }
   })();
 
-  /* ---------- identity card: flip + auto-flip teaser + interactive bars ---------- */
+  /* ---------- identity card: cinematic flip + pointer-tilt depth + bars ----------
+     The flip is the ONE signature move. Pointer-tilt is supporting depth, not a
+     second effect: it makes the card feel like a physical object the flip turns.
+     Tilt is desktop/fine-pointer only and fully disabled for touch + reduced
+     motion (the static card already looks complete). Easing: ease-out-quint. */
   var flip=$('#flip');
   if(flip){
+    var fine = !reduce && window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
     var flipped=false, userTouched=false, barsOn=false;
-    function setFlip(v){ flipped=v; flip.classList.toggle('flipped',v); flip.setAttribute('aria-pressed',v?'true':'false'); }
+    function sweep(){ if(reduce) return; flip.classList.remove('sweeping');
+      void flip.offsetWidth; /* restart the one-pass light sweep */ flip.classList.add('sweeping'); }
+    function setFlip(v){ flipped=v; flip.classList.toggle('flipped',v); flip.setAttribute('aria-pressed',v?'true':'false'); sweep(); }
     function toggle(){ userTouched=true; setFlip(!flipped); }
     flip.addEventListener('click', toggle);
     flip.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+    /* auto-flip teaser: show the operator side once, then settle back to the deal */
     if(!reduce){ setTimeout(function(){ if(userTouched) return; setFlip(true);
       setTimeout(function(){ if(userTouched) return; setFlip(false); }, 2500); }, 3400); }
+
+    /* --- pointer-reactive 3D tilt + tracked glare (rAF-throttled) --- */
+    if(fine){
+      var MAXX=7, MAXY=9, tx=0, ty=0, gx=50, gy=50, raf=0, hovering=false;
+      function paint(){ raf=0;
+        flip.style.setProperty('--rx', tx.toFixed(2)+'deg');
+        flip.style.setProperty('--ry', ty.toFixed(2)+'deg');
+        flip.style.setProperty('--gx', gx.toFixed(1)+'%');
+        flip.style.setProperty('--gy', gy.toFixed(1)+'%'); }
+      function queue(){ if(!raf) raf=requestAnimationFrame(paint); }
+      flip.addEventListener('pointermove', function(e){ if(e.pointerType==='touch') return;
+        var r=flip.getBoundingClientRect(); var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+        px=Math.min(1,Math.max(0,px)); py=Math.min(1,Math.max(0,py));
+        ty=(px-0.5)*2*MAXY; tx=-(py-0.5)*2*MAXX;          /* physical tilt toward cursor (whole card) */
+        /* glare lives on each face; the back face is itself rotateY(180) so mirror X there */
+        gx=(flipped?(1-px):px)*100; gy=py*100; hovering=true; queue(); });
+      flip.addEventListener('pointerenter', function(e){ if(e.pointerType==='touch') return; hovering=true; flip.classList.add('lifted'); flip.style.setProperty('--lift','1'); });
+      flip.addEventListener('pointerleave', function(){ hovering=false; flip.classList.remove('lifted'); flip.style.setProperty('--lift','0');
+        tx=0; ty=0; gx=50; gy=0; queue(); });
+      /* keyboard focus gets the lift affordance too (no tilt) */
+      flip.addEventListener('focus', function(){ if(!hovering){ flip.classList.add('lifted'); } });
+      flip.addEventListener('blur', function(){ if(!hovering){ flip.classList.remove('lifted'); } });
+    }
+
+    /* --- proof bars: staggered reveal, then live auto-cycle + readout --- */
     var bars=[].slice.call(document.querySelectorAll('#bars .bar'));
+    var barsEl=$('#bars'), preadout=$('.preadout');
     var rN=$('#ringN'), rL=$('#ringL'), ai=-1, timer=null;
+    function tickReadout(){ if(!preadout||reduce) return; preadout.classList.remove('tick'); void preadout.offsetWidth; preadout.classList.add('tick'); }
     function setActive(i){ bars.forEach(function(b,j){ b.classList.toggle('on',j===i); });
       if(i<0){ rN.textContent='20'; rL.textContent='years carrying a number'; }
-      else { rN.textContent=bars[i].dataset.m; rL.textContent=bars[i].dataset.ml; } }
+      else { rN.textContent=bars[i].dataset.m; rL.textContent=bars[i].dataset.ml; }
+      tickReadout(); }
     function cycle(){ if(reduce) return; clearInterval(timer); timer=setInterval(function(){ ai=(ai+1)%bars.length; setActive(ai); }, 2600); }
     function activateBars(){ if(barsOn) return; barsOn=true;
-      setTimeout(function(){ document.querySelectorAll('#bars .fill').forEach(function(f){ f.style.width=f.dataset.w+'%'; }); }, 180);
-      setActive(0); ai=0; cycle(); }
+      if(barsEl) barsEl.classList.add('in');                 /* trigger the CSS stagger */
+      setTimeout(function(){ document.querySelectorAll('#bars .fill').forEach(function(f){ f.style.width=f.dataset.w+'%'; }); }, reduce?0:420);
+      ai=0; bars.forEach(function(b,j){ b.classList.toggle('on',j===0); });
+      if(rN){ rN.textContent=bars[0].dataset.m; rL.textContent=bars[0].dataset.ml; }
+      cycle(); }
     bars.forEach(function(b,i){
       b.addEventListener('mouseenter',function(){ clearInterval(timer); setActive(i); });
       b.addEventListener('mouseleave',function(){ cycle(); });
