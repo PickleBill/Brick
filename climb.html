@@ -53,23 +53,24 @@
   .nl a.cta{border:.5px solid var(--ink);color:var(--ink)}
   @media(max-width:620px){nav .wrap{height:50px}.nl{gap:0;font-size:10px}.nl a{padding:7px 7px}}
 
-  header{padding:18px 0 8px}
-  .htop{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  /* compact header — keeps the climb map in the first fold on desktop */
+  header{padding:10px 0 4px}
+  .htop{display:flex;align-items:flex-end;justify-content:space-between;gap:22px 32px;flex-wrap:wrap}
+  .hlead{flex-shrink:0}
   .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
-  h1{font-style:italic;font-weight:300;font-size:clamp(30px,4.6vw,46px);line-height:.96;letter-spacing:-.025em;margin:5px 0 0}
+  h1{font-style:italic;font-weight:300;font-size:clamp(28px,3.6vw,40px);line-height:.94;letter-spacing:-.025em;margin:3px 0 0}
   h1 em{font-style:normal;color:var(--sienna)}
-  .hctrl{display:flex;align-items:center;gap:16px;flex-shrink:0}
-  .hint{font-family:var(--hand);color:var(--mute);font-size:20px;white-space:nowrap}
+  /* lede sits beside the title, above the CTA — no full-width block pushing the map down */
+  .hctrl{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex:1 1 360px;min-width:300px}
+  .hlede{font-size:14.5px;color:var(--ink2);max-width:62ch;line-height:1.45;text-align:right;text-wrap:pretty;margin:0}
   .tourbtn{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
-    padding:11px 19px;border:.5px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;border-radius:2px;transition:.16s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+    padding:10px 18px;border:.5px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;border-radius:2px;transition:.16s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
   .tourbtn:hover{background:var(--sienna-deep);border-color:var(--sienna-deep);transform:translateY(-1px)}
   .tourbtn .tri{font-size:11px}
-  @media(max-width:1024px){.hint{display:none}}
-
-  .hlede{font-size:17px;color:var(--ink2);max-width:54ch;margin-top:12px;line-height:1.5;text-wrap:pretty}
+  @media(max-width:980px){.hctrl{flex-basis:100%;align-items:flex-start}.hlede{text-align:left}}
 
   /* ===== desktop: wide editorial map, fit to width ===== */
-  .mapwrap{position:relative;max-width:1520px;margin:10px auto 0;padding:0 28px}
+  .mapwrap{position:relative;max-width:1520px;margin:2px auto 0;padding:0 28px}
   .scroller{position:relative;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;cursor:grab}
   .scroller.drag{cursor:grabbing}
   .scroller:not(.scrolls){cursor:default}
@@ -334,13 +335,12 @@
 
 <header><div class="wrap">
   <div class="htop">
-    <div>
+    <div class="hlead">
       <div class="eyebrow">2006 → 2026 · a field map</div>
       <h1 id="climbH1">The <em>Climb</em></h1>
-      <p class="hlede">Twenty years from cold calls to the Google partnership to building AI solo — through cancer in 2023, still walking. Three companies founded, four built for, and a trail that keeps going up.</p>
     </div>
     <div class="hctrl">
-      <span class="hint">tap a seal for the field note</span>
+      <p class="hlede">Twenty years from cold calls to the Google partnership to building AI solo — through cancer in 2023, still walking. Three companies founded, four built for, a trail that keeps going up.</p>
       <button class="tourbtn" id="tourBtn"><span class="tri">▸</span> Begin the ascent</button>
     </div>
   </div>
@@ -403,9 +403,9 @@
     <div class="era" style="left:875px;top:748px"><div class="nm">The Build</div><div class="yr">2018 – 2023</div></div>
     <div class="era" style="left:1212px;top:748px"><div class="nm">Now &amp; Next</div><div class="yr">2024 →</div></div>
 
-    <!-- margin notes -->
-    <div class="marg jot" style="left:108px;top:548px;transform:rotate(-4deg)">doors &amp; dials</div>
-    <div class="marg jot" style="left:820px;top:296px;transform:rotate(-3deg)">the big one</div>
+    <!-- margin notes (kept clear of the seals) -->
+    <div class="marg jot" style="left:74px;top:524px;transform:rotate(-4deg)">doors &amp; dials</div>
+    <div class="marg jot" style="left:742px;top:286px;transform:rotate(-3deg)">the big one</div>
 
     <div id="nodes"></div>
   </div>
@@ -479,18 +479,18 @@ const SIDE=[
 
 // --- personal anchors (BELOW the line) ---
 const ANCHOR=[
- {x:945,y:650,cat:"anchor",icon:"pulse",lane:"Personal · the long walk",title:"The Long Walk",yr:"2023 →",period:"2023 → now · still walking",pull:"Cancer in 2023. I'm still walking — and still figuring out what comes next.",body:["Diagnosed in 2023, chemo through 2025 — I operated straight through it and kept the pipeline moving. I leave it on the map because it's part of the picture, and the operator instinct gets clear when the day is short."],link:{u:"mailto:bricker3@gmail.com",t:"write me ↗"}},
- {x:1130,y:650,cat:"anchor",icon:"house",lane:"Personal · home base",title:"Home · Three Kids",yr:"2020 → now",period:"2020 → now · one, two, three",pull:"The reason any of this matters.",body:["From one kid to three across these years — a real kitchen and an unreal amount of pickleball gear in the garage. The climb exists to support this."],link:null},
+ {x:945,y:626,cat:"anchor",icon:"pulse",lane:"Personal · the long walk",title:"The Long Walk",yr:"2023 →",period:"2023 → now · still walking",pull:"Cancer in 2023. I'm still walking — and still figuring out what comes next.",body:["Diagnosed in 2023, chemo through 2025 — I operated straight through it and kept the pipeline moving. I leave it on the map because it's part of the picture, and the operator instinct gets clear when the day is short."],link:{u:"mailto:bricker3@gmail.com",t:"write me ↗"}},
+ {x:1130,y:626,cat:"anchor",icon:"house",lane:"Personal · home base",title:"Home · Three Kids",yr:"2020 → now",period:"2020 → now · one, two, three",pull:"The reason any of this matters.",body:["From one kid to three across these years — a real kitchen and an unreal amount of pickleball gear in the garage. The climb exists to support this."],link:null},
 ];
 
 // --- provisional satellite under the summit ---
 const SAT=[
- {x:1322,y:382,cat:"prov",icon:"db",stat:"$0.0054 / clip",lane:"Provisional · name pending",title:"Pickle DaaS",yr:"2025 →",period:"2025 → · data-as-a-service",pull:"A self-serve sports-data warehouse, built straight from video.",body:["21K+ clips processed, 4,097 analyzed at <em>$0.0054 each</em> — spun from raw pickleball footage. The name's still pending; the pipeline is real.","Sits right under the Courtana summit — the data layer feeding what's live. Full name: <em>Pickle Data as a Service</em>."],link:null},
+ {x:1342,y:404,cat:"prov",icon:"db",stat:"$0.0054 / clip",lane:"Provisional · name pending",title:"Pickle DaaS",yr:"2025 →",period:"2025 → · data-as-a-service",pull:"A self-serve sports-data warehouse, built straight from video.",body:["21K+ clips processed, 4,097 analyzed at <em>$0.0054 each</em> — spun from raw pickleball footage. The name's still pending; the pipeline is real.","Sits right under the Courtana summit — the data layer feeding what's live. Full name: <em>Pickle Data as a Service</em>."],link:null},
 ];
 
 // --- the open horizon ---
 const BEACON=[
- {x:1330,y:176,cat:"beacon",icon:"compass",lane:"The open horizon",title:"What’s Next",yr:"2026 →",period:"2026 → · the next ridge",pull:"Summit unset. I’m looking for the next hard, important thing.",body:["Building daily and open to the right room — founder, operator, or builder at a frontier-tech lab. If the work matters, let’s talk."],link:{u:"mailto:bricker3@gmail.com",t:"start a conversation ↗"}},
+ {x:1344,y:158,cat:"beacon",icon:"compass",lane:"The open horizon",title:"What’s Next",yr:"2026 →",period:"2026 → · the next ridge",pull:"Summit unset. I’m looking for the next hard, important thing.",body:["Building daily and open to the right room — founder, operator, or builder at a frontier-tech lab. If the work matters, let’s talk."],link:{u:"mailto:bricker3@gmail.com",t:"start a conversation ↗"}},
 ];
 
 // interpolate trail y at any x (from spine points)
@@ -511,8 +511,8 @@ function trailY(x){
     <path class="trail-fill" d="${fill}" fill="url(#rf)"/>
     <path id="trailLine" d="${d}" fill="none" stroke="#2b1f10" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
     <path class="trail-ticks" d="${d}" fill="none" stroke="#efe3c4" stroke-width="1" stroke-dasharray="1 7" stroke-linecap="round"/>
-    <path class="trail-future" d="M${sm.x} ${sm.y} L 1300 196 L 1334 180" fill="none" stroke="#5e7a2a" stroke-width="1.8" stroke-dasharray="3 9" stroke-linecap="round" opacity=".7"/>
-    <path class="trail-future" d="M1356 168 L 1400 150" fill="none" stroke="#5e7a2a" stroke-width="1.5" stroke-dasharray="2 10" stroke-linecap="round" opacity=".32"/>`;
+    <path class="trail-future" d="M${sm.x} ${sm.y} L 1300 198 L 1326 180" fill="none" stroke="#5e7a2a" stroke-width="1.8" stroke-dasharray="3 9" stroke-linecap="round" opacity=".7"/>
+    <path class="trail-future" d="M1366 150 L 1400 134" fill="none" stroke="#5e7a2a" stroke-width="1.5" stroke-dasharray="2 10" stroke-linecap="round" opacity=".32"/>`;
 })();
 
 // ---- signature: the 20-year trail draws itself on (2006 → summit) ----
@@ -605,11 +605,11 @@ function nodeHTML(n,i){
     leader=`<span class="leader" style="height:${drop}px"></span>`;
     lbl=`<div class="lbl lbl--side up" style="top:-16px">${title}</div>`;
   } else if(n.cat==='anchor'){
-    lbl=`<div class="lbl lbl--anchor" style="top:40px">${title}</div>`;
+    lbl=`<div class="lbl lbl--anchor" style="top:34px">${title}</div>`;
   } else if(n.cat==='prov'){
     lbl=`<div class="lbl lbl--prov" style="top:42px">${title}</div>`;
   } else if(n.cat==='beacon'){
-    extra=' beacon'; lbl=`<div class="lbl lbl--beacon" style="top:40px">${title}</div>`;
+    extra=' beacon'; lbl=`<div class="lbl lbl--beacon up" style="top:-34px">${title}</div>`;
   } else if(n.cat==='summit'){
     lbl=`<div class="lbl lbl--summit" style="top:70px">${title}</div>`;
   } else { // job, founder, ai — on the spine; alternate above/below
@@ -662,7 +662,12 @@ const CW=1400, CH=820;
 function fit(){
   if(innerWidth<=860)return; // mobile uses the vertical climb
   const containerW=mapwrap.clientWidth-56;
-  const scale=Math.min(1,Math.max(.8,containerW/CW));
+  const wScale=containerW/CW;
+  // also fit to the available height so the whole map lands in the first fold
+  const top=mapwrap.getBoundingClientRect().top; // distance from viewport top (page is at scroll 0 on load)
+  const availH=innerHeight-top-18; // leave a sliver of breathing room at the fold
+  const hScale=availH/CH;
+  const scale=Math.min(1,Math.max(.72,Math.min(wScale,hScale)));
   curScale=scale;
   canvas.style.transformOrigin='top left';
   canvas.style.transform=`scale(${scale})`;
