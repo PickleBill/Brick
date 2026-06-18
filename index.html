@@ -260,10 +260,6 @@
   .gstat .gk { font-family:var(--mono); font-size:10px; letter-spacing:.03em; color:var(--mute); text-transform:uppercase; line-height:1.45; }
   .gstat .gk em { color:var(--coral); font-style:normal; }
 
-  /* "still building" heartbeat — keeps its glow while a soft ring radiates (used on the operating-company badge) */
-  .live-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent); flex:none; animation:livedot 2.4s ease-out infinite; }
-  @keyframes livedot { 0%{ box-shadow:0 0 8px var(--accent),0 0 0 0 var(--accent-soft); } 70%{ box-shadow:0 0 8px var(--accent),0 0 0 7px transparent; } 100%{ box-shadow:0 0 8px var(--accent),0 0 0 0 transparent; } }
-  @media (prefers-reduced-motion: reduce){ .live-dot{ animation:none; } }
 
   /* ---------- the names: partner constellation ---------- */
   .constellation { position:relative; margin-top:30px; min-height:200px; display:flex; align-items:center; justify-content:center; padding:22px 0; overflow:hidden; }
@@ -363,7 +359,6 @@
   .opco:hover .oshot img, .opco:focus-visible .oshot img { transform:scale(1.04); }
   @media (prefers-reduced-motion: reduce){ .opco,.opco:hover,.opco:focus-visible{ transform:none; transition:none; } .opco .oshot img{ transition:none; } .opco:hover .oshot img,.opco:focus-visible .oshot img{ transform:none; } }
   .opco .oshot .ph { position:absolute; inset:0; display:none; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; color:var(--faint); }
-  .opco .obadge { position:absolute; left:13px; bottom:12px; display:inline-flex; gap:8px; align-items:center; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:rgba(8,9,10,.62); border:1px solid var(--line); padding:5px 10px; border-radius:99px; backdrop-filter:blur(4px); }
   .opco .obody { padding:20px 20px 22px; }
   .opco .okick { font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-dim); }
   .opco h3 { font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.028em; margin:8px 0 0; display:flex; align-items:center; gap:10px; }
@@ -379,6 +374,17 @@
 
   /* ---------- featured video (cinematic enter FX) ---------- */
   .vidwrap { position:relative; border-radius:16px; overflow:hidden; border:1px solid var(--line2); aspect-ratio:16/11; background:#0a0c0d; box-shadow:0 30px 70px -42px rgba(0,0,0,.85); }
+  /* cycling AI-vision stat pop-ups — the reticle locks on, then a stat badge surfaces (z above the cinematic overlays) */
+  .statbadge { position:absolute; left:var(--x); top:var(--y); z-index:5; display:flex; align-items:stretch; gap:0; max-width:200px; opacity:0; transform:scale(.85) translateY(8px); transition:opacity .4s, transform .5s var(--ease); }
+  .statbadge.show { opacity:1; transform:scale(1) translateY(0); }
+  .statbadge .edge { width:3px; border-radius:10px 0 0 10px; background:var(--c); box-shadow:0 0 9px var(--c); }
+  .statbadge .bd { background:rgba(8,8,12,.8); backdrop-filter:blur(14px) saturate(160%); border:1px solid rgba(255,255,255,.1); border-left:0; border-radius:0 10px 10px 0; padding:7px 11px; box-shadow:0 8px 32px rgba(0,0,0,.45), 0 0 20px -6px var(--c); }
+  .statbadge .bt { display:block; font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--c); }
+  .statbadge .bb { display:block; font-family:var(--mono); font-size:11px; color:#eef0ee; margin-top:2px; }
+  .statbadge .bb b { color:#fff; }
+  .statbadge.show .edge { animation:edgepulse 1.7s ease-in-out infinite; }
+  @keyframes edgepulse { 0%,100%{ box-shadow:0 0 8px var(--c); } 50%{ box-shadow:0 0 16px var(--c), 0 0 28px var(--c); } }
+  @media (prefers-reduced-motion: reduce){ .statbadge.show .edge{ animation:none; } }
   /* cinematic featured video: Ken-Burns drift + one-pass sheen + breathing vignette + restrained AI-vision reticle */
   .vidwrap video { position:absolute; inset:-2%; width:104%; height:104%; object-fit:cover; transform-origin:58% 42%; will-change:transform; }
   .vidwrap.lit video { animation:vidKB 30s var(--ease) infinite alternate; }
@@ -408,9 +414,6 @@
   .vidwrap .vretc.br { bottom:14px; right:14px; border-left:0; border-top:0; }
   .vidwrap.lit .vretc { animation:vidLock .7s var(--ease) .55s 1 both; }
   @keyframes vidLock { 0%{ opacity:0; transform:scale(1.55); } 60%{ opacity:.85; } 100%{ opacity:.5; transform:scale(1); } }
-  .vidwrap .vlabel { position:absolute; left:13px; bottom:12px; z-index:5; display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:rgba(8,9,10,.6); border:1px solid var(--line); padding:5px 11px 5px 10px; border-radius:99px; backdrop-filter:blur(4px); }
-  .vidwrap .vlabel i { width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 0 var(--accent-soft); }
-  .vidwrap.lit .vlabel i { animation:pulse 2.1s infinite; }
   .e-links { display:flex; flex-wrap:wrap; gap:7px; margin-top:20px; }
   .e-links a { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:var(--glass2); padding:7px 12px; border-radius:99px; transition:.14s; }
   .e-links a:hover { color:var(--text); border-color:var(--accent); }
@@ -461,7 +464,6 @@
     .vidwrap .vgrad, .vidwrap.lit .vgrad { animation:none !important; opacity:1; }
     .vidwrap .vsheen, .vidwrap .vscan { display:none !important; }
     .vidwrap .vretc, .vidwrap.lit .vretc { animation:none !important; opacity:.4; transform:none; }
-    .vidwrap .vlabel i, .vidwrap.lit .vlabel i { animation:none !important; }
   }
 
   /* (operator bars now live under the hero card; value stays visible on hover) */
@@ -550,7 +552,7 @@
         <div class="hero-copy rv">
           <span class="avail">AI-Forward Sales &amp; Partnerships Leader</span>
           <h1 class="head">I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
-          <p class="lede">Two decades turning frontier tech into revenue — IBM, then three companies of my own. Now I build <b>the AI workflows that 10x my output</b>, and still close the room myself. <span class="g">Everything below is real.</span></p>
+          <p class="lede">Two decades turning frontier tech into revenue — IBM, then three companies of my own. I build <b>the AI workflows that 10x my output</b> and still close the room myself. <span class="g">Everything below is real.</span></p>
           <div class="hero-cta">
             <a class="pill solid" href="#interface">Prompt my résumé ↓</a>
             <a class="pill ghost" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>Download résumé</a>
@@ -625,7 +627,7 @@
       <div class="interface-grid">
         <div class="sec-head rv">
           <h2>Don't read the résumé.<br><span class="flat">Prompt it.</span></h2>
-          <p>A live AI that answers from a fact-checked ledger of twenty years. Ask it anything — it's the product, answering for me.</p>
+          <p>A live AI that answers from a fact-checked ledger of twenty years. Ask it anything — it's the product, pitching itself.</p>
         </div>
 
         <div class="term-wrap rv">
@@ -679,7 +681,7 @@
     <div class="wrap">
       <div class="sec-head rv">
         <h2>I don't pitch the work.<br><span class="flat">I show you the work.</span></h2>
-        <p>Two companies built and sold by the same hands — plus 40+ apps across 31 repos, shipped solo. Real products with revenue, users, and scar tissue.</p>
+        <p>Two companies built and sold — plus 40+ apps across 31 repos, shipped solo. Real products with revenue, users, and scar tissue.</p>
       </div>
 
       <!-- featured video — clean centerpiece -->
@@ -689,17 +691,19 @@
             <source src="assets/courtana-shot.mp4" type="video/mp4" />
           </video>
           <div class="vgrad"></div>
+          <div class="statbadge" style="--x:6%;--y:9%;--c:#F1C40F"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
+          <div class="statbadge" style="--x:7%;--y:66%;--c:#6EEFC0"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
+          <div class="statbadge" style="--x:56%;--y:64%;--c:#BD93F9"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
           <i class="vretc tl" aria-hidden="true"></i><i class="vretc tr" aria-hidden="true"></i><i class="vretc bl" aria-hidden="true"></i><i class="vretc br" aria-hidden="true"></i>
           <div class="vscan" aria-hidden="true"></div>
           <div class="vsheen" aria-hidden="true"></div>
-          <span class="vlabel"><i aria-hidden="true"></i>live · scored by the Courtana pipeline</span>
         </div>
       </div>
 
       <!-- the two companies, side by side -->
       <div class="opco-grid rv">
         <a class="opco" href="https://courtana.com" target="_blank" rel="noopener">
-          <div class="oshot"><img src="assets/shots/courtana.png" alt="Courtana smart-court platform" loading="lazy" onerror="this.style.opacity=0" /><span class="obadge"><i class="live-dot"></i> founder &amp; CEO · 2023→now</span></div>
+          <div class="oshot"><img src="assets/shots/courtana.png" alt="Courtana smart-court platform" loading="lazy" onerror="this.style.opacity=0" /></div>
           <div class="obody">
             <div class="okick">AI sports intelligence</div>
             <h3>Courtana <span class="live-tag">live</span></h3>
@@ -708,7 +712,7 @@
           </div>
         </a>
         <a class="opco" href="https://dreamship.com" target="_blank" rel="noopener">
-          <div class="oshot"><img src="assets/shots/dreamship.png" alt="Dreamship fulfillment platform" loading="lazy" onerror="this.style.opacity=0" /><span class="obadge">cofounder &amp; CEO · 2018–23</span></div>
+          <div class="oshot"><img src="assets/shots/dreamship.png" alt="Dreamship fulfillment platform" loading="lazy" onerror="this.style.opacity=0" /></div>
           <div class="obody">
             <div class="okick">where I closed Google</div>
             <h3>Dreamship</h3>
@@ -731,7 +735,7 @@
       <a class="story rv" href="climb.html">
         <div>
           <h3>Twenty years, one climb.</h3>
-          <p>IBM. The Google partnership. Three kids, unimpressed by all of it. A cancer diagnosis in 2023, met head-on. Here's what twenty years taught me:</p>
+          <p>IBM. The Google partnership. Three kids, unimpressed by any of it. A cancer diagnosis in 2023, met head-on. Here's what twenty years taught me:</p>
           <ul class="principles">
             <li>Earn the first yes — the flywheel follows.</li>
             <li>Ship the thing; don't pitch the deck.</li>
@@ -756,7 +760,7 @@
   <section class="contact">
     <div class="wrap rv">
       <h2>Let's close <span class="flat">something big.</span></h2>
-      <p>Hiring for GTM &amp; partnerships? Give me fifteen minutes and I'll show you something I built, not slides — or ask the console up top.</p>
+      <p>Hiring for GTM &amp; partnerships? Give me fifteen minutes and I'll show you something I built, not slides.</p>
       <div class="ctas">
         <a class="pill solid" href="mailto:bricker3@gmail.com?subject=Let%27s%20close%20something%20big">bricker3@gmail.com →</a>
         <a class="pill ghost" href="#interface">Prompt the console ↑</a>

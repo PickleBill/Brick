@@ -132,13 +132,60 @@
   function el(html,cls){ var d=document.createElement('div'); if(cls)d.className=cls; d.innerHTML=html; return d; }
   function scroll(){ if(!out) return; if(out.scrollHeight-out.scrollTop-out.clientHeight<60) out.scrollTop=out.scrollHeight; }
   function print(html,cls){ out.appendChild(el(html,cls)); scroll(); }
-  function block(lines){ var b=document.createElement('div'); b.className='blk';
-    lines.forEach(function(l,i){ var d=document.createElement('div'); d.className='ln'; if(!reduce) d.style.setProperty('--i',i); d.innerHTML=l; b.appendChild(d); });
-    out.appendChild(b); scroll(); }
   function echo(cmd){ print('<span class="ps">→ ~</span> '+esc(cmd),'echo'); }
-  function suggest(cmds){ var b=document.createElement('div'); b.className='blk';
-    b.innerHTML='<span class="dim">next: </span>'+cmds.map(function(c){ return '<span class="a" data-run="'+esc(c)+'">'+esc(c)+'</span>'; }).join('  ');
-    out.appendChild(b); scroll(); }
+
+  /* ====================================================================
+     HTML-AWARE TYPEWRITER  — one consistent typing effect for ALL output.
+     Reveals visible text characters progressively while emitting any markup
+     (color <span>s, <b>, links) intact, so colored output types out the same
+     way LLM answers do. A FIFO queue plays every block/suggest/answer/boot
+     job in order (so a command's output + its "next:" hints type in sequence),
+     and cancelTyping() flushes everything on clear-and-replace.
+  ==================================================================== */
+  var typeQ=[], typeRunning=false, typeGen=0, typeIv=null, TYPE_SPD=reduce?0:9, TYPE_PAUSE=reduce?0:70;
+  function cancelTyping(){ typeGen++; if(typeIv){ clearInterval(typeIv); typeIv=null; } typeQ=[]; typeRunning=false; }
+  function pump(){ if(typeRunning||!typeQ.length) return; typeRunning=true; var job=typeQ.shift();
+    job(function(){ typeRunning=false; pump(); }); }
+  function enqueue(job){ typeQ.push(job); pump(); }
+  /* split an HTML string into tag tokens (raw "<...>") and text runs */
+  function tokenizeHTML(html){ var toks=[], re=/<[^>]+>/g, last=0, m;
+    while((m=re.exec(html))){ if(m.index>last) toks.push({x:0,v:html.slice(last,m.index)}); toks.push({x:1,v:m[0]}); last=re.lastIndex; }
+    if(last<html.length) toks.push({x:0,v:html.slice(last)}); return toks; }
+  /* build a childless element from an opening-tag string (keeps attributes) */
+  var _td=document.createElement('div');
+  function makeEl(openTag){ var name=(openTag.match(/^<\s*([a-zA-Z0-9]+)/)||[])[1]||'span';
+    _td.innerHTML=openTag+'</'+name+'>'; return _td.firstChild; }
+  var VOID={br:1,img:1,hr:1,input:1,wbr:1};
+  function decodeEntities(s){ _td.innerHTML=s; return _td.textContent; }
+  /* type one HTML string into `parent`, char-by-char, markup intact */
+  function typeInto(parent, html, gen, done){
+    if(reduce||gen!==typeGen){ parent.innerHTML=html; if(done)done(); return; }
+    var toks=tokenizeHTML(html), ti=0, cur=parent, stack=[];
+    (function step(){ if(gen!==typeGen) return;
+      while(ti<toks.length && toks[ti].x===1){ var tag=toks[ti++].v;
+        if(/^<\s*\//.test(tag)){ if(stack.length){ cur=stack.pop(); } }
+        else { var node=makeEl(tag); cur.appendChild(node);
+          var nm=(tag.match(/^<\s*([a-zA-Z0-9]+)/)||[])[1]; if(nm) nm=nm.toLowerCase();
+          if(!VOID[nm] && !/\/\s*>$/.test(tag)){ stack.push(cur); cur=node; } }
+      }
+      if(ti>=toks.length){ if(done)done(); return; }
+      var text=decodeEntities(toks[ti++].v), tn=document.createTextNode(''); cur.appendChild(tn); var ci=0;
+      typeIv=setInterval(function(){ if(gen!==typeGen){ clearInterval(typeIv); typeIv=null; return; }
+        tn.nodeValue=text.slice(0,++ci); scroll();
+        if(ci>=text.length){ clearInterval(typeIv); typeIv=null; step(); } }, TYPE_SPD);
+    })(); }
+  /* type an array of lines, each into its own .ln div, then run `done` */
+  function typeLines(lines, opt, done){ opt=opt||{};
+    enqueue(function(next){ var gen=typeGen; var b=document.createElement('div'); b.className='blk'; out.appendChild(b);
+      if(reduce){ b.innerHTML=lines.map(function(l){ return '<div class="ln">'+(opt.esc?esc(l):l)+'</div>'; }).join(''); scroll(); next(); if(done)done(); return; }
+      var li=0; (function nl(){ if(gen!==typeGen){ next(); return; }
+        if(li>=lines.length){ next(); if(done)done(); return; }
+        var d=document.createElement('div'); d.className='ln'; b.appendChild(d);
+        typeInto(d, opt.esc?esc(lines[li]):lines[li], gen, function(){ li++; setTimeout(nl, TYPE_PAUSE); }); })();
+    }); }
+  function block(lines){ typeLines(lines, {}); }
+  function suggest(cmds){ var html='<span class="dim">next: </span>'+cmds.map(function(c){ return '<span class="a" data-run="'+esc(c)+'">'+esc(c)+'</span>'; }).join('  ');
+    typeLines([html], {}); }
 
   var CMDS={
     help:function(){ block([
@@ -228,7 +275,7 @@
       'Closed Google, shipped 40+ AI apps solo, dropped a few beats. Same guy.',
       '<span class="dim">Still in the room.</span>']); },
     surprise:function(){ var picks=[chuck,CMDS.billygoat,CMDS['git log'],function(){ block(['<span class="m">fun fact:</span> my kids think the party card game I shipped (GroupOrDare) is the most impressive thing I\'ve done. They\'re probably right.']); },CMDS['why-you']]; picks[Math.floor(Math.random()*picks.length)](); },
-    clear:function(){ out.innerHTML=''; }
+    clear:function(){ cancelTyping(); out.innerHTML=''; }
   };
 
   /* ---- hiring-manager mode: tailor the pitch to a role / pasted JD ---- */
@@ -270,13 +317,8 @@
         if(a){ history.push({role:'assistant',content:a}); typed(String(a)); if(onOk) onOk(); } else if(onFail) onFail(); })
       .catch(function(){ clearTimeout(to); if(done) return; thinking.remove(); if(onFail) onFail(); });
   }
-  function typed(text){ var b=document.createElement('div'); b.className='blk'; out.appendChild(b);
-    var lines=text.split(/\n+/);
-    if(reduce){ b.innerHTML=lines.map(function(l){return '<div class="ln">'+esc(l)+'</div>';}).join(''); scroll(); return; }
-    var speed = reduce ? 0 : 9, pause = reduce ? 0 : 80;
-    var li=0; (function nl(){ if(li>=lines.length) return; var d=document.createElement('div'); d.className='ln'; b.appendChild(d);
-      var t=lines[li], ci=0; var iv=setInterval(function(){ d.textContent=t.slice(0,ci++); scroll();
-        if(ci>t.length){ clearInterval(iv); li++; setTimeout(nl,pause); } },speed); })(); }
+  /* LLM answers are plain text — escape so stray < & display literally, then type through the shared typewriter */
+  function typed(text){ typeLines(String(text).split(/\n+/), {esc:true}); }
 
   function chuck(){ var t=el('<span class="dim">fetching…</span>','blk'); out.appendChild(t); scroll();
     fetch('https://api.chucknorris.io/jokes/random').then(function(r){return r.json();}).then(function(d){
@@ -294,7 +336,7 @@
       L.push('<span class="dim">…live from github.com/picklebill — the build has a heartbeat.</span>'); block(L);
     }).catch(function(){ t.remove(); block(['<span class="m"># still building.</span> 40+ apps across 31 repos, shipped solo — VibeCo, Pickle DaaS, and whatever I touched today.']); }); }
 
-  function run(raw){ var cmd=(raw||'').trim(); if(!cmd) return; if(out) out.innerHTML=''; echo(cmd); history.push({role:'user',content:cmd});
+  function run(raw){ var cmd=(raw||'').trim(); if(!cmd) return; cancelTyping(); if(out) out.innerHTML=''; echo(cmd); history.push({role:'user',content:cmd});
     var lc=cmd.toLowerCase(); var am=lc.match(/^ask\s+(.+)/); if(am){ ask(am[1]); return; }
     var tm=cmd.match(/^tailor\s+([\s\S]+)/i); if(tm){ tailor(tm[1]); return; }
     if(lc==='tailor'){ tailor(''); return; }
@@ -318,10 +360,9 @@
       {t:'Closed & ran the Google partnership in year one.',c:''},
       {t:'Now shipping production AI daily. 40+ apps, solo. Ask me anything.',c:''}];
     echo('whoami');
-    var speed = reduce ? 0 : 11, pause = reduce ? 0 : 120;
-    var b=document.createElement('div'); b.className='blk'; out.appendChild(b); var i=0;
-    (function nl(){ if(i>=ls.length){ if(after)after(); return; } var l=ls[i], d=document.createElement('div'); d.className='ln'+(l.c?' '+l.c:''); b.appendChild(d); var ci=0;
-      var iv=setInterval(function(){ d.textContent=l.t.slice(0,ci++); scroll(); if(ci>l.t.length){ clearInterval(iv); i++; setTimeout(nl,pause); } },speed); })(); }
+    /* route the intro through the shared typewriter (markup-aware), then reveal the input */
+    typeLines(ls.map(function(l){ return l.c?'<span class="'+l.c+'">'+esc(l.t)+'</span>':esc(l.t); }), {});
+    enqueue(function(next){ next(); if(after) after(); }); }
   function bootCheck(){ if(booted) return; var term=$('#term'); if(!term) return; var r=term.getBoundingClientRect(), vh=innerHeight||800;
     if(r.top<vh*0.9 && r.bottom>0){ booted=true; boot(function(){ showInput(); }); removeEventListener('scroll',bootCheck); removeEventListener('resize',bootCheck); } }
   if('IntersectionObserver' in window){ var _t=$('#term'); if(_t){ var _io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !booted){ booted=true; boot(function(){ showInput(); }); _io.disconnect(); } }); },{rootMargin:'0px 0px -8% 0px'}); _io.observe(_t); } }
@@ -330,15 +371,22 @@
   if(chips){ chips.addEventListener('click',function(e){ var b=e.target.closest('.chip[data-cmd]'); if(!b) return;
     if(!booted){ booted=true; boot(function(){ showInput(); }); } run(b.dataset.cmd); showInput(); if(input) input.focus(); }); }
 
-  /* ---------- featured video: autoplay in view + cinematic enter (Ken-Burns / sheen / scan / reticle) ---------- */
+  /* ---------- featured video: autoplay in view + cinematic enter (Ken-Burns / sheen / scan / reticle) + cycling AI-vision stat badges ---------- */
   var vid=$('#cvid'), vw=$('#vidwrap');
   if(vw){
     var lit=false;
     function light(){ if(lit) return; lit=true;
       vw.style.setProperty('--vh', vw.getBoundingClientRect().height+'px');
       vw.classList.add('lit'); }                         /* one-pass entry FX + ambient drift; CSS neutralizes under reduced-motion */
+    /* cycling glow stat badges — the reticle locks on, then stats surface one by one (rolling window) */
+    var badges=[].slice.call(vw.querySelectorAll('.statbadge')), started=false, idx=0, bt=null;
+    function cycleBadges(){ if(!badges.length) return; bt=setInterval(function(){
+      badges[idx % badges.length].classList.add('show');
+      badges[(idx + badges.length - 2) % badges.length].classList.remove('show');
+      idx++; }, 1500); }
     function vCheck(){ var r=vw.getBoundingClientRect(), vh=innerHeight||800, inView=r.top<vh*0.85 && r.bottom>0;
       if(inView){ light();
+        if(!started){ started=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); } }
         if(vid && !reduce && !(navigator.connection && navigator.connection.saveData)){ var p=vid.play(); if(p&&p.catch) p.catch(function(){}); } }
       else if(vid){ vid.pause(); } }
     vCheck(); addEventListener('scroll',vCheck,{passive:true}); addEventListener('load',vCheck);
