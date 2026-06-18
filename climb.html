@@ -192,9 +192,12 @@
     background:var(--seal-face);border:1.5px solid var(--ink);z-index:3;
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 5px 11px rgba(43,31,16,.30),inset 0 2px 3px rgba(255,255,255,.75),inset 0 -4px 7px rgba(43,31,16,.20);
-    transition:transform .2s cubic-bezier(.3,.7,.4,1),box-shadow .2s}
+    transition:transform .24s cubic-bezier(.16,1,.3,1),box-shadow .24s cubic-bezier(.16,1,.3,1)}
   .seal::before{content:"";position:absolute;inset:4px;border-radius:50%;border:1px solid rgba(43,31,16,.28)}
-  .node:hover .seal{transform:translate(-50%,-50%) scale(1.1)}
+  /* tactile lift: the coin rises off the paper, warm sienna ring on approach */
+  .node:hover .seal{transform:translate(-50%,-50%) scale(1.1);
+    box-shadow:0 9px 18px rgba(43,31,16,.34),0 0 0 4px rgba(168,66,29,.10),inset 0 2px 3px rgba(255,255,255,.8),inset 0 -4px 7px rgba(43,31,16,.20)}
+  @media(prefers-reduced-motion:reduce){.seal{transition-duration:.01ms}}
   .seal .mono{font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:-.03em;color:var(--ink);z-index:1}
   .seal .ico{width:52%;height:52%;color:var(--sienna-deep);z-index:1;display:flex}
   .ico svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -284,12 +287,19 @@
 
   /* field-note card */
   .scrim{position:fixed;inset:0;z-index:95;background:rgba(43,31,16,.42);backdrop-filter:blur(2px);display:none;align-items:flex-end;justify-content:center}
-  .scrim.on{display:flex}
+  .scrim.on{display:flex;animation:scrimfade .26s ease-out}
+  @keyframes scrimfade{from{opacity:0}to{opacity:1}}
   @media(min-width:640px){.scrim{align-items:center;padding:24px}}
-  .card{width:min(580px,100%);max-height:88vh;overflow:auto;background:linear-gradient(180deg,#f7eed5,#efe2bf);border:.5px solid var(--ink);box-shadow:0 -10px 40px rgba(43,31,16,.4);padding:30px 28px 26px;position:relative;animation:up .3s cubic-bezier(.3,.7,.4,1)}
+  .card{width:min(580px,100%);max-height:88vh;overflow:auto;background:linear-gradient(180deg,#f7eed5,#efe2bf);border:.5px solid var(--ink);box-shadow:0 -10px 40px rgba(43,31,16,.4);padding:30px 28px 26px;position:relative;animation:up .34s cubic-bezier(.16,1,.3,1)}
   @media(min-width:640px){.card{border-radius:3px}}
-  @keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-  .card .tape{position:absolute;top:-11px;left:50%;width:90px;height:20px;transform:translateX(-50%) rotate(-2deg);background:repeating-linear-gradient(90deg,rgba(196,125,34,.7) 0 5px,rgba(196,125,34,.45) 5px 9px)}
+  /* the field note lifts in and settles onto the desk */
+  @keyframes up{from{opacity:0;transform:translateY(30px) scale(.985)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.scrim.on,.card{animation:none}}
+  .card .tape{position:absolute;top:-11px;left:50%;width:90px;height:20px;transform:translateX(-50%) rotate(-2deg);background:repeating-linear-gradient(90deg,rgba(196,125,34,.7) 0 5px,rgba(196,125,34,.45) 5px 9px);
+    animation:tapeset .42s cubic-bezier(.16,1,.3,1) .06s both}
+  /* the masking tape presses down as the note lands */
+  @keyframes tapeset{from{opacity:0;transform:translateX(-50%) rotate(-7deg) translateY(-5px)}to{opacity:1;transform:translateX(-50%) rotate(-2deg)}}
+  @media(prefers-reduced-motion:reduce){.card .tape{animation:none}}
   .card .close{position:absolute;top:13px;right:17px;background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
   .card .chead{display:flex;align-items:center;gap:15px;margin-bottom:6px}
   .cardseal{position:relative;width:56px;height:56px;flex-shrink:0;border-radius:50%;background:var(--seal-face);border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 3px rgba(255,255,255,.7),inset 0 -3px 6px rgba(43,31,16,.18);overflow:hidden}
@@ -394,8 +404,8 @@
     <div class="era" style="left:1212px;top:748px"><div class="nm">Now &amp; Next</div><div class="yr">2024 →</div></div>
 
     <!-- margin notes -->
-    <div class="marg" style="left:108px;top:548px;transform:rotate(-4deg)">doors &amp; dials</div>
-    <div class="marg" style="left:820px;top:296px;transform:rotate(-3deg)">the big one</div>
+    <div class="marg jot" style="left:108px;top:548px;transform:rotate(-4deg)">doors &amp; dials</div>
+    <div class="marg jot" style="left:820px;top:296px;transform:rotate(-3deg)">the big one</div>
 
     <div id="nodes"></div>
   </div>
@@ -498,11 +508,78 @@ function trailY(x){
   const fill=`${d} L ${pts[pts.length-1][0]} 694 L ${pts[0][0]} 694 Z`;
   const sm=SPINE[SPINE.length-1];
   document.getElementById('trailG').innerHTML=`
-    <path d="${fill}" fill="url(#rf)"/>
-    <path d="${d}" fill="none" stroke="#2b1f10" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="${d}" fill="none" stroke="#efe3c4" stroke-width="1" stroke-dasharray="1 7" stroke-linecap="round"/>
-    <path d="M${sm.x} ${sm.y} L 1300 196 L 1334 180" fill="none" stroke="#5e7a2a" stroke-width="1.8" stroke-dasharray="3 9" stroke-linecap="round" opacity=".7"/>
-    <path d="M1356 168 L 1400 150" fill="none" stroke="#5e7a2a" stroke-width="1.5" stroke-dasharray="2 10" stroke-linecap="round" opacity=".32"/>`;
+    <path class="trail-fill" d="${fill}" fill="url(#rf)"/>
+    <path id="trailLine" d="${d}" fill="none" stroke="#2b1f10" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <path class="trail-ticks" d="${d}" fill="none" stroke="#efe3c4" stroke-width="1" stroke-dasharray="1 7" stroke-linecap="round"/>
+    <path class="trail-future" d="M${sm.x} ${sm.y} L 1300 196 L 1334 180" fill="none" stroke="#5e7a2a" stroke-width="1.8" stroke-dasharray="3 9" stroke-linecap="round" opacity=".7"/>
+    <path class="trail-future" d="M1356 168 L 1400 150" fill="none" stroke="#5e7a2a" stroke-width="1.5" stroke-dasharray="2 10" stroke-linecap="round" opacity=".32"/>`;
+})();
+
+// ---- signature: the 20-year trail draws itself on (2006 → summit) ----
+// The solid ink spine animates stroke-dashoffset hidden→drawn; the hiking ticks,
+// ground-wash and future projection settle on as the route completes. Honors
+// [data-motion="off"] and prefers-reduced-motion by showing the trail fully drawn.
+(function trailDraw(){
+  const line=document.getElementById('trailLine');
+  if(!line)return;
+  const ticks=document.querySelector('.trail-ticks');
+  const fillA=document.querySelector('.trail-fill');
+  const futures=document.querySelectorAll('.trail-future');
+  const jots=document.querySelectorAll('.marg.jot');
+  const len=line.getTotalLength();
+  const noMo=()=>document.documentElement.getAttribute('data-motion')==='off'
+    ||matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // show-fully-drawn helper (the reduced-motion / off resting state)
+  function settle(){
+    line.style.transition='none';
+    line.style.strokeDasharray='none';
+    line.style.strokeDashoffset='0';
+    [ticks,fillA,...futures,...jots].forEach(el=>{if(el){el.style.opacity='';el.style.transform=''}});
+  }
+  if(noMo()){settle();return;}
+
+  // armed, hidden: ink route undrawn; ticks / wash / future / jottings held back
+  line.style.strokeDasharray=len+' '+len;
+  line.style.strokeDashoffset=len;
+  ticks.style.opacity='0';
+  fillA.style.opacity='0';
+  futures.forEach(f=>f.style.opacity='0');
+  jots.forEach(j=>{j.style.opacity='0'});
+
+  let drawn=false;
+  function draw(){
+    if(drawn)return;drawn=true;
+    // ground-wash fades up under the route as it climbs
+    fillA.style.transition='opacity 1.6s ease-out';
+    requestAnimationFrame(()=>{fillA.style.opacity=''});
+    // the ink line draws from 2006 up to the summit — confident exponential ease
+    line.style.transition='stroke-dashoffset 2.1s cubic-bezier(.16,1,.3,1)';
+    requestAnimationFrame(()=>{line.style.strokeDashoffset='0'});
+    // hiking ticks + future projection settle on once the route has arrived
+    ticks.style.transition='opacity .7s ease-out';
+    futures.forEach(f=>f.style.transition='opacity .8s ease-out');
+    setTimeout(()=>{
+      ticks.style.opacity='';
+      futures.forEach(f=>f.style.opacity='');
+    },1500);
+    // the cartographer's hand-notes get jotted in as the route passes them
+    jots.forEach((j,k)=>{
+      j.style.transition='opacity .6s ease-out';
+      setTimeout(()=>{j.style.opacity=''}, 650+k*650);
+    });
+  }
+
+  // trigger on arrival; fire once, then stop observing
+  const host=document.querySelector('.mapwrap');
+  if('IntersectionObserver'in window&&host){
+    const io=new IntersectionObserver((ents)=>{
+      ents.forEach(e=>{if(e.isIntersecting){draw();io.disconnect();}});
+    },{threshold:.18});
+    io.observe(host);
+  }else{draw();}
+  // safety net: if it never intersects (very tall viewports), draw after a beat
+  setTimeout(()=>{if(!drawn)draw();},1200);
 })();
 
 // assemble nodes (story order for the tour)

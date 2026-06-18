@@ -69,10 +69,10 @@ const SCENES = {
   scroll: async (p) => {                 // full scroll-through reveal (any page)
     for (let y = 0; y < 6; y++) { await p.evaluate((n) => window.scrollTo({ top: n * window.innerHeight * 0.9, behavior: 'smooth' }), y); await sleep(p, 950); }
   },
-  climb: async (p) => {                  // climb map seals + a card open (Story)
-    await sleep(p, 1200);
-    await hover(p, '.node .seal'); await sleep(p, 900);
-    await click(p, '.node .seal'); await sleep(p, 1600);   // open field-note card
+  climb: async (p) => {                  // trail-draw + seal hover + field-note card (Story)
+    await sleep(p, 3200);                // the 20-year trail draws itself on (fires on arrival)
+    await hover(p, '.node .seal'); await sleep(p, 900);    // tactile seal lift
+    await click(p, '.node .seal'); await sleep(p, 1700);   // field-note card slides in
   },
   'lab-flip': async (p) => {             // card-lab concept 1: cinematic flip + tilt
     await into(p, '#flip', 'center'); await sleep(p, 700);
