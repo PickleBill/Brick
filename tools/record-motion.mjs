@@ -68,6 +68,25 @@ const SCENES = {
     await hover(p, '.node .seal'); await sleep(p, 900);
     await click(p, '.node .seal'); await sleep(p, 1600);   // open field-note card
   },
+  'lab-flip': async (p) => {             // card-lab concept 1: cinematic flip + tilt
+    await into(p, '#flip', 'center'); await sleep(p, 700);
+    const b = await p.evaluate(() => { const e = document.querySelector('#flip'); const r = e.getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height }; });
+    const pt = (fx, fy) => p.mouse.move(b.x + b.w * fx, b.y + b.h * fy, { steps: 10 });
+    await pt(0.25, 0.25); await sleep(p, 420); await pt(0.78, 0.34); await sleep(p, 460);
+    await click(p, '#flip'); await sleep(p, 1700);
+    await pt(0.4, 0.62); await sleep(p, 520);
+    await click(p, '#flip'); await sleep(p, 1100);
+  },
+  'lab-holo': async (p) => {             // card-lab concept 2: hologram tilt/parallax
+    await into(p, '#holo', 'center'); await sleep(p, 700);
+    const b = await p.evaluate(() => { const e = document.querySelector('#holo'); const r = e.getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height }; });
+    const pt = (fx, fy) => p.mouse.move(b.x + b.w * fx, b.y + b.h * fy, { steps: 12 });
+    await pt(0.2, 0.2); await sleep(p, 480); await pt(0.85, 0.25); await sleep(p, 480); await pt(0.82, 0.8); await sleep(p, 480); await pt(0.2, 0.78); await sleep(p, 480); await pt(0.5, 0.5); await sleep(p, 520);
+  },
+  'lab-boot': async (p) => {             // card-lab concept 3: terminal-boot reveal
+    await into(p, '#boot', 'center'); await sleep(p, 3000);  // auto-boot
+    await click(p, '#boot'); await sleep(p, 3000);           // re-boot on tap
+  },
 };
 
 const scene = SCENES[sceneName] || SCENES.scroll;
