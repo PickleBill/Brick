@@ -39,16 +39,15 @@
   /* ===== consistent nav (identical across site) ===== */
   nav{position:sticky;top:0;z-index:50;background:rgba(8,9,10,.7);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
-  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px;letter-spacing:-.01em;white-space:nowrap;flex-shrink:0}
-  .brand .pk{font-size:20px;line-height:1;animation:pkpulse 3s ease-in-out infinite}
-  @keyframes pkpulse{0%,100%{filter:drop-shadow(0 0 4px rgba(134,224,164,.55))}50%{filter:drop-shadow(0 0 10px rgba(134,224,164,.95))}}
-
-  .nl{display:flex;gap:4px;align-items:center;font-size:13px;color:var(--mute)}
-  .nl a{padding:7px 12px;border-radius:99px;transition:.15s}
+  .brand{display:flex;align-items:center;gap:0;font-family:var(--mono);font-weight:600;font-size:14.5px;letter-spacing:-.01em;white-space:nowrap;flex-shrink:0;color:var(--text)}
+  .brand .caret{display:inline-block;width:8px;height:1em;background:var(--green);margin-left:5px;transform:translateY(1px);box-shadow:0 0 8px var(--green);animation:caretblink 1.1s steps(1) infinite}
+  @keyframes caretblink{50%{opacity:0}}
+  .nl{display:flex;gap:3px;align-items:center;font-family:var(--mono);font-size:13px;letter-spacing:-.01em;color:var(--mute)}
+  .nl a{padding:8px 13px;border-radius:99px;transition:.15s;white-space:nowrap}
   .nl a:hover{color:var(--text);background:rgba(255,255,255,.05)}
-  .nl a.here{color:#08090a;background:var(--cream);font-weight:600}
-  .nl a.email{color:#08090a;background:var(--cream);font-weight:600}
-  @media(max-width:600px){nav .wrap{flex-direction:column;height:auto;gap:8px;padding-top:9px;padding-bottom:11px}.nl{gap:3px;font-size:12px}.nl a{padding:7px 11px}}
+  .nl a.here{color:var(--green);background:rgba(134,224,164,.12)}
+  .nl a.cta{color:#08090a;background:var(--cream);font-weight:600}
+  @media(max-width:560px){nav .wrap{height:54px}.nl{gap:1px;font-size:11.5px}.nl a{padding:7px 8px}.brand{font-size:13px}}
 
   /* hero */
   .top{padding:14px 0 2px;text-align:center}
@@ -110,6 +109,30 @@
   @keyframes flash{0%{background:rgba(134,224,164,.16)}100%{background:transparent}}
   .cur{display:inline-block;width:9px;height:15px;background:var(--green);vertical-align:-2px;animation:blink 1s steps(2) infinite}
 
+  /* corpus of work */
+  .corpus{margin-top:22px}
+  .cgrid{display:grid;gap:14px}
+  .cgrid.two{grid-template-columns:1fr 1fr}
+  .cgrid.three{grid-template-columns:1fr 1fr 1fr;margin-top:14px}
+  @media(max-width:760px){.cgrid.two,.cgrid.three{grid-template-columns:1fr}}
+  .wcard{display:block;border:1px solid var(--line);border-radius:16px;background:var(--glass);padding:20px;transition:.18s;backdrop-filter:blur(6px)}
+  .wcard:hover{transform:translateY(-3px);border-color:var(--line2);box-shadow:0 24px 60px -42px rgba(0,0,0,.85)}
+  .wc-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}
+  .wc-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);padding:4px 9px;border-radius:99px}
+  .wc-badge.live{color:var(--green);border-color:rgba(134,224,164,.32)}
+  .wc-badge.live i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+  .wc-yr{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+  .wc-k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)}
+  .wcard h3{font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:-.03em;margin:0}
+  .wcard h4{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.02em;margin:7px 0 0}
+  .wcard p{font-size:14px;color:var(--mute);line-height:1.55;margin-top:9px}
+  .wcard.sm p{font-size:13px}
+  .wcard p b{color:var(--text);font-weight:600}
+  .wc-go{display:inline-block;margin-top:13px;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--green)}
+  .wcard.sm .wc-go{font-size:11.5px}
+  .term-divider{display:flex;align-items:center;justify-content:center;text-align:center;margin:30px 0 14px}
+  .term-divider span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);opacity:.85}
+
   footer{text-align:center;color:var(--faint);font-size:12px;font-family:var(--mono);padding:10px 0 60px;letter-spacing:.04em}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
   footer a{color:var(--mute)}
@@ -119,19 +142,50 @@
 <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div></div>
 
 <nav><div class="wrap">
-  <a class="brand" href="index.html"><span class="pk">🥒</span><span class="bn">Bill Bricker</span></a>
+  <a class="brand" href="index.html" aria-label="Bill Bricker — home">Bill&nbsp;Bricker<span class="caret" aria-hidden="true"></span></a>
   <div class="nl">
-    <a href="index.html">Home</a>
     <a href="climb.html">Story</a>
-    <a href="work.html" class="here">Work</a>
-    <a href="resume-v2.html">Résumé</a>
-    <a href="mailto:bricker3@gmail.com" class="email">Email</a>
+    <a href="work.html" class="here">Proof</a>
+    <a href="resume-v2.html" class="cta">Résumé</a>
   </div>
 </div></nav>
 
 <div class="wrap top">
-  <span class="kick"><span class="dot"></span>The Work · interactive terminal</span>
-  <h1>Don't take my word for it. <span class="g">Run the commands.</span></h1>
+  <span class="kick"><span class="dot"></span>Proof of work</span>
+  <h1>Receipts, <span class="g">not slides.</span></h1>
+  <p class="sub">Two live companies, 40+ apps across 31 repos shipped solo, and a terminal that answers for all of it. Browse the work — then interrogate it yourself.</p>
+</div>
+
+<div class="wrap corpus">
+  <div class="cgrid two">
+    <a class="wcard" href="https://courtana.com" target="_blank" rel="noopener">
+      <div class="wc-top"><span class="wc-badge live"><i></i> live · founder &amp; CEO</span><span class="wc-yr">2023 → now</span></div>
+      <h3>Courtana</h3>
+      <p>AI sports-intelligence from physical venues. <b>4 venues · 36 courts · 760 users.</b> Gemini vision + Claude strategy, two-person team.</p>
+      <span class="wc-go">courtana.com →</span>
+    </a>
+    <a class="wcard" href="https://dreamship.com" target="_blank" rel="noopener">
+      <div class="wc-top"><span class="wc-badge">cofounder &amp; CEO</span><span class="wc-yr">2018 – 23</span></div>
+      <h3>Dreamship</h3>
+      <p>API-driven fulfillment, built from zero to <b>$35M+ peak revenue · 11x in a year.</b> Where I closed Google, Stripe, PayPal &amp; Meta as partners.</p>
+      <span class="wc-go">dreamship.com →</span>
+    </a>
+  </div>
+  <div class="cgrid three">
+    <a class="wcard sm" href="https://vibeco.lovable.app/" target="_blank" rel="noopener">
+      <span class="wc-k">the build engine</span><h4>VibeCo</h4>
+      <p>11 AI agents. Idea → brief → working app — the motion behind 40+ apps across 31 repos.</p><span class="wc-go">vibeco.lovable.app →</span>
+    </a>
+    <a class="wcard sm" href="https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html" target="_blank" rel="noopener">
+      <span class="wc-k">the tech proof</span><h4>Pickle DaaS</h4>
+      <p>Self-serve sports-data warehouse from raw video. 21K+ clips · 4,097 analyzed · <b>$0.0054/clip</b> (~7x cheaper).</p><span class="wc-go">all dashboards →</span>
+    </a>
+    <a class="wcard sm" href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener">
+      <span class="wc-k">+ the shelf</span><h4>40+ apps</h4>
+      <p>Litigator, Venue Connect, Layup Lab, HeadsUpTime &amp; more — client-grade builds in days, not quarters.</p><span class="wc-go">browse the ecosystem →</span>
+    </a>
+  </div>
+  <div class="term-divider"><span>Don't take my word for it — run it yourself ↓</span></div>
 </div>
 
 <div class="wrap">
@@ -163,43 +217,44 @@ const A='target="_blank" rel="noopener"';
 const L=(u,t,ext=true)=>`<a class="lnk" href="${u}" ${ext?A:''}>${t}</a>`;
 
 const CMDS={
-  help:()=>`<span class="cmt">// available commands — tap a chip or type one</span>
+  help:()=>`<span class="cmt">// tap a chip or type a command</span>
 <span class="key">whoami</span>       who I am, in one line
 <span class="key">ls</span>           the proof, as a directory
 <span class="key">companies</span>    Courtana &amp; Dreamship — both live
-<span class="key">google-deal</span>  the deal I lead interviews with
+<span class="key">google-deal</span>  the partnership I open interviews with
 <span class="key">sales-gtm</span>    connected-AI selling (Venue Connect)
-<span class="key">enterprise</span>   client-grade builds in days
-<span class="key">builds</span>       VibeCo + 40 apps across 31 repos
+<span class="key">enterprise</span>   client-grade builds in days, not quarters
+<span class="key">builds</span>       VibeCo + 40+ apps across 31 repos
 <span class="key">pickle-daas</span>  the tech proof · $0.0054/clip
 <span class="key">stats</span>        the numbers
-<span class="key">git log</span>      the 20-year commit history
+<span class="key">git log</span>      a 20-year career, as commits
 <span class="key">ask &lt;anything&gt;</span> plain-English Q&amp;A
-<span class="key">contact</span>      let's talk · clear · resets`,
+<span class="key">contact</span>      how to reach me
+<span class="cmt">// also:</span> <span class="key">clear</span> <span class="cmt">resets the screen</span>`,
 
-  whoami:()=>`<span class="h">Bill Bricker — I sell frontier tech, and I build it myself.</span>Enterprise seller turned founder-CEO. <span class="ok">&gt;100% quota</span> at IBM, <span class="ok">$35M+</span> &amp; <span class="ok">11x</span> as a founder, closed <span class="ok">Google</span> as a partner while a sub-1-yr-old startup. Now I ship production AI daily. Father of three. Still walking.
+  whoami:()=>`<span class="h">Bill Bricker — I sell frontier tech, and I build it myself.</span>Enterprise seller turned founder-CEO. <span class="ok">achieved quota</span> at IBM, <span class="ok">$35M+</span> &amp; <span class="ok">11x</span> as a founder, closed <span class="ok">Google</span> as a partner in year one. Now I ship production AI daily. Father of three. Still walking.
 <span class="cmt">// next: try</span> <span class="key">ls</span> <span class="cmt">to see the proof</span>`,
 
   ls:()=>`<span class="cmt">drwx</span>  <span class="key">companies/</span>      <span class="cmt"># 2 live operating companies</span>
-<span class="cmt">-rw-</span>  <span class="key">google-deal.md</span>  <span class="cmt"># the 8-figure partnership</span>
+<span class="cmt">-rw-</span>  <span class="key">google-deal.md</span>  <span class="cmt"># the Google partnership</span>
 <span class="cmt">drwx</span>  <span class="key">sales-gtm/</span>      <span class="cmt"># connected-AI selling</span>
 <span class="cmt">drwx</span>  <span class="key">enterprise/</span>     <span class="cmt"># client-grade builds</span>
 <span class="cmt">drwx</span>  <span class="key">builds/</span>         <span class="cmt"># 40+ apps · 31 repos</span>
 <span class="cmt">drwx</span>  <span class="key">pickle-daas/</span>    <span class="cmt"># the tech proof</span>
 <span class="cmt">-rw-</span>  <span class="key">stats</span> · <span class="key">git log</span> · <span class="key">contact</span>`,
 
-  companies:()=>`<span class="h">Two operating companies — both live.</span><span class="ok">●</span> <span class="val">Courtana</span> — AI smart-court SaaS · founder/CEO · 36 courts live/piloting · 11+ sports
+  companies:()=>`<span class="h">Two operating companies — both live.</span><span class="ok">●</span> <span class="val">Courtana</span> — AI smart-court SaaS · founder/CEO · 36 courts live · 4 venues · 760 users
    ${L('https://courtana.com','courtana.com ↗')}
 <span class="pink">●</span> <span class="val">Dreamship</span> — API fulfillment · cofounder/CEO · $35M+ · 11x in a year · the Google deal
    ${L('https://dreamship.com','dreamship.com ↗')}`,
 
-  'google-deal':()=>`<span class="h">google-deal.md — the one I lead interviews with</span><span class="warn">SITUATION</span>  A sub-one-year-old startup. No logo, no track record.
-<span class="warn">TASK</span>       Open a first-of-its-kind Google partnership — an 8-figure
+  'google-deal':()=>`<span class="h">google-deal.md — the partnership I open interviews with</span><span class="warn">SITUATION</span>  A startup in year one. No logo, no track record.
+<span class="warn">TASK</span>       Open a first-of-its-kind Google partnership — a $45M+
            ad-spend channel — for our verified merchants.
 <span class="warn">ACTION</span>     Built an AI trademark/IP-compliance checker on Google Vision to
            solve <em>their</em> trust problem, then carried it through 5–6 internal
            teams — trust &amp; safety, business integrity, commercial — to
-           director+ sign-off. The work: organize the incentives so everyone
+           VP-level sign-off. The work: organize the incentives so everyone
            in the room won — Google, the merchants, and us.
 <span class="warn">RESULT</span>     A partnership that ran <span class="ok">5+ years</span>; then Stripe, PayPal,
            Payoneer &amp; Meta wanted the same access. Later, from a chair at
@@ -232,8 +287,8 @@ prompts &amp; art. Everything else falls out of it.
 <span class="cmt">// the model isn't the moat — the math is.</span>`,
 
   stats:()=>`<span class="h">the numbers</span><span class="ok">20</span>      years operating          <span class="ok">11x</span>     revenue in one year
-<span class="ok">$35M+</span>   cumulative revenue led   <span class="ok">8-fig</span>   Google channel won
-<span class="ok">&gt;100%</span>   IBM enterprise quota     <span class="ok">40+</span>     AI apps shipped solo
+<span class="ok">$35M+</span>   peak revenue · Dreamship  <span class="ok">$45M+</span>  Google ad-spend channel
+<span class="ok">✓</span>      achieved IBM quota     <span class="ok">40+</span>     AI apps shipped solo
 <span class="ok">$0.0054</span> per-clip AI analysis     <span class="ok">3</span>       kids · the why`,
 
   git:()=>`<span class="cmt">git log --oneline --career</span>
@@ -241,7 +296,7 @@ prompts &amp; art. Everything else falls out of it.
 <span class="warn">8b9de71</span> Pickle DaaS + VibeCo — 40+ apps, $0.0054/clip          <span class="cmt">2026</span>
 <span class="warn">b3bb973</span> The Long Walk — diagnosed; pipeline kept moving        <span class="cmt">2023</span>
 <span class="warn">7a1a46f</span> Dreamship — $35M+, 11x, closed the Google partnership <span class="cmt">2018–25</span>
-<span class="warn">18b8b3f</span> IBM/Netezza — 7-fig deals, &gt;100% quota               <span class="cmt">2012–14</span>
+<span class="warn">18b8b3f</span> IBM/Netezza — 7-fig deals, achieved quota               <span class="cmt">2012–14</span>
 <span class="warn">0001f00</span> Northwestern Mutual — doors &amp; dials, top 10           <span class="cmt">2006</span>
    ${L('climb.html','▸ walk the full climb ↗',false)}`,
 
@@ -252,13 +307,12 @@ prompts &amp; art. Everything else falls out of it.
 
   contact:()=>`<span class="h">let's talk.</span>Open to founder roles, GTM &amp; partnership leadership, fractional, board.
 <span class="key">email</span>  ${L('mailto:bricker3@gmail.com','bricker3@gmail.com',false)}
-<span class="key">phone</span>  ${L('tel:+19086018152','908 · 601 · 8152',false)}
 <span class="key">in</span>     ${L('https://linkedin.com/in/williambricker','linkedin.com/in/williambricker')}`,
 };
 const ALIAS={'sales-gtm':'sales','pickle-daas':'pickle','git log':'git','ls -la':'ls','cat google-deal.md':'google-deal','companies/':'companies','ask me anything':'ask','ask-me':'ask'};
 const QA=[
  {k:['lab','anthropic','openai','frontier','why now','why a lab','join'],r:`<span class="h">why a frontier lab, why now</span>Because the gap I fill is the one labs feel most: people who can stand in front of an enterprise buyer <em>and</em> have personally shipped with the technology. I've sold the hardest room there is (Google, as a no-name startup) and I build with AI every single day. I want to do my best work where the frontier is actually being made.`},
- {k:['biggest deal','best deal','google','hardest sale'],r:`<span class="h">the biggest deal</span>Google, when Dreamship was less than a year old. Built an AI IP-compliance checker to solve <em>their</em> trust problem, then carried it through 5-6 internal teams to director+ sign-off. 8-figure channel, ran 5+ years. Type <span class="key">google-deal</span> for the full STAR story.`},
+ {k:['biggest deal','best deal','google','hardest sale'],r:`<span class="h">the biggest deal</span>Google, in Dreamship's first year. Built an AI IP-compliance checker to solve <em>their</em> trust problem, then carried it through 5-6 internal teams to VP-level sign-off. $45M+ ad-spend channel, ran 5+ years. Type <span class="key">google-deal</span> for the full STAR story.`},
  {k:['vibe coding','vibe code','vibeco','vibe-coding'],r:`<span class="h">what is vibe coding?</span>Describing what you want in plain English and shipping working software the same day. I built <span class="val">VibeCo</span> — an 11-agent simulator — to industrialize it: idea → brief → build prompts → working app. 40+ apps across 31 repos came out of that motion. Type <span class="key">builds</span> to see them.`},
  {k:['pickleball','courtana','why pickle','sports'],r:`<span class="h">why pickleball?</span>Fastest-growing sport in America, venues drowning in analog ops, and nobody owning the video layer. Courtana puts AI on the court — live video, instant highlights, coaching — and Pickle DaaS turns that footage into a data business. Type <span class="key">companies</span> or <span class="key">pickle-daas</span>.`},
  {k:['superpower','strength','best at','why hire','why you'],r:`<span class="h">the honest answer</span>Translation. I make complicated things simple enough that one human buys them from another — and now I can <em>build</em> the demo before the second meeting. Sellers who build are rare; builders who can carry a quota are rarer.`},
@@ -266,7 +320,7 @@ const QA=[
  {k:['kids','family','father','three'],r:`<span class="h">the why</span>Three kids, a real kitchen, and an unreal amount of pickleball gear in the garage. The whole map exists to support that — not the other way around.`},
  {k:['available','hire','role','open to','looking for','work with'],r:`<span class="h">what I'm open to</span>Founder roles, GTM &amp; partnership leadership (frontier AI labs especially), fractional/advisory, board. Type <span class="key">contact</span> — or just email <a class="lnk" href="mailto:bricker3@gmail.com">bricker3@gmail.com</a>.`},
  {k:['dreamship','fulfillment','print'],r:`<span class="h">dreamship, short version</span>Cofounded, led as CEO: zero → $35M+, 11x in one year, on $2.2M raised. EBITDA-profitable 4 of 8 years. Closed Google as a partner, then sequenced Stripe/PayPal/Meta/Payoneer off it. Type <span class="key">companies</span> for links.`},
- {k:['ibm','quota','enterprise sales','netezza'],r:`<span class="h">enterprise pedigree</span>IBM/Netezza 2012-14: Zillow, Avalara, part of an 8-figure McKesson deal, &gt;100% of quota. The selling muscle everything else is built on.`},
+ {k:['ibm','quota','enterprise sales','netezza'],r:`<span class="h">enterprise pedigree</span>IBM/Netezza 2012-14: Zillow, Avalara, part of an 8-figure McKesson deal, achieved quota. The selling muscle everything else is built on.`},
  {k:['stack','tools','claude','how do you build'],r:`<span class="h">the stack</span>Claude (Code + Design), Codex, Lovable, Gemini, Supabase, Stripe, GitHub. This site — terminal included — was built with the stack it describes.`},
  {k:['dj','billygoat','fka'],r:`<span class="h">fka DJ Billygoat</span>A past life behind the decks. The set lists are sealed; the crowd-reading skills transferred directly to enterprise sales.`},
 ];

@@ -1,5 +1,30 @@
 # Brick — Bill Bricker's Dynamic Résumé
 
+## ⛔ Non-Negotiable Build Rules (merge-to-one-front-door, 2026-06-17)
+
+These five rules are binding for the whole front-door merge. Read them before any change.
+
+1. **`_source/facts.md` is LAW.** No surface gets a number that isn't in it; unverified =
+   flagged (⚠️/🚩), never asserted. **`$45M+` = partner AD SPEND, never revenue.**
+   **`$35M+` = peak revenue.** Contact = `bricker3@gmail.com`, **no phone** on any public surface.
+   (`_source/facts.md` supersedes `content/FACTS.md` — see decision D-0.)
+2. **The HUB repo is the only source of truth for the site.** Claude Design / Magic Patterns =
+   scratchpad for single components only, never whole-page re-imports. Spokes
+   (`pickle-daas-data`, `vibeco`) stay separate; the hub **links** to them.
+3. **Before ANY change:** read current state (repo + `_source/facts.md` + `_source/spec.md`),
+   state what exists, make minimal **diffs**. Never rewrite from scratch. **Can't see current
+   state → STOP.** Never silently pick between conflicting facts — surface both, log in
+   `_source/decisions.md`, get sign-off.
+4. **Before "done": RENDER** desktop + 375px mobile and verify against `_source/spec.md`; state
+   what you checked. Harness: `node tools/shoot.mjs <path> --tag <label>` → `tools/screens/*.png`.
+5. **One spacing scale** in `:root` (4 / 8 / 16 / 24 / 40 / 64 / 96). **One layout primitive owns
+   vertical rhythm;** children never add compensating margins. This is the fix for the
+   overlap / uneven-gap problem.
+
+The front door being merged is **`/sales/`** (`sales/index.html`). The builder page at the repo
+root (`index.html`) is preserved and mined for parts. The one automation worth building is a
+fact-consistency checker that scans every surface against `_source/facts.md`.
+
 ## What This Is
 
 The canonical home of Bill's dynamic résumé / personal OS — a living "about me" product targeting GTM/partnership roles at frontier AI labs. The thesis: the artifact demonstrates the claim ("sells AND builds") — an AI-native personal product, shipped by a GTM operator.

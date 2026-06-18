@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bill Bricker — Forward-deployed GTM operator.</title>
-<meta name="description" content="Bill Bricker — forward-deployed GTM operator. I close the partnerships frontier tech needs and build the product myself. Closed Google as a partner at a sub-one-year-old startup, led Dreamship to $35M+ (11x in a year), now ships production AI daily — 40+ apps, solo." />
-<meta property="og:title" content="Bill Bricker — Forward-deployed GTM operator." />
-<meta property="og:description" content="I close the partnerships frontier tech needs — and build the product myself. Closed Google as a partner, $35M+ at Dreamship, 11x in a year, 40+ AI apps shipped solo." />
+<title>Bill Bricker — AI-Forward Sales &amp; Partnerships Leader.</title>
+<meta name="description" content="Bill Bricker — AI-Forward Sales & Partnerships Leader. I close the deals the biggest names in tech say yes to. Founded Dreamship, closed Google as a partner in year one — a $45M+ ad-spend channel — and led the company to $35M+ peak revenue. Then I built the AI workflows behind the selling — 40+ apps, solo." />
+<meta property="og:title" content="Bill Bricker — AI-Forward Sales &amp; Partnerships Leader." />
+<meta property="og:description" content="I close the deals the biggest names in tech say yes to. Founded Dreamship, closed Google as a partner in year one — opening a $45M+ ad-spend channel — and led it to $35M+ peak revenue. Then I built the AI workflows behind the selling." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://picklebill.github.io/Brick/index.html" />
+<meta property="og:url" content="https://picklebill.github.io/Brick/" />
 <meta property="og:image" content="https://picklebill.github.io/Brick/assets/og-card.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -34,7 +34,10 @@
     --body:'Hanken Grotesk',system-ui,sans-serif;
     --mono:'JetBrains Mono',ui-monospace,monospace;
     --radius:22px; --blur:20px; --maxw:1140px; --sp:1;
+    --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:64px; --s7:96px;
     --ease:cubic-bezier(.22,.61,.36,1);
+    --ease-quint:cubic-bezier(.22,1,.36,1);   /* snappy, decisive */
+    --ease-expo:cubic-bezier(.16,1,.3,1);     /* confident, premium */
   }
   * { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; }
@@ -68,32 +71,24 @@
   /* ---------- nav ---------- */
   header.nav { position:sticky; top:0; z-index:60; backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px); background:rgba(8,9,10,.64); border-bottom:1px solid var(--line); }
   .nav-in { max-width:var(--maxw); margin:0 auto; padding:14px 30px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
-  .brand { font-family:var(--mono); font-weight:600; font-size:14.5px; letter-spacing:-.01em; display:flex; align-items:center; gap:9px; white-space:nowrap; }
+  .brand { font-family:var(--mono); font-weight:600; font-size:14.5px; letter-spacing:-.01em; display:flex; align-items:center; gap:0; white-space:nowrap; color:var(--text); }
   .brand .pk { font-size:18px; line-height:1; animation:pkpulse 3s ease-in-out infinite; }
   @keyframes pkpulse { 0%,100%{filter:drop-shadow(0 0 4px rgba(140,240,160,.55))} 50%{filter:drop-shadow(0 0 10px rgba(140,240,160,.95))} }
   .brand .sl { color:var(--accent-dim); }
   .brand .caret { display:inline-block; width:8px; height:1em; background:var(--accent); margin-left:5px; transform:translateY(1px); box-shadow:0 0 8px var(--accent); animation:caretblink 1.1s steps(1) infinite; }
   @keyframes caretblink { 50%{ opacity:0; } }
   @media (prefers-reduced-motion: reduce){ .brand .caret{ animation:none; } }
-  .navlinks { display:flex; gap:3px; align-items:center; font-size:13.5px; color:var(--mute); font-family:var(--body); }
-  .navlinks a { padding:8px 13px; border-radius:99px; transition:.15s; }
+  .navlinks { display:flex; gap:3px; align-items:center; font-size:13px; color:var(--mute); font-family:var(--mono); letter-spacing:-.01em; }
+  .navlinks a { padding:8px 13px; border-radius:99px; transition:.15s; white-space:nowrap; }
   .navlinks a:hover { color:var(--text); background:rgba(255,255,255,.05); }
-  .navlinks a.email { color:#08090a; background:var(--cream); font-weight:600; }
-  .navlinks a.email:hover { background:#fff; }
-  .navtoggle { display:none; width:38px; height:34px; flex-direction:column; justify-content:center; gap:5px; background:var(--glass2); border:1px solid var(--line2); border-radius:9px; cursor:pointer; padding:0 9px; }
-  .navtoggle span { display:block; height:2px; border-radius:2px; background:var(--text); transition:.22s var(--ease); }
-  .navtoggle.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
-  .navtoggle.open span:nth-child(2){ opacity:0; }
-  .navtoggle.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
-  @media (max-width:820px){
-    .navtoggle { display:flex; }
-    .navlinks { position:absolute; top:100%; right:14px; left:14px; flex-direction:column; align-items:stretch; gap:4px; padding:10px; background:rgba(11,13,15,.97); backdrop-filter:blur(16px); border:1px solid var(--line2); border-radius:14px; box-shadow:0 30px 70px -30px rgba(0,0,0,.9); display:none; }
-    .navlinks.open { display:flex; animation:navdrop .2s var(--ease); }
-    .navlinks a { padding:12px 14px; font-size:15px; border-radius:9px; }
-    .navlinks a.email { text-align:center; margin-top:4px; }
-    @keyframes navdrop { from{ opacity:0; transform:translateY(-8px); } to{ opacity:1; transform:none; } }
+  .navlinks a.here { color:var(--accent); background:rgba(111,239,180,.10); }
+  .navlinks a.cta { color:#08090a; background:var(--cream); font-weight:600; }
+  .navlinks a.cta:hover { background:#fff; }
+  @media (max-width:560px){
+    .nav-in { padding:11px 16px; gap:8px; }
+    .navlinks { gap:1px; font-size:11.5px; }
+    .navlinks a { padding:7px 8px; }
   }
-  @media (max-width:560px){ .nav-in{ padding:11px 20px; } }
 
   /* ---------- right-side scroll-spy ---------- */
   .spy { position:fixed; top:50%; right:18px; transform:translateY(-50%); z-index:50; display:flex; flex-direction:column; gap:3px; padding:9px; background:rgba(8,9,10,.6); border:1px solid var(--line); border-radius:13px; backdrop-filter:blur(14px); }
@@ -108,42 +103,93 @@
 
   /* ---------- hero ---------- */
   .hero { padding:56px 0 22px; }
-  .hero-grid { display:grid; grid-template-columns:.92fr 1.08fr; gap:46px; align-items:center; }
-  @media (max-width:940px){ .hero-grid{ grid-template-columns:1fr; gap:24px; } }
+  .hero-grid { display:grid; grid-template-columns:.82fr 1.18fr; gap:52px; align-items:center; }
+  @media (max-width:940px){ .hero-grid{ grid-template-columns:1fr; gap:24px; } .hero-copy{ order:-1; } }
   @media (max-width:560px){ .hero{ padding:26px 0 14px; } h1.head{ font-size:clamp(31px,8.6vw,42px); margin-top:12px; } .lede{ font-size:16.5px; margin-top:13px; max-width:none; } .hero-cta{ margin-top:16px; } .hero-grid{ gap:16px; } }
   .avail { display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-dim); }
   .avail i { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 0 var(--accent-soft); animation:pulse 2.1s infinite; }
   @keyframes pulse { 0%{box-shadow:0 0 0 0 var(--accent-soft)} 70%{box-shadow:0 0 0 8px transparent} 100%{box-shadow:0 0 0 0 transparent} }
   @media (prefers-reduced-motion: reduce){ .avail i{ animation:none; } }
-  h1.head { font-family:var(--display); font-weight:800; font-size:clamp(38px,6vw,66px); line-height:.97; letter-spacing:-.04em; margin:16px 0 0; max-width:12ch; }
-  .lede { font-size:clamp(17px,2vw,21px); color:var(--text); line-height:1.5; margin-top:20px; max-width:32ch; font-weight:500; }
+  h1.head { font-family:var(--display); font-weight:800; font-size:clamp(31px,4.4vw,50px); line-height:1.02; letter-spacing:-.035em; margin:16px 0 0; max-width:21ch; text-wrap:balance; }
+  .lede { font-size:clamp(17px,2vw,21px); color:var(--text); line-height:1.5; margin-top:20px; max-width:39ch; font-weight:500; }
   .lede b { font-weight:700; }
   .lede .g { color:var(--accent); font-weight:700; }
   .hero-cta { display:flex; flex-wrap:wrap; gap:11px; margin-top:26px; }
-  .pill { display:inline-flex; align-items:center; gap:8px; font-family:var(--body); font-size:14.5px; font-weight:600; padding:13px 22px; border-radius:99px; transition:.18s var(--ease); cursor:pointer; border:1px solid transparent; }
+  .pill { display:inline-flex; align-items:center; gap:8px; font-family:var(--body); font-size:14.5px; font-weight:600; padding:13px 22px; border-radius:99px; transition:transform .28s var(--ease-quint),box-shadow .28s var(--ease-quint),border-color .28s var(--ease-quint),background .28s var(--ease-quint); cursor:pointer; border:1px solid transparent; }
   .pill.solid { background:var(--cream); color:#08090a; }
-  .pill.solid:hover { transform:translateY(-2px); box-shadow:0 16px 36px -14px rgba(243,236,220,.5); }
+  .pill.solid:hover, .pill.solid:focus-visible { transform:translateY(-2px); box-shadow:0 16px 36px -14px rgba(243,236,220,.5); }
   .pill.ghost { background:var(--glass); color:var(--text); border-color:var(--line2); backdrop-filter:blur(10px); }
-  .pill.ghost:hover { transform:translateY(-2px); border-color:var(--accent); box-shadow:0 0 0 1px var(--accent-soft); }
+  .pill.ghost:hover, .pill.ghost:focus-visible { transform:translateY(-2px); border-color:var(--accent); box-shadow:0 0 0 1px var(--accent-soft),0 14px 32px -18px var(--accent-soft); }
+  .pill:active { transform:translateY(0) scale(.985); transition-duration:.09s; }   /* tactile press */
+  @media (prefers-reduced-motion: reduce){ .pill,.pill:hover,.pill:focus-visible,.pill:active{ transform:none; transition:none; } }
 
-  /* ---------- identity flip card ---------- */
-  .flip { perspective:2200px; cursor:pointer; }
-  .flip-inner { position:relative; width:100%; min-height:498px; transition:transform .8s var(--ease); transform-style:preserve-3d; }
+  /* ---------- identity flip card (signature hero moment) ----------
+     Layer model: .flip (perspective + press) › .flip-tilt (pointer 3D tilt,
+     driven by --rx/--ry/--gx/--gy from JS, rAF-throttled) › .flip-inner (the
+     one signature flip: rotateY). Tilt and flip live on separate layers so
+     they never fight. Easing is ease-out-quint only (no bounce/elastic).
+     Touch + reduced-motion: tilt neutralised, flip still works, looks great
+     static. --ease-quint:cubic-bezier(.22,1,.36,1). */
+  .flip { perspective:1250px; cursor:pointer; --rx:0deg; --ry:0deg; --gx:50%; --gy:0%; --lift:0; }
+  .flip-tilt {
+    position:relative; transform-style:preserve-3d;
+    transform:translateZ(0) rotateX(var(--rx)) rotateY(var(--ry)) scale(calc(1 + var(--lift)*.022));
+    transition:transform .5s cubic-bezier(.22,1,.36,1);
+    will-change:transform;
+  }
+  .flip-inner { position:relative; width:100%; aspect-ratio:1/1; transition:transform .82s cubic-bezier(.62,.04,.3,1); transform-style:preserve-3d; }
+  .flip-front .cardface { display:flex; flex-direction:column; height:100%; }
+  .flip-front .card-img { width:100%; flex:0 0 45%; min-height:0; object-fit:cover; object-position:50% 22%; display:block; }
+  .proofpanel { flex:1 1 auto; min-height:0; padding:13px 15px 14px; background:linear-gradient(180deg,#0e1311,#0a0c0d); border-top:1px solid var(--line); display:flex; flex-direction:column; transform:translateZ(34px); transform-style:preserve-3d; }
+  .proofpanel .preadout { margin:0 2px; }
+  .proofpanel .bars { margin-top:11px; }
+  .flip-back .cardback { display:flex; flex-direction:column; height:100%; }
+  .flip-back .card-img { width:100%; flex:1 1 auto; min-height:0; object-fit:cover; object-position:50% 22%; display:block; }
+  /* depth: the readout panel floats forward of the image plane on tilt */
+  .idpanel { flex:0 0 auto; padding:16px 16px 17px; background:linear-gradient(180deg,#0e1311,#0a0c0d); border-top:1px solid var(--line); display:flex; flex-direction:column; gap:4px; transform:translateZ(34px); transform-style:preserve-3d; }
+  .idpanel .idlabel { font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:3px; }
+  .idpanel .idl { font-family:var(--display); font-weight:800; font-size:clamp(14px,1.5vw,17px); letter-spacing:-.02em; line-height:1.22; white-space:normal; }
+  .opbars { display:flex; flex-direction:column; gap:9px; margin-top:14px; }
   .flip.flipped .flip-inner { transform:rotateY(180deg); }
-  @media (max-width:940px){ .flip-inner{ min-height:520px; } }
-  @media (max-width:560px){ .flip-inner{ min-height:528px; } }
-  .flip-face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:var(--radius); border:1px solid var(--line2); overflow:hidden; box-shadow:0 40px 90px -42px rgba(0,0,0,.9); background:linear-gradient(180deg,#0e1311,#0a0c0d); }
+  @media (max-width:560px){ .flip-inner{ aspect-ratio:1/1; } }
+  .flip-face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:var(--radius); border:1px solid var(--line2); overflow:hidden; background:linear-gradient(180deg,#0e1311,#0a0c0d);
+    box-shadow:0 40px 90px -42px rgba(0,0,0,.9); transition:box-shadow .5s cubic-bezier(.22,1,.36,1); }
   .flip-back { transform:rotateY(180deg); }
-  /* flip cue */
-  .flipcue { position:absolute; top:12px; right:13px; z-index:8; font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); display:inline-flex; align-items:center; gap:6px; background:rgba(8,10,9,.55); border:1px solid var(--line); padding:5px 10px; border-radius:99px; backdrop-filter:blur(6px); transition:.2s; }
-  .flipcue .rot { display:inline-block; animation:rotcue 3.2s ease-in-out infinite; }
-  @keyframes rotcue { 0%,70%,100%{transform:rotate(0)} 80%{transform:rotate(-22deg)} 90%{transform:rotate(8deg)} }
-  .flip:hover .flipcue { color:var(--accent); border-color:rgba(111,239,180,.3); }
-  @media (prefers-reduced-motion: reduce){ .flipcue .rot{ animation:none; } }
-  /* sheen */
-  .flip-face::after{ content:""; position:absolute; top:0; left:-70%; width:45%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent); transform:skewX(-18deg); animation:sheen 7s ease-in-out infinite; pointer-events:none; z-index:5; }
-  @media (prefers-reduced-motion: reduce){ .flip-face::after{ animation:none; } }
-  @keyframes sheen{ 0%,100%{left:-70%} 55%{left:130%} }
+  /* dynamic depth shadow: deepens while lifted/turning, then settles */
+  .flip.lifted .flip-face { box-shadow:0 60px 120px -46px rgba(0,0,0,.95), 0 0 0 1px rgba(111,239,180,.12); }
+  /* pointer-tracked glare + a one-pass light sweep across the turning face */
+  .flip-face::before {
+    content:""; position:absolute; inset:0; z-index:6; pointer-events:none; border-radius:inherit;
+    background:radial-gradient(420px circle at var(--gx) var(--gy), rgba(255,255,255,.16), rgba(255,255,255,.04) 32%, transparent 60%);
+    opacity:0; transition:opacity .4s cubic-bezier(.22,1,.36,1); mix-blend-mode:screen;
+  }
+  .flip.lifted .flip-face::before { opacity:1; }
+  .flip-face::after {
+    content:""; position:absolute; top:-40%; bottom:-40%; left:0; width:42%; z-index:7; pointer-events:none;
+    background:linear-gradient(100deg, transparent, rgba(180,255,224,.10) 38%, rgba(255,255,255,.30) 50%, rgba(180,255,224,.10) 62%, transparent);
+    transform:translateX(-160%) skewX(-12deg); opacity:0; will-change:transform;
+  }
+  .flip.sweeping .flip-face::after { animation:flipSweep .82s cubic-bezier(.62,.04,.3,1); }
+  @keyframes flipSweep { 0%{ transform:translateX(-160%) skewX(-12deg); opacity:0; } 12%{ opacity:.9; } 70%{ opacity:.65; } 100%{ transform:translateX(420%) skewX(-12deg); opacity:0; } }
+  /* press feedback — tactile, restrained */
+  .flip:active .flip-tilt { transition-duration:.12s; transform:scale(.985); }
+  /* flip affordance — a subtle persistent corner curl (no text/badge); the delayed auto-flip is the loud signal */
+  .flip-aff { position:absolute; right:0; bottom:0; z-index:9; width:46px; height:46px; pointer-events:none; transform:translateZ(46px); border-bottom-right-radius:var(--radius);
+    background:linear-gradient(315deg, rgba(18,24,22,.95), rgba(14,19,17,.5) 44%, transparent 62%); }
+  .flip-aff::after { content:""; position:absolute; right:9px; bottom:9px; width:15px; height:15px; border-right:2px solid var(--accent); border-bottom:2px solid var(--accent); border-bottom-right-radius:9px; opacity:.6; filter:drop-shadow(0 0 5px rgba(111,239,180,.45)); animation:affPulse 3s cubic-bezier(.22,1,.36,1) infinite; }
+  @keyframes affPulse { 0%,100%{ opacity:.4; transform:translate(0,0); } 50%{ opacity:.92; transform:translate(2px,2px); } }
+  .flip:hover .flip-aff::after, .flip.lifted .flip-aff::after { opacity:1; }
+  @media (prefers-reduced-motion: reduce){
+    .flip-aff::after{ animation:none; opacity:.7; }
+    .flip-tilt{ transform:none !important; transition:none; }
+    .flip-face::before, .flip-face::after{ display:none; }
+    .flip-inner{ transition:none; }
+  }
+  /* touch / coarse pointer: no hover, no tilt — flip on tap, stays crisp */
+  @media (hover:none), (pointer:coarse){
+    .flip-tilt{ transform:none !important; }
+    .flip-face::before{ display:none; }
+  }
 
   /* FRONT — identity */
   .cf { display:grid; grid-template-columns:1.04fr .96fr; height:100%; }
@@ -177,10 +223,16 @@
   .op-photo .ph { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; color:var(--faint); text-align:center; padding:6px; }
   .op-photo .tag { position:absolute; left:11px; bottom:9px; z-index:2; font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#dfe4e1; background:rgba(8,10,9,.5); border:1px solid var(--line); padding:3px 8px; border-radius:99px; backdrop-filter:blur(4px); }
   .preadout { display:flex; align-items:baseline; gap:10px; margin:13px 2px 12px; }
-  .preadout .n { font-family:var(--display); font-size:27px; font-weight:800; letter-spacing:-.03em; line-height:1; background:linear-gradient(120deg,var(--sage),var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; transition:opacity .2s; }
+  .preadout .n { font-family:var(--display); font-size:27px; font-weight:800; letter-spacing:-.03em; line-height:1; color:var(--sage); transition:opacity .22s cubic-bezier(.22,1,.36,1), transform .22s cubic-bezier(.22,1,.36,1); }
+  .preadout.tick .n { animation:readoutTick .42s cubic-bezier(.22,1,.36,1); }
+  @keyframes readoutTick { 0%{ opacity:.2; transform:translateY(4px); } 100%{ opacity:1; transform:none; } }
   .preadout .l { font-size:12px; color:var(--mute); }
-  .bars { display:flex; flex-direction:column; gap:9px; margin-top:auto; }
-  .bar { display:grid; grid-template-columns:1fr auto; gap:3px 10px; font-size:12.5px; cursor:pointer; border-radius:9px; padding:4px 8px; margin:0 -8px; transition:background .2s; }
+  /* proof bars — staggered reveal once the card settles (sibling list stagger,
+     legitimate; ~4 items × 90ms = ~360ms total, capped) */
+  .bars { display:flex; flex-direction:column; gap:9px; }
+  .bar { display:grid; grid-template-columns:1fr auto; gap:3px 10px; font-size:12.5px; cursor:pointer; border-radius:9px; padding:4px 8px; margin:0 -8px; transition:background .2s cubic-bezier(.22,1,.36,1); }
+  .js .bars.stagger .bar { opacity:0; transform:translateY(7px); }
+  .js .bars.stagger.in .bar { opacity:1; transform:none; transition:opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1), background .2s; transition-delay:calc(var(--i,0)*90ms); }
   .bar:hover, .bar.on { background:rgba(111,239,180,.09); }
   .bar.on .nm { color:var(--accent); font-weight:600; }
   .bar.on .fill { box-shadow:0 0 16px rgba(111,239,180,.85); }
@@ -188,28 +240,68 @@
   .bar .vl { font-family:var(--mono); font-size:10.5px; color:var(--faint); text-align:right; white-space:nowrap; }
   .bar .track { grid-column:1/-1; height:6px; border-radius:99px; background:rgba(255,255,255,.085); overflow:hidden; }
   .bar .fill { display:block; height:100%; border-radius:99px; width:0; transition:width 1.3s cubic-bezier(.25,1,.3,1); box-shadow:0 0 10px rgba(111,239,180,.4); }
-  @media (prefers-reduced-motion: reduce){ .bar .fill{ transition:none; } }
+  @media (prefers-reduced-motion: reduce){
+    .bar .fill{ transition:none; }
+    .js .bars.stagger .bar{ opacity:1; transform:none; }
+    .preadout.tick .n{ animation:none; }
+  }
 
-  /* ---------- green stats band (the break) ---------- */
-  .statband { margin-top:18px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-  .statband .sb-in { display:grid; grid-template-columns:repeat(6,1fr); gap:18px 14px; padding:30px 0; }
-  @media (max-width:840px){ .statband .sb-in{ grid-template-columns:repeat(3,1fr); } }
-  @media (max-width:480px){ .statband .sb-in{ grid-template-columns:repeat(2,1fr); gap:22px 12px; } }
-  .sb { display:flex; flex-direction:column; gap:5px; }
-  .sb .n { font-family:var(--display); font-weight:800; font-size:clamp(24px,3vw,32px); letter-spacing:-.03em; line-height:1; background:linear-gradient(120deg,#7be88f,#46d6b6 60%,#36c6e0); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .sb .k { font-family:var(--mono); font-size:10px; letter-spacing:.04em; color:var(--mute); text-transform:uppercase; line-height:1.35; }
+  /* ---------- google deal card ---------- */
+  .gdeal { display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center; border:1px solid var(--line2); border-radius:var(--radius); background:linear-gradient(180deg,var(--glass),var(--glass2)); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur)); padding:32px 36px; box-shadow:0 40px 90px -50px rgba(0,0,0,.85); }
+  @media (max-width:780px){ .gdeal{ grid-template-columns:1fr; gap:22px; padding:26px 22px; } }
+  .gdeal-copy h2 { font-family:var(--display); font-size:clamp(26px,3.6vw,40px); font-weight:700; letter-spacing:-.03em; line-height:1.05; margin:12px 0 0; }
+  @media (max-width:560px){ .gdeal-copy h2{ font-size:20px; letter-spacing:-.02em; } }
+  .gdeal-copy p { color:var(--mute); font-size:15.5px; line-height:1.6; margin-top:14px; max-width:48ch; }
+  .gdeal-copy p b { color:var(--text); font-weight:600; }
+  .gdeal-copy .e-go { margin-top:18px; }
+  .gdeal-stats { display:grid; grid-template-columns:1fr 1fr; gap:20px 22px; }
+  .gstat { display:flex; flex-direction:column; gap:5px; }
+  .gstat .gn { font-family:var(--display); font-weight:800; font-size:clamp(23px,2.7vw,31px); letter-spacing:-.03em; color:var(--sage); line-height:1; }
+  .gstat .gk { font-family:var(--mono); font-size:10px; letter-spacing:.03em; color:var(--mute); text-transform:uppercase; line-height:1.45; }
+  .gstat .gk em { color:var(--coral); font-style:normal; }
+
+
+  /* ---------- the names: partner constellation ---------- */
+  .constellation { position:relative; margin-top:30px; min-height:200px; display:flex; align-items:center; justify-content:center; padding:22px 0; overflow:hidden; }
+  .constel-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+  /* line-draw: the flywheel visibly wires itself up once, in view. Connectors
+     start undrawn; the node dots fade in just behind the advancing strokes.
+     stroke-dasharray/offset is set per-path in JS (length-aware), so CSS only
+     owns the easing + the fade. Under reduced motion the lines are simply drawn. */
+  .constel-lines .wire { stroke-dashoffset:var(--len,600); transition:stroke-dashoffset 1.25s var(--ease-expo); transition-delay:var(--wd,0s); }
+  .constel-lines .nodes { opacity:0; transition:opacity .5s ease .55s; }
+  .constellation.wired .constel-lines .wire { stroke-dashoffset:0; }
+  .constellation.wired .constel-lines .nodes { opacity:.5; }
+  .constel-logos { position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px 38px; max-width:760px; }
+  .star { position:relative; display:inline-flex; align-items:center; justify-content:center; animation:starfloat 7s ease-in-out infinite; animation-delay:var(--d,0s); }
+  .star::before { content:""; position:absolute; inset:-16px; border-radius:50%; background:radial-gradient(circle,rgba(111,239,180,.12),transparent 70%); opacity:0; transition:opacity .3s var(--ease-quint),transform .3s var(--ease-quint); }
+  .star img { height:27px; width:auto; max-width:108px; object-fit:contain; filter:brightness(0) invert(.86); opacity:.8; transition:filter .25s var(--ease-quint),opacity .25s var(--ease-quint),transform .3s var(--ease-quint); }
+  .star:hover img, .star:focus-visible img { opacity:1; filter:brightness(0) invert(1); transform:scale(1.07); }
+  .star:hover::before, .star:focus-visible::before { opacity:1; transform:scale(1.12); }
+  .star.wm { font-family:var(--display); font-weight:700; font-size:22px; letter-spacing:-.012em; color:var(--faint); transition:color .25s var(--ease-quint),transform .3s var(--ease-quint); }
+  .star.wm:hover, .star.wm:focus-visible { color:var(--text); transform:scale(1.05); }
+  .star.anchor img { height:46px; opacity:1; filter:brightness(0) invert(1); }
+  .star.anchor::before { background:radial-gradient(circle,rgba(91,232,160,.20),transparent 68%); opacity:1; }
+  @keyframes starfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  @media (max-width:560px){ .constellation{ min-height:0; padding:16px 0; } .constel-logos{ gap:15px 22px; max-width:320px; } .star img{ height:22px; } .star.anchor img{ height:30px; } .star.wm{ font-size:18px; } .star{ animation:none; } .constel-lines{ opacity:.45; } }
+  @media (prefers-reduced-motion: reduce){ .star{ animation:none; }
+    .constel-lines .wire{ stroke-dashoffset:0 !important; transition:none; }
+    .constel-lines .nodes{ opacity:.5; transition:none; }
+    .star:hover img, .star:focus-visible img, .star.wm:hover, .star.wm:focus-visible{ transform:none; }
+    .star:hover::before, .star:focus-visible::before{ transform:none; } }
 
   /* ---------- section heads ---------- */
-  section.block { padding:calc(86px*var(--sp)) 0 0; }
+  section.block { padding:var(--s7) 0 0; }
   .sec-head { max-width:62ch; }
-  .sec-head h2 { font-family:var(--display); font-size:clamp(27px,4vw,42px); font-weight:700; letter-spacing:-.03em; line-height:1.04; margin:13px 0 0; }
+  .sec-head h2 { font-family:var(--display); font-size:clamp(27px,4vw,42px); font-weight:700; letter-spacing:-.03em; line-height:1.04; margin:13px 0 0; text-wrap:balance; }
   .sec-head p { color:var(--mute); font-size:16px; line-height:1.6; margin-top:11px; }
   .sec-head p em { color:var(--text); font-style:normal; font-weight:600; }
 
   /* ---------- terminal ---------- */
   .interface-grid { display:grid; grid-template-columns:0.82fr 1.18fr; gap:48px; align-items:center; margin-top:36px; }
   .interface-grid > * { min-width:0; }
-  .interface-grid .sec-head { max-width:42ch; }
+  .interface-grid .sec-head { max-width:46ch; }
+  .interface-grid .sec-head h2 { font-size:clamp(26px,2.4vw,33px); }
   @media (max-width:940px){ .interface-grid { grid-template-columns:1fr; gap:26px; } .interface-grid .sec-head{ max-width:62ch; } }
   .term { background:#0a0c0d; border:1px solid var(--line2); border-radius:16px; overflow:hidden; box-shadow:0 34px 80px -44px rgba(0,0,0,.85); }
   .term-bar { display:flex; align-items:center; gap:8px; padding:12px 15px; border-bottom:1px solid var(--line); background:rgba(255,255,255,.02); }
@@ -219,16 +311,21 @@
   .term-bar .live { margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
   .term-bar .live i { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 9px var(--accent); animation:tpulse 1.9s infinite; }
   .term-body { padding:18px 18px 16px; }
-  .term-out { font-family:var(--mono); font-size:13.5px; line-height:1.66; color:var(--term); min-height:150px; max-height:330px; overflow-y:auto; padding-right:6px; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.14) transparent; }
+  .term-out { font-family:var(--mono); font-size:13.5px; line-height:1.66; color:var(--term); min-height:150px; max-height:340px; overflow-y:auto; overscroll-behavior:auto; -webkit-overflow-scrolling:touch; padding-right:6px; scrollbar-width:thin; scrollbar-color:rgba(255,255,255,.14) transparent; }
   .term-out::-webkit-scrollbar{ width:6px; } .term-out::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.14); border-radius:4px; }
   .term-out .echo { color:var(--text); } .term-out .echo .ps { color:var(--accent); }
-  .term-out .ln { white-space:pre-wrap; word-break:break-word; }
+  .term-out .ln { white-space:pre-wrap; word-break:break-word; animation:lnIn .28s var(--ease) both; animation-delay:calc(var(--i,0)*45ms); }
+  @keyframes lnIn { from{ opacity:0; transform:translateY(3px); } to{ opacity:1; transform:none; } }
   .term-out .m { color:var(--accent); } .term-out .am { color:var(--amber); }
-  .term-out .a { color:#8fb6ff; text-decoration:underline; text-underline-offset:2px; cursor:pointer; }
+  .term-out .a { color:var(--accent); font-weight:600; text-decoration:none; cursor:pointer; border-bottom:1px solid rgba(111,239,180,.42); padding-bottom:1px; transition:.16s; }
+  .term-out .a:hover, .term-out .a:focus-visible { color:#c4f8dd; border-color:var(--accent); text-shadow:0 0 10px rgba(111,239,180,.55); outline:none; }
   .term-out .dim { color:var(--faint); } .term-out .blk { margin:7px 0 12px; }
+  @media (prefers-reduced-motion:reduce){ .term-out .ln{ animation:none; } }
+  @media (max-width:700px){ .term-out{ max-height:none; overflow:visible; } }
   .term-inline { display:flex; align-items:center; gap:9px; margin-top:12px; font-family:var(--mono); font-size:13.5px; border-top:1px solid var(--line); padding-top:13px; }
   .term-inline .ps { color:var(--accent); }
-  .term-inline input { flex:1; min-width:0; background:transparent; border:0; outline:none; color:var(--text); font-family:var(--mono); font-size:13.5px; caret-color:var(--accent); }
+  .term-inline input { flex:1; min-width:0; background:transparent; border:0; outline:none; color:var(--text); font-family:var(--mono); font-size:16px; caret-color:var(--accent); }
+  @media (hover:hover) and (pointer:fine){ .term-inline input{ font-size:13.5px; } }
   .term-inline input::placeholder { color:var(--faint); }
   .mic { flex:none; width:32px; height:32px; border-radius:8px; border:1px solid var(--line2); background:var(--glass2); color:var(--mute); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition:.15s; }
   .mic:hover { color:var(--accent); border-color:var(--accent); }
@@ -241,25 +338,27 @@
   .cmdrow > .chip { flex:0 0 auto; }
   .rowlbl { font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; padding:3px 0; margin-right:3px; }
   .rowlbl.green { color:var(--accent); } .rowlbl.orange { color:var(--amber); } .rowlbl.wild { color:var(--violet); }
-  .chip { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:var(--glass2); padding:7px 11px; border-radius:99px; cursor:pointer; transition:.14s; white-space:nowrap; }
-  .chip:hover { transform:translateY(-1px); color:var(--text); }
+  .chip { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:var(--glass2); padding:7px 11px; border-radius:99px; cursor:pointer; transition:transform .24s var(--ease-quint),color .24s var(--ease-quint),border-color .24s var(--ease-quint),box-shadow .24s var(--ease-quint),background .24s var(--ease-quint); white-space:nowrap; }
+  .chip:hover, .chip:focus-visible { transform:translateY(-1px); color:var(--text); background:var(--glass); }
+  .chip:active { transform:translateY(0) scale(.97); transition-duration:.08s; }
   .chip .s { font-weight:600; }
-  .cmdrow.green .chip:hover { border-color:var(--accent); } .cmdrow.green .chip .s { color:var(--accent); }
-  .cmdrow.orange .chip:hover { border-color:var(--amber); } .cmdrow.orange .chip .s { color:var(--amber); }
+  .cmdrow.green .chip:hover, .cmdrow.green .chip:focus-visible { border-color:var(--accent); box-shadow:0 0 0 1px rgba(111,239,180,.22); } .cmdrow.green .chip .s { color:var(--accent); }
+  .cmdrow.orange .chip:hover, .cmdrow.orange .chip:focus-visible { border-color:var(--amber); box-shadow:0 0 0 1px rgba(255,180,84,.22); } .cmdrow.orange .chip .s { color:var(--amber); }
   .cmdrow.orange .chip { border-color:rgba(255,180,84,.28); color:#e8d6b6; }
-  .cmdrow.wild .chip:hover { border-color:var(--violet); } .cmdrow.wild .chip .s { color:var(--violet); }
+  .cmdrow.wild .chip:hover, .cmdrow.wild .chip:focus-visible { border-color:var(--violet); box-shadow:0 0 0 1px rgba(167,139,250,.22); } .cmdrow.wild .chip .s { color:var(--violet); }
   .cmdrow.wild .chip { border-color:rgba(167,139,250,.28); }
+  @media (prefers-reduced-motion: reduce){ .chip,.chip:hover,.chip:focus-visible,.chip:active{ transform:none; transition:none; } }
 
   /* ---------- side-by-side operating companies ---------- */
   .opco-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:34px; }
   @media (max-width:780px){ .opco-grid{ grid-template-columns:1fr; } }
-  .opco { display:block; border:1px solid var(--line); border-radius:var(--radius); background:var(--glass); backdrop-filter:blur(var(--blur)); overflow:hidden; transition:.2s var(--ease); }
-  .opco:hover { transform:translateY(-4px); border-color:var(--line2); box-shadow:0 30px 70px -46px rgba(0,0,0,.85); }
+  .opco { display:block; border:1px solid var(--line); border-radius:var(--radius); background:var(--glass); backdrop-filter:blur(var(--blur)); overflow:hidden; transition:transform .32s var(--ease-quint),border-color .32s var(--ease-quint),box-shadow .32s var(--ease-quint); }
+  .opco:hover, .opco:focus-visible { transform:translateY(-4px); border-color:var(--line2); box-shadow:0 30px 70px -46px rgba(0,0,0,.85); }
   .opco .oshot { position:relative; aspect-ratio:16/9; overflow:hidden; border-bottom:1px solid var(--line); background:linear-gradient(135deg,#15171b,#0d0f12); }
-  .opco .oshot img, .opco .oshot video { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .55s var(--ease); }
-  .opco:hover .oshot img { transform:scale(1.04); }
+  .opco .oshot img, .opco .oshot video { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .6s var(--ease-expo); }
+  .opco:hover .oshot img, .opco:focus-visible .oshot img { transform:scale(1.04); }
+  @media (prefers-reduced-motion: reduce){ .opco,.opco:hover,.opco:focus-visible{ transform:none; transition:none; } .opco .oshot img{ transition:none; } .opco:hover .oshot img,.opco:focus-visible .oshot img{ transform:none; } }
   .opco .oshot .ph { position:absolute; inset:0; display:none; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; color:var(--faint); }
-  .opco .obadge { position:absolute; left:13px; bottom:12px; display:inline-flex; gap:8px; align-items:center; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:rgba(8,9,10,.62); border:1px solid var(--line); padding:5px 10px; border-radius:99px; backdrop-filter:blur(4px); }
   .opco .obody { padding:20px 20px 22px; }
   .opco .okick { font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-dim); }
   .opco h3 { font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.028em; margin:8px 0 0; display:flex; align-items:center; gap:10px; }
@@ -270,56 +369,64 @@
   .opco .ometrics .v { font-family:var(--display); font-weight:700; font-size:21px; letter-spacing:-.03em; color:var(--text); }
   .opco .ometrics .k { font-family:var(--mono); font-size:9.5px; color:var(--mute); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; }
   .opco .ogo { display:inline-flex; align-items:center; gap:7px; margin-top:18px; font-family:var(--mono); font-size:12px; font-weight:600; color:var(--accent); }
-  .opco .ogo .ar { transition:.16s; } .opco:hover .ogo .ar { transform:translateX(4px); }
+  .opco .ogo .ar { transition:transform .26s var(--ease-quint); } .opco:hover .ogo .ar, .opco:focus-visible .ogo .ar { transform:translateX(4px); }
+  @media (prefers-reduced-motion: reduce){ .opco .ogo .ar,.opco:hover .ogo .ar,.opco:focus-visible .ogo .ar{ transform:none; transition:none; } }
 
-  /* ---------- vibeco (re-architected, editorial) ---------- */
-  .vibe-head { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-top:8px; }
-  .vibe-head .vname { font-family:var(--display); font-weight:800; font-size:clamp(30px,4vw,46px); letter-spacing:-.03em; color:var(--accent); line-height:1; }
-  .vibe-head .vvp { font-size:15.5px; color:var(--mute); max-width:42ch; margin-top:10px; }
-  .vibe-head .vvp b { color:var(--text); font-weight:600; }
-  .vibe-cta { display:flex; gap:10px; flex-wrap:wrap; }
-  .badge2 { display:inline-block; font-family:var(--mono); font-size:10px; letter-spacing:.13em; text-transform:uppercase; color:var(--cyan); border:1px solid rgba(94,224,214,.4); padding:6px 12px; border-radius:99px; }
-  .gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:30px; }
-  @media (max-width:820px){ .gallery{ grid-template-columns:1fr 1fr; } }
-  @media (max-width:520px){ .gallery{ grid-template-columns:1fr; } }
-  a.gcard { display:flex; flex-direction:column; border-radius:16px; border:1px solid var(--line); background:var(--glass); overflow:hidden; transition:.2s var(--ease); }
-  a.gcard:hover { transform:translateY(-4px); border-color:var(--line2); }
-  .gcard .gshot { position:relative; aspect-ratio:16/10; overflow:hidden; background:linear-gradient(135deg,#15171b,#0d0f12); border-bottom:1px solid var(--line); }
-  .gcard .gshot img { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .5s var(--ease); }
-  a.gcard:hover .gshot img { transform:scale(1.05); }
-  .gcard .gshot .ph { position:absolute; inset:0; display:none; align-items:center; justify-content:center; font-family:var(--mono); font-size:11px; color:var(--faint); }
-  .gcard .cinfo { padding:15px 16px 17px; display:flex; flex-direction:column; flex:1; }
-  .gcard .ck { font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-dim); }
-  .gcard h4 { font-family:var(--display); font-size:18px; font-weight:700; letter-spacing:-.01em; margin:8px 0 5px; }
-  .gcard p { font-size:13px; color:var(--mute); line-height:1.5; }
-  .gcard .cgo { font-family:var(--mono); font-size:11px; font-weight:600; color:var(--accent); margin-top:13px; }
-  .feat-strip { font-family:var(--mono); font-size:12px; color:var(--mute); text-align:center; margin-top:22px; }
-  .feat-strip a { color:var(--cyan); border-bottom:1px solid rgba(94,224,214,.35); }
-
-  /* ---------- data-warehouse video + stat overlay ---------- */
-  .edit { display:grid; grid-template-columns:1fr 1.05fr; gap:50px; align-items:center; margin-top:34px; }
-  @media (max-width:840px){ .edit{ grid-template-columns:1fr; gap:26px; } }
-  .e-copy h3 { font-family:var(--display); font-weight:700; font-size:clamp(23px,3.2vw,32px); letter-spacing:-.028em; line-height:1.06; margin:13px 0 0; }
-  .e-copy .lede { color:var(--mute); font-size:16px; line-height:1.6; margin-top:14px; max-width:46ch; }
-  .e-copy .lede b { color:var(--text); font-weight:600; }
-  .e-metrics { display:flex; gap:28px; margin-top:20px; flex-wrap:wrap; }
-  .e-metrics .v { font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.03em; color:var(--text); }
-  .e-metrics .k { font-family:var(--mono); font-size:10px; color:var(--mute); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; }
+  /* ---------- featured video (cinematic enter FX) ---------- */
   .vidwrap { position:relative; border-radius:16px; overflow:hidden; border:1px solid var(--line2); aspect-ratio:16/11; background:#0a0c0d; box-shadow:0 30px 70px -42px rgba(0,0,0,.85); }
-  .vidwrap video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .vidwrap .vgrad { position:absolute; inset:0; background:radial-gradient(ellipse at center,transparent 35%,rgba(8,8,12,.5) 92%); pointer-events:none; }
-  .statbadge { position:absolute; left:var(--x); top:var(--y); z-index:3; display:flex; align-items:stretch; gap:0; max-width:200px; opacity:0; transform:scale(.85) translateY(8px); transition:opacity .4s, transform .5s cubic-bezier(.34,1.56,.64,1); }
+  /* cycling AI-vision stat pop-ups — the reticle locks on, then a stat badge surfaces (z above the cinematic overlays) */
+  .statbadge { position:absolute; left:var(--x); top:var(--y); z-index:5; display:flex; align-items:stretch; gap:0; max-width:200px; opacity:0; transform:scale(.85) translateY(8px); transition:opacity .4s, transform .5s var(--ease); }
   .statbadge.show { opacity:1; transform:scale(1) translateY(0); }
   .statbadge .edge { width:3px; border-radius:10px 0 0 10px; background:var(--c); box-shadow:0 0 9px var(--c); }
-  .statbadge .bd { background:rgba(8,8,12,.8); backdrop-filter:blur(14px) saturate(160%); border:1px solid rgba(255,255,255,.1); border-left:0; border-radius:0 10px 10px 0; padding:7px 11px; box-shadow:0 8px 32px rgba(0,0,0,.4); }
+  .statbadge .bd { background:rgba(8,8,12,.8); backdrop-filter:blur(14px) saturate(160%); border:1px solid rgba(255,255,255,.1); border-left:0; border-radius:0 10px 10px 0; padding:7px 11px; box-shadow:0 8px 32px rgba(0,0,0,.45), 0 0 20px -6px var(--c); }
   .statbadge .bt { display:block; font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--c); }
   .statbadge .bb { display:block; font-family:var(--mono); font-size:11px; color:#eef0ee; margin-top:2px; }
   .statbadge .bb b { color:#fff; }
-  .vidwrap .vlabel { position:absolute; left:13px; bottom:12px; z-index:3; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:rgba(8,9,10,.6); border:1px solid var(--line); padding:5px 10px; border-radius:99px; backdrop-filter:blur(4px); }
+  .statbadge.show .edge { animation:edgepulse 1.7s ease-in-out infinite; }
+  @keyframes edgepulse { 0%,100%{ box-shadow:0 0 8px var(--c); } 50%{ box-shadow:0 0 16px var(--c), 0 0 28px var(--c); } }
+  @media (prefers-reduced-motion: reduce){ .statbadge.show .edge{ animation:none; } }
+  /* cinematic featured video: Ken-Burns drift + one-pass sheen + breathing vignette + restrained AI-vision reticle */
+  .vidwrap video { position:absolute; inset:-2%; width:104%; height:104%; object-fit:cover; transform-origin:58% 42%; will-change:transform; }
+  .vidwrap.lit video { animation:vidKB 30s var(--ease) infinite alternate; }
+  @keyframes vidKB { 0%{ transform:scale(1.015) translate3d(0,0,0); } 100%{ transform:scale(1.075) translate3d(-1.4%,-1.1%,0); } }
+  /* breathing vignette */
+  .vidwrap .vgrad { position:absolute; inset:0; background:radial-gradient(ellipse at center,transparent 35%,rgba(8,8,12,.5) 92%); pointer-events:none; z-index:2; }
+  .vidwrap.lit .vgrad { animation:vidBreath 9s ease-in-out infinite; }
+  @keyframes vidBreath { 0%,100%{ opacity:.82; } 50%{ opacity:1; } }
+  /* one-pass diagonal sheen on enter-view */
+  .vidwrap .vsheen { position:absolute; inset:0; z-index:3; pointer-events:none; opacity:0;
+    background:linear-gradient(108deg,transparent 38%,rgba(111,239,180,.10) 47%,rgba(255,255,255,.16) 50%,rgba(94,224,214,.10) 53%,transparent 62%);
+    transform:translateX(-115%); }
+  .vidwrap.lit .vsheen { animation:vidSheen 1.5s var(--ease) .35s 1 both; }
+  @keyframes vidSheen { 0%{ opacity:0; transform:translateX(-115%); } 12%{ opacity:1; } 88%{ opacity:1; } 100%{ opacity:0; transform:translateX(115%); } }
+  /* single scan-line sweep on enter-view (AI-vision motif, no numbers/text) */
+  .vidwrap .vscan { position:absolute; left:0; right:0; top:0; height:2px; z-index:4; pointer-events:none; opacity:0;
+    background:linear-gradient(90deg,transparent,rgba(111,239,180,.0) 8%,rgba(111,239,180,.65) 50%,rgba(94,224,214,0) 92%,transparent);
+    box-shadow:0 0 14px rgba(111,239,180,.55); }
+  .vidwrap.lit .vscan { animation:vidScan 1.7s var(--ease) .45s 1 both; }
+  @keyframes vidScan { 0%{ opacity:0; transform:translateY(0); } 8%{ opacity:.9; } 92%{ opacity:.9; } 100%{ opacity:0; transform:translateY(var(--vh,420px)); } }
+  /* tracking reticle: four corner brackets that lock on once, then sit quietly */
+  .vidwrap .vretc { position:absolute; z-index:4; width:22px; height:22px; pointer-events:none; opacity:0;
+    border:1.5px solid rgba(111,239,180,.7); filter:drop-shadow(0 0 5px rgba(111,239,180,.45)); }
+  .vidwrap .vretc.tl { top:14px; left:14px; border-right:0; border-bottom:0; }
+  .vidwrap .vretc.tr { top:14px; right:14px; border-left:0; border-bottom:0; }
+  .vidwrap .vretc.bl { bottom:14px; left:14px; border-right:0; border-top:0; }
+  .vidwrap .vretc.br { bottom:14px; right:14px; border-left:0; border-top:0; }
+  .vidwrap.lit .vretc { animation:vidLock .7s var(--ease) .55s 1 both; }
+  @keyframes vidLock { 0%{ opacity:0; transform:scale(1.55); } 60%{ opacity:.85; } 100%{ opacity:.5; transform:scale(1); } }
   .e-links { display:flex; flex-wrap:wrap; gap:7px; margin-top:20px; }
   .e-links a { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:var(--glass2); padding:7px 12px; border-radius:99px; transition:.14s; }
   .e-links a:hover { color:var(--text); border-color:var(--accent); }
   .e-links a.hot { color:var(--accent); border-color:rgba(111,239,180,.3); }
+
+  /* ---------- proof glimpse: featured video + see-all ---------- */
+  .proof-video { margin:30px auto 0; max-width:880px; }
+  .proof-all { margin-top:26px; display:flex; justify-content:center; }
+  .proof-all .pill .ar { transition:transform .26s var(--ease-quint); } .proof-all .pill:hover .ar, .proof-all .pill:focus-visible .ar { transform:translateX(4px); }
+  @media (prefers-reduced-motion: reduce){ .proof-all .pill .ar,.proof-all .pill:hover .ar,.proof-all .pill:focus-visible .ar{ transform:none; transition:none; } }
+  .principles { list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:9px; }
+  .principles li { font-family:var(--mono); font-size:12.5px; color:var(--text); padding-left:19px; position:relative; line-height:1.4; }
+  .principles li::before { content:"▸"; position:absolute; left:0; color:var(--accent); }
 
   /* ---------- story ---------- */
   .story { margin-top:34px; display:grid; grid-template-columns:1.25fr .75fr; gap:34px; align-items:center; padding:30px; border-radius:var(--radius); border:1px solid var(--line); background:var(--glass); backdrop-filter:blur(var(--blur)); transition:.2s var(--ease); }
@@ -329,11 +436,12 @@
   .story p { color:var(--mute); font-size:15px; line-height:1.6; margin-top:11px; max-width:48ch; }
   .story svg { width:100%; height:120px; }
   .e-go { display:inline-flex; align-items:center; gap:8px; margin-top:16px; font-family:var(--mono); font-size:12.5px; font-weight:600; color:var(--accent); }
-  .e-go .ar { transition:.16s; } a:hover .e-go .ar, .story:hover .e-go .ar { transform:translateX(4px); }
+  .e-go .ar { transition:transform .26s var(--ease-quint); } a:hover .e-go .ar, a:focus-visible .e-go .ar, .story:hover .e-go .ar { transform:translateX(4px); }
+  @media (prefers-reduced-motion: reduce){ .e-go .ar,a:hover .e-go .ar,a:focus-visible .e-go .ar,.story:hover .e-go .ar{ transform:none; transition:none; } }
 
   /* ---------- contact ---------- */
   .contact { text-align:center; padding:calc(96px*var(--sp)) 0 30px; }
-  .contact h2 { font-family:var(--display); font-weight:800; font-size:clamp(30px,5.2vw,52px); letter-spacing:-.03em; line-height:1.04; }
+  .contact h2 { font-family:var(--display); font-weight:800; font-size:clamp(27px,5.2vw,52px); letter-spacing:-.03em; line-height:1.04; text-wrap:balance; }
   .contact p { color:var(--mute); font-size:16px; max-width:52ch; margin:14px auto 0; }
   .contact .ctas { display:flex; justify-content:center; flex-wrap:wrap; gap:11px; margin-top:26px; }
 
@@ -350,31 +458,15 @@
   .js .rv.in { opacity:1; transform:none; }
   @media (prefers-reduced-motion: reduce){ .js .rv{ opacity:1; transform:none; transition:none; } }
 
-  /* card-back hover logos */
-  .bar .barlogos { display:none; gap:5px; align-items:center; justify-content:flex-end; flex-wrap:wrap; }
-  .bar .barlogos b { font-family:var(--mono); font-size:9px; font-weight:600; color:var(--accent); border:1px solid rgba(111,239,180,.32); border-radius:5px; padding:2px 6px; background:rgba(111,239,180,.07); white-space:nowrap; }
-  .bar.on .barlogos, .bar:hover .barlogos { display:inline-flex; }
-  .bar.on .vl, .bar:hover .vl { display:none; }
-  /* VibeCo 6-panel */
-  .vgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px; }
-  @media (max-width:760px){ .vgrid{ grid-template-columns:1fr 1fr; } }
-  @media (max-width:430px){ .vgrid{ grid-template-columns:1fr; } }
-  .vpanel { position:relative; aspect-ratio:16/11; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:linear-gradient(135deg,#15171b,#0d0f12); display:flex; align-items:flex-end; transition:.2s var(--ease); }
-  .vpanel:hover { transform:translateY(-4px); border-color:var(--line2); }
-  .vpanel img, .vpanel video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .5s var(--ease); }
-  .vpanel:hover img { transform:scale(1.06); }
-  .vpanel .vp-name { position:relative; z-index:2; width:100%; font-family:var(--display); font-weight:700; font-size:15.5px; padding:12px 14px; background:linear-gradient(transparent,rgba(8,9,10,.88)); display:flex; align-items:baseline; gap:9px; }
-  .vp-tag { font-family:var(--mono); font-size:9.5px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--cyan); }
-  .vpanel.feature { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent-soft),0 26px 60px -32px rgba(111,239,180,.45); }
-  .vpanel.feature .vp-name { color:var(--accent); font-size:21px; font-weight:800; }
-  .vpanel.slot { align-items:center; justify-content:center; border-style:dashed; }
-  .vpanel.slot .vp-name { background:none; justify-content:center; color:var(--faint); font-family:var(--mono); font-size:12px; font-weight:500; }
-  .vpanel.slot:hover { border-color:var(--accent-dim); }
-  /* stronger, glowing video stat badges */
-  .statbadge .bd { box-shadow:0 8px 32px rgba(0,0,0,.45), 0 0 20px -6px var(--c); }
-  .statbadge.show .edge { animation:edgepulse 1.7s ease-in-out infinite; }
-  @keyframes edgepulse { 0%,100%{ box-shadow:0 0 8px var(--c); } 50%{ box-shadow:0 0 16px var(--c), 0 0 28px var(--c); } }
-  @media (prefers-reduced-motion: reduce){ .statbadge.show .edge{ animation:none; } }
+  /* reduced motion: featured video collapses to a clean, premium static frame */
+  @media (prefers-reduced-motion: reduce){
+    .vidwrap video, .vidwrap.lit video { animation:none !important; transform:scale(1.03); }
+    .vidwrap .vgrad, .vidwrap.lit .vgrad { animation:none !important; opacity:1; }
+    .vidwrap .vsheen, .vidwrap .vscan { display:none !important; }
+    .vidwrap .vretc, .vidwrap.lit .vretc { animation:none !important; opacity:.4; transform:none; }
+  }
+
+  /* (operator bars now live under the hero card; value stays visible on hover) */
 
   /* dynamic climb preview */
   .climb-prev { position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--line2); aspect-ratio:16/11; background:#efe3c4; box-shadow:0 24px 60px -40px rgba(0,0,0,.8); }
@@ -397,16 +489,11 @@
 
 <header class="nav">
   <div class="nav-in">
-    <a class="brand" href="#top"><span class="pk">🥒</span>brick<span class="sl">.</span>os<span class="caret" aria-hidden="true"></span></a>
-    <button class="navtoggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    <nav class="navlinks" id="navLinks" aria-label="Primary">
-      <a href="#interface">Prompt</a>
-      <a href="#work">Companies</a>
-      <a href="#engine">Builds</a>
+    <a class="brand" href="index.html" aria-label="Bill Bricker — home">Bill&nbsp;Bricker<span class="caret" aria-hidden="true"></span></a>
+    <nav class="navlinks" aria-label="Primary">
       <a href="climb.html">Story</a>
-      <a href="resume-v2.html">Résumé</a>
-      <a href="v3/">Console</a>
-      <a href="mailto:bricker3@gmail.com" class="email">Email</a>
+      <a href="work.html">Proof</a>
+      <a href="resume-v2.html" class="cta">Résumé</a>
     </nav>
   </div>
 </header>
@@ -414,10 +501,10 @@
 <!-- right-side scroll-spy -->
 <nav class="spy" id="spy" aria-label="Section navigation">
   <a href="#top" data-s="top"><span class="sn">00</span><span class="st">Top</span></a>
-  <a href="#interface" data-s="interface"><span class="sn">01</span><span class="st">Ask</span></a>
-  <a href="#work" data-s="work"><span class="sn">02</span><span class="st">Companies</span></a>
-  <a href="#engine" data-s="engine"><span class="sn">03</span><span class="st">Builds</span></a>
-  <a href="#proof" data-s="proof"><span class="sn">04</span><span class="st">Data</span></a>
+  <a href="#google" data-s="google"><span class="sn">01</span><span class="st">Deal</span></a>
+  <a href="#names" data-s="names"><span class="sn">02</span><span class="st">Flywheel</span></a>
+  <a href="#interface" data-s="interface"><span class="sn">03</span><span class="st">Ask</span></a>
+  <a href="#builds" data-s="builds"><span class="sn">04</span><span class="st">Work</span></a>
   <a href="#person" data-s="person"><span class="sn">05</span><span class="st">Story</span></a>
 </nav>
 
@@ -426,91 +513,109 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-grid">
-        <!-- left -->
-        <div class="hero-left rv">
-          <span class="avail"><i></i> Open to frontier-lab GTM / partnerships</span>
-          <h1 class="head"><span class="hl">Forward-deployed</span><br><span class="hl">GTM operator.</span></h1>
-          <p class="lede">I <b>close the partnerships</b> frontier tech needs — then <span class="g">build the product myself.</span> 20 years carrying a number; now I ship production AI daily.</p>
-          <div class="hero-cta">
-            <a class="pill solid" href="#interface">Prompt my résumé ↓</a>
-            <a class="pill ghost" href="climb.html">Walk the climb</a>
+        <!-- left: identity card -->
+        <div class="hero-card rv">
+          <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card. Flip between the proof and the operator profile.">
+            <div class="flip-tilt">
+              <div class="flip-inner">
+                <div class="flip-face flip-front">
+                  <div class="cardface">
+                    <img class="card-img" src="assets/dreamship-donate.jpg" alt="Dreamship presents a giant donation check to Freedom United on stage, 2019" onerror="this.style.display='none'" />
+                    <div class="proofpanel">
+                      <div class="preadout"><span class="n" id="ringN">$45M+</span><span class="l" id="ringL">Google ad-spend channel</span></div>
+                      <div class="opbars bars stagger" id="bars">
+                        <div class="bar" data-m="$45M+" data-ml="Google ad-spend channel" style="--i:0"><span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span></div>
+                        <div class="bar" data-m="6" data-ml="big-tech partners" style="--i:1"><span class="nm">Closed big-tech partners</span><span class="vl">Stripe · Meta</span><span class="track"><i class="fill" data-w="82" style="background:var(--g-violet)"></i></span></div>
+                        <div class="bar" data-m="11x" data-ml="in 2020" style="--i:2"><span class="nm">Zero-to-one scale</span><span class="vl">11x · '20</span><span class="track"><i class="fill" data-w="90" style="background:var(--g-green)"></i></span></div>
+                        <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo" style="--i:3"><span class="nm">AI-native workflows</span><span class="vl">40+ apps</span><span class="track"><i class="fill" data-w="88" style="background:var(--g-wide)"></i></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flip-face flip-back">
+                  <div class="cardback">
+                    <img class="card-img" src="assets/family.jpg" alt="Bill Bricker with his family" onerror="this.style.display='none'" />
+                    <div class="idpanel">
+                      <span class="idl">Forward-deployed GTM operator</span>
+                      <span class="idl s2">0 → 1 Builder</span>
+                      <span class="idl spectrum">Vibe Pusher</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span class="flip-aff" aria-hidden="true"></span>
+            </div>
           </div>
         </div>
 
-        <!-- right: identity flip card -->
-        <div class="hero-right rv">
-          <div class="flip" id="flip" tabindex="0" role="button" aria-label="Identity card — front: who I am, back: the operator profile. Activate to flip.">
-            <div class="flip-inner">
-              <!-- FRONT · identity -->
-              <div class="flip-face flip-front">
-                <span class="flipcue"><span class="rot">⟲</span> tap to flip</span>
-                <div class="cf">
-                  <div class="cf-left">
-                    <span class="inroom"><i></i> in the room</span>
-                    <div class="idlines">
-                      <span class="idl">0 → 1 Builder</span>
-                      <span class="idl">Frontier Tech</span>
-                      <span class="idl spectrum">Vibe Pusher</span>
-                    </div>
-                    <span class="cf-tag">fka DJ Billygoat · Raleigh, NC</span>
-                  </div>
-                  <div class="cf-pic">
-                    <!-- FRONT vertical photo: family (full family, faces shown). Swap to the couple shot when added to Drive. -->
-                    <img src="assets/family.jpg" alt="Bill Bricker with his family"
-                         onerror="this.style.display='none';this.parentElement.querySelector('.ph').style.display='flex'" />
-                    <div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="#6fefb4" stroke-width="1.3"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 4-6.5 8-6.5s8 2.1 8 6.5"/></svg></div>
-                  </div>
-                </div>
-              </div>
-              <!-- BACK · operator profile (interactive) -->
-              <div class="flip-face flip-back fc-back">
-                <span class="flipcue"><span class="rot">⟲</span> flip back</span>
-                <div class="op-head"><span class="l">Operator Profile</span><span class="r">Raleigh, NC · father of three</span></div>
-                <!-- BACK horizontal photo: dream-ship-donate seam (drop into Drive _intake MEDIA and I'll wire it) -->
-                <div class="op-photo">
-                  <img src="assets/dreamship-donate.jpg" alt="Dreamship donating to Freedom United on stage"
-                       onerror="this.style.display='none';this.parentElement.querySelector('.ph').style.display='flex'" />
-                  <div class="ph" style="display:flex">Dreamship × Freedom United · give-back on stage, 2019</div>
-                  <span class="tag">building &amp; giving — same track</span>
-                </div>
-                <div class="preadout"><span class="n" id="ringN">20</span><span class="l" id="ringL">years carrying a number</span></div>
-                <div class="bars" id="bars">
-                  <div class="bar" data-m="8-fig" data-ml="Google channel closed">
-                    <span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="barlogos"><b>IBM</b><b>Google</b></span>
-                    <span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span>
-                  </div>
-                  <div class="bar" data-m="11x" data-ml="in a single year">
-                    <span class="nm">Zero-to-one building</span><span class="vl">11x · $35M+</span><span class="barlogos"><b>Dreamship</b><b>Courtana</b></span>
-                    <span class="track"><i class="fill" data-w="92" style="background:var(--g-green)"></i></span>
-                  </div>
-                  <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo">
-                    <span class="nm">AI-native product</span><span class="vl">40+ apps · 31 repos</span><span class="barlogos"><b>VibeCo</b><b>31 repos</b></span>
-                    <span class="track"><i class="fill" data-w="88" style="background:var(--g-violet)"></i></span>
-                  </div>
-                  <div class="bar" data-m="$6M+" data-ml="total contract value">
-                    <span class="nm">Founder-led sales</span><span class="vl">top-10 nationally</span><span class="barlogos"><b>NWM</b><b>IBM</b></span>
-                    <span class="track"><i class="fill" data-w="90" style="background:var(--g-wide)"></i></span>
-                  </div>
-                  <div class="bar" data-m="5+" data-ml="big-tech partners landed">
-                    <span class="nm">Connector &amp; BD</span><span class="vl">Stripe · Meta · PayPal</span><span class="barlogos"><b>Stripe</b><b>Meta</b><b>PayPal</b></span>
-                    <span class="track"><i class="fill" data-w="85" style="background:var(--g-coral)"></i></span>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <!-- right: copy -->
+        <div class="hero-copy rv">
+          <span class="avail">AI-Forward Sales &amp; Partnerships Leader</span>
+          <h1 class="head">I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
+          <p class="lede">Two decades turning frontier tech into revenue — IBM, then three companies of my own. I build <b>the AI workflows that 10x my output</b> and still close the room myself. <span class="g">Everything below is real.</span></p>
+          <div class="hero-cta">
+            <a class="pill solid" href="#interface">Prompt my résumé ↓</a>
+            <a class="pill ghost" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>Download résumé</a>
           </div>
         </div>
       </div>
 
-      <!-- green stats band (the break) -->
-      <div class="statband rv">
-        <div class="sb-in">
-          <div class="sb"><span class="n" data-count="20" data-suf="+">20+</span><span class="k">years carrying a number</span></div>
-          <div class="sb"><span class="n" data-count="35" data-pre="$" data-suf="M+">$35M+</span><span class="k">revenue led</span></div>
-          <div class="sb"><span class="n" data-count="11" data-suf="x">11x</span><span class="k">growth in one year</span></div>
-          <div class="sb"><span class="n">8-fig</span><span class="k">Google channel · 5+ yrs</span></div>
-          <div class="sb"><span class="n" data-count="40" data-suf="+">40+</span><span class="k">AI apps · 31 repos</span></div>
-          <div class="sb"><span class="n" data-count="21" data-suf="K+">21K+</span><span class="k">clips processed</span></div>
+      <!-- (stat band folded into the Google deal card below) -->
+    </div>
+  </section>
+
+  <!-- ============ THE GOOGLE DEAL ============ -->
+  <section class="block" id="google">
+    <div class="wrap">
+      <div class="gdeal rv">
+        <div class="gdeal-copy">
+          <div class="kick">The deal that made Dreamship</div>
+          <h2>I closed Google as a partner.<br><span class="flat">In year one.</span></h2>
+          <p>A first-of-its-kind cross-division partnership — won across <b>5–6 internal Google teams</b> to <b>VP-level</b> sign-off, then run for <b>5+ years</b>.</p>
+        </div>
+        <div class="gdeal-stats">
+          <div class="gstat"><span class="gn" data-count="45" data-pre="$" data-suf="M+">$45M+</span><span class="gk">ad spend through the channel</span></div>
+          <div class="gstat"><span class="gn" data-count="35" data-pre="$" data-suf="M+">$35M+</span><span class="gk">peak revenue</span></div>
+          <div class="gstat"><span class="gn" data-count="11" data-suf="x">11x</span><span class="gk">growth in 2020 · $1.6M→$17M</span></div>
+          <div class="gstat"><span class="gn" data-count="4" data-suf=" yrs">4 yrs</span><span class="gk">EBITDA-profitable · profitable today</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE NAMES — partner constellation ============ -->
+  <section class="block" id="names">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="kick">The flywheel</div>
+        <h2>Then the rest said yes.</h2>
+        <p>Google was the hard yes. Every name below came easier.</p>
+      </div>
+      <div class="constellation rv" role="img" aria-label="Brands and partners Bill has closed, shipped, and sold to: Google, Microsoft, Stripe, PayPal, Payoneer, Meta, IBM, McKesson, Zillow, Avalara, Macy's, Nordstrom">
+        <svg class="constel-lines" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5be8a0"/><stop offset=".5" stop-color="#36c6e0"/><stop offset="1" stop-color="#8b7cf0"/></linearGradient></defs>
+          <g stroke="url(#cg)" stroke-width="1" fill="none" opacity=".6" stroke-linecap="round">
+            <path class="wire" style="--wd:0s"    d="M70 70 L220 140 L360 60 L520 150 L650 80 L745 160"/>
+            <path class="wire" style="--wd:.18s"  d="M110 220 L300 175 L470 230 L640 185"/>
+            <path class="wire" style="--wd:.62s"  d="M220 140 L300 175"/><path class="wire" style="--wd:.7s" d="M360 60 L470 230"/><path class="wire" style="--wd:.78s" d="M520 150 L640 185"/>
+          </g>
+          <g class="nodes" fill="#6fefb4" opacity=".5">
+            <circle cx="70" cy="70" r="1.7"/><circle cx="220" cy="140" r="1.7"/><circle cx="360" cy="60" r="1.7"/><circle cx="520" cy="150" r="1.7"/><circle cx="650" cy="80" r="1.7"/><circle cx="745" cy="160" r="1.7"/><circle cx="110" cy="220" r="1.7"/><circle cx="300" cy="175" r="1.7"/><circle cx="470" cy="230" r="1.7"/><circle cx="640" cy="185" r="1.7"/>
+          </g>
+        </svg>
+        <div class="constel-logos">
+          <span class="star anchor" style="--d:0s"><img src="assets/logos/google.svg" alt="Google"/></span>
+          <span class="star" style="--d:-1.1s"><img src="assets/logos/microsoft.svg" alt="Microsoft"/></span>
+          <span class="star" style="--d:-2.3s"><img src="assets/logos/stripe.svg" alt="Stripe"/></span>
+          <span class="star" style="--d:-3.0s"><img src="assets/logos/paypal.svg" alt="PayPal"/></span>
+          <span class="star" style="--d:-4.2s"><img src="assets/logos/payoneer.svg" alt="Payoneer"/></span>
+          <span class="star" style="--d:-5.1s"><img src="assets/logos/meta.svg" alt="Meta"/></span>
+          <span class="star" style="--d:-1.7s"><img src="assets/logos/ibm.png" alt="IBM"/></span>
+          <span class="star" style="--d:-2.9s"><img src="assets/logos/zillow.svg" alt="Zillow"/></span>
+          <span class="star" style="--d:-3.8s"><img src="assets/logos/macys.svg" alt="Macy's"/></span>
+          <span class="star wm" style="--d:-0.6s">McKesson</span>
+          <span class="star wm" style="--d:-4.7s">Avalara</span>
+          <span class="star wm" style="--d:-5.6s">Nordstrom</span>
         </div>
       </div>
     </div>
@@ -521,10 +626,8 @@
     <div class="wrap">
       <div class="interface-grid">
         <div class="sec-head rv">
-          <div class="kick"><span class="num">01</span> The interface</div>
           <h2>Don't read the résumé.<br><span class="flat">Prompt it.</span></h2>
-          <p>A live AI that answers from a fact-checked ledger of twenty years. Tap a command, talk to it, or ask anything — it's the product, answering for me.</p>
-          <a class="e-go" href="work.html" style="margin-top:16px;">Open the full terminal <span class="ar">→</span></a>
+          <p>A live AI that answers from a fact-checked ledger of twenty years. Ask it anything — it's the product, pitching itself.</p>
         </div>
 
         <div class="term-wrap rv">
@@ -554,7 +657,7 @@
                   <span class="rowlbl orange">▸ hiring me?</span>
                   <button class="chip" data-cmd="tailor Partnerships Lead at a frontier AI lab"><span class="s">$</span> tailor to my role ✦</button>
                   <button class="chip" data-cmd="reference-check"><span class="s">$</span> reference-check</button>
-                  <button class="chip" data-cmd="why-you"><span class="s">$</span> why you, not an FDE?</button>
+                  <button class="chip" data-cmd="why-you"><span class="s">$</span> why you?</button>
                   <button class="chip" data-cmd="the-fit"><span class="s">$</span> the frontier-lab fit</button>
                   <button class="chip" data-cmd="shipped-this-week"><span class="s">$</span> shipped this week?</button>
                 </div>
@@ -573,123 +676,55 @@
     </div>
   </section>
 
-  <!-- ============ 02 · OPERATING COMPANIES (side by side) ============ -->
-  <section class="block" id="work">
+  <!-- ============ BUILDS — featured + swipe rail ============ -->
+  <section class="block" id="builds">
     <div class="wrap">
       <div class="sec-head rv">
-        <div class="kick"><span class="num">02</span> Proof of work</div>
-        <h2>Two operating companies.<br>Both live.</h2>
-        <p>Not side projects — real companies with revenue, customers, and scar tissue. <em>Built and sold by the same person.</em></p>
+        <h2>I don't pitch the work.<br><span class="flat">I show you the work.</span></h2>
+        <p>Two companies built and sold — plus 40+ apps across 31 repos, shipped solo. Real products with revenue, users, and scar tissue.</p>
       </div>
-      <div class="opco-grid">
-        <a class="opco rv" href="https://courtana.com" target="_blank" rel="noopener">
-          <div class="oshot">
-            <img src="assets/shots/courtana.png" alt="Courtana" loading="lazy" onerror="this.parentElement.querySelector('.ph').style.display='flex';this.style.display='none'" />
-            <div class="ph">courtana.com</div>
-            <span class="obadge">▸ smart-court platform</span>
-          </div>
-          <div class="obody">
-            <div class="okick">Founder / CEO · 2023 → now</div>
-            <h3>Courtana <span class="live-tag">Live</span></h3>
-            <p class="olede">AI smart-court SaaS — live video, AI coaching &amp; venue analytics. <b>36 courts</b> live or piloting across <b>11+ sports.</b> The newest 0→1, built on everything before it.</p>
-            <div class="ometrics"><div><div class="v">36</div><div class="k">courts live</div></div><div><div class="v">11+</div><div class="k">sports</div></div><div><div class="v">$350K</div><div class="k">raised</div></div></div>
-            <span class="ogo">Visit courtana.com <span class="ar">→</span></span>
-          </div>
-        </a>
-        <a class="opco rv" href="https://dreamship.com" target="_blank" rel="noopener">
-          <div class="oshot">
-            <img src="assets/shots/dreamship.png" alt="Dreamship" loading="lazy" onerror="this.parentElement.querySelector('.ph').style.display='flex';this.style.display='none'" />
-            <div class="ph">dreamship.com</div>
-            <span class="obadge">▸ API fulfillment</span>
-          </div>
-          <div class="obody">
-            <div class="okick">Cofounder &amp; CEO · 2018 – 23</div>
-            <h3>Dreamship <span class="live-tag">Live</span></h3>
-            <p class="olede">API fulfillment platform — <b>$35M+</b> revenue, <b>11x in a single year.</b> Where I <b>closed &amp; ran the Google partnership</b> as a sub-one-year-old startup; Stripe, PayPal &amp; Meta followed.</p>
-            <div class="ometrics"><div><div class="v">$35M+</div><div class="k">revenue</div></div><div><div class="v">11x</div><div class="k">in a year</div></div><div><div class="v">5+ yrs</div><div class="k">Google channel</div></div></div>
-            <span class="ogo">Visit dreamship.com <span class="ar">→</span></span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
 
-  <!-- ============ 03 · VIBECO (re-architected) ============ -->
-  <section class="block" id="engine">
-    <div class="wrap">
-      <div class="sec-head rv">
-        <div class="kick"><span class="num">03</span> The engine</div>
-        <h2>One operator,<br>shipping like a team.</h2>
-      </div>
-      <div class="vibe-head rv" style="margin-top:26px;">
-        <div>
-          <span class="badge2">11 AI agents · multi-model · Gemini + Claude</span>
-          <div class="vname" style="margin-top:14px;">VibeCo</div>
-          <div class="vvp">Type an idea → a business brief, build prompts, and a <b>working app.</b> The build engine behind 40+ apps across 31 repos — designed and shipped by one person.</div>
-        </div>
-        <div class="vibe-cta">
-          <a class="pill solid" href="https://vibeco.lovable.app/simulate" target="_blank" rel="noopener">Run the simulator →</a>
-          <a class="pill ghost" href="https://vibeco.lovable.app/" target="_blank" rel="noopener">Visit VibeCo</a>
-        </div>
-      </div>
-      <div class="vgrid rv">
-        <a class="vpanel feature" href="https://vibeco.lovable.app/" target="_blank" rel="noopener" data-name="VibeCo">
-          <img src="assets/shots/vibeco.png" alt="VibeCo" loading="lazy" onerror="this.style.opacity=0" />
-          <span class="vp-name">VibeCo<span class="vp-tag">the engine</span></span>
-        </a>
-        <a class="vpanel" href="https://litigator.lovable.app/dashboard" target="_blank" rel="noopener" data-name="Litigator">
-          <img src="assets/shots/litigator.png" alt="Litigator" loading="lazy" onerror="this.style.opacity=0" />
-          <span class="vp-name">Litigator</span>
-        </a>
-        <a class="vpanel" href="https://courtana-venue-connect.lovable.app/" target="_blank" rel="noopener" data-name="Venue Connect">
-          <img src="assets/shots/venue-connect.png" alt="Venue Connect" loading="lazy" onerror="this.style.opacity=0" />
-          <span class="vp-name">Venue Connect</span>
-        </a>
-        <a class="vpanel" href="https://pickleball-freakshow.lovable.app/" target="_blank" rel="noopener" data-name="Freak Show" data-gif="">
-          <img src="assets/shots/freakshow.jpg" alt="Pickleball Freak Show" loading="lazy" onerror="this.style.opacity=0" />
-          <span class="vp-name">Freak Show</span>
-        </a>
-        <a class="vpanel" href="https://layuplab.lovable.app/" target="_blank" rel="noopener" data-name="Layup Lab" data-gif="">
-          <img src="assets/shots/layuplab.png" alt="Layup Lab — AI pickleball coach" loading="lazy" onerror="this.style.opacity=0" />
-          <span class="vp-name">Layup Lab</span>
-        </a>
-        <a class="vpanel slot" href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener"><span class="vp-name">+ one more</span></a>
-      </div>
-      <div class="feat-strip rv">+ HeadsUpTime · LayupLab · FreakFoSho · 30 more — <a href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener">browse the full ecosystem →</a></div>
-    </div>
-  </section>
-
-  <!-- ============ 04 · PICKLE DAAS — video + stat overlay ============ -->
-  <section class="block" id="proof">
-    <div class="wrap">
-      <div class="edit rv">
-        <div class="e-copy">
-          <div class="kick"><span class="num">04</span> The tech proof</div>
-          <h3>A self-serve sports-data warehouse,<br>built from raw video.</h3>
-          <p class="lede">I went deep on the modern data stack myself — <b>Supabase</b>, connectors, autonomous ingest agents, and a ground-truth validation loop. Every clip → player DNA, shot analytics &amp; brand intelligence. <b>A working pipeline, not a slide.</b></p>
-          <div class="e-metrics">
-            <div><div class="v">21K+</div><div class="k">clips processed</div></div>
-            <div><div class="v">4,097</div><div class="k">analyzed</div></div>
-            <div><div class="v">$0.0054</div><div class="k">per clip · ~7x cheaper</div></div>
-          </div>
-          <div class="e-links">
-            <a class="hot" href="https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html" target="_blank" rel="noopener">▸ investor walkthrough</a>
-            <a href="https://picklebill.github.io/pickle-daas-data/dashboards/brand-intelligence-v4.html" target="_blank" rel="noopener">brand intel</a>
-            <a href="https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html" target="_blank" rel="noopener">all dashboards →</a>
-          </div>
-        </div>
+      <!-- featured video — clean centerpiece -->
+      <div class="proof-video rv">
         <div class="vidwrap" id="vidwrap">
           <video id="cvid" muted loop playsinline preload="metadata" poster="assets/shots/courtana.png">
             <source src="assets/courtana-shot.mp4" type="video/mp4" />
           </video>
           <div class="vgrad"></div>
           <div class="statbadge" style="--x:6%;--y:9%;--c:#F1C40F"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
-          <div class="statbadge" style="--x:58%;--y:13%;--c:#6BA3FF"><span class="edge"></span><span class="bd"><span class="bt">Shot</span><span class="bb"><b>Overhead smash</b></span></span></div>
           <div class="statbadge" style="--x:7%;--y:66%;--c:#6EEFC0"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
           <div class="statbadge" style="--x:56%;--y:64%;--c:#BD93F9"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
-          <div class="statbadge" style="--x:33%;--y:41%;--c:#FF6B6B"><span class="edge"></span><span class="bd"><span class="bt">Routed</span><span class="bb"><b>Player Gear</b> lane</span></span></div>
-          <span class="vlabel">▸ live CV pipeline · $0.0054/clip</span>
+          <i class="vretc tl" aria-hidden="true"></i><i class="vretc tr" aria-hidden="true"></i><i class="vretc bl" aria-hidden="true"></i><i class="vretc br" aria-hidden="true"></i>
+          <div class="vscan" aria-hidden="true"></div>
+          <div class="vsheen" aria-hidden="true"></div>
         </div>
+      </div>
+
+      <!-- the two companies, side by side -->
+      <div class="opco-grid rv">
+        <a class="opco" href="https://courtana.com" target="_blank" rel="noopener">
+          <div class="oshot"><img src="assets/shots/courtana.png" alt="Courtana smart-court platform" loading="lazy" onerror="this.style.opacity=0" /></div>
+          <div class="obody">
+            <div class="okick">AI sports intelligence</div>
+            <h3>Courtana <span class="live-tag">live</span></h3>
+            <p class="olede">Structured data from physical sports venues — <b>4 venues · 36 courts · 760 users.</b> Gemini vision + Claude strategy, two-person team.</p>
+            <span class="ogo">courtana.com <span class="ar">→</span></span>
+          </div>
+        </a>
+        <a class="opco" href="https://dreamship.com" target="_blank" rel="noopener">
+          <div class="oshot"><img src="assets/shots/dreamship.png" alt="Dreamship fulfillment platform" loading="lazy" onerror="this.style.opacity=0" /></div>
+          <div class="obody">
+            <div class="okick">where I closed Google</div>
+            <h3>Dreamship</h3>
+            <p class="olede">API-driven fulfillment, built from zero to <b>$35M+ peak revenue · 11x in a year.</b> The platform behind the Google, Stripe, and Meta partnerships.</p>
+            <span class="ogo">dreamship.com <span class="ar">→</span></span>
+          </div>
+        </a>
+      </div>
+
+      <!-- see all the work -->
+      <div class="proof-all rv">
+        <a class="pill ghost" href="work.html">See all the work — 40+ apps &amp; a live terminal <span class="ar">→</span></a>
       </div>
     </div>
   </section>
@@ -697,11 +732,15 @@
   <!-- ============ 05 · STORY ============ -->
   <section class="block" id="person">
     <div class="wrap">
-      <div class="sec-head rv"><div class="kick"><span class="num">05</span> The person</div></div>
       <a class="story rv" href="climb.html">
         <div>
-          <h3>Twenty years,<br>one climb.</h3>
-          <p>IBM seven-figure deals. The Google partnership. Cancer in 2023 — the pipeline kept moving. Three kids, unimpressed by all of it. The chapter is still being written.</p>
+          <h3>Twenty years, one climb.</h3>
+          <p>IBM. The Google partnership. Three kids, unimpressed by any of it. A cancer diagnosis in 2023, met head-on. Here's what twenty years taught me:</p>
+          <ul class="principles">
+            <li>Earn the first yes — the flywheel follows.</li>
+            <li>Ship the thing; don't pitch the deck.</li>
+            <li>Carry the number and build the product.</li>
+          </ul>
           <span class="e-go">Walk The Climb <span class="ar">→</span></span>
         </div>
         <div class="climb-prev">
@@ -720,12 +759,13 @@
   <!-- ============ CONTACT ============ -->
   <section class="contact">
     <div class="wrap rv">
-      <h2>Hiring forward-deployed?<br><span class="flat">Let's talk this week.</span></h2>
-      <p>15 minutes. I'll show you something I built, not slides — or ask the console up top and watch the close happen live.</p>
+      <h2>Let's close <span class="flat">something big.</span></h2>
+      <p>Hiring for GTM &amp; partnerships? Give me fifteen minutes and I'll show you something I built, not slides.</p>
       <div class="ctas">
-        <a class="pill solid" href="mailto:bricker3@gmail.com?subject=Forward-deployed%20%E2%80%94%20let%27s%20talk">bricker3@gmail.com →</a>
-        <a class="pill ghost" href="tel:+19086018152">908 · 601 · 8152</a>
+        <a class="pill solid" href="mailto:bricker3@gmail.com?subject=Let%27s%20close%20something%20big">bricker3@gmail.com →</a>
+        <a class="pill ghost" href="#interface">Prompt the console ↑</a>
         <a class="pill ghost" href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="pill ghost" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>Download résumé</a>
       </div>
     </div>
   </section>
@@ -733,12 +773,12 @@
   <footer>
     <div class="wrap">
       <div class="foot-in">
-        <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>built solo with the AI-native stack it describes.</b></span>
+        <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>designed &amp; shipped solo.</b></span>
         <div class="foot-arch">
-          <a href="v3/">bricker.os ↗</a>
-          <a href="climb.html">The Climb</a>
+          <a href="climb.html">Story</a>
+          <a href="work.html">Proof</a>
           <a href="resume-v2.html">Résumé</a>
-          <a href="work.html">Terminal</a>
+          <a href="mailto:bricker3@gmail.com">Email</a>
         </div>
       </div>
     </div>

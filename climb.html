@@ -43,32 +43,34 @@
 
   nav{position:sticky;top:0;z-index:60;background:rgba(245,238,213,.92);backdrop-filter:blur(8px);border-bottom:.5px solid var(--rule)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
-  .brand{font-style:italic;font-weight:500;font-size:19px;text-decoration:none;white-space:nowrap}
-  .brand .pk{font-style:normal;font-size:18px;filter:drop-shadow(0 0 5px rgba(168,66,29,.5))}
+  .brand{font-style:italic;font-weight:500;font-size:19px;text-decoration:none;white-space:nowrap;color:var(--ink);display:inline-flex;align-items:center}
+  .brand .caret{display:inline-block;width:7px;height:1em;background:var(--sienna,#a8421d);margin-left:5px;transform:translateY(1px);animation:caretblink 1.1s steps(1) infinite}
+  @keyframes caretblink{50%{opacity:0}}
   .nl{display:flex;gap:4px;align-items:center;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
   .nl a{color:var(--mute);text-decoration:none;transition:.15s;padding:8px 11px;border-radius:7px}
   .nl a:hover{color:var(--sienna)}
   .nl a.here{color:var(--paper);background:var(--ink)}
-  .nl a.email{border:.5px solid var(--ink);color:var(--ink)}
+  .nl a.cta{border:.5px solid var(--ink);color:var(--ink)}
   @media(max-width:620px){nav .wrap{height:50px}.nl{gap:0;font-size:10px}.nl a{padding:7px 7px}}
 
-  header{padding:18px 0 8px}
-  .htop{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  /* compact header — keeps the climb map in the first fold on desktop */
+  header{padding:10px 0 4px}
+  .htop{display:flex;align-items:flex-end;justify-content:space-between;gap:22px 32px;flex-wrap:wrap}
+  .hlead{flex-shrink:0}
   .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);white-space:nowrap}
-  h1{font-style:italic;font-weight:300;font-size:clamp(30px,4.6vw,46px);line-height:.96;letter-spacing:-.025em;margin:5px 0 0}
+  h1{font-style:italic;font-weight:300;font-size:clamp(28px,3.6vw,40px);line-height:.94;letter-spacing:-.025em;margin:3px 0 0}
   h1 em{font-style:normal;color:var(--sienna)}
-  .hctrl{display:flex;align-items:center;gap:16px;flex-shrink:0}
-  .hint{font-family:var(--hand);color:var(--mute);font-size:20px;white-space:nowrap}
+  /* lede sits beside the title, above the CTA — no full-width block pushing the map down */
+  .hctrl{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex:1 1 360px;min-width:300px}
+  .hlede{font-size:14.5px;color:var(--ink2);max-width:62ch;line-height:1.45;text-align:right;text-wrap:pretty;margin:0}
   .tourbtn{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
-    padding:11px 19px;border:.5px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;border-radius:2px;transition:.16s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+    padding:10px 18px;border:.5px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;border-radius:2px;transition:.16s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
   .tourbtn:hover{background:var(--sienna-deep);border-color:var(--sienna-deep);transform:translateY(-1px)}
   .tourbtn .tri{font-size:11px}
-  @media(max-width:1024px){.hint{display:none}}
-
-  .hlede{font-size:17px;color:var(--ink2);max-width:54ch;margin-top:12px;line-height:1.5;text-wrap:pretty}
+  @media(max-width:980px){.hctrl{flex-basis:100%;align-items:flex-start}.hlede{text-align:left}}
 
   /* ===== desktop: wide editorial map, fit to width ===== */
-  .mapwrap{position:relative;max-width:1520px;margin:10px auto 0;padding:0 28px}
+  .mapwrap{position:relative;max-width:1520px;margin:2px auto 0;padding:0 28px}
   .scroller{position:relative;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;cursor:grab}
   .scroller.drag{cursor:grabbing}
   .scroller:not(.scrolls){cursor:default}
@@ -191,9 +193,12 @@
     background:var(--seal-face);border:1.5px solid var(--ink);z-index:3;
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 5px 11px rgba(43,31,16,.30),inset 0 2px 3px rgba(255,255,255,.75),inset 0 -4px 7px rgba(43,31,16,.20);
-    transition:transform .2s cubic-bezier(.3,.7,.4,1),box-shadow .2s}
+    transition:transform .24s cubic-bezier(.16,1,.3,1),box-shadow .24s cubic-bezier(.16,1,.3,1)}
   .seal::before{content:"";position:absolute;inset:4px;border-radius:50%;border:1px solid rgba(43,31,16,.28)}
-  .node:hover .seal{transform:translate(-50%,-50%) scale(1.1)}
+  /* tactile lift: the coin rises off the paper, warm sienna ring on approach */
+  .node:hover .seal{transform:translate(-50%,-50%) scale(1.1);
+    box-shadow:0 9px 18px rgba(43,31,16,.34),0 0 0 4px rgba(168,66,29,.10),inset 0 2px 3px rgba(255,255,255,.8),inset 0 -4px 7px rgba(43,31,16,.20)}
+  @media(prefers-reduced-motion:reduce){.seal{transition-duration:.01ms}}
   .seal .mono{font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:-.03em;color:var(--ink);z-index:1}
   .seal .ico{width:52%;height:52%;color:var(--sienna-deep);z-index:1;display:flex}
   .ico svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -283,12 +288,19 @@
 
   /* field-note card */
   .scrim{position:fixed;inset:0;z-index:95;background:rgba(43,31,16,.42);backdrop-filter:blur(2px);display:none;align-items:flex-end;justify-content:center}
-  .scrim.on{display:flex}
+  .scrim.on{display:flex;animation:scrimfade .26s ease-out}
+  @keyframes scrimfade{from{opacity:0}to{opacity:1}}
   @media(min-width:640px){.scrim{align-items:center;padding:24px}}
-  .card{width:min(580px,100%);max-height:88vh;overflow:auto;background:linear-gradient(180deg,#f7eed5,#efe2bf);border:.5px solid var(--ink);box-shadow:0 -10px 40px rgba(43,31,16,.4);padding:30px 28px 26px;position:relative;animation:up .3s cubic-bezier(.3,.7,.4,1)}
+  .card{width:min(580px,100%);max-height:88vh;overflow:auto;background:linear-gradient(180deg,#f7eed5,#efe2bf);border:.5px solid var(--ink);box-shadow:0 -10px 40px rgba(43,31,16,.4);padding:30px 28px 26px;position:relative;animation:up .34s cubic-bezier(.16,1,.3,1)}
   @media(min-width:640px){.card{border-radius:3px}}
-  @keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-  .card .tape{position:absolute;top:-11px;left:50%;width:90px;height:20px;transform:translateX(-50%) rotate(-2deg);background:repeating-linear-gradient(90deg,rgba(196,125,34,.7) 0 5px,rgba(196,125,34,.45) 5px 9px)}
+  /* the field note lifts in and settles onto the desk */
+  @keyframes up{from{opacity:0;transform:translateY(30px) scale(.985)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.scrim.on,.card{animation:none}}
+  .card .tape{position:absolute;top:-11px;left:50%;width:90px;height:20px;transform:translateX(-50%) rotate(-2deg);background:repeating-linear-gradient(90deg,rgba(196,125,34,.7) 0 5px,rgba(196,125,34,.45) 5px 9px);
+    animation:tapeset .42s cubic-bezier(.16,1,.3,1) .06s both}
+  /* the masking tape presses down as the note lands */
+  @keyframes tapeset{from{opacity:0;transform:translateX(-50%) rotate(-7deg) translateY(-5px)}to{opacity:1;transform:translateX(-50%) rotate(-2deg)}}
+  @media(prefers-reduced-motion:reduce){.card .tape{animation:none}}
   .card .close{position:absolute;top:13px;right:17px;background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
   .card .chead{display:flex;align-items:center;gap:15px;margin-bottom:6px}
   .cardseal{position:relative;width:56px;height:56px;flex-shrink:0;border-radius:50%;background:var(--seal-face);border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 3px rgba(255,255,255,.7),inset 0 -3px 6px rgba(43,31,16,.18);overflow:hidden}
@@ -313,22 +325,22 @@
 </head>
 <body>
 <nav><div class="wrap">
-  <a class="brand" href="index.html"><span class="pk">🥒</span> Bill Bricker</a>
+  <a class="brand" href="index.html" aria-label="Bill Bricker — home">Bill&nbsp;Bricker<span class="caret" aria-hidden="true"></span></a>
   <div class="nl">
-    <a href="index.html">Home</a><a href="climb.html" class="here">Story</a><a href="work.html">Work</a>
-    <a href="resume-v2.html">Résumé</a><a href="mailto:bricker3@gmail.com" class="email">Email</a>
+    <a href="climb.html" class="here">Story</a>
+    <a href="work.html">Proof</a>
+    <a href="resume-v2.html" class="cta">Résumé</a>
   </div>
 </div></nav>
 
 <header><div class="wrap">
   <div class="htop">
-    <div>
+    <div class="hlead">
       <div class="eyebrow">2006 → 2026 · a field map</div>
       <h1 id="climbH1">The <em>Climb</em></h1>
-      <p class="hlede">Twenty years from cold calls to the Google partnership to building AI solo — through cancer in 2023, still walking. Three companies founded, four built for, and a trail that keeps going up.</p>
     </div>
     <div class="hctrl">
-      <span class="hint">tap a seal for the field note</span>
+      <p class="hlede">Twenty years from cold calls to the Google partnership to building AI solo — through cancer in 2023, still walking. Three companies founded, four built for, a trail that keeps going up.</p>
       <button class="tourbtn" id="tourBtn"><span class="tri">▸</span> Begin the ascent</button>
     </div>
   </div>
@@ -391,9 +403,9 @@
     <div class="era" style="left:875px;top:748px"><div class="nm">The Build</div><div class="yr">2018 – 2023</div></div>
     <div class="era" style="left:1212px;top:748px"><div class="nm">Now &amp; Next</div><div class="yr">2024 →</div></div>
 
-    <!-- margin notes -->
-    <div class="marg" style="left:108px;top:548px;transform:rotate(-4deg)">doors &amp; dials</div>
-    <div class="marg" style="left:820px;top:296px;transform:rotate(-3deg)">the big one</div>
+    <!-- margin notes (kept clear of the seals) -->
+    <div class="marg jot" style="left:74px;top:524px;transform:rotate(-4deg)">doors &amp; dials</div>
+    <div class="marg jot" style="left:742px;top:286px;transform:rotate(-3deg)">the big one</div>
 
     <div id="nodes"></div>
   </div>
@@ -412,7 +424,7 @@
   <div class="hand">summit unset — still walking</div>
   <div class="ctas">
     <a class="btn primary" href="work.html">See the work →</a>
-    <a class="btn" href="resume-v2.html">Résumé</a>
+    <a class="btn" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>Résumé</a>
     <a class="btn" href="mailto:bricker3@gmail.com">Email Bill</a>
   </div>
 </div>
@@ -449,36 +461,36 @@ function logoSrc(f){return 'assets/logos/'+f;}
 const SPINE=[
  {x:130,y:595,cat:"job",lp:"below",fill:true,logo:"nwm.png",lane:"Employer · origin · 2006",title:"Northwestern Mutual",yr:"2006",period:"2006 · cold-call school",pull:"The most concentrated lesson in selling I ever got.",body:["Doors and dials straight out of college — top 10 nationally, $6M+ TCV across 150+ accounts. Grateful for it the way you're grateful for a hard winter."],link:null},
  {x:268,y:556,cat:"job",lp:"above",logo:"unc.png",lane:"Study · 2010",title:"UNC Kenan-Flagler",yr:"2010 · MBA",period:"2010 · MBA · GMAT 730",pull:"Where I stopped confusing activity with progress.",body:["Two years to learn what a P&amp;L is for — and to meet the people who'd show up on this map a dozen more times."],link:null},
- {x:406,y:520,cat:"job",lp:"below",logo:"ibm.png",lane:"Employer · the foundation",title:"IBM / Netezza",yr:"2012–14",period:"2012–14 · seven-figure deals",pull:"You cannot out-build the need to talk to a customer.",body:["High-six-figure analytics deals with <em>Zillow</em> &amp; <em>Avalara</em>, part of an 8-figure McKesson deal, &gt;100% of quota — Big Data into the Fortune 500."],link:{u:"work.html",t:"enterprise GTM →"}},
+ {x:406,y:520,cat:"job",lp:"below",logo:"ibm.png",lane:"Employer · the foundation",title:"IBM / Netezza",yr:"2012–14",period:"2012–14 · seven-figure deals",pull:"You cannot out-build the need to talk to a customer.",body:["Seven-figure analytics deals with <em>Zillow</em> &amp; <em>Avalara</em>, part of an 8-figure McKesson deal, achieved quota — Big Data into the Fortune 500."],link:{u:"work.html",t:"enterprise GTM →"}},
  {x:516,y:496,cat:"job",lp:"above",fill:true,logo:"wibidata.jpeg",lane:"Employer · 2014",title:"WibiData",yr:"2014",period:"2014 · Director of Sales",pull:"Selling into a problem the customer hasn't named yet.",body:["F500 Big Data pilots — <em>Macy's</em>, <em>Nordstrom</em> — at an NEA / Canaan / Eric-Schmidt-backed startup."],link:null},
- {x:636,y:458,cat:"founder",lp:"below",fill:true,logo:"introstellar.png",stat:"first 0 → 1",lane:"Founder · first company",title:"Introstellar",yr:"2015–16",period:"2015–16 · founder · first venture",pull:"My first company — built on one question: who can I introduce you to?",body:["The networking venture where I learned to <em>build</em>, not just sell — and where “who can I introduce you to, so you can reach your goals?” became the way I operate.","The first real zero-to-one rep, and the headwaters of the river of introductions that runs the whole length of this map."],link:null},
+ {x:636,y:458,cat:"founder",lp:"below",fill:true,logo:"introstellar.png",stat:"first 0 → 1",lane:"Founder · first company",title:"Introstellar",yr:"2015–16",period:"2015–16 · founder · first venture",pull:"My first company — built on one question: who can I introduce you to?",body:["The networking venture where I learned to <em>build</em>, not just sell — and where “who can I introduce you to?” became the way I operate.","My first real zero-to-one rep. The introductions it started still run the length of this map."],link:null},
  {x:760,y:420,cat:"job",lp:"above",fill:true,logo:"gearlaunch.png",lane:"Employer · 2017",title:"GearLaunch",yr:"2017",period:"2017 · VP Sales &amp; Marketing",pull:"Creator commerce, before it had a name.",body:["The proving ground for the operator muscle that ran Dreamship next — and where the Pledge 1% habit started."],link:null},
- {x:930,y:336,cat:"founder",big:true,lp:"below",logo:"dreamship.png",stat:"$35M+ · 11× in a year",lane:"Founder · the big one",title:"Dreamship",yr:"2018–23",period:"2018–23 · cofounder &amp; CEO",pull:"Zero to $35M+ — and 11× in a single year.",body:["Led as CEO to <em>$35M+ revenue</em>, ~$85M GMV, 2.3M+ units — <em>11× in one year</em> — on $2.2M raised; profitable at step-back, and every year since.","Closed <em>Google</em> as a partner: a sub-1-year-old startup navigating 5–6 internal teams to a first-of-its-kind 8-figure channel that ran 5+ years — then Stripe, PayPal, Meta &amp; Payoneer off it."],link:{u:"https://dreamship.com",t:"dreamship.com ↗"}},
+ {x:930,y:336,cat:"founder",big:true,lp:"below",logo:"dreamship.png",stat:"$35M+ · 11× in a year",lane:"Founder · the big one",title:"Dreamship",yr:"2018–23",period:"2018–23 · cofounder &amp; CEO",pull:"Zero to $35M+ — and 11× in a single year.",body:["Led as CEO to <em>$35M+ peak revenue</em>, ~$85M GMV, 2.3M+ units — <em>11× in one year</em> — on $2.2M raised; profitable at step-back, and every year since.","Closed <em>Google</em> as a partner in year one: a no-name startup carried across 5–6 internal teams to a first-of-its-kind partnership that ran 5+ years — then Stripe, PayPal, Meta &amp; Payoneer off it."],link:{u:"https://dreamship.com",t:"dreamship.com ↗"}},
  {x:1078,y:282,cat:"ai",lp:"below",icon:"grid",stat:"40+ apps · 31 repos",lane:"AI-native · the workshop",title:"Vibe Coding",yr:"early 2025",period:"early 2025 · the AI build engine",pull:"The workshop the rest of this came out of.",body:["An 11-agent build loop — idea → brief → build → art — plus a self-serve sports-data warehouse spun from raw video.","The engine behind 40+ apps across 31 repos. The model isn't the moat; the system is."],link:{u:"https://vibeco.lovable.app/simulate",t:"run it ↗"}},
- {x:1228,y:242,cat:"summit",live:true,lp:"below",logo:"courtana.png",stat:"36 courts · live",lane:"Now shipping · live",title:"Courtana",yr:"2024 → now",period:"2024 → now · founder / CEO",pull:"AI smart-court tech for the people who run the room.",body:["$350K raised; concept to <em>36 courts live or piloting</em>, with a 44-court LOI. Ran the whole zero-to-one loop solo — the current live peak of the climb."],link:{u:"https://courtana.com",t:"courtana.com ↗"}},
+ {x:1228,y:242,cat:"summit",live:true,lp:"below",logo:"courtana.png",stat:"36 courts · live",lane:"Now shipping · live",title:"Courtana",yr:"2024 → now",period:"2024 → now · founder / CEO",pull:"AI smart-court tech for the people who run the room.",body:["Concept to <em>36 courts live</em>, with a 44-court LOI. Ran the whole zero-to-one loop solo — the current live peak of the climb."],link:{u:"https://courtana.com",t:"courtana.com ↗"}},
 ];
 
 // --- side & purpose projects (ABOVE the line) ---
 const SIDE=[
  {x:585,y:212,cat:"side",icon:"cards",cardImg:"groupordare.png",lane:"Side quest · 2016",title:"GroupOrDare",yr:"2016",period:"2016 · party card game",pull:"I shipped a party card game. It exists. It works.",body:["My kids think it's the most impressive thing I've done — the correct ranking. Evidence beats résumé."],link:null},
- {x:690,y:185,cat:"side",mono:"1%",cardImg:"pledge1.png",lane:"Purpose · the pledge",title:"Pledge 1%",yr:"2017–18",period:"Pledge 1% · equity · time · product",pull:"1% of equity, time, and product — committed as we built.",body:["Took the <em>Pledge 1%</em> commitment — equity, time, and product to community causes — carried from GearLaunch into Dreamship. Building and giving were never separate tracks."],link:{u:"https://pledge1percent.org/",t:"pledge1percent.org ↗"}},
+ {x:690,y:185,cat:"side",mono:"1%",cardImg:"pledge1.png",lane:"Purpose · the pledge",title:"Pledge 1%",yr:"2017–18",period:"Pledge 1% · equity · time · product",pull:"1% of equity, time, and product — committed as we built.",body:["Took the <em>Pledge 1%</em> commitment to community causes and carried it from GearLaunch into Dreamship. Building and giving were never separate tracks."],link:{u:"https://pledge1percent.org/",t:"pledge1percent.org ↗"}},
  {x:992,y:160,cat:"side",icon:"chain",lane:"Purpose · board · 2021–23",title:"Freedom United",yr:"2021–23",period:"2021–23 · board member",pull:"Selling skills are only worth what you point them at.",body:["Partnered with <em>Freedom United</em> through Dreamship's sustainability initiative, then served on the board 2021–2023 — the world's largest community against modern slavery."],link:{u:"https://www.freedomunited.org/",t:"freedomunited.org ↗"}},
 ];
 
 // --- personal anchors (BELOW the line) ---
 const ANCHOR=[
- {x:945,y:650,cat:"anchor",icon:"pulse",lane:"Personal · the long walk",title:"The Long Walk",yr:"2023 →",period:"2023 → now · still walking",pull:"Cancer in 2023. I'm still walking — and still figuring out what comes next.",body:["Diagnosed in 2023, chemo through 2025 — I kept the pipeline moving and operated straight through it. I leave it here because it's part of the picture, and because the next chapter is still being written."],link:{u:"mailto:bricker3@gmail.com",t:"write me ↗"}},
- {x:1130,y:650,cat:"anchor",icon:"house",lane:"Personal · home base",title:"Home · Three Kids",yr:"2020 → now",period:"2020 → now · one, two, three",pull:"The reason any of this matters.",body:["From one kid to three across these years — a real kitchen and an unreal amount of pickleball gear in the garage. The climb exists to support this."],link:null},
+ {x:945,y:626,cat:"anchor",icon:"pulse",lane:"Personal · the long walk",title:"The Long Walk",yr:"2023 →",period:"2023 → now · still walking",pull:"Cancer in 2023. I'm still walking — and still figuring out what comes next.",body:["Diagnosed in 2023, chemo through 2025 — I operated straight through it and kept the pipeline moving. I leave it on the map because it's part of the picture, and the operator instinct gets clear when the day is short."],link:{u:"mailto:bricker3@gmail.com",t:"write me ↗"}},
+ {x:1130,y:626,cat:"anchor",icon:"house",lane:"Personal · home base",title:"Home · Three Kids",yr:"2020 → now",period:"2020 → now · one, two, three",pull:"The reason any of this matters.",body:["From one kid to three across these years — a real kitchen and an unreal amount of pickleball gear in the garage. The climb exists to support this."],link:null},
 ];
 
 // --- provisional satellite under the summit ---
 const SAT=[
- {x:1322,y:382,cat:"prov",icon:"db",stat:"$0.0054 / clip",lane:"Provisional · name pending",title:"Pickle DaaS",yr:"2025 →",period:"2025 → · data-as-a-service",pull:"A self-serve sports-data warehouse, built straight from video.",body:["21K+ clips processed, 4,097 analyzed at <em>$0.0054 each</em> — a self-serve pickleball data warehouse spun from raw footage. The name's still pending; the pipeline is real.","Sits right under the Courtana summit — the data layer feeding what's live. Full name: <em>Pickle Data as a Service</em>."],link:null},
+ {x:1342,y:404,cat:"prov",icon:"db",stat:"$0.0054 / clip",lane:"Provisional · name pending",title:"Pickle DaaS",yr:"2025 →",period:"2025 → · data-as-a-service",pull:"A self-serve sports-data warehouse, built straight from video.",body:["21K+ clips processed, 4,097 analyzed at <em>$0.0054 each</em> — spun from raw pickleball footage. The name's still pending; the pipeline is real.","Sits right under the Courtana summit — the data layer feeding what's live. Full name: <em>Pickle Data as a Service</em>."],link:null},
 ];
 
 // --- the open horizon ---
 const BEACON=[
- {x:1330,y:176,cat:"beacon",icon:"compass",lane:"The open horizon",title:"What’s Next",yr:"2026 →",period:"2026 → · the next ridge",pull:"Summit unset. I’m looking for the next hard, important thing.",body:["Building daily and open to the right room — founder, operator, or builder at a frontier-tech lab. If the work matters, let’s talk."],link:{u:"mailto:bricker3@gmail.com",t:"start a conversation ↗"}},
+ {x:1344,y:158,cat:"beacon",icon:"compass",lane:"The open horizon",title:"What’s Next",yr:"2026 →",period:"2026 → · the next ridge",pull:"Summit unset. I’m looking for the next hard, important thing.",body:["Building daily and open to the right room — founder, operator, or builder at a frontier-tech lab. If the work matters, let’s talk."],link:{u:"mailto:bricker3@gmail.com",t:"start a conversation ↗"}},
 ];
 
 // interpolate trail y at any x (from spine points)
@@ -496,11 +508,78 @@ function trailY(x){
   const fill=`${d} L ${pts[pts.length-1][0]} 694 L ${pts[0][0]} 694 Z`;
   const sm=SPINE[SPINE.length-1];
   document.getElementById('trailG').innerHTML=`
-    <path d="${fill}" fill="url(#rf)"/>
-    <path d="${d}" fill="none" stroke="#2b1f10" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="${d}" fill="none" stroke="#efe3c4" stroke-width="1" stroke-dasharray="1 7" stroke-linecap="round"/>
-    <path d="M${sm.x} ${sm.y} L 1300 196 L 1334 180" fill="none" stroke="#5e7a2a" stroke-width="1.8" stroke-dasharray="3 9" stroke-linecap="round" opacity=".7"/>
-    <path d="M1356 168 L 1400 150" fill="none" stroke="#5e7a2a" stroke-width="1.5" stroke-dasharray="2 10" stroke-linecap="round" opacity=".32"/>`;
+    <path class="trail-fill" d="${fill}" fill="url(#rf)"/>
+    <path id="trailLine" d="${d}" fill="none" stroke="#2b1f10" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <path class="trail-ticks" d="${d}" fill="none" stroke="#efe3c4" stroke-width="1" stroke-dasharray="1 7" stroke-linecap="round"/>
+    <path class="trail-future" d="M${sm.x} ${sm.y} L 1300 198 L 1326 180" fill="none" stroke="#5e7a2a" stroke-width="1.8" stroke-dasharray="3 9" stroke-linecap="round" opacity=".7"/>
+    <path class="trail-future" d="M1366 150 L 1400 134" fill="none" stroke="#5e7a2a" stroke-width="1.5" stroke-dasharray="2 10" stroke-linecap="round" opacity=".32"/>`;
+})();
+
+// ---- signature: the 20-year trail draws itself on (2006 → summit) ----
+// The solid ink spine animates stroke-dashoffset hidden→drawn; the hiking ticks,
+// ground-wash and future projection settle on as the route completes. Honors
+// [data-motion="off"] and prefers-reduced-motion by showing the trail fully drawn.
+(function trailDraw(){
+  const line=document.getElementById('trailLine');
+  if(!line)return;
+  const ticks=document.querySelector('.trail-ticks');
+  const fillA=document.querySelector('.trail-fill');
+  const futures=document.querySelectorAll('.trail-future');
+  const jots=document.querySelectorAll('.marg.jot');
+  const len=line.getTotalLength();
+  const noMo=()=>document.documentElement.getAttribute('data-motion')==='off'
+    ||matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // show-fully-drawn helper (the reduced-motion / off resting state)
+  function settle(){
+    line.style.transition='none';
+    line.style.strokeDasharray='none';
+    line.style.strokeDashoffset='0';
+    [ticks,fillA,...futures,...jots].forEach(el=>{if(el){el.style.opacity='';el.style.transform=''}});
+  }
+  if(noMo()){settle();return;}
+
+  // armed, hidden: ink route undrawn; ticks / wash / future / jottings held back
+  line.style.strokeDasharray=len+' '+len;
+  line.style.strokeDashoffset=len;
+  ticks.style.opacity='0';
+  fillA.style.opacity='0';
+  futures.forEach(f=>f.style.opacity='0');
+  jots.forEach(j=>{j.style.opacity='0'});
+
+  let drawn=false;
+  function draw(){
+    if(drawn)return;drawn=true;
+    // ground-wash fades up under the route as it climbs
+    fillA.style.transition='opacity 1.6s ease-out';
+    requestAnimationFrame(()=>{fillA.style.opacity=''});
+    // the ink line draws from 2006 up to the summit — confident exponential ease
+    line.style.transition='stroke-dashoffset 2.1s cubic-bezier(.16,1,.3,1)';
+    requestAnimationFrame(()=>{line.style.strokeDashoffset='0'});
+    // hiking ticks + future projection settle on once the route has arrived
+    ticks.style.transition='opacity .7s ease-out';
+    futures.forEach(f=>f.style.transition='opacity .8s ease-out');
+    setTimeout(()=>{
+      ticks.style.opacity='';
+      futures.forEach(f=>f.style.opacity='');
+    },1500);
+    // the cartographer's hand-notes get jotted in as the route passes them
+    jots.forEach((j,k)=>{
+      j.style.transition='opacity .6s ease-out';
+      setTimeout(()=>{j.style.opacity=''}, 650+k*650);
+    });
+  }
+
+  // trigger on arrival; fire once, then stop observing
+  const host=document.querySelector('.mapwrap');
+  if('IntersectionObserver'in window&&host){
+    const io=new IntersectionObserver((ents)=>{
+      ents.forEach(e=>{if(e.isIntersecting){draw();io.disconnect();}});
+    },{threshold:.18});
+    io.observe(host);
+  }else{draw();}
+  // safety net: if it never intersects (very tall viewports), draw after a beat
+  setTimeout(()=>{if(!drawn)draw();},1200);
 })();
 
 // assemble nodes (story order for the tour)
@@ -526,11 +605,11 @@ function nodeHTML(n,i){
     leader=`<span class="leader" style="height:${drop}px"></span>`;
     lbl=`<div class="lbl lbl--side up" style="top:-16px">${title}</div>`;
   } else if(n.cat==='anchor'){
-    lbl=`<div class="lbl lbl--anchor" style="top:40px">${title}</div>`;
+    lbl=`<div class="lbl lbl--anchor" style="top:34px">${title}</div>`;
   } else if(n.cat==='prov'){
     lbl=`<div class="lbl lbl--prov" style="top:42px">${title}</div>`;
   } else if(n.cat==='beacon'){
-    extra=' beacon'; lbl=`<div class="lbl lbl--beacon" style="top:40px">${title}</div>`;
+    extra=' beacon'; lbl=`<div class="lbl lbl--beacon up" style="top:-34px">${title}</div>`;
   } else if(n.cat==='summit'){
     lbl=`<div class="lbl lbl--summit" style="top:70px">${title}</div>`;
   } else { // job, founder, ai — on the spine; alternate above/below
@@ -583,7 +662,12 @@ const CW=1400, CH=820;
 function fit(){
   if(innerWidth<=860)return; // mobile uses the vertical climb
   const containerW=mapwrap.clientWidth-56;
-  const scale=Math.min(1,Math.max(.8,containerW/CW));
+  const wScale=containerW/CW;
+  // also fit to the available height so the whole map lands in the first fold
+  const top=mapwrap.getBoundingClientRect().top; // distance from viewport top (page is at scroll 0 on load)
+  const availH=innerHeight-top-18; // leave a sliver of breathing room at the fold
+  const hScale=availH/CH;
+  const scale=Math.min(1,Math.max(.72,Math.min(wScale,hScale)));
   curScale=scale;
   canvas.style.transformOrigin='top left';
   canvas.style.transform=`scale(${scale})`;
