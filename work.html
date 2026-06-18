@@ -153,7 +153,7 @@
 <div class="wrap top">
   <span class="kick"><span class="dot"></span>Proof of work</span>
   <h1>Receipts, <span class="g">not slides.</span></h1>
-  <p class="sub">Two live companies, 40+ AI apps shipped solo, and a terminal that answers for all of it. Browse the work — then interrogate it yourself.</p>
+  <p class="sub">Two live companies, 40+ apps across 31 repos shipped solo, and a terminal that answers for all of it. Browse the work — then interrogate it yourself.</p>
 </div>
 
 <div class="wrap corpus">
@@ -217,19 +217,20 @@ const A='target="_blank" rel="noopener"';
 const L=(u,t,ext=true)=>`<a class="lnk" href="${u}" ${ext?A:''}>${t}</a>`;
 
 const CMDS={
-  help:()=>`<span class="cmt">// available commands — tap a chip or type one</span>
+  help:()=>`<span class="cmt">// tap a chip or type a command</span>
 <span class="key">whoami</span>       who I am, in one line
 <span class="key">ls</span>           the proof, as a directory
 <span class="key">companies</span>    Courtana &amp; Dreamship — both live
-<span class="key">google-deal</span>  the deal I lead interviews with
+<span class="key">google-deal</span>  the partnership I open interviews with
 <span class="key">sales-gtm</span>    connected-AI selling (Venue Connect)
-<span class="key">enterprise</span>   client-grade builds in days
-<span class="key">builds</span>       VibeCo + 40 apps across 31 repos
+<span class="key">enterprise</span>   client-grade builds in days, not quarters
+<span class="key">builds</span>       VibeCo + 40+ apps across 31 repos
 <span class="key">pickle-daas</span>  the tech proof · $0.0054/clip
 <span class="key">stats</span>        the numbers
-<span class="key">git log</span>      the 20-year commit history
+<span class="key">git log</span>      a 20-year career, as commits
 <span class="key">ask &lt;anything&gt;</span> plain-English Q&amp;A
-<span class="key">contact</span>      let's talk · clear · resets`,
+<span class="key">contact</span>      how to reach me
+<span class="cmt">// also:</span> <span class="key">clear</span> <span class="cmt">resets the screen</span>`,
 
   whoami:()=>`<span class="h">Bill Bricker — I sell frontier tech, and I build it myself.</span>Enterprise seller turned founder-CEO. <span class="ok">achieved quota</span> at IBM, <span class="ok">$35M+</span> &amp; <span class="ok">11x</span> as a founder, closed <span class="ok">Google</span> as a partner in year one. Now I ship production AI daily. Father of three. Still walking.
 <span class="cmt">// next: try</span> <span class="key">ls</span> <span class="cmt">to see the proof</span>`,
@@ -247,7 +248,7 @@ const CMDS={
 <span class="pink">●</span> <span class="val">Dreamship</span> — API fulfillment · cofounder/CEO · $35M+ · 11x in a year · the Google deal
    ${L('https://dreamship.com','dreamship.com ↗')}`,
 
-  'google-deal':()=>`<span class="h">google-deal.md — the one I lead interviews with</span><span class="warn">SITUATION</span>  A startup in year one. No logo, no track record.
+  'google-deal':()=>`<span class="h">google-deal.md — the partnership I open interviews with</span><span class="warn">SITUATION</span>  A startup in year one. No logo, no track record.
 <span class="warn">TASK</span>       Open a first-of-its-kind Google partnership — a $45M+
            ad-spend channel — for our verified merchants.
 <span class="warn">ACTION</span>     Built an AI trademark/IP-compliance checker on Google Vision to
