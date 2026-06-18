@@ -34,6 +34,28 @@
     }
   })();
 
+  /* ---------- constellation: one-time line-DRAW (the flywheel wires itself up) ----------
+     SVG connectors start undrawn (CSS sets stroke-dashoffset from --len). On first
+     scroll-in we set each path's dasharray/offset to its real length, then add .wired
+     so CSS eases the offset to 0 — the strokes trace, node dots fade in behind them.
+     Fires once, then unobserves. Reduced-motion: CSS already shows lines drawn, so we
+     just mark .wired without touching dash lengths (no flash, no transition). */
+  (function(){
+    var con=$('#names .constellation'); if(!con) return;
+    var wires=[].slice.call(con.querySelectorAll('.constel-lines .wire'));
+    function wire(){ if(con._w) return; con._w=true;
+      if(!reduce){ wires.forEach(function(p){
+        var len=0; try{ len=p.getTotalLength(); }catch(e){ len=600; }
+        len=Math.ceil(len)||600;
+        p.style.strokeDasharray=len; p.style.setProperty('--len',len); });
+        void con.offsetWidth; }                       /* commit the undrawn state before transitioning */
+      con.classList.add('wired'); }
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wire(); io.disconnect(); } }); },{rootMargin:'0px 0px -12% 0px'});
+      io.observe(con);
+    } else { wire(); }
+  })();
+
   /* ---------- identity card: cinematic flip + pointer-tilt depth + bars ----------
      The flip is the ONE signature move. Pointer-tilt is supporting depth, not a
      second effect: it makes the card feel like a physical object the flip turns.

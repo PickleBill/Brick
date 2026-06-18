@@ -36,6 +36,8 @@
     --radius:22px; --blur:20px; --maxw:1140px; --sp:1;
     --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:64px; --s7:96px;
     --ease:cubic-bezier(.22,.61,.36,1);
+    --ease-quint:cubic-bezier(.22,1,.36,1);   /* snappy, decisive */
+    --ease-expo:cubic-bezier(.16,1,.3,1);     /* confident, premium */
   }
   * { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; }
@@ -113,11 +115,13 @@
   .lede b { font-weight:700; }
   .lede .g { color:var(--accent); font-weight:700; }
   .hero-cta { display:flex; flex-wrap:wrap; gap:11px; margin-top:26px; }
-  .pill { display:inline-flex; align-items:center; gap:8px; font-family:var(--body); font-size:14.5px; font-weight:600; padding:13px 22px; border-radius:99px; transition:.18s var(--ease); cursor:pointer; border:1px solid transparent; }
+  .pill { display:inline-flex; align-items:center; gap:8px; font-family:var(--body); font-size:14.5px; font-weight:600; padding:13px 22px; border-radius:99px; transition:transform .28s var(--ease-quint),box-shadow .28s var(--ease-quint),border-color .28s var(--ease-quint),background .28s var(--ease-quint); cursor:pointer; border:1px solid transparent; }
   .pill.solid { background:var(--cream); color:#08090a; }
-  .pill.solid:hover { transform:translateY(-2px); box-shadow:0 16px 36px -14px rgba(243,236,220,.5); }
+  .pill.solid:hover, .pill.solid:focus-visible { transform:translateY(-2px); box-shadow:0 16px 36px -14px rgba(243,236,220,.5); }
   .pill.ghost { background:var(--glass); color:var(--text); border-color:var(--line2); backdrop-filter:blur(10px); }
-  .pill.ghost:hover { transform:translateY(-2px); border-color:var(--accent); box-shadow:0 0 0 1px var(--accent-soft); }
+  .pill.ghost:hover, .pill.ghost:focus-visible { transform:translateY(-2px); border-color:var(--accent); box-shadow:0 0 0 1px var(--accent-soft),0 14px 32px -18px var(--accent-soft); }
+  .pill:active { transform:translateY(0) scale(.985); transition-duration:.09s; }   /* tactile press */
+  @media (prefers-reduced-motion: reduce){ .pill,.pill:hover,.pill:focus-visible,.pill:active{ transform:none; transition:none; } }
 
   /* ---------- identity flip card (signature hero moment) ----------
      Layer model: .flip (perspective + press) › .flip-tilt (pointer 3D tilt,
@@ -293,7 +297,9 @@
   .bbody { padding:13px 15px 15px; display:flex; flex-direction:column; flex:1; }
   .bbody h4 { font-family:var(--display); font-size:17px; font-weight:700; letter-spacing:-.012em; margin:0; display:flex; align-items:center; gap:8px; }
   .bbody p { font-size:12.5px; color:var(--mute); line-height:1.5; margin-top:6px; }
-  .live-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent); flex:none; }
+  .live-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent); flex:none; animation:livedot 2.4s ease-out infinite; }   /* "still building" heartbeat — keeps its glow while a soft ring radiates */
+  @keyframes livedot { 0%{ box-shadow:0 0 8px var(--accent),0 0 0 0 var(--accent-soft); } 70%{ box-shadow:0 0 8px var(--accent),0 0 0 7px transparent; } 100%{ box-shadow:0 0 8px var(--accent),0 0 0 0 transparent; } }
+  @media (prefers-reduced-motion: reduce){ .live-dot{ animation:none; } }
   .bcard.more { align-items:center; justify-content:center; background:linear-gradient(180deg,rgba(111,239,180,.06),var(--glass2)); border-style:dashed; }
   .bmore { display:flex; flex-direction:column; align-items:center; gap:5px; text-align:center; padding:22px; }
   .bmore-n { font-family:var(--display); font-weight:800; font-size:34px; letter-spacing:-.03em; color:var(--accent); }
@@ -303,19 +309,31 @@
   /* ---------- the names: partner constellation ---------- */
   .constellation { position:relative; margin-top:30px; min-height:200px; display:flex; align-items:center; justify-content:center; padding:22px 0; overflow:hidden; }
   .constel-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+  /* line-draw: the flywheel visibly wires itself up once, in view. Connectors
+     start undrawn; the node dots fade in just behind the advancing strokes.
+     stroke-dasharray/offset is set per-path in JS (length-aware), so CSS only
+     owns the easing + the fade. Under reduced motion the lines are simply drawn. */
+  .constel-lines .wire { stroke-dashoffset:var(--len,600); transition:stroke-dashoffset 1.25s var(--ease-expo); transition-delay:var(--wd,0s); }
+  .constel-lines .nodes { opacity:0; transition:opacity .5s ease .55s; }
+  .constellation.wired .constel-lines .wire { stroke-dashoffset:0; }
+  .constellation.wired .constel-lines .nodes { opacity:.5; }
   .constel-logos { position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px 38px; max-width:760px; }
   .star { position:relative; display:inline-flex; align-items:center; justify-content:center; animation:starfloat 7s ease-in-out infinite; animation-delay:var(--d,0s); }
-  .star::before { content:""; position:absolute; inset:-16px; border-radius:50%; background:radial-gradient(circle,rgba(111,239,180,.12),transparent 70%); opacity:0; transition:opacity .25s; }
-  .star img { height:27px; width:auto; max-width:108px; object-fit:contain; filter:brightness(0) invert(.86); opacity:.8; transition:filter .2s,opacity .2s; }
-  .star:hover img { opacity:1; filter:brightness(0) invert(1); }
-  .star:hover::before { opacity:1; }
-  .star.wm { font-family:var(--display); font-weight:700; font-size:22px; letter-spacing:-.012em; color:var(--faint); transition:color .2s; }
-  .star.wm:hover { color:var(--text); }
+  .star::before { content:""; position:absolute; inset:-16px; border-radius:50%; background:radial-gradient(circle,rgba(111,239,180,.12),transparent 70%); opacity:0; transition:opacity .3s var(--ease-quint),transform .3s var(--ease-quint); }
+  .star img { height:27px; width:auto; max-width:108px; object-fit:contain; filter:brightness(0) invert(.86); opacity:.8; transition:filter .25s var(--ease-quint),opacity .25s var(--ease-quint),transform .3s var(--ease-quint); }
+  .star:hover img, .star:focus-visible img { opacity:1; filter:brightness(0) invert(1); transform:scale(1.07); }
+  .star:hover::before, .star:focus-visible::before { opacity:1; transform:scale(1.12); }
+  .star.wm { font-family:var(--display); font-weight:700; font-size:22px; letter-spacing:-.012em; color:var(--faint); transition:color .25s var(--ease-quint),transform .3s var(--ease-quint); }
+  .star.wm:hover, .star.wm:focus-visible { color:var(--text); transform:scale(1.05); }
   .star.anchor img { height:46px; opacity:1; filter:brightness(0) invert(1); }
   .star.anchor::before { background:radial-gradient(circle,rgba(91,232,160,.20),transparent 68%); opacity:1; }
   @keyframes starfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
   @media (max-width:560px){ .constellation{ min-height:0; padding:16px 0; } .constel-logos{ gap:15px 22px; max-width:320px; } .star img{ height:22px; } .star.anchor img{ height:30px; } .star.wm{ font-size:18px; } .star{ animation:none; } .constel-lines{ opacity:.45; } }
-  @media (prefers-reduced-motion: reduce){ .star{ animation:none; } }
+  @media (prefers-reduced-motion: reduce){ .star{ animation:none; }
+    .constel-lines .wire{ stroke-dashoffset:0 !important; transition:none; }
+    .constel-lines .nodes{ opacity:.5; transition:none; }
+    .star:hover img, .star:focus-visible img, .star.wm:hover, .star.wm:focus-visible{ transform:none; }
+    .star:hover::before, .star:focus-visible::before{ transform:none; } }
 
   /* ---------- section heads ---------- */
   section.block { padding:var(--s7) 0 0; }
@@ -365,23 +383,26 @@
   .cmdrow > .chip { flex:0 0 auto; }
   .rowlbl { font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; padding:3px 0; margin-right:3px; }
   .rowlbl.green { color:var(--accent); } .rowlbl.orange { color:var(--amber); } .rowlbl.wild { color:var(--violet); }
-  .chip { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:var(--glass2); padding:7px 11px; border-radius:99px; cursor:pointer; transition:.14s; white-space:nowrap; }
-  .chip:hover { transform:translateY(-1px); color:var(--text); }
+  .chip { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:var(--glass2); padding:7px 11px; border-radius:99px; cursor:pointer; transition:transform .24s var(--ease-quint),color .24s var(--ease-quint),border-color .24s var(--ease-quint),box-shadow .24s var(--ease-quint),background .24s var(--ease-quint); white-space:nowrap; }
+  .chip:hover, .chip:focus-visible { transform:translateY(-1px); color:var(--text); background:var(--glass); }
+  .chip:active { transform:translateY(0) scale(.97); transition-duration:.08s; }
   .chip .s { font-weight:600; }
-  .cmdrow.green .chip:hover { border-color:var(--accent); } .cmdrow.green .chip .s { color:var(--accent); }
-  .cmdrow.orange .chip:hover { border-color:var(--amber); } .cmdrow.orange .chip .s { color:var(--amber); }
+  .cmdrow.green .chip:hover, .cmdrow.green .chip:focus-visible { border-color:var(--accent); box-shadow:0 0 0 1px rgba(111,239,180,.22); } .cmdrow.green .chip .s { color:var(--accent); }
+  .cmdrow.orange .chip:hover, .cmdrow.orange .chip:focus-visible { border-color:var(--amber); box-shadow:0 0 0 1px rgba(255,180,84,.22); } .cmdrow.orange .chip .s { color:var(--amber); }
   .cmdrow.orange .chip { border-color:rgba(255,180,84,.28); color:#e8d6b6; }
-  .cmdrow.wild .chip:hover { border-color:var(--violet); } .cmdrow.wild .chip .s { color:var(--violet); }
+  .cmdrow.wild .chip:hover, .cmdrow.wild .chip:focus-visible { border-color:var(--violet); box-shadow:0 0 0 1px rgba(167,139,250,.22); } .cmdrow.wild .chip .s { color:var(--violet); }
   .cmdrow.wild .chip { border-color:rgba(167,139,250,.28); }
+  @media (prefers-reduced-motion: reduce){ .chip,.chip:hover,.chip:focus-visible,.chip:active{ transform:none; transition:none; } }
 
   /* ---------- side-by-side operating companies ---------- */
   .opco-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:34px; }
   @media (max-width:780px){ .opco-grid{ grid-template-columns:1fr; } }
-  .opco { display:block; border:1px solid var(--line); border-radius:var(--radius); background:var(--glass); backdrop-filter:blur(var(--blur)); overflow:hidden; transition:.2s var(--ease); }
-  .opco:hover { transform:translateY(-4px); border-color:var(--line2); box-shadow:0 30px 70px -46px rgba(0,0,0,.85); }
+  .opco { display:block; border:1px solid var(--line); border-radius:var(--radius); background:var(--glass); backdrop-filter:blur(var(--blur)); overflow:hidden; transition:transform .32s var(--ease-quint),border-color .32s var(--ease-quint),box-shadow .32s var(--ease-quint); }
+  .opco:hover, .opco:focus-visible { transform:translateY(-4px); border-color:var(--line2); box-shadow:0 30px 70px -46px rgba(0,0,0,.85); }
   .opco .oshot { position:relative; aspect-ratio:16/9; overflow:hidden; border-bottom:1px solid var(--line); background:linear-gradient(135deg,#15171b,#0d0f12); }
-  .opco .oshot img, .opco .oshot video { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .55s var(--ease); }
-  .opco:hover .oshot img { transform:scale(1.04); }
+  .opco .oshot img, .opco .oshot video { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .6s var(--ease-expo); }
+  .opco:hover .oshot img, .opco:focus-visible .oshot img { transform:scale(1.04); }
+  @media (prefers-reduced-motion: reduce){ .opco,.opco:hover,.opco:focus-visible{ transform:none; transition:none; } .opco .oshot img{ transition:none; } .opco:hover .oshot img,.opco:focus-visible .oshot img{ transform:none; } }
   .opco .oshot .ph { position:absolute; inset:0; display:none; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; color:var(--faint); }
   .opco .obadge { position:absolute; left:13px; bottom:12px; display:inline-flex; gap:8px; align-items:center; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:rgba(8,9,10,.62); border:1px solid var(--line); padding:5px 10px; border-radius:99px; backdrop-filter:blur(4px); }
   .opco .obody { padding:20px 20px 22px; }
@@ -394,7 +415,8 @@
   .opco .ometrics .v { font-family:var(--display); font-weight:700; font-size:21px; letter-spacing:-.03em; color:var(--text); }
   .opco .ometrics .k { font-family:var(--mono); font-size:9.5px; color:var(--mute); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; }
   .opco .ogo { display:inline-flex; align-items:center; gap:7px; margin-top:18px; font-family:var(--mono); font-size:12px; font-weight:600; color:var(--accent); }
-  .opco .ogo .ar { transition:.16s; } .opco:hover .ogo .ar { transform:translateX(4px); }
+  .opco .ogo .ar { transition:transform .26s var(--ease-quint); } .opco:hover .ogo .ar, .opco:focus-visible .ogo .ar { transform:translateX(4px); }
+  @media (prefers-reduced-motion: reduce){ .opco .ogo .ar,.opco:hover .ogo .ar,.opco:focus-visible .ogo .ar{ transform:none; transition:none; } }
 
   /* ---------- vibeco (re-architected, editorial) ---------- */
   .vibe-head { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-top:8px; }
@@ -470,7 +492,8 @@
   /* ---------- proof glimpse: featured video + see-all ---------- */
   .proof-video { margin:30px auto 0; max-width:880px; }
   .proof-all { margin-top:26px; display:flex; justify-content:center; }
-  .proof-all .pill .ar { transition:.16s; } .proof-all .pill:hover .ar { transform:translateX(4px); }
+  .proof-all .pill .ar { transition:transform .26s var(--ease-quint); } .proof-all .pill:hover .ar, .proof-all .pill:focus-visible .ar { transform:translateX(4px); }
+  @media (prefers-reduced-motion: reduce){ .proof-all .pill .ar,.proof-all .pill:hover .ar,.proof-all .pill:focus-visible .ar{ transform:none; transition:none; } }
   .principles { list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:9px; }
   .principles li { font-family:var(--mono); font-size:12.5px; color:var(--text); padding-left:19px; position:relative; line-height:1.4; }
   .principles li::before { content:"▸"; position:absolute; left:0; color:var(--accent); }
@@ -483,7 +506,8 @@
   .story p { color:var(--mute); font-size:15px; line-height:1.6; margin-top:11px; max-width:48ch; }
   .story svg { width:100%; height:120px; }
   .e-go { display:inline-flex; align-items:center; gap:8px; margin-top:16px; font-family:var(--mono); font-size:12.5px; font-weight:600; color:var(--accent); }
-  .e-go .ar { transition:.16s; } a:hover .e-go .ar, .story:hover .e-go .ar { transform:translateX(4px); }
+  .e-go .ar { transition:transform .26s var(--ease-quint); } a:hover .e-go .ar, a:focus-visible .e-go .ar, .story:hover .e-go .ar { transform:translateX(4px); }
+  @media (prefers-reduced-motion: reduce){ .e-go .ar,a:hover .e-go .ar,a:focus-visible .e-go .ar,.story:hover .e-go .ar{ transform:none; transition:none; } }
 
   /* ---------- contact ---------- */
   .contact { text-align:center; padding:calc(96px*var(--sp)) 0 30px; }
@@ -655,12 +679,12 @@
       <div class="constellation rv" role="img" aria-label="Brands and partners Bill has closed, shipped, and sold to: Google, Microsoft, Stripe, PayPal, Payoneer, Meta, IBM, McKesson, Zillow, Avalara, Macy's, Nordstrom">
         <svg class="constel-lines" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
           <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5be8a0"/><stop offset=".5" stop-color="#36c6e0"/><stop offset="1" stop-color="#8b7cf0"/></linearGradient></defs>
-          <g stroke="url(#cg)" stroke-width="1" fill="none" opacity=".6">
-            <path d="M70 70 L220 140 L360 60 L520 150 L650 80 L745 160"/>
-            <path d="M110 220 L300 175 L470 230 L640 185"/>
-            <path d="M220 140 L300 175"/><path d="M360 60 L470 230"/><path d="M520 150 L640 185"/>
+          <g stroke="url(#cg)" stroke-width="1" fill="none" opacity=".6" stroke-linecap="round">
+            <path class="wire" style="--wd:0s"    d="M70 70 L220 140 L360 60 L520 150 L650 80 L745 160"/>
+            <path class="wire" style="--wd:.18s"  d="M110 220 L300 175 L470 230 L640 185"/>
+            <path class="wire" style="--wd:.62s"  d="M220 140 L300 175"/><path class="wire" style="--wd:.7s" d="M360 60 L470 230"/><path class="wire" style="--wd:.78s" d="M520 150 L640 185"/>
           </g>
-          <g fill="#6fefb4" opacity=".5">
+          <g class="nodes" fill="#6fefb4" opacity=".5">
             <circle cx="70" cy="70" r="1.7"/><circle cx="220" cy="140" r="1.7"/><circle cx="360" cy="60" r="1.7"/><circle cx="520" cy="150" r="1.7"/><circle cx="650" cy="80" r="1.7"/><circle cx="745" cy="160" r="1.7"/><circle cx="110" cy="220" r="1.7"/><circle cx="300" cy="175" r="1.7"/><circle cx="470" cy="230" r="1.7"/><circle cx="640" cy="185" r="1.7"/>
           </g>
         </svg>

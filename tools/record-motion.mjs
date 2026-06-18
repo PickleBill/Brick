@@ -52,6 +52,12 @@ const SCENES = {
   video: async (p) => {                  // featured video centerpiece (Main)
     await into(p, '#vidwrap', 'center'); await sleep(p, 6800);  // entrance FX (sheen + scan + reticle lock-on) then Ken-Burns drift
   },
+  flywheel: async (p) => {               // constellation line-draw + star hovers (Main)
+    await sleep(p, 400);
+    await into(p, '#names', 'center'); await sleep(p, 2800);     // connector lines trace on
+    await hover(p, '.constel-logos .star:nth-child(3)'); await sleep(p, 700);
+    await hover(p, '.constel-logos .star:nth-child(6)'); await sleep(p, 800);
+  },
   hovers: async (p) => {                 // opco + constellation hovers (Main)
     await into(p, '#builds', 'start'); await sleep(p, 600);
     await hover(p, '.opco-grid .opco:nth-child(1)'); await sleep(p, 1100);
