@@ -147,9 +147,7 @@
   .flip:hover .flipcue { color:var(--accent); border-color:rgba(111,239,180,.3); }
   @media (prefers-reduced-motion: reduce){ .flipcue .rot{ animation:none; } }
   /* sheen */
-  .flip-face::after{ content:""; position:absolute; top:0; left:-70%; width:45%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent); transform:skewX(-18deg); animation:sheen 7s ease-in-out infinite; pointer-events:none; z-index:5; }
-  @media (prefers-reduced-motion: reduce){ .flip-face::after{ animation:none; } }
-  @keyframes sheen{ 0%,100%{left:-70%} 55%{left:130%} }
+  /* flip sheen removed — motion budget (the flip is the card's one signature move) */
 
   /* FRONT — identity */
   .cf { display:grid; grid-template-columns:1.04fr .96fr; height:100%; }
@@ -258,7 +256,7 @@
   .bmore .ogo { margin-top:7px; }
 
   /* ---------- the names: partner constellation ---------- */
-  .constellation { position:relative; margin-top:30px; min-height:236px; display:flex; align-items:center; justify-content:center; padding:26px 0; overflow:hidden; }
+  .constellation { position:relative; margin-top:30px; min-height:200px; display:flex; align-items:center; justify-content:center; padding:22px 0; overflow:hidden; }
   .constel-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
   .constel-logos { position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px 38px; max-width:760px; }
   .star { position:relative; display:inline-flex; align-items:center; justify-content:center; animation:starfloat 7s ease-in-out infinite; animation-delay:var(--d,0s); }
@@ -268,7 +266,7 @@
   .star:hover::before { opacity:1; }
   .star.wm { font-family:var(--display); font-weight:700; font-size:22px; letter-spacing:-.012em; color:var(--faint); transition:color .2s; }
   .star.wm:hover { color:var(--text); }
-  .star.anchor img { height:38px; opacity:1; filter:brightness(0) invert(1); }
+  .star.anchor img { height:46px; opacity:1; filter:brightness(0) invert(1); }
   .star.anchor::before { background:radial-gradient(circle,rgba(91,232,160,.20),transparent 68%); opacity:1; }
   @keyframes starfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
   @media (max-width:560px){ .constellation{ min-height:0; padding:16px 0; } .constel-logos{ gap:15px 22px; max-width:320px; } .star img{ height:22px; } .star.anchor img{ height:30px; } .star.wm{ font-size:18px; } .star{ animation:none; } .constel-lines{ opacity:.45; } }
@@ -475,7 +473,7 @@
     <nav class="navlinks" id="navLinks" aria-label="Primary">
       <a href="#google">The deal</a>
       <a href="#builds">Builds</a>
-      <a href="../climb.html">Story</a>
+      <a href="../climb.html">Story ↗</a>
       <a href="../assets/Bill_Bricker_Resume_vFinal.pdf" download>Résumé</a>
       <a href="mailto:bricker3@gmail.com" class="email">Email</a>
     </nav>
@@ -486,9 +484,10 @@
 <nav class="spy" id="spy" aria-label="Section navigation">
   <a href="#top" data-s="top"><span class="sn">00</span><span class="st">Top</span></a>
   <a href="#google" data-s="google"><span class="sn">01</span><span class="st">Deal</span></a>
-  <a href="#interface" data-s="interface"><span class="sn">02</span><span class="st">Ask</span></a>
-  <a href="#builds" data-s="builds"><span class="sn">03</span><span class="st">Builds</span></a>
-  <a href="#person" data-s="person"><span class="sn">04</span><span class="st">Story</span></a>
+  <a href="#names" data-s="names"><span class="sn">02</span><span class="st">Flywheel</span></a>
+  <a href="#interface" data-s="interface"><span class="sn">03</span><span class="st">Ask</span></a>
+  <a href="#builds" data-s="builds"><span class="sn">04</span><span class="st">Builds</span></a>
+  <a href="#person" data-s="person"><span class="sn">05</span><span class="st">Story</span></a>
 </nav>
 
 <main id="top">
@@ -528,9 +527,9 @@
 
         <!-- right: copy -->
         <div class="hero-copy rv">
-          <span class="avail"><i></i> AI-Forward Sales &amp; Partnerships Leader</span>
+          <span class="avail">AI-Forward Sales &amp; Partnerships Leader</span>
           <h1 class="head">I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
-          <p class="lede">I founded Dreamship and <b>closed Google as a partner in year one</b>, then built the AI that does the work. I close what the biggest names in tech say yes to, and <span class="g">ship the product myself.</span></p>
+          <p class="lede">I founded Dreamship and <b>closed Google as a partner in year one</b>, then built the AI that does the work: Courtana, 40+ apps, a live CV pipeline, <span class="g">all shipped solo.</span></p>
           <div class="hero-cta">
             <a class="pill solid" href="#interface">Prompt my résumé ↓</a>
             <a class="pill ghost" href="../assets/Bill_Bricker_Resume_vFinal.pdf" download>Download résumé</a>
@@ -573,7 +572,7 @@
       <div class="constellation rv" role="img" aria-label="Brands and partners Bill has closed, shipped, and sold to: Google, Microsoft, Stripe, PayPal, Payoneer, Meta, IBM, McKesson, Zillow, Avalara, Macy's, Nordstrom">
         <svg class="constel-lines" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
           <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5be8a0"/><stop offset=".5" stop-color="#36c6e0"/><stop offset="1" stop-color="#8b7cf0"/></linearGradient></defs>
-          <g stroke="url(#cg)" stroke-width="1" fill="none" opacity=".4">
+          <g stroke="url(#cg)" stroke-width="1" fill="none" opacity=".6">
             <path d="M70 70 L220 140 L360 60 L520 150 L650 80 L745 160"/>
             <path d="M110 220 L300 175 L470 230 L640 185"/>
             <path d="M220 140 L300 175"/><path d="M360 60 L470 230"/><path d="M520 150 L640 185"/>
@@ -605,7 +604,6 @@
     <div class="wrap">
       <div class="interface-grid">
         <div class="sec-head rv">
-          <div class="kick">The interface</div>
           <h2>Don't read the résumé.<br><span class="flat">Prompt it.</span></h2>
           <p>A live AI that answers from a fact-checked ledger of twenty years. Tap a command, talk to it, or ask anything. It's the product, answering for me.</p>
         </div>
@@ -637,7 +635,7 @@
                   <span class="rowlbl orange">▸ hiring me?</span>
                   <button class="chip" data-cmd="tailor Partnerships Lead at a frontier AI lab"><span class="s">$</span> tailor to my role ✦</button>
                   <button class="chip" data-cmd="reference-check"><span class="s">$</span> reference-check</button>
-                  <button class="chip" data-cmd="why-you"><span class="s">$</span> why you, not an FDE?</button>
+                  <button class="chip" data-cmd="why-you"><span class="s">$</span> why you?</button>
                   <button class="chip" data-cmd="the-fit"><span class="s">$</span> the frontier-lab fit</button>
                   <button class="chip" data-cmd="shipped-this-week"><span class="s">$</span> shipped this week?</button>
                 </div>
@@ -660,9 +658,8 @@
   <section class="block" id="builds">
     <div class="wrap">
       <div class="sec-head rv">
-        <div class="kick">Proof of work</div>
         <h2>Two companies, 40+ apps,<br><span class="flat">shipped by one operator.</span></h2>
-        <p>Not slides. Real products with revenue, users, and scar tissue, built and sold by the same person. <em>Drag the shelf to scroll.</em></p>
+        <p>Not slides. Real products with revenue, users, and scar tissue, built and sold by the same person. <em>Drag or swipe to scroll.</em></p>
       </div>
 
       <!-- featured build -->
@@ -737,7 +734,6 @@
   <!-- ============ 05 · STORY ============ -->
   <section class="block" id="person">
     <div class="wrap">
-      <div class="sec-head rv"><div class="kick">The person</div></div>
       <a class="story rv" href="../climb.html">
         <div>
           <h3>Twenty years,<br>one climb.</h3>
@@ -764,6 +760,7 @@
       <p>Hiring for GTM &amp; partnerships? Fifteen minutes, and I'll show you something I built, not slides. Or ask the console up top and watch the close happen live.</p>
       <div class="ctas">
         <a class="pill solid" href="mailto:bricker3@gmail.com?subject=Let%27s%20close%20something%20big">bricker3@gmail.com →</a>
+        <a class="pill ghost" href="#interface">Prompt the console ↑</a>
         <a class="pill ghost" href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a>
         <a class="pill ghost" href="../assets/Bill_Bricker_Resume_vFinal.pdf" download>Download résumé</a>
       </div>
@@ -773,7 +770,7 @@
   <footer>
     <div class="wrap">
       <div class="foot-in">
-        <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>built solo with the AI-native stack it describes.</b></span>
+        <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>designed &amp; shipped solo.</b></span>
         <div class="foot-arch">
           <a href="#google">The deal</a>
           <a href="#builds">Builds</a>

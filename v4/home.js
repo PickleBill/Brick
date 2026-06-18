@@ -132,17 +132,17 @@
       'Raleigh, NC',
       '<span class="dim">open to founder / GTM / partnership / forward-deployed / fractional.</span>']); },
     'why-you':function(){ block([
-      '<span class="am"># Why me, not a 28-year-old forward-deployed engineer?</span>',
-      'They can build. Most can\'t walk into Google and leave with a',
-      '<span class="m">partnership</span> — I did that, then turned it into $35M+ and 11x.',
-      '20 years carrying an 8-figure number AND I ship production AI solo',
-      'today (31 repos, my commits). The seam labs keep missing is my résumé.']);
-      ask('Make the sharp case for why Bill is a stronger forward-deployed / GTM hire than a typical engineer, grounded in his record.', true);
+      '<span class="am"># The rare seam: I close the room AND ship the product.</span>',
+      'Plenty of people can build with AI now. Far fewer can walk into',
+      'Google and leave with a <span class="m">partnership</span>, then turn it into $35M+ and 11x.',
+      '20 years carrying an enterprise number AND I ship production AI solo',
+      'today. That seam is the rare part, and it\'s the whole résumé.']);
+      ask('Make the sharp case for why Bill is a rare hire who both closes enterprise partnerships and ships production AI solo, grounded in his record.', true);
       suggest(['tailor Partnerships Lead at Anthropic','reference-check']); },
     'the-fit':function(){ block([
       '<span class="am"># The frontier-lab fit.</span>',
-      'Labs are hiring the <span class="m">forward-deployed / GTM engineer</span> hardest —',
-      '"the line between selling and building has collapsed." That\'s the job',
+      'Labs are hiring the <span class="m">forward-deployed / GTM engineer</span> hardest:',
+      'the line between selling and building has collapsed. That\'s the job',
       'I\'ve already been doing for two companies: close the room, then ship',
       'the integration myself. I translate frontier capability into a signed yes.']);
       suggest(['tailor GTM lead at a frontier lab','reference-check']); },
@@ -278,7 +278,7 @@
       idx++; }, 1500); }
     function vCheck(){ var r=vw.getBoundingClientRect(), vh=innerHeight||800, inView=r.top<vh*0.85 && r.bottom>0;
       if(inView){ if(!started){ started=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); } }
-        if(vid && !reduce){ var p=vid.play(); if(p&&p.catch) p.catch(function(){}); } }
+        if(vid && !reduce && !(navigator.connection && navigator.connection.saveData)){ var p=vid.play(); if(p&&p.catch) p.catch(function(){}); } }
       else if(vid){ vid.pause(); } }
     vCheck(); addEventListener('scroll',vCheck,{passive:true}); addEventListener('load',vCheck);
   }
