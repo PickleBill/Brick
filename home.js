@@ -341,21 +341,7 @@
     vCheck(); addEventListener('scroll',vCheck,{passive:true}); addEventListener('load',vCheck);
   }
 
-  /* ---------- builds rail arrows ---------- */
-  (function(){ var rail=$('#rail'); if(!rail) return; var prev=$('#railPrev'), next=$('#railNext');
-    function by(d){ rail.scrollBy({left:d*Math.min(rail.clientWidth*0.82, 580), behavior:reduce?'auto':'smooth'}); }
-    if(prev) prev.addEventListener('click', function(){ by(-1); });
-    if(next) next.addEventListener('click', function(){ by(1); });
-  })();
-
   /* terminal command rows: manual scroll only (auto-scroll "wheels" removed — felt janky) */
-
-  /* ---------- VibeCo panels: swap to a motion preview on hover (seam) ---------- */
-  (function(){ [].slice.call(document.querySelectorAll('.vpanel[data-gif]')).forEach(function(p){
-      var gif=p.getAttribute('data-gif'); if(!gif) return; var img=p.querySelector('img'); if(!img) return; var still=img.getAttribute('src');
-      p.addEventListener('pointerenter',function(){ img.src=gif; });
-      p.addEventListener('pointerleave',function(){ img.src=still; });
-    }); })();
 
   /* ---------- scroll-spy ---------- */
   var spy=$('#spy');
