@@ -8,6 +8,13 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+  /* ---------- mobile nav ---------- */
+  var navToggle=$('#navToggle'), navLinks=$('#navLinks');
+  if(navToggle && navLinks){
+    navToggle.addEventListener('click', function(){ var open=navLinks.classList.toggle('open'); navToggle.classList.toggle('open',open); navToggle.setAttribute('aria-expanded',open?'true':'false'); });
+    navLinks.addEventListener('click', function(e){ if(e.target.closest('a')){ navLinks.classList.remove('open'); navToggle.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); } });
+  }
+
   /* ---------- reveal ---------- */
   var rvEls = [].slice.call(document.querySelectorAll('.rv'));
   function show(el){ if(el._s) return; el._s=true; el.classList.add('in');
@@ -17,28 +24,23 @@
   reveal(); addEventListener('scroll',reveal,{passive:true}); addEventListener('resize',reveal); addEventListener('load',reveal);
   setTimeout(function(){ rvEls.forEach(show); }, 2600);
 
-  /* ---------- count-ups (Google deal stats + any [data-count]) ---------- */
-  (function(){
-    var els=[].slice.call(document.querySelectorAll('[data-count]')); if(!els.length) return;
-    function go(el){ if(el._c) return; el._c=true;
+  /* ---------- count-ups (green stats band) ---------- */
+  var counted=false;
+  function countUps(){ if(counted) return; var band=$('.statband'); if(!band) return;
+    var r=band.getBoundingClientRect(), vh=innerHeight||800; if(r.top>vh*0.95) return; counted=true;
+    document.querySelectorAll('.statband [data-count]').forEach(function(el){
       var t=+el.dataset.count, pre=el.dataset.pre||'', suf=el.dataset.suf||'';
       if(reduce){ el.textContent=pre+t+suf; return; }
-      var c=0, step=Math.max(1,Math.ceil(t/28)); el.textContent=pre+'0'+suf;
-      var iv=setInterval(function(){ c+=step; if(c>=t){ c=t; clearInterval(iv); } el.textContent=pre+c+suf; },26); }
-    if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ go(e.target); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px'});
-      els.forEach(function(el){ io.observe(el); });
-    } else {
-      var chk=function(){ var vh=innerHeight||800; els.forEach(function(el){ if(el._c) return; var r=el.getBoundingClientRect(); if(r.top<vh*0.92 && r.bottom>0) go(el); }); };
-      chk(); addEventListener('scroll',chk,{passive:true}); addEventListener('load',chk);
-    }
-  })();
+      var c=0, step=Math.max(1,Math.ceil(t/30)); el.textContent=pre+'0'+suf;
+      var iv=setInterval(function(){ c+=step; if(c>=t){ c=t; clearInterval(iv); } el.textContent=pre+c+suf; },28);
+    }); }
+  countUps(); addEventListener('scroll',countUps,{passive:true}); addEventListener('load',countUps);
 
   /* ---------- identity card: flip + auto-flip teaser + interactive bars ---------- */
   var flip=$('#flip');
   if(flip){
     var flipped=false, userTouched=false, barsOn=false;
-    function setFlip(v){ flipped=v; flip.classList.toggle('flipped',v); flip.setAttribute('aria-pressed',v?'true':'false'); }
+    function setFlip(v){ flipped=v; flip.classList.toggle('flipped',v); if(v) activateBars(); }
     function toggle(){ userTouched=true; setFlip(!flipped); }
     flip.addEventListener('click', toggle);
     flip.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
@@ -58,7 +60,6 @@
       b.addEventListener('mouseleave',function(){ cycle(); });
       b.addEventListener('click',function(e){ e.stopPropagation(); clearInterval(timer); ai=i; setActive(i); });
     });
-    if(bars.length) activateBars();
   }
 
   /* ====================================================================
@@ -66,10 +67,10 @@
   ==================================================================== */
   var out=$('#termOut'), line=$('#termLine'), input=$('#termIn'), chips=$('#termChips'), booted=false, history=[];
   function el(html,cls){ var d=document.createElement('div'); if(cls)d.className=cls; d.innerHTML=html; return d; }
-  function scroll(){ if(!out) return; if(out.scrollHeight-out.scrollTop-out.clientHeight<60) out.scrollTop=out.scrollHeight; }
+  function scroll(){ if(out) out.scrollTop=out.scrollHeight; }
   function print(html,cls){ out.appendChild(el(html,cls)); scroll(); }
   function block(lines){ var b=document.createElement('div'); b.className='blk';
-    lines.forEach(function(l,i){ var d=document.createElement('div'); d.className='ln'; if(!reduce) d.style.setProperty('--i',i); d.innerHTML=l; b.appendChild(d); });
+    lines.forEach(function(l){ var d=document.createElement('div'); d.className='ln'; d.innerHTML=l; b.appendChild(d); });
     out.appendChild(b); scroll(); }
   function echo(cmd){ print('<span class="ps">→ ~</span> '+esc(cmd),'echo'); }
   function suggest(cmds){ var b=document.createElement('div'); b.className='blk';
@@ -83,24 +84,24 @@
       '<span class="dim">wildcards:</span> <span style="color:#a78bfa">chuck  billygoat  surprise</span>',
       '<span class="dim">tip:</span> <span class="am">tailor Partnerships Lead at Anthropic</span> <span class="dim">— or paste a job description.</span>']); },
     whoami:function(){ block([
-      '<span class="m">Bill Bricker</span> — AI-Forward Sales &amp; Partnerships Leader.',
-      'I close what the biggest names in tech say yes to, then build',
-      'the AI that does the work. Closed Google as a partner in year one.',
-      'Raleigh, NC · father of three · still building.']); },
+      '<span class="m">Bill Bricker</span> — forward-deployed GTM operator.',
+      'I sell frontier tech AND I build it. Closed &amp; ran the Google',
+      'partnership at a &lt;1-yr-old startup. Now shipping production AI daily.',
+      'Raleigh, NC · father of three · fka DJ Billygoat · still walking.']); },
     companies:function(){ block([
       '<span class="m">Courtana</span>  founder/CEO · 2023→now — AI smart-court SaaS, 36 courts.',
       '<span class="m">Dreamship</span> cofounder/CEO · 2018–23 — $35M+, 11x, the Google partnership.']);
       suggest(['google-deal','builds']); },
     'google-deal':function(){ block([
       '<span class="m"># The Google partnership — not an acquisition.</span>',
-      'In year one, navigated 5–6 internal Google teams to',
-      'VP-level sign-off — a first-of-its-kind cross-division <span class="m">partnership</span>.',
-      '→ <span class="m">$45M+ ad-spend</span> channel, run <span class="m">5+ years</span>. Stripe, PayPal, Meta followed.',
-      '<span class="dim">$45M+ = ad spend through the channel — not revenue.</span>']);
+      'As a &lt;1-year-old startup, navigated 5–6 internal Google teams to',
+      'director+ sign-off — a first-of-its-kind cross-division <span class="m">partnership</span>.',
+      '→ 8-figure ad-spend channel, run <span class="m">5+ years</span>. Stripe, PayPal, Meta followed.',
+      '<span class="dim">"Sold Google" was sales shorthand for closing the account.</span>']);
       suggest(['why-you','companies']); },
     enterprise:function(){ block([
       '<span class="m"># 20 years carrying a number.</span>',
-      'IBM/Netezza — Zillow, Avalara; 8-figure McKesson; achieved quota.',
+      'IBM/Netezza — Zillow, Avalara; 8-figure McKesson; &gt;100% quota.',
       'Northwestern Mutual — top 10 nationally; $6M+ TCV. Then founder-led GTM.']); },
     builds:function(){ block([
       '<span class="m"># VibeCo</span> — 11 AI agents (Gemini + Claude). Idea → brief → working app.',
@@ -114,8 +115,8 @@
       '<span class="m">21K+ processed</span> · <span class="m">4,097 analyzed</span> · <span class="m">$0.0054/clip</span> (~7x cheaper).']); },
     stats:function(){ block([
       '11x        revenue growth in one year',
-      '$35M+      peak revenue · Dreamship',
-      '$45M+      Google ad-spend channel · 5+ yrs',
+      '$35M+      cumulative revenue led',
+      '8-figure   Google channel closed &amp; run 5+ yrs',
       '40+ apps   shipped solo · 31 repos',
       '21K+       clips processed · 4,097 analyzed',
       '3          startups founded over 20 years']); },
@@ -127,20 +128,20 @@
     contact:function(){ block([
       '<span class="a" data-href="mailto:bricker3@gmail.com">bricker3@gmail.com</span>',
       '<span class="a" data-href="https://linkedin.com/in/williambricker">linkedin.com/in/williambricker</span>',
-      'Raleigh, NC',
+      '908 · 601 · 8152 · Raleigh, NC',
       '<span class="dim">open to founder / GTM / partnership / forward-deployed / fractional.</span>']); },
     'why-you':function(){ block([
-      '<span class="am"># The rare seam: I close the room AND ship the product.</span>',
-      'Plenty of people can build with AI now. Far fewer can walk into',
-      'Google and leave with a <span class="m">partnership</span>, then turn it into $35M+ and 11x.',
-      '20 years carrying an enterprise number AND I ship production AI solo',
-      'today. That seam is the rare part, and it\'s the whole résumé.']);
-      ask('Make the sharp case for why Bill is a rare hire who both closes enterprise partnerships and ships production AI solo, grounded in his record.', true);
+      '<span class="am"># Why me, not a 28-year-old forward-deployed engineer?</span>',
+      'They can build. Most can\'t walk into Google and leave with a',
+      '<span class="m">partnership</span> — I did that, then turned it into $35M+ and 11x.',
+      '20 years carrying an 8-figure number AND I ship production AI solo',
+      'today (31 repos, my commits). The seam labs keep missing is my résumé.']);
+      ask('Make the sharp case for why Bill is a stronger forward-deployed / GTM hire than a typical engineer, grounded in his record.', true);
       suggest(['tailor Partnerships Lead at Anthropic','reference-check']); },
     'the-fit':function(){ block([
       '<span class="am"># The frontier-lab fit.</span>',
-      'Labs are hiring the <span class="m">forward-deployed / GTM engineer</span> hardest:',
-      'the line between selling and building has collapsed. That\'s the job',
+      'Labs are hiring the <span class="m">forward-deployed / GTM engineer</span> hardest —',
+      '"the line between selling and building has collapsed." That\'s the job',
       'I\'ve already been doing for two companies: close the room, then ship',
       'the integration myself. I translate frontier capability into a signed yes.']);
       suggest(['tailor GTM lead at a frontier lab','reference-check']); },
@@ -161,7 +162,7 @@
     chuck:function(){ chuck(); },
     billygoat:function(){ block([
       'fka <span class="m">DJ Billygoat</span> — yes, that\'s really me. 🐐',
-      'Closed Google, shipped 40+ AI apps solo, dropped a few beats. Same guy.',
+      'Closed Google, beat cancer, shipped 40 AI apps, dropped beats. Same guy.',
       '<span class="dim">Still in the room.</span>']); },
     surprise:function(){ var picks=[chuck,CMDS.billygoat,CMDS['git log'],function(){ block(['<span class="m">fun fact:</span> my kids think the party card game I shipped (GroupOrDare) is the most impressive thing I\'ve done. They\'re probably right.']); },CMDS['why-you']]; picks[Math.floor(Math.random()*picks.length)](); },
     clear:function(){ out.innerHTML=''; }
@@ -171,9 +172,9 @@
   function tailor(role){ role=(role||'').trim();
     if(!role){ block(['<span class="am"># hiring-manager mode</span> — type e.g. <span class="m">tailor Partnerships Lead at Anthropic</span>, or paste a job description, and I\'ll make the case for that exact role.']); return; }
     block(['<span class="am"># tailoring the case for:</span> '+esc(role.slice(0,120))]);
-    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner in year one; led Dreamship to $35M+ peak revenue and 11x; ships production AI solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; 20 years carrying an enterprise number). Address the role directly; be concrete and confident; no generic filler.';
+    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner at a <1-yr-old startup; led Dreamship to $35M+ and 11x; ships production AI solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; 20 years carrying an enterprise number). Address the role directly; be concrete and confident; no generic filler.';
     askQuiet(q, function(){ // local fallback
-      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner in year one, turned it into $35M+ peak revenue and 11x at Dreamship, and today I build production AI solo — 40+ apps across 31 repos. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
+      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner at a sub-one-year-old startup, turned it into $35M+ and 11x at Dreamship, and today I build production AI solo — 40+ apps across 31 repos. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
       suggest(['reference-check','why-you','contact']);
     }, function(){ suggest(['reference-check','why-you','contact']); });
   }
@@ -209,10 +210,9 @@
   function typed(text){ var b=document.createElement('div'); b.className='blk'; out.appendChild(b);
     var lines=text.split(/\n+/);
     if(reduce){ b.innerHTML=lines.map(function(l){return '<div class="ln">'+esc(l)+'</div>';}).join(''); scroll(); return; }
-    var speed = reduce ? 0 : 9, pause = reduce ? 0 : 80;
     var li=0; (function nl(){ if(li>=lines.length) return; var d=document.createElement('div'); d.className='ln'; b.appendChild(d);
       var t=lines[li], ci=0; var iv=setInterval(function(){ d.textContent=t.slice(0,ci++); scroll();
-        if(ci>t.length){ clearInterval(iv); li++; setTimeout(nl,pause); } },speed); })(); }
+        if(ci>t.length){ clearInterval(iv); li++; setTimeout(nl,80); } },9); })(); }
 
   function chuck(){ var t=el('<span class="dim">fetching…</span>','blk'); out.appendChild(t); scroll();
     fetch('https://api.chucknorris.io/jokes/random').then(function(r){return r.json();}).then(function(d){
@@ -230,7 +230,7 @@
       L.push('<span class="dim">…live from github.com/picklebill — the build has a heartbeat.</span>'); block(L);
     }).catch(function(){ t.remove(); block(['<span class="m"># still building.</span> 40+ apps across 31 repos, shipped solo — VibeCo, Pickle DaaS, and whatever I touched today.']); }); }
 
-  function run(raw){ var cmd=(raw||'').trim(); if(!cmd) return; if(out) out.innerHTML=''; echo(cmd); history.push({role:'user',content:cmd});
+  function run(raw){ var cmd=(raw||'').trim(); if(!cmd) return; echo(cmd); history.push({role:'user',content:cmd});
     var lc=cmd.toLowerCase(); var am=lc.match(/^ask\s+(.+)/); if(am){ ask(am[1]); return; }
     var tm=cmd.match(/^tailor\s+([\s\S]+)/i); if(tm){ tailor(tm[1]); return; }
     if(lc==='tailor'){ tailor(''); return; }
@@ -249,19 +249,18 @@
   /* boot */
   function showInput(){ if(line){ line.style.display='flex'; scroll(); } }
   function boot(after){ var ls=[
-      {t:'brick.os — AI-forward sales console. booting…',c:'dim'},
-      {t:'Bill Bricker — I close what the biggest names in tech say yes to.',c:'m'},
-      {t:'Closed & ran the Google partnership in year one.',c:''},
-      {t:'Now shipping production AI daily. 40+ apps, solo. Ask me anything.',c:''}];
+      {t:'brick.os — forward-deployed operator console. booting…',c:'dim'},
+      {t:'Bill Bricker — I sell frontier tech AND I build it myself.',c:'m'},
+      {t:'Closed & ran the Google partnership at a <1-yr-old startup.',c:''},
+      {t:'Now shipping production AI daily — 40+ apps, solo. Ask me anything.',c:''}];
     echo('whoami');
-    var speed = reduce ? 0 : 11, pause = reduce ? 0 : 120;
+    if(reduce){ block(ls.map(function(l){return l.c?'<span class="'+l.c+'">'+esc(l.t)+'</span>':esc(l.t);})); if(after)after(); return; }
     var b=document.createElement('div'); b.className='blk'; out.appendChild(b); var i=0;
     (function nl(){ if(i>=ls.length){ if(after)after(); return; } var l=ls[i], d=document.createElement('div'); d.className='ln'+(l.c?' '+l.c:''); b.appendChild(d); var ci=0;
-      var iv=setInterval(function(){ d.textContent=l.t.slice(0,ci++); scroll(); if(ci>l.t.length){ clearInterval(iv); i++; setTimeout(nl,pause); } },speed); })(); }
+      var iv=setInterval(function(){ d.textContent=l.t.slice(0,ci++); scroll(); if(ci>l.t.length){ clearInterval(iv); i++; setTimeout(nl,120); } },11); })(); }
   function bootCheck(){ if(booted) return; var term=$('#term'); if(!term) return; var r=term.getBoundingClientRect(), vh=innerHeight||800;
-    if(r.top<vh*0.9 && r.bottom>0){ booted=true; boot(function(){ showInput(); }); removeEventListener('scroll',bootCheck); removeEventListener('resize',bootCheck); } }
-  if('IntersectionObserver' in window){ var _t=$('#term'); if(_t){ var _io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting && !booted){ booted=true; boot(function(){ showInput(); }); _io.disconnect(); } }); },{rootMargin:'0px 0px -8% 0px'}); _io.observe(_t); } }
-  bootCheck(); addEventListener('scroll',bootCheck,{passive:true}); addEventListener('resize',bootCheck,{passive:true}); addEventListener('load',bootCheck);
+    if(r.top<vh*0.9 && r.bottom>0){ booted=true; boot(function(){ showInput(); }); removeEventListener('scroll',bootCheck); } }
+  bootCheck(); addEventListener('scroll',bootCheck,{passive:true}); addEventListener('load',bootCheck);
   if(input){ input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ var v=input.value; input.value=''; run(v); } }); }
   if(chips){ chips.addEventListener('click',function(e){ var b=e.target.closest('.chip[data-cmd]'); if(!b) return;
     if(!booted){ booted=true; boot(function(){ showInput(); }); } run(b.dataset.cmd); showInput(); if(input) input.focus(); }); }
@@ -270,25 +269,29 @@
   var vid=$('#cvid'), vw=$('#vidwrap');
   if(vw){
     var badges=[].slice.call(vw.querySelectorAll('.statbadge')), started=false, idx=0, bt=null;
-    function cycleBadges(){ if(!badges.length) return; bt=setInterval(function(){
+    function cycleBadges(){ bt=setInterval(function(){
       badges[idx % badges.length].classList.add('show');
       badges[(idx + badges.length - 2) % badges.length].classList.remove('show');
       idx++; }, 1500); }
     function vCheck(){ var r=vw.getBoundingClientRect(), vh=innerHeight||800, inView=r.top<vh*0.85 && r.bottom>0;
       if(inView){ if(!started){ started=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); } }
-        if(vid && !reduce && !(navigator.connection && navigator.connection.saveData)){ var p=vid.play(); if(p&&p.catch) p.catch(function(){}); } }
+        if(vid && !reduce){ var p=vid.play(); if(p&&p.catch) p.catch(function(){}); } }
       else if(vid){ vid.pause(); } }
     vCheck(); addEventListener('scroll',vCheck,{passive:true}); addEventListener('load',vCheck);
   }
 
-  /* ---------- builds rail arrows ---------- */
-  (function(){ var rail=$('#rail'); if(!rail) return; var prev=$('#railPrev'), next=$('#railNext');
-    function by(d){ rail.scrollBy({left:d*Math.min(rail.clientWidth*0.82, 580), behavior:reduce?'auto':'smooth'}); }
-    if(prev) prev.addEventListener('click', function(){ by(-1); });
-    if(next) next.addEventListener('click', function(){ by(1); });
-  })();
-
-  /* terminal command rows: manual scroll only (auto-scroll "wheels" removed — felt janky) */
+  /* ---------- terminal command "wheels": gentle auto-scroll, pause on hover ---------- */
+  (function(){ if(reduce) return;
+    [].slice.call(document.querySelectorAll('.cmdrow')).forEach(function(row,k){
+      var slack=function(){ return row.scrollWidth-row.clientWidth; };
+      if(slack()<=8) return; var paused=false, dir=1;
+      ['pointerenter','focusin','pointerdown','touchstart'].forEach(function(ev){ row.addEventListener(ev,function(){ paused=true; },{passive:true}); });
+      ['pointerleave','focusout','touchend'].forEach(function(ev){ row.addEventListener(ev,function(){ paused=false; },{passive:true}); });
+      setTimeout(function(){ setInterval(function(){ if(paused||slack()<=8) return;
+        row.scrollLeft += dir*0.5;
+        if(row.scrollLeft>=slack()-1) dir=-1; else if(row.scrollLeft<=0) dir=1;
+      }, 28); }, 1200 + k*450);
+    }); })();
 
   /* ---------- VibeCo panels: swap to a motion preview on hover (seam) ---------- */
   (function(){ [].slice.call(document.querySelectorAll('.vpanel[data-gif]')).forEach(function(p){
