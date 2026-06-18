@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" data-display="bricolage">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Card lab — pick the hero card · Bill Bricker</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:#08090a; --bg2:#0d0f11;
+    --glass:rgba(255,255,255,.045); --glass2:rgba(255,255,255,.026);
+    --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.17);
+    --text:#f4f2ec; --mute:#9aa0a3; --faint:#6a7178;
+    --sage:#6fefb4; --sage-dim:#4cc890; --cyan:#5ee0d6; --teal:#3fd6c8;
+    --violet:#a78bfa; --purple:#b18bff; --coral:#ff8a5c; --amber:#ffb454; --cream:#f3ecdc; --term:#d8ddd6;
+    --accent:#6fefb4; --accent-dim:#4cc890; --accent-soft:rgba(111,239,180,.5);
+    --spectrum:linear-gradient(100deg,#5be8a0 0%,#36c6e0 33%,#8b7cf0 66%,#ff8a6b 100%);
+    --g-green:linear-gradient(90deg,#7be88f 0%,#46d6b6 55%,#36c6e0 100%);
+    --g-violet:linear-gradient(90deg,#36c6e0 0%,#7bb4e6 50%,#a78bfa 100%);
+    --g-wide:linear-gradient(90deg,#7be88f 0%,#36c6e0 45%,#8b7cf0 100%);
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Hanken Grotesk',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:22px; --blur:20px;
+    /* ease-out-quint / expo only — never bounce/elastic */
+    --ease:cubic-bezier(.22,1,.36,1);
+    --ease-quint:cubic-bezier(.22,1,.36,1);
+    --ease-expo:cubic-bezier(.16,1,.3,1);
+    --flip-ease:cubic-bezier(.62,.04,.3,1);
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  ::selection { background:var(--accent); color:#08090a; }
+  img { display:block; max-width:100%; }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:8px; }
+
+  /* ambient mesh — same energy as Main */
+  .mesh { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+  .blob { position:absolute; border-radius:50%; filter:blur(82px); mix-blend-mode:screen; }
+  .b1 { width:580px; height:580px; background:radial-gradient(circle,#16a88a,transparent 64%); top:-180px; right:-120px; opacity:.45; animation:d1 26s ease-in-out infinite; }
+  .b2 { width:540px; height:540px; background:radial-gradient(circle,#7b5be0,transparent 64%); top:540px; left:-180px; opacity:.4; animation:d2 30s ease-in-out infinite; }
+  .b3 { width:480px; height:480px; background:radial-gradient(circle,#ff8a5c,transparent 66%); top:900px; right:-130px; opacity:.3; animation:d2 28s ease-in-out infinite; }
+  @keyframes d1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-46px,42px) scale(1.12)} }
+  @keyframes d2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(46px,-38px) scale(1.1)} }
+  @media (prefers-reduced-motion: reduce){ .blob{ animation:none; } }
+
+  .wrap { position:relative; z-index:2; max-width:1240px; margin:0 auto; padding:0 30px; }
+  @media (max-width:560px){ .wrap{ padding:0 18px; } }
+
+  /* ---------- page header ---------- */
+  .lab-head { padding:60px 0 8px; }
+  @media (max-width:560px){ .lab-head{ padding:34px 0 4px; } }
+  .kick { font-family:var(--mono); font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-dim); display:inline-flex; align-items:center; gap:11px; }
+  .kick i { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 10px var(--accent); }
+  .lab-head h1 { font-family:var(--display); font-weight:800; font-size:clamp(30px,5vw,46px); letter-spacing:-.035em; line-height:1.04; margin:14px 0 0; text-wrap:balance; }
+  .lab-head h1 .spectrum { background:var(--spectrum); background-size:280% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; animation:drift 9s linear infinite; }
+  @keyframes drift { to { background-position:280% 0; } }
+  @media (prefers-reduced-motion: reduce){ .lab-head h1 .spectrum{ animation:none; } }
+  .lab-head p { color:var(--mute); font-size:clamp(15px,1.7vw,17.5px); line-height:1.55; margin-top:14px; max-width:62ch; }
+  .lab-head p b { color:var(--text); font-weight:600; }
+
+  /* ---------- the 3-up comparison grid ---------- */
+  .lab-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; padding:38px 0 80px; align-items:start; }
+  @media (max-width:1080px){ .lab-grid{ grid-template-columns:1fr; gap:46px; max-width:440px; margin:0 auto; } }
+  @media (max-width:560px){ .lab-grid{ padding:26px 0 56px; gap:40px; } }
+
+  .concept { display:flex; flex-direction:column; gap:0; }
+  .concept-num { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); display:flex; align-items:center; gap:10px; margin-bottom:11px; }
+  .concept-num .tagn { color:var(--accent); }
+  .concept-num .badge { margin-left:auto; font-size:9px; letter-spacing:.12em; color:#08090a; background:var(--accent); padding:3px 9px; border-radius:99px; font-weight:600; }
+  .concept-num .badge.alt { color:var(--cyan); background:rgba(94,224,214,.12); border:1px solid rgba(94,224,214,.3); }
+
+  /* shared card stage — gives each concept a fixed square + a perspective root */
+  .stage { perspective:1500px; }
+  .card-sq { position:relative; width:100%; aspect-ratio:1/1; }
+
+  /* one-line idea + tradeoff caption under each card */
+  .cap { margin-top:18px; }
+  .cap .idea { font-family:var(--display); font-weight:700; font-size:16px; letter-spacing:-.01em; color:var(--text); line-height:1.3; }
+  .cap .trade { display:block; margin-top:6px; font-family:var(--mono); font-size:11.5px; line-height:1.5; color:var(--mute); }
+  .cap .trade b { color:var(--sage); font-weight:500; }
+
+  /* shared face chrome (all three share Main's card shell) */
+  .face {
+    position:absolute; inset:0; border-radius:var(--radius); overflow:hidden;
+    border:1px solid var(--line2); background:linear-gradient(180deg,#0e1311,#0a0c0d);
+    box-shadow:0 40px 90px -42px rgba(0,0,0,.9);
+    transition:box-shadow .5s var(--ease-quint);
+  }
+  .cue { position:absolute; top:12px; right:13px; z-index:9; font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); display:inline-flex; align-items:center; gap:6px; background:rgba(8,10,9,.55); border:1px solid var(--line); padding:5px 10px; border-radius:99px; backdrop-filter:blur(6px); transition:.2s var(--ease-quint); }
+
+  /* =====================================================================
+     CONCEPT 1 — PRIMARY: cinematic flip + pointer tilt (faithful repro)
+     Layer model mirrors Main: .flip (perspective+press) › .flip-tilt
+     (pointer 3D tilt) › .flip-inner (the one rotateY flip).
+  ===================================================================== */
+  .flip { position:absolute; inset:0; cursor:pointer; --rx:0deg; --ry:0deg; --gx:50%; --gy:0%; --lift:0; }
+  .flip-tilt {
+    position:relative; width:100%; height:100%; transform-style:preserve-3d;
+    transform:translateZ(0) rotateX(var(--rx)) rotateY(var(--ry)) scale(calc(1 + var(--lift)*.014));
+    transition:transform .5s var(--ease-quint); will-change:transform;
+  }
+  .flip-inner { position:relative; width:100%; height:100%; transition:transform .82s var(--flip-ease); transform-style:preserve-3d; }
+  .flip.flipped .flip-inner { transform:rotateY(180deg); }
+  .flip-face { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:var(--radius); border:1px solid var(--line2); overflow:hidden; background:linear-gradient(180deg,#0e1311,#0a0c0d); box-shadow:0 40px 90px -42px rgba(0,0,0,.9); transition:box-shadow .5s var(--ease-quint); }
+  .flip-back { transform:rotateY(180deg); }
+  .flip.lifted .flip-face { box-shadow:0 60px 120px -46px rgba(0,0,0,.95), 0 0 0 1px rgba(111,239,180,.12); }
+  .flip-front .card-img { width:100%; height:100%; object-fit:cover; object-position:50% 28%; display:block; transform:translateZ(.01px); }
+  .flip-back .cardback { display:flex; flex-direction:column; height:100%; }
+  .flip-back .card-img { width:100%; flex:1 1 auto; min-height:0; object-fit:cover; object-position:50% 22%; display:block; }
+  .idpanel { flex:0 0 auto; padding:14px 16px 15px; background:linear-gradient(180deg,#0e1311,#0a0c0d); border-top:1px solid var(--line); display:flex; flex-direction:column; gap:3px; transform:translateZ(26px); transform-style:preserve-3d; }
+  .idpanel .idlabel { font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:3px; }
+  .idpanel .idl { font-family:var(--display); font-weight:800; font-size:clamp(14px,1.5vw,17px); letter-spacing:-.02em; line-height:1.22; }
+  .idpanel .idl.s2 { color:var(--cyan); }
+  .idpanel .idl.spectrum { background:var(--spectrum); background-size:280% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 13px rgba(91,232,160,.45)); animation:idlglow 3.6s ease-in-out infinite, drift 9s linear infinite; }
+  @keyframes idlglow { 0%,100%{ filter:drop-shadow(0 0 10px rgba(91,232,160,.4)); } 50%{ filter:drop-shadow(0 0 22px rgba(123,232,200,.85)); } }
+  /* pointer-tracked glare + one-pass light sweep */
+  .flip-face::before { content:""; position:absolute; inset:0; z-index:6; pointer-events:none; border-radius:inherit; background:radial-gradient(420px circle at var(--gx) var(--gy), rgba(255,255,255,.16), rgba(255,255,255,.04) 32%, transparent 60%); opacity:0; transition:opacity .4s var(--ease-quint); mix-blend-mode:screen; }
+  .flip.lifted .flip-face::before { opacity:1; }
+  .flip-face::after { content:""; position:absolute; top:-40%; bottom:-40%; left:0; width:42%; z-index:7; pointer-events:none; background:linear-gradient(100deg, transparent, rgba(180,255,224,.10) 38%, rgba(255,255,255,.30) 50%, rgba(180,255,224,.10) 62%, transparent); transform:translateX(-160%) skewX(-12deg); opacity:0; will-change:transform; }
+  .flip.sweeping .flip-face::after { animation:flipSweep .82s var(--flip-ease); }
+  @keyframes flipSweep { 0%{ transform:translateX(-160%) skewX(-12deg); opacity:0; } 12%{ opacity:.9; } 70%{ opacity:.65; } 100%{ transform:translateX(420%) skewX(-12deg); opacity:0; } }
+  .flip:active .flip-tilt { transition-duration:.12s; transform:scale(.985); }
+  .flip .cue .rot { display:inline-block; animation:rotcue 3.4s var(--ease-quint) infinite; }
+  @keyframes rotcue { 0%,68%,100%{transform:rotate(0)} 80%{transform:rotate(-150deg)} 92%{transform:rotate(-186deg)} }
+  .flip:hover .cue, .flip.lifted .cue { color:var(--accent); border-color:rgba(111,239,180,.32); box-shadow:0 0 18px -4px rgba(111,239,180,.5); }
+  /* front identity readout — the deal */
+  .fr-front { position:relative; display:flex; flex-direction:column; justify-content:flex-end; height:100%; }
+  .fr-front .grad { position:absolute; inset:0; background:linear-gradient(transparent 38%, rgba(8,10,9,.55) 66%, rgba(8,10,9,.92)); z-index:1; }
+  .fr-front .readout { position:relative; z-index:2; padding:18px 18px 18px; transform:translateZ(20px); }
+  .fr-front .rlabel { font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
+  .fr-front .rbig { font-family:var(--display); font-weight:800; font-size:clamp(18px,2.2vw,23px); letter-spacing:-.03em; line-height:1.1; margin-top:6px; }
+  .fr-front .rsub { font-family:var(--mono); font-size:10.5px; color:var(--mute); margin-top:6px; }
+
+  /* proof bars (same component as Main, lives below the flip on this concept) */
+  .opbars-card { margin-top:16px; }
+  .preadout { display:flex; align-items:baseline; gap:10px; margin:0 2px 11px; }
+  .preadout .n { font-family:var(--display); font-size:25px; font-weight:800; letter-spacing:-.03em; line-height:1; color:var(--sage); transition:opacity .22s var(--ease-quint), transform .22s var(--ease-quint); }
+  .preadout.tick .n { animation:readoutTick .42s var(--ease-quint); }
+  @keyframes readoutTick { 0%{ opacity:.2; transform:translateY(4px); } 100%{ opacity:1; transform:none; } }
+  .preadout .l { font-size:12px; color:var(--mute); }
+  .bars { display:flex; flex-direction:column; gap:9px; }
+  .bar { display:grid; grid-template-columns:1fr auto; gap:3px 10px; font-size:12.5px; cursor:pointer; border-radius:9px; padding:4px 8px; margin:0 -8px; transition:background .2s var(--ease-quint); }
+  .bars.stagger .bar { opacity:0; transform:translateY(7px); }
+  .bars.stagger.in .bar { opacity:1; transform:none; transition:opacity .5s var(--ease-quint), transform .5s var(--ease-quint), background .2s; transition-delay:calc(var(--i,0)*90ms); }
+  .bar:hover, .bar.on { background:rgba(111,239,180,.09); }
+  .bar.on .nm { color:var(--accent); font-weight:600; }
+  .bar.on .fill { box-shadow:0 0 16px rgba(111,239,180,.85); }
+  .bar .nm { color:var(--text); }
+  .bar .vl { font-family:var(--mono); font-size:10.5px; color:var(--faint); text-align:right; white-space:nowrap; }
+  .bar .track { grid-column:1/-1; height:6px; border-radius:99px; background:rgba(255,255,255,.085); overflow:hidden; }
+  .bar .fill { display:block; height:100%; border-radius:99px; width:0; transition:width 1.3s cubic-bezier(.25,1,.3,1); box-shadow:0 0 10px rgba(111,239,180,.4); }
+
+  /* =====================================================================
+     CONCEPT 2 — Alt A: Hologram (tilt, no flip)
+     One tilting, light-swept surface. Photo = base plane; operator lines
+     + 2 proof stats float as PARALLAX depth layers (translateZ + cursor
+     shift). Tracked glare. No flip.
+  ===================================================================== */
+  .holo { position:absolute; inset:0; cursor:pointer; transform-style:preserve-3d; --rx:0deg; --ry:0deg; --px:0; --py:0; --gx:50%; --gy:32%; --lift:0; }
+  .holo-tilt {
+    position:absolute; inset:0; transform-style:preserve-3d;
+    transform:rotateX(var(--rx)) rotateY(var(--ry)) scale(calc(1 + var(--lift)*.02));
+    transition:transform .55s var(--ease-quint); will-change:transform;
+  }
+  .holo .face { transform-style:preserve-3d; }
+  .holo.lifted .face { box-shadow:0 60px 120px -44px rgba(0,0,0,.95), 0 0 0 1px rgba(94,224,214,.16); }
+  .holo-img { position:absolute; inset:-6%; width:112%; height:112%; object-fit:cover; object-position:50% 24%; transform:translate3d(calc(var(--px)*-10px), calc(var(--py)*-10px), 0); transition:transform .35s var(--ease-quint); }
+  .holo-scrim { position:absolute; inset:0; z-index:1; background:linear-gradient(transparent 30%, rgba(8,10,9,.5) 58%, rgba(8,10,9,.93)); }
+  /* depth layers — each sits at a different translateZ and counter-shifts with cursor */
+  .holo-depth { position:absolute; inset:0; z-index:2; transform-style:preserve-3d; pointer-events:none; }
+  .holo-chip { position:absolute; top:14px; left:14px; z-index:4; font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:#08090a; background:var(--sage); padding:5px 10px; border-radius:99px; transform:translate3d(calc(var(--px)*16px), calc(var(--py)*16px), 60px); box-shadow:0 8px 22px -6px rgba(111,239,180,.7); }
+  .holo-lines { position:absolute; left:18px; right:18px; bottom:18px; z-index:3; display:flex; flex-direction:column; gap:3px; transform:translate3d(calc(var(--px)*22px), calc(var(--py)*22px), 44px); }
+  .holo-lines .hlabel { font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--sage); margin-bottom:4px; }
+  .holo-lines .hl { font-family:var(--display); font-weight:800; font-size:clamp(17px,2.1vw,22px); letter-spacing:-.03em; line-height:1.08; }
+  .holo-lines .hl.s2 { color:var(--cyan); font-size:clamp(13px,1.5vw,15.5px); }
+  /* two floating proof stats at a deeper-still plane */
+  .holo-stats { position:absolute; right:16px; top:54px; z-index:3; display:flex; flex-direction:column; gap:11px; align-items:flex-end; transform:translate3d(calc(var(--px)*32px), calc(var(--py)*32px), 70px); }
+  .holo-stat { text-align:right; background:rgba(8,10,9,.42); border:1px solid var(--line); backdrop-filter:blur(6px); padding:7px 11px 8px; border-radius:13px; }
+  .holo-stat .sn { font-family:var(--display); font-weight:800; font-size:21px; letter-spacing:-.03em; line-height:1; color:var(--sage); display:block; }
+  .holo-stat .sk { font-family:var(--mono); font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--mute); display:block; margin-top:4px; }
+  /* tracked glare + holographic sheen */
+  .holo-glare { position:absolute; inset:0; z-index:5; pointer-events:none; border-radius:inherit; background:radial-gradient(440px circle at var(--gx) var(--gy), rgba(255,255,255,.18), rgba(120,255,224,.05) 34%, transparent 62%); opacity:0; transition:opacity .4s var(--ease-quint); mix-blend-mode:screen; transform:translateZ(80px); }
+  .holo.lifted .holo-glare { opacity:1; }
+  .holo-sheen { position:absolute; inset:0; z-index:5; pointer-events:none; border-radius:inherit; background:linear-gradient(105deg, transparent 42%, rgba(123,232,200,.14) 50%, transparent 58%); background-size:300% 300%; background-position:calc(var(--gx)) calc(var(--gy)); mix-blend-mode:screen; opacity:.0; transition:opacity .4s var(--ease-quint); }
+  .holo.lifted .holo-sheen { opacity:1; }
+  .holo .cue .rot { display:inline-block; }
+  .holo:hover .cue, .holo.lifted .cue { color:var(--cyan); border-color:rgba(94,224,214,.32); box-shadow:0 0 18px -4px rgba(94,224,214,.5); }
+  .holo:active .holo-tilt { transition-duration:.12s; transform:scale(.99); }
+
+  /* =====================================================================
+     CONCEPT 3 — Alt B: Terminal-boot reveal
+     Card "boots" like the OS — scan-line wipe reveals the photo (the human,
+     family first), operator lines TYPE in. Re-boots on tap/click.
+  ===================================================================== */
+  .boot { position:absolute; inset:0; cursor:pointer; }
+  .boot .face { display:flex; flex-direction:column; justify-content:flex-end; }
+  .boot-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 30%; z-index:0;
+    /* revealed by a top-down wipe */
+    clip-path:inset(0 0 100% 0); transition:clip-path 1s var(--ease-expo); filter:saturate(.4) brightness(.7); }
+  .boot.on .boot-img { clip-path:inset(0 0 0 0); filter:saturate(1) brightness(1); transition:clip-path 1s var(--ease-expo), filter 1.1s var(--ease-expo); }
+  .boot-scrim { position:absolute; inset:0; z-index:1; background:linear-gradient(transparent 34%, rgba(8,10,9,.5) 60%, rgba(8,10,9,.94)); }
+  /* the scan line that rides the wipe edge */
+  .boot-scan { position:absolute; left:0; right:0; top:0; height:2px; z-index:3; background:linear-gradient(90deg, transparent, var(--sage), transparent); box-shadow:0 0 18px 3px rgba(111,239,180,.7); opacity:0; transform:translateY(0); }
+  .boot.on .boot-scan { animation:scanRide 1s var(--ease-expo) forwards; }
+  @keyframes scanRide { 0%{ opacity:0; transform:translateY(0); } 8%{ opacity:1; } 92%{ opacity:1; } 100%{ opacity:0; transform:translateY(calc(var(--sq,360px) - 2px)); } }
+  /* faint scan-line texture while booting */
+  .boot-grid { position:absolute; inset:0; z-index:2; pointer-events:none; background:repeating-linear-gradient(0deg, rgba(111,239,180,.05) 0 1px, transparent 1px 3px); opacity:0; transition:opacity .5s var(--ease-quint); }
+  .boot.booting .boot-grid { opacity:1; }
+  /* boot readout — types in */
+  .boot-read { position:relative; z-index:4; padding:18px 18px 18px; font-family:var(--mono); }
+  .boot-line { font-size:11px; line-height:1.7; color:var(--mute); min-height:1px; white-space:pre-wrap; }
+  .boot-line .ps { color:var(--sage); }
+  .boot-line.head { font-family:var(--display); font-weight:800; font-size:clamp(17px,2.1vw,21px); letter-spacing:-.03em; line-height:1.16; color:var(--text); margin-top:9px; white-space:normal; }
+  .boot-line.head .s2 { color:var(--cyan); }
+  .boot-caret { display:inline-block; width:7px; height:1.05em; vertical-align:-2px; margin-left:1px; background:var(--sage); animation:cb 1.05s steps(1) infinite; }
+  @keyframes cb { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+  .boot.done .boot-caret { display:none; }
+  .boot-tap { position:absolute; left:0; right:0; bottom:9px; z-index:5; text-align:center; font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); opacity:0; transition:opacity .4s var(--ease-quint); pointer-events:none; }
+  .boot.done .boot-tap { opacity:1; }
+  .boot:hover .cue, .boot.booting .cue { color:var(--sage); border-color:rgba(111,239,180,.32); }
+
+  /* =====================================================================
+     prefers-reduced-motion — every concept resolves to a complete static
+     state (no animation, full reveal, neutral tilt).
+  ===================================================================== */
+  @media (prefers-reduced-motion: reduce){
+    .flip-tilt, .holo-tilt { transform:none !important; transition:none; }
+    .flip-inner { transition:none; }
+    .flip-face::before, .flip-face::after, .holo-glare, .holo-sheen, .holo-img { display:none; }
+    .holo-img { display:block; transform:none; }
+    .flip .cue .rot, .idpanel .idl.spectrum, .lab-head h1 .spectrum { animation:none; }
+    .bars.stagger .bar { opacity:1; transform:none; }
+    .bar .fill { transition:none; }
+    .preadout.tick .n { animation:none; }
+    .holo-chip, .holo-lines, .holo-stats { transform:none; }
+    .boot-img { clip-path:inset(0 0 0 0); filter:saturate(1) brightness(1); transition:none; }
+    .boot-scan, .boot-grid { display:none; }
+    .boot-caret { display:none; }
+    .boot-tap { opacity:1; }
+  }
+  /* touch / coarse pointer — no hover. Tilt neutralised; interaction comes
+     from tap (flip/boot) + auto behavior (holo auto-shimmer), so mobile still
+     sees motion. */
+  @media (hover:none), (pointer:coarse){
+    .flip-tilt, .holo-tilt { transform:none !important; }
+    .flip-face::before { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+
+<main>
+  <section class="lab-head">
+    <div class="wrap">
+      <span class="kick"><i></i>Card lab</span>
+      <h1>Card lab — <span class="spectrum">pick the hero card.</span></h1>
+      <p>Three takes on the identity card, side by side. Same record, same look — different
+        <b>interaction</b>. Hover (or tap on mobile) each one, then pick the hero.
+        <b>The deal</b> = Dreamship's giant Google-era donation check. <b>The human</b> = family.</p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="lab-grid">
+
+      <!-- ===== CONCEPT 1 — PRIMARY: cinematic flip + tilt ===== -->
+      <div class="concept">
+        <div class="concept-num"><span class="tagn">01</span> Cinematic flip + tilt <span class="badge">Current hero</span></div>
+        <div class="stage">
+          <div class="card-sq">
+            <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card. Flip between the deal and the operator profile.">
+              <div class="flip-tilt">
+                <span class="cue"><span class="rot">⟲</span> flip</span>
+                <div class="flip-inner">
+                  <div class="flip-face flip-front">
+                    <div class="fr-front">
+                      <img class="card-img" src="assets/dreamship-donate.jpg" alt="Dreamship presents a giant donation check on stage, 2019" onerror="this.style.display='none'" />
+                      <div class="grad"></div>
+                      <div class="readout">
+                        <span class="rlabel">▸ the deal</span>
+                        <span class="rbig">Closed Google as a partner.<br>In year one.</span>
+                        <span class="rsub">$45M+ ad-spend channel · $35M+ peak revenue</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flip-face flip-back">
+                    <div class="cardback">
+                      <img class="card-img" src="assets/family.jpg" alt="Bill Bricker with his family" onerror="this.style.display='none'" />
+                      <div class="idpanel">
+                        <span class="idlabel">▸ the operator</span>
+                        <span class="idl">Forward-deployed GTM operator</span>
+                        <span class="idl s2">0 → 1 Builder</span>
+                        <span class="idl spectrum">Vibe Pusher</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="opbars-card">
+          <div class="preadout"><span class="n" id="ringN">20</span><span class="l" id="ringL">years in enterprise GTM</span></div>
+          <div class="bars stagger" id="bars">
+            <div class="bar" data-m="$45M+" data-ml="Google ad-spend channel" style="--i:0"><span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span></div>
+            <div class="bar" data-m="6" data-ml="big-tech partners" style="--i:1"><span class="nm">Closed big-tech partners</span><span class="vl">Stripe · Meta</span><span class="track"><i class="fill" data-w="82" style="background:var(--g-violet)"></i></span></div>
+            <div class="bar" data-m="11x" data-ml="in 2020" style="--i:2"><span class="nm">Zero-to-one scale</span><span class="vl">11x · '20</span><span class="track"><i class="fill" data-w="90" style="background:var(--g-green)"></i></span></div>
+            <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo" style="--i:3"><span class="nm">AI-native workflows</span><span class="vl">40+ apps</span><span class="track"><i class="fill" data-w="88" style="background:var(--g-wide)"></i></span></div>
+          </div>
+        </div>
+        <div class="cap">
+          <span class="idea">The deal flips to the human, then proof bars cycle.</span>
+          <span class="trade">Two stories in one square + a signature 3D moment. <b>Tradeoff:</b> richest / most build; the back is hidden until you flip, and it leads with the check, not the face.</span>
+        </div>
+      </div>
+
+      <!-- ===== CONCEPT 2 — Alt A: Hologram (tilt, no flip) ===== -->
+      <div class="concept">
+        <div class="concept-num"><span class="tagn">02</span> Hologram <span class="badge alt">Alt A</span></div>
+        <div class="stage">
+          <div class="card-sq">
+            <div class="holo" id="holo" tabindex="0" role="button" aria-label="Holographic identity card. Move the cursor to tilt; depth layers shift with parallax.">
+              <div class="holo-tilt">
+                <div class="face">
+                  <span class="cue"><span class="rot">◈</span> tilt</span>
+                  <img class="holo-img" src="assets/dreamship-donate.jpg" alt="Bill Bricker on stage with the giant Dreamship donation check" onerror="this.style.display='none'" />
+                  <div class="holo-scrim"></div>
+                  <span class="holo-chip">▸ the deal · in year one</span>
+                  <div class="holo-stats">
+                    <div class="holo-stat"><span class="sn">$45M+</span><span class="sk">ad-spend channel</span></div>
+                    <div class="holo-stat"><span class="sn">$35M+</span><span class="sk">peak revenue</span></div>
+                  </div>
+                  <div class="holo-lines">
+                    <span class="hlabel">▸ AI-forward GTM</span>
+                    <span class="hl">Closed Google as a partner.</span>
+                    <span class="hl s2">40+ apps across 31 repos, shipped solo.</span>
+                  </div>
+                  <div class="holo-sheen"></div>
+                  <div class="holo-glare"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cap">
+          <span class="idea">One surface; the stats and lines float on parallax depth.</span>
+          <span class="trade">Premium, instant — everything readable at a glance, no click needed. <b>Tradeoff:</b> only one story fits; the parallax depth mostly lands on desktop.</span>
+        </div>
+      </div>
+
+      <!-- ===== CONCEPT 3 — Alt B: Terminal-boot reveal ===== -->
+      <div class="concept">
+        <div class="concept-num"><span class="tagn">03</span> Terminal-boot reveal <span class="badge alt">Alt B</span></div>
+        <div class="stage">
+          <div class="card-sq">
+            <div class="boot" id="boot" tabindex="0" role="button" aria-label="Identity card that boots like a terminal, revealing the photo while the operator lines type in. Tap to re-boot.">
+              <div class="face">
+                <img class="boot-img" src="assets/family.jpg" alt="Bill Bricker with his family" onerror="this.style.display='none'" />
+                <div class="boot-scrim"></div>
+                <div class="boot-grid"></div>
+                <div class="boot-scan"></div>
+                <span class="cue">▸ boot</span>
+                <div class="boot-read" id="bootRead">
+                  <div class="boot-line" data-type="brick.os — loading identity…"></div>
+                  <div class="boot-line" data-type="$ whoami"><span class="ps"></span></div>
+                  <div class="boot-line head" data-type="Bill Bricker — closes the room AND ships the product."></div>
+                  <div class="boot-line" data-type="father of three · still building"></div>
+                </div>
+                <span class="boot-tap">tap to re-boot</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cap">
+          <span class="idea">Boots like the OS — scan-line wipe, lines type in, human first.</span>
+          <span class="trade">Ties straight to the site's terminal motif and leads with Bill's face. <b>Tradeoff:</b> the payoff is sequential — you wait ~2s for the full reveal.</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = !reduce && window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var $ = function(s,r){ return (r||document).querySelector(s); };
+
+  /* ============================================================
+     CONCEPT 1 — flip + pointer tilt + proof bars (faithful repro)
+  ============================================================ */
+  (function(){
+    var flip=$('#flip'); if(!flip) return;
+    var flipped=false, userTouched=false;
+    function sweep(){ if(reduce) return; flip.classList.remove('sweeping'); void flip.offsetWidth; flip.classList.add('sweeping'); }
+    function setFlip(v){ flipped=v; flip.classList.toggle('flipped',v); flip.setAttribute('aria-pressed',v?'true':'false'); sweep(); }
+    function toggle(){ userTouched=true; setFlip(!flipped); }
+    flip.addEventListener('click', toggle);
+    flip.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+    /* auto-flip teaser: show the operator side once, then settle back */
+    if(!reduce){ setTimeout(function(){ if(userTouched) return; setFlip(true);
+      setTimeout(function(){ if(userTouched) return; setFlip(false); }, 2500); }, 3400); }
+
+    if(fine){
+      var MAXX=7, MAXY=9, tx=0, ty=0, gx=50, gy=50, raf=0, hovering=false;
+      function paint(){ raf=0;
+        flip.style.setProperty('--rx', tx.toFixed(2)+'deg');
+        flip.style.setProperty('--ry', ty.toFixed(2)+'deg');
+        flip.style.setProperty('--gx', gx.toFixed(1)+'%');
+        flip.style.setProperty('--gy', gy.toFixed(1)+'%'); }
+      function queue(){ if(!raf) raf=requestAnimationFrame(paint); }
+      flip.addEventListener('pointermove', function(e){ if(e.pointerType==='touch') return;
+        var r=flip.getBoundingClientRect(); var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+        px=Math.min(1,Math.max(0,px)); py=Math.min(1,Math.max(0,py));
+        ty=(px-0.5)*2*MAXY; tx=-(py-0.5)*2*MAXX;
+        gx=(flipped?(1-px):px)*100; gy=py*100; hovering=true; queue(); });
+      flip.addEventListener('pointerenter', function(e){ if(e.pointerType==='touch') return; hovering=true; flip.classList.add('lifted'); flip.style.setProperty('--lift','1'); });
+      flip.addEventListener('pointerleave', function(){ hovering=false; flip.classList.remove('lifted'); flip.style.setProperty('--lift','0'); tx=0; ty=0; gx=50; gy=0; queue(); });
+      flip.addEventListener('focus', function(){ if(!hovering){ flip.classList.add('lifted'); } });
+      flip.addEventListener('blur', function(){ if(!hovering){ flip.classList.remove('lifted'); } });
+    }
+
+    /* proof bars: staggered reveal → auto-cycle + readout */
+    var bars=[].slice.call(document.querySelectorAll('#bars .bar'));
+    var barsEl=$('#bars'), preadout=$('.preadout');
+    var rN=$('#ringN'), rL=$('#ringL'), ai=-1, timer=null;
+    function tickReadout(){ if(!preadout||reduce) return; preadout.classList.remove('tick'); void preadout.offsetWidth; preadout.classList.add('tick'); }
+    function setActive(i){ bars.forEach(function(b,j){ b.classList.toggle('on',j===i); });
+      if(i<0){ rN.textContent='20'; rL.textContent='years in enterprise GTM'; }
+      else { rN.textContent=bars[i].dataset.m; rL.textContent=bars[i].dataset.ml; }
+      tickReadout(); }
+    function cycle(){ if(reduce) return; clearInterval(timer); timer=setInterval(function(){ ai=(ai+1)%bars.length; setActive(ai); }, 2600); }
+    function activate(){
+      if(barsEl) barsEl.classList.add('in');
+      setTimeout(function(){ document.querySelectorAll('#bars .fill').forEach(function(f){ f.style.width=f.dataset.w+'%'; }); }, reduce?0:420);
+      ai=0; bars.forEach(function(b,j){ b.classList.toggle('on',j===0); });
+      if(rN){ rN.textContent=bars[0].dataset.m; rL.textContent=bars[0].dataset.ml; }
+      cycle(); }
+    bars.forEach(function(b,i){
+      b.addEventListener('mouseenter',function(){ clearInterval(timer); setActive(i); });
+      b.addEventListener('mouseleave',function(){ cycle(); });
+      b.addEventListener('click',function(e){ e.stopPropagation(); clearInterval(timer); ai=i; setActive(i); });
+    });
+    if(bars.length) activate();
+  })();
+
+  /* ============================================================
+     CONCEPT 2 — hologram: tilt + parallax depth + tracked glare
+  ============================================================ */
+  (function(){
+    var holo=$('#holo'); if(!holo) return;
+    var MAXX=8, MAXY=10, tx=0, ty=0, nx=0, ny=0, gx=50, gy=32, raf=0;
+    function paint(){ raf=0;
+      holo.style.setProperty('--rx', tx.toFixed(2)+'deg');
+      holo.style.setProperty('--ry', ty.toFixed(2)+'deg');
+      holo.style.setProperty('--px', nx.toFixed(3));
+      holo.style.setProperty('--py', ny.toFixed(3));
+      holo.style.setProperty('--gx', gx.toFixed(1)+'%');
+      holo.style.setProperty('--gy', gy.toFixed(1)+'%'); }
+    function queue(){ if(!raf) raf=requestAnimationFrame(paint); }
+
+    if(fine){
+      holo.addEventListener('pointermove', function(e){ if(e.pointerType==='touch') return;
+        var r=holo.getBoundingClientRect(); var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+        px=Math.min(1,Math.max(0,px)); py=Math.min(1,Math.max(0,py));
+        ty=(px-0.5)*2*MAXY; tx=-(py-0.5)*2*MAXX;
+        nx=(px-0.5)*2; ny=(py-0.5)*2;
+        gx=px*100; gy=py*100; queue(); });
+      holo.addEventListener('pointerenter', function(e){ if(e.pointerType==='touch') return; holo.classList.add('lifted'); holo.style.setProperty('--lift','1'); });
+      holo.addEventListener('pointerleave', function(){ holo.classList.remove('lifted'); holo.style.setProperty('--lift','0'); tx=ty=nx=ny=0; gx=50; gy=32; queue(); });
+      holo.addEventListener('focus', function(){ holo.classList.add('lifted'); });
+      holo.addEventListener('blur', function(){ holo.classList.remove('lifted'); });
+    } else if(!reduce){
+      /* touch + no-hover: gentle auto-shimmer so mobile still sees the holo move.
+         Also drives on tap for an intentional pulse. */
+      var t0=null, running=true;
+      function auto(ts){ if(!running) return; if(t0===null) t0=ts; var e=(ts-t0)/1000;
+        nx=Math.sin(e*0.9)*0.6; ny=Math.cos(e*0.7)*0.45;
+        gx=50+nx*26; gy=40+ny*22; holo.classList.add('lifted');
+        holo.style.setProperty('--px', nx.toFixed(3));
+        holo.style.setProperty('--py', ny.toFixed(3));
+        holo.style.setProperty('--gx', gx.toFixed(1)+'%');
+        holo.style.setProperty('--gy', gy.toFixed(1)+'%');
+        requestAnimationFrame(auto); }
+      requestAnimationFrame(auto);
+      holo.addEventListener('click', function(){ /* tactile pulse */ holo.classList.add('lifted'); });
+    }
+  })();
+
+  /* ============================================================
+     CONCEPT 3 — terminal-boot reveal: scan-wipe + typewriter
+  ============================================================ */
+  (function(){
+    var boot=$('#boot'); if(!boot) return;
+    var lines=[].slice.call(boot.querySelectorAll('.boot-line'));
+    var sq=boot.getBoundingClientRect().height||360;
+    boot.style.setProperty('--sq', sq+'px');
+    var caret=null, timers=[];
+
+    function clearTimers(){ timers.forEach(clearTimeout); timers=[]; }
+    function later(fn,ms){ var id=setTimeout(fn,ms); timers.push(id); return id; }
+
+    function staticState(){
+      clearTimers(); boot.classList.add('on','done'); boot.classList.remove('booting');
+      lines.forEach(function(l){ var ps=l.querySelector('.ps'); var txt=l.dataset.type||'';
+        if(ps){ l.textContent=''; l.appendChild(ps); ps.textContent='whoami'; }
+        else l.textContent=txt; });
+    }
+
+    function typeLine(l, done){
+      var ps=l.querySelector('.ps');
+      var prefix = ps ? '$ ' : '';
+      var full=l.dataset.type||''; var body = ps ? full.replace(/^\$\s*/,'') : full;
+      l.textContent=''; if(ps){ ps.textContent=''; l.appendChild(ps); }
+      if(!caret){ caret=document.createElement('span'); caret.className='boot-caret'; }
+      l.appendChild(caret);
+      var i=0;
+      (function step(){
+        if(ps){ ps.textContent='$ '+body.slice(0,i); }
+        else { caret.remove(); l.textContent=body.slice(0,i); l.appendChild(caret); }
+        i++;
+        if(i<=body.length){ later(step, 16+Math.random()*22); }
+        else { later(done, 230); }
+      })();
+    }
+
+    function runBoot(){
+      clearTimers();
+      boot.classList.remove('on','done');
+      boot.classList.add('booting');
+      lines.forEach(function(l){ var ps=l.querySelector('.ps'); l.textContent=''; if(ps){ ps.textContent=''; l.appendChild(ps); } });
+      /* kick the scan-wipe reveal */
+      void boot.offsetWidth; boot.classList.add('on');
+      /* type lines in sequence, beginning as the wipe lands */
+      var idx=0;
+      function next(){ if(idx>=lines.length){ boot.classList.remove('booting'); boot.classList.add('done'); return; }
+        typeLine(lines[idx], function(){ idx++; next(); }); }
+      later(next, 480);
+    }
+
+    if(reduce){ staticState(); return; }
+
+    /* auto-boot once on load; re-boot on tap/click/Enter (works on touch too) */
+    later(runBoot, 360);
+    boot.addEventListener('click', runBoot);
+    boot.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); runBoot(); } });
+  })();
+})();
+</script>
+</body>
+</html>
