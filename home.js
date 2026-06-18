@@ -71,13 +71,16 @@
     function toggle(){ userTouched=true; setFlip(!flipped); }
     flip.addEventListener('click', toggle);
     flip.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
-    /* auto-flip teaser: show the operator side once, then settle back to the deal */
-    if(!reduce){ setTimeout(function(){ if(userTouched) return; setFlip(true);
-      setTimeout(function(){ if(userTouched) return; setFlip(false); }, 2500); }, 3400); }
+    /* auto-flip teaser: after a few seconds (not on load), show the operator side once,
+       then settle back to the proof side. Repeats once more if still untouched. */
+    function teaseFlip(){ if(userTouched) return; setFlip(true);
+      setTimeout(function(){ if(userTouched) return; setFlip(false); }, 2500); }
+    if(!reduce){ setTimeout(function(){ if(userTouched) return; teaseFlip();
+      setTimeout(function(){ if(userTouched) return; teaseFlip(); }, 13000); }, 5200); }
 
     /* --- pointer-reactive 3D tilt + tracked glare (rAF-throttled) --- */
     if(fine){
-      var MAXX=7, MAXY=9, tx=0, ty=0, gx=50, gy=50, raf=0, hovering=false;
+      var MAXX=11, MAXY=14, tx=0, ty=0, gx=50, gy=50, raf=0, hovering=false;
       function paint(){ raf=0;
         flip.style.setProperty('--rx', tx.toFixed(2)+'deg');
         flip.style.setProperty('--ry', ty.toFixed(2)+'deg');
