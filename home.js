@@ -1,7 +1,7 @@
 /* bill@bricker-os — home behavior
    reveal · count-ups · identity card (flip + auto-cycling bars + hover logos) ·
    terminal (commands + ask-bill + hiring-manager/reference modes) ·
-   cycling video stat overlay · scroll-spy · mobile nav */
+   cinematic featured video (Ken-Burns drift + one-pass sheen/scan/reticle) · scroll-spy · mobile nav */
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -305,16 +305,15 @@
   if(chips){ chips.addEventListener('click',function(e){ var b=e.target.closest('.chip[data-cmd]'); if(!b) return;
     if(!booted){ booted=true; boot(function(){ showInput(); }); } run(b.dataset.cmd); showInput(); if(input) input.focus(); }); }
 
-  /* ---------- video: autoplay in view + cycling glow stat badges ---------- */
+  /* ---------- featured video: autoplay in view + cinematic enter (Ken-Burns / sheen / scan / reticle) ---------- */
   var vid=$('#cvid'), vw=$('#vidwrap');
   if(vw){
-    var badges=[].slice.call(vw.querySelectorAll('.statbadge')), started=false, idx=0, bt=null;
-    function cycleBadges(){ if(!badges.length) return; bt=setInterval(function(){
-      badges[idx % badges.length].classList.add('show');
-      badges[(idx + badges.length - 2) % badges.length].classList.remove('show');
-      idx++; }, 1500); }
+    var lit=false;
+    function light(){ if(lit) return; lit=true;
+      vw.style.setProperty('--vh', vw.getBoundingClientRect().height+'px');
+      vw.classList.add('lit'); }                         /* one-pass entry FX + ambient drift; CSS neutralizes under reduced-motion */
     function vCheck(){ var r=vw.getBoundingClientRect(), vh=innerHeight||800, inView=r.top<vh*0.85 && r.bottom>0;
-      if(inView){ if(!started){ started=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); } }
+      if(inView){ light();
         if(vid && !reduce && !(navigator.connection && navigator.connection.saveData)){ var p=vid.play(); if(p&&p.catch) p.catch(function(){}); } }
       else if(vid){ vid.pause(); } }
     vCheck(); addEventListener('scroll',vCheck,{passive:true}); addEventListener('load',vCheck);

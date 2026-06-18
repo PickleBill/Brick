@@ -50,7 +50,7 @@ const SCENES = {
     await hover(p, '#bars .bar'); await sleep(p, 800);
   },
   video: async (p) => {                  // featured video centerpiece (Main)
-    await into(p, '#builds', 'start'); await sleep(p, 5200);
+    await into(p, '#vidwrap', 'center'); await sleep(p, 6800);  // entrance FX (sheen + scan + reticle lock-on) then Ken-Burns drift
   },
   hovers: async (p) => {                 // opco + constellation hovers (Main)
     await into(p, '#builds', 'start'); await sleep(p, 600);

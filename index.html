@@ -430,16 +430,38 @@
   .e-metrics .v { font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.03em; color:var(--text); }
   .e-metrics .k { font-family:var(--mono); font-size:10px; color:var(--mute); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; }
   .vidwrap { position:relative; border-radius:16px; overflow:hidden; border:1px solid var(--line2); aspect-ratio:16/11; background:#0a0c0d; box-shadow:0 30px 70px -42px rgba(0,0,0,.85); }
-  .vidwrap video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .vidwrap .vgrad { position:absolute; inset:0; background:radial-gradient(ellipse at center,transparent 35%,rgba(8,8,12,.5) 92%); pointer-events:none; }
-  .statbadge { position:absolute; left:var(--x); top:var(--y); z-index:3; display:flex; align-items:stretch; gap:0; max-width:200px; opacity:0; transform:scale(.85) translateY(8px); transition:opacity .4s, transform .5s var(--ease); }
-  .statbadge.show { opacity:1; transform:scale(1) translateY(0); }
-  .statbadge .edge { width:3px; border-radius:10px 0 0 10px; background:var(--c); box-shadow:0 0 9px var(--c); }
-  .statbadge .bd { background:rgba(8,8,12,.8); backdrop-filter:blur(14px) saturate(160%); border:1px solid rgba(255,255,255,.1); border-left:0; border-radius:0 10px 10px 0; padding:7px 11px; box-shadow:0 8px 32px rgba(0,0,0,.4); }
-  .statbadge .bt { display:block; font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--c); }
-  .statbadge .bb { display:block; font-family:var(--mono); font-size:11px; color:#eef0ee; margin-top:2px; }
-  .statbadge .bb b { color:#fff; }
-  .vidwrap .vlabel { position:absolute; left:13px; bottom:12px; z-index:3; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:rgba(8,9,10,.6); border:1px solid var(--line); padding:5px 10px; border-radius:99px; backdrop-filter:blur(4px); }
+  /* cinematic featured video: Ken-Burns drift + one-pass sheen + breathing vignette + restrained AI-vision reticle */
+  .vidwrap video { position:absolute; inset:-2%; width:104%; height:104%; object-fit:cover; transform-origin:58% 42%; will-change:transform; }
+  .vidwrap.lit video { animation:vidKB 30s var(--ease) infinite alternate; }
+  @keyframes vidKB { 0%{ transform:scale(1.015) translate3d(0,0,0); } 100%{ transform:scale(1.075) translate3d(-1.4%,-1.1%,0); } }
+  /* breathing vignette */
+  .vidwrap .vgrad { position:absolute; inset:0; background:radial-gradient(ellipse at center,transparent 35%,rgba(8,8,12,.5) 92%); pointer-events:none; z-index:2; }
+  .vidwrap.lit .vgrad { animation:vidBreath 9s ease-in-out infinite; }
+  @keyframes vidBreath { 0%,100%{ opacity:.82; } 50%{ opacity:1; } }
+  /* one-pass diagonal sheen on enter-view */
+  .vidwrap .vsheen { position:absolute; inset:0; z-index:3; pointer-events:none; opacity:0;
+    background:linear-gradient(108deg,transparent 38%,rgba(111,239,180,.10) 47%,rgba(255,255,255,.16) 50%,rgba(94,224,214,.10) 53%,transparent 62%);
+    transform:translateX(-115%); }
+  .vidwrap.lit .vsheen { animation:vidSheen 1.5s var(--ease) .35s 1 both; }
+  @keyframes vidSheen { 0%{ opacity:0; transform:translateX(-115%); } 12%{ opacity:1; } 88%{ opacity:1; } 100%{ opacity:0; transform:translateX(115%); } }
+  /* single scan-line sweep on enter-view (AI-vision motif, no numbers/text) */
+  .vidwrap .vscan { position:absolute; left:0; right:0; top:0; height:2px; z-index:4; pointer-events:none; opacity:0;
+    background:linear-gradient(90deg,transparent,rgba(111,239,180,.0) 8%,rgba(111,239,180,.65) 50%,rgba(94,224,214,0) 92%,transparent);
+    box-shadow:0 0 14px rgba(111,239,180,.55); }
+  .vidwrap.lit .vscan { animation:vidScan 1.7s var(--ease) .45s 1 both; }
+  @keyframes vidScan { 0%{ opacity:0; transform:translateY(0); } 8%{ opacity:.9; } 92%{ opacity:.9; } 100%{ opacity:0; transform:translateY(var(--vh,420px)); } }
+  /* tracking reticle: four corner brackets that lock on once, then sit quietly */
+  .vidwrap .vretc { position:absolute; z-index:4; width:22px; height:22px; pointer-events:none; opacity:0;
+    border:1.5px solid rgba(111,239,180,.7); filter:drop-shadow(0 0 5px rgba(111,239,180,.45)); }
+  .vidwrap .vretc.tl { top:14px; left:14px; border-right:0; border-bottom:0; }
+  .vidwrap .vretc.tr { top:14px; right:14px; border-left:0; border-bottom:0; }
+  .vidwrap .vretc.bl { bottom:14px; left:14px; border-right:0; border-top:0; }
+  .vidwrap .vretc.br { bottom:14px; right:14px; border-left:0; border-top:0; }
+  .vidwrap.lit .vretc { animation:vidLock .7s var(--ease) .55s 1 both; }
+  @keyframes vidLock { 0%{ opacity:0; transform:scale(1.55); } 60%{ opacity:.85; } 100%{ opacity:.5; transform:scale(1); } }
+  .vidwrap .vlabel { position:absolute; left:13px; bottom:12px; z-index:5; display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:rgba(8,9,10,.6); border:1px solid var(--line); padding:5px 11px 5px 10px; border-radius:99px; backdrop-filter:blur(4px); }
+  .vidwrap .vlabel i { width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 0 var(--accent-soft); }
+  .vidwrap.lit .vlabel i { animation:pulse 2.1s infinite; }
   .e-links { display:flex; flex-wrap:wrap; gap:7px; margin-top:20px; }
   .e-links a { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:var(--glass2); padding:7px 12px; border-radius:99px; transition:.14s; }
   .e-links a:hover { color:var(--text); border-color:var(--accent); }
@@ -482,6 +504,15 @@
   .js .rv.in { opacity:1; transform:none; }
   @media (prefers-reduced-motion: reduce){ .js .rv{ opacity:1; transform:none; transition:none; } }
 
+  /* reduced motion: featured video collapses to a clean, premium static frame */
+  @media (prefers-reduced-motion: reduce){
+    .vidwrap video, .vidwrap.lit video { animation:none !important; transform:scale(1.03); }
+    .vidwrap .vgrad, .vidwrap.lit .vgrad { animation:none !important; opacity:1; }
+    .vidwrap .vsheen, .vidwrap .vscan { display:none !important; }
+    .vidwrap .vretc, .vidwrap.lit .vretc { animation:none !important; opacity:.4; transform:none; }
+    .vidwrap .vlabel i, .vidwrap.lit .vlabel i { animation:none !important; }
+  }
+
   /* (operator bars now live under the hero card; value stays visible on hover) */
   /* VibeCo 6-panel */
   .vgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px; }
@@ -498,11 +529,6 @@
   .vpanel.slot { align-items:center; justify-content:center; border-style:dashed; }
   .vpanel.slot .vp-name { background:none; justify-content:center; color:var(--faint); font-family:var(--mono); font-size:12px; font-weight:500; }
   .vpanel.slot:hover { border-color:var(--accent-dim); }
-  /* stronger, glowing video stat badges */
-  .statbadge .bd { box-shadow:0 8px 32px rgba(0,0,0,.45), 0 0 20px -6px var(--c); }
-  .statbadge.show .edge { animation:edgepulse 1.7s ease-in-out infinite; }
-  @keyframes edgepulse { 0%,100%{ box-shadow:0 0 8px var(--c); } 50%{ box-shadow:0 0 16px var(--c), 0 0 28px var(--c); } }
-  @media (prefers-reduced-motion: reduce){ .statbadge.show .edge{ animation:none; } }
 
   /* dynamic climb preview */
   .climb-prev { position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--line2); aspect-ratio:16/11; background:#efe3c4; box-shadow:0 24px 60px -40px rgba(0,0,0,.8); }
@@ -726,7 +752,10 @@
             <source src="assets/courtana-shot.mp4" type="video/mp4" />
           </video>
           <div class="vgrad"></div>
-          <span class="vlabel">▸ live shot-of-the-day · scored by the Courtana pipeline</span>
+          <i class="vretc tl" aria-hidden="true"></i><i class="vretc tr" aria-hidden="true"></i><i class="vretc bl" aria-hidden="true"></i><i class="vretc br" aria-hidden="true"></i>
+          <div class="vscan" aria-hidden="true"></div>
+          <div class="vsheen" aria-hidden="true"></div>
+          <span class="vlabel"><i aria-hidden="true"></i>live · scored by the Courtana pipeline</span>
         </div>
       </div>
 
