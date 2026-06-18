@@ -43,13 +43,14 @@
 
   nav{position:sticky;top:0;z-index:60;background:rgba(245,238,213,.92);backdrop-filter:blur(8px);border-bottom:.5px solid var(--rule)}
   nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
-  .brand{font-style:italic;font-weight:500;font-size:19px;text-decoration:none;white-space:nowrap}
-  .brand .pk{font-style:normal;font-size:18px;filter:drop-shadow(0 0 5px rgba(168,66,29,.5))}
+  .brand{font-style:italic;font-weight:500;font-size:19px;text-decoration:none;white-space:nowrap;color:var(--ink);display:inline-flex;align-items:center}
+  .brand .caret{display:inline-block;width:7px;height:1em;background:var(--sienna,#a8421d);margin-left:5px;transform:translateY(1px);animation:caretblink 1.1s steps(1) infinite}
+  @keyframes caretblink{50%{opacity:0}}
   .nl{display:flex;gap:4px;align-items:center;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
   .nl a{color:var(--mute);text-decoration:none;transition:.15s;padding:8px 11px;border-radius:7px}
   .nl a:hover{color:var(--sienna)}
   .nl a.here{color:var(--paper);background:var(--ink)}
-  .nl a.email{border:.5px solid var(--ink);color:var(--ink)}
+  .nl a.cta{border:.5px solid var(--ink);color:var(--ink)}
   @media(max-width:620px){nav .wrap{height:50px}.nl{gap:0;font-size:10px}.nl a{padding:7px 7px}}
 
   header{padding:18px 0 8px}
@@ -313,10 +314,11 @@
 </head>
 <body>
 <nav><div class="wrap">
-  <a class="brand" href="v4/"><span class="pk">🥒</span> Bill Bricker</a>
+  <a class="brand" href="index.html" aria-label="Bill Bricker — home">Bill&nbsp;Bricker<span class="caret" aria-hidden="true"></span></a>
   <div class="nl">
-    <a href="v4/#google">The deal</a><a href="v4/#builds">Builds</a><a href="climb.html" class="here">Story</a>
-    <a href="assets/Bill_Bricker_Resume_vFinal.pdf" download>Résumé</a><a href="mailto:bricker3@gmail.com" class="email">Email</a>
+    <a href="climb.html" class="here">Story</a>
+    <a href="work.html">Proof</a>
+    <a href="resume-v2.html" class="cta">Résumé</a>
   </div>
 </div></nav>
 
@@ -411,7 +413,7 @@
 <div class="climbfoot">
   <div class="hand">summit unset — still walking</div>
   <div class="ctas">
-    <a class="btn primary" href="v4/#builds">See the work →</a>
+    <a class="btn primary" href="work.html">See the work →</a>
     <a class="btn" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>Résumé</a>
     <a class="btn" href="mailto:bricker3@gmail.com">Email Bill</a>
   </div>
@@ -449,7 +451,7 @@ function logoSrc(f){return 'assets/logos/'+f;}
 const SPINE=[
  {x:130,y:595,cat:"job",lp:"below",fill:true,logo:"nwm.png",lane:"Employer · origin · 2006",title:"Northwestern Mutual",yr:"2006",period:"2006 · cold-call school",pull:"The most concentrated lesson in selling I ever got.",body:["Doors and dials straight out of college — top 10 nationally, $6M+ TCV across 150+ accounts. Grateful for it the way you're grateful for a hard winter."],link:null},
  {x:268,y:556,cat:"job",lp:"above",logo:"unc.png",lane:"Study · 2010",title:"UNC Kenan-Flagler",yr:"2010 · MBA",period:"2010 · MBA · GMAT 730",pull:"Where I stopped confusing activity with progress.",body:["Two years to learn what a P&amp;L is for — and to meet the people who'd show up on this map a dozen more times."],link:null},
- {x:406,y:520,cat:"job",lp:"below",logo:"ibm.png",lane:"Employer · the foundation",title:"IBM / Netezza",yr:"2012–14",period:"2012–14 · seven-figure deals",pull:"You cannot out-build the need to talk to a customer.",body:["High-six-figure analytics deals with <em>Zillow</em> &amp; <em>Avalara</em>, part of an 8-figure McKesson deal, achieved quota — Big Data into the Fortune 500."],link:{u:"v4/#builds",t:"enterprise GTM →"}},
+ {x:406,y:520,cat:"job",lp:"below",logo:"ibm.png",lane:"Employer · the foundation",title:"IBM / Netezza",yr:"2012–14",period:"2012–14 · seven-figure deals",pull:"You cannot out-build the need to talk to a customer.",body:["High-six-figure analytics deals with <em>Zillow</em> &amp; <em>Avalara</em>, part of an 8-figure McKesson deal, achieved quota — Big Data into the Fortune 500."],link:{u:"work.html",t:"enterprise GTM →"}},
  {x:516,y:496,cat:"job",lp:"above",fill:true,logo:"wibidata.jpeg",lane:"Employer · 2014",title:"WibiData",yr:"2014",period:"2014 · Director of Sales",pull:"Selling into a problem the customer hasn't named yet.",body:["F500 Big Data pilots — <em>Macy's</em>, <em>Nordstrom</em> — at an NEA / Canaan / Eric-Schmidt-backed startup."],link:null},
  {x:636,y:458,cat:"founder",lp:"below",fill:true,logo:"introstellar.png",stat:"first 0 → 1",lane:"Founder · first company",title:"Introstellar",yr:"2015–16",period:"2015–16 · founder · first venture",pull:"My first company — built on one question: who can I introduce you to?",body:["The networking venture where I learned to <em>build</em>, not just sell — and where “who can I introduce you to, so you can reach your goals?” became the way I operate.","The first real zero-to-one rep, and the headwaters of the river of introductions that runs the whole length of this map."],link:null},
  {x:760,y:420,cat:"job",lp:"above",fill:true,logo:"gearlaunch.png",lane:"Employer · 2017",title:"GearLaunch",yr:"2017",period:"2017 · VP Sales &amp; Marketing",pull:"Creator commerce, before it had a name.",body:["The proving ground for the operator muscle that ran Dreamship next — and where the Pledge 1% habit started."],link:null},
