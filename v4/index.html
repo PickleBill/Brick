@@ -257,6 +257,23 @@
   .bmore-l { font-family:var(--mono); font-size:11px; color:var(--mute); }
   .bmore .ogo { margin-top:7px; }
 
+  /* ---------- the names: partner constellation ---------- */
+  .constellation { position:relative; margin-top:30px; min-height:236px; display:flex; align-items:center; justify-content:center; padding:26px 0; overflow:hidden; }
+  .constel-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+  .constel-logos { position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px 38px; max-width:760px; }
+  .star { position:relative; display:inline-flex; align-items:center; justify-content:center; animation:starfloat 7s ease-in-out infinite; animation-delay:var(--d,0s); }
+  .star::before { content:""; position:absolute; inset:-16px; border-radius:50%; background:radial-gradient(circle,rgba(111,239,180,.12),transparent 70%); opacity:0; transition:opacity .25s; }
+  .star img { height:27px; width:auto; max-width:108px; object-fit:contain; filter:brightness(0) invert(.86); opacity:.8; transition:filter .2s,opacity .2s; }
+  .star:hover img { opacity:1; filter:brightness(0) invert(1); }
+  .star:hover::before { opacity:1; }
+  .star.wm { font-family:var(--display); font-weight:700; font-size:22px; letter-spacing:-.012em; color:var(--faint); transition:color .2s; }
+  .star.wm:hover { color:var(--text); }
+  .star.anchor img { height:38px; opacity:1; filter:brightness(0) invert(1); }
+  .star.anchor::before { background:radial-gradient(circle,rgba(91,232,160,.20),transparent 68%); opacity:1; }
+  @keyframes starfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  @media (max-width:560px){ .constellation{ min-height:0; padding:16px 0; } .constel-logos{ gap:15px 22px; max-width:320px; } .star img{ height:22px; } .star.anchor img{ height:30px; } .star.wm{ font-size:18px; } .star{ animation:none; } .constel-lines{ opacity:.45; } }
+  @media (prefers-reduced-motion: reduce){ .star{ animation:none; } }
+
   /* ---------- section heads ---------- */
   section.block { padding:calc(86px*var(--sp)) 0 0; }
   .sec-head { max-width:62ch; }
@@ -457,7 +474,6 @@
     <button class="navtoggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav class="navlinks" id="navLinks" aria-label="Primary">
       <a href="#google">The deal</a>
-      <a href="#interface">Prompt</a>
       <a href="#builds">Builds</a>
       <a href="../climb.html">Story</a>
       <a href="../assets/Bill_Bricker_Resume_vFinal.pdf" download>Résumé</a>
@@ -546,6 +562,44 @@
     </div>
   </section>
 
+  <!-- ============ THE NAMES — partner constellation ============ -->
+  <section class="block" id="names">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="kick">The flywheel</div>
+        <h2>One yes unlocked the next.</h2>
+        <p>First-of-its-kind partnerships, then the enterprise clients and the retail floor that followed.</p>
+      </div>
+      <div class="constellation rv" role="img" aria-label="Brands and partners Bill has closed, shipped, and sold to: Google, Microsoft, Stripe, PayPal, Payoneer, Meta, IBM, McKesson, Zillow, Avalara, Macy's, Nordstrom">
+        <svg class="constel-lines" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5be8a0"/><stop offset=".5" stop-color="#36c6e0"/><stop offset="1" stop-color="#8b7cf0"/></linearGradient></defs>
+          <g stroke="url(#cg)" stroke-width="1" fill="none" opacity=".4">
+            <path d="M70 70 L220 140 L360 60 L520 150 L650 80 L745 160"/>
+            <path d="M110 220 L300 175 L470 230 L640 185"/>
+            <path d="M220 140 L300 175"/><path d="M360 60 L470 230"/><path d="M520 150 L640 185"/>
+          </g>
+          <g fill="#6fefb4" opacity=".5">
+            <circle cx="70" cy="70" r="1.7"/><circle cx="220" cy="140" r="1.7"/><circle cx="360" cy="60" r="1.7"/><circle cx="520" cy="150" r="1.7"/><circle cx="650" cy="80" r="1.7"/><circle cx="745" cy="160" r="1.7"/><circle cx="110" cy="220" r="1.7"/><circle cx="300" cy="175" r="1.7"/><circle cx="470" cy="230" r="1.7"/><circle cx="640" cy="185" r="1.7"/>
+          </g>
+        </svg>
+        <div class="constel-logos">
+          <span class="star anchor" style="--d:0s"><img src="../assets/logos/google.svg" alt="Google"/></span>
+          <span class="star" style="--d:-1.1s"><img src="../assets/logos/microsoft.svg" alt="Microsoft"/></span>
+          <span class="star" style="--d:-2.3s"><img src="../assets/logos/stripe.svg" alt="Stripe"/></span>
+          <span class="star" style="--d:-3.0s"><img src="../assets/logos/paypal.svg" alt="PayPal"/></span>
+          <span class="star" style="--d:-4.2s"><img src="../assets/logos/payoneer.svg" alt="Payoneer"/></span>
+          <span class="star" style="--d:-5.1s"><img src="../assets/logos/meta.svg" alt="Meta"/></span>
+          <span class="star" style="--d:-1.7s"><img src="../assets/logos/ibm.png" alt="IBM"/></span>
+          <span class="star" style="--d:-2.9s"><img src="../assets/logos/zillow.svg" alt="Zillow"/></span>
+          <span class="star" style="--d:-3.8s"><img src="../assets/logos/macys.svg" alt="Macy's"/></span>
+          <span class="star wm" style="--d:-0.6s">McKesson</span>
+          <span class="star wm" style="--d:-4.7s">Avalara</span>
+          <span class="star wm" style="--d:-5.6s">Nordstrom</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ 01 · ASK / TERMINAL ============ -->
   <section class="block" id="interface">
     <div class="wrap">
@@ -554,7 +608,6 @@
           <div class="kick">The interface</div>
           <h2>Don't read the résumé.<br><span class="flat">Prompt it.</span></h2>
           <p>A live AI that answers from a fact-checked ledger of twenty years. Tap a command, talk to it, or ask anything. It's the product, answering for me.</p>
-          <a class="e-go" href="../work.html" style="margin-top:16px;">Open the full terminal <span class="ar">→</span></a>
         </div>
 
         <div class="term-wrap rv">
@@ -707,8 +760,8 @@
   <!-- ============ CONTACT ============ -->
   <section class="contact">
     <div class="wrap rv">
-      <h2>Hiring for GTM &amp; partnerships?<br><span class="flat">Let's close something big.</span></h2>
-      <p>15 minutes. I'll show you something I built, not slides. Or ask the console up top and watch the close happen live.</p>
+      <h2>Let's close <span class="flat">something big.</span></h2>
+      <p>Hiring for GTM &amp; partnerships? Fifteen minutes, and I'll show you something I built, not slides. Or ask the console up top and watch the close happen live.</p>
       <div class="ctas">
         <a class="pill solid" href="mailto:bricker3@gmail.com?subject=Let%27s%20close%20something%20big">bricker3@gmail.com →</a>
         <a class="pill ghost" href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a>
@@ -722,9 +775,10 @@
       <div class="foot-in">
         <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>built solo with the AI-native stack it describes.</b></span>
         <div class="foot-arch">
+          <a href="#google">The deal</a>
+          <a href="#builds">Builds</a>
           <a href="../climb.html">The Climb</a>
           <a href="../assets/Bill_Bricker_Resume_vFinal.pdf" download>Résumé</a>
-          <a href="../work.html">Terminal</a>
         </div>
       </div>
     </div>
