@@ -66,6 +66,8 @@
   .pill.g:hover{transform:translateY(-1px);box-shadow:0 12px 30px -10px rgba(160,107,255,.5)}
   .pill.ghost{background:transparent;color:var(--text);border-color:var(--line2)}
   .pill.ghost:hover{background:rgba(255,255,255,.05)}
+  .pill:active{transform:translateY(0) scale(.97)}
+  @media(prefers-reduced-motion:reduce){.pill:active{transform:none}}
   .term{margin-top:20px;font-family:var(--mono);font-size:12.5px;color:var(--mute);border:1px solid var(--line);background:var(--bg2);border-radius:10px;padding:11px 14px;display:inline-block}
   .term .p{color:var(--teal)}.term .c{color:var(--text)}
 

@@ -67,6 +67,8 @@
   .tourbtn{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
     padding:10px 18px;border:.5px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer;border-radius:2px;transition:.16s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
   .tourbtn:hover{background:var(--sienna-deep);border-color:var(--sienna-deep);transform:translateY(-1px)}
+  .tourbtn:active{transform:translateY(0) scale(.98)}
+  @media(prefers-reduced-motion:reduce){.tourbtn:active{transform:none}}
   .tourbtn .tri{font-size:11px}
   @media(max-width:980px){.hctrl{flex-basis:100%;align-items:flex-start}.hlede{text-align:left}}
 
@@ -83,7 +85,7 @@
   .canvas svg.scene{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 
   /* persistent field caption */
-  .field-caption{max-width:760px;margin:20px auto 0;padding:16px 24px;border:.5px solid var(--rule);border-left:3px solid var(--sienna);
+  .field-caption{max-width:760px;margin:20px auto 0;padding:16px 24px;border:.5px solid var(--rule);
     background:linear-gradient(180deg,rgba(247,238,213,.7),rgba(239,226,191,.45));border-radius:3px}
   .field-caption .clane{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sienna)}
   .field-caption .ctitle{font-style:italic;font-weight:600;font-size:22px;line-height:1.12;margin-top:4px}
