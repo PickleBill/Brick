@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hologram identity card — Bill Bricker</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#08090a; --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.17);
+    --text:#f4f2ec; --mute:#9aa0a3; --faint:#6a7178;
+    --sage:#6fefb4; --cyan:#5ee0d6; --accent:#6fefb4;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Hanken Grotesk',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:22px;
+    --ease-quint:cubic-bezier(.22,1,.36,1);   /* ease-out only — never bounce/elastic */
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:radial-gradient(120% 90% at 50% -10%, #13201c, #08090a 60%); color:var(--text);
+        font-family:var(--body); min-height:100vh; display:grid; place-items:center; padding:40px 20px; -webkit-font-smoothing:antialiased; }
+  img{ display:block; max-width:100%; }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:8px; }
+
+  .stage{ perspective:1500px; width:min(440px,92vw); }   /* perspective root */
+  .card-sq{ position:relative; width:100%; aspect-ratio:1/1; }
+  .caption{ width:min(440px,92vw); margin-top:22px; text-align:center; }
+  .caption .idea{ font-family:var(--display); font-weight:700; font-size:16px; color:var(--text); }
+  .caption .trade{ display:block; margin-top:6px; font-family:var(--mono); font-size:11.5px; color:var(--mute); line-height:1.5; }
+
+  /* card shell */
+  .face{ position:absolute; inset:0; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line2);
+         background:linear-gradient(180deg,#0e1311,#0a0c0d); box-shadow:0 40px 90px -42px rgba(0,0,0,.9);
+         transition:box-shadow .5s var(--ease-quint); transform-style:preserve-3d; }
+  .cue{ position:absolute; top:12px; right:13px; z-index:9; font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); display:inline-flex; align-items:center; gap:6px; background:rgba(8,10,9,.55); border:1px solid var(--line); padding:5px 10px; border-radius:99px; backdrop-filter:blur(6px); transition:.2s var(--ease-quint); }
+
+  /* ===== HOLOGRAM (tilt, no flip) — photo is the base plane; the chip / lines /
+     stats float on separate translateZ planes and counter-shift with the cursor (parallax),
+     under a cursor-tracked radial glare + a diagonal sheen. ===== */
+  .holo{ position:absolute; inset:0; cursor:pointer; transform-style:preserve-3d; --rx:0deg; --ry:0deg; --px:0; --py:0; --gx:50%; --gy:32%; --lift:0; }
+  .holo-tilt{ position:absolute; inset:0; transform-style:preserve-3d;
+    transform:rotateX(var(--rx)) rotateY(var(--ry)) scale(calc(1 + var(--lift)*.02));
+    transition:transform .55s var(--ease-quint); will-change:transform; }
+  .holo .face{ transform-style:preserve-3d; }
+  .holo.lifted .face{ box-shadow:0 60px 120px -44px rgba(0,0,0,.95), 0 0 0 1px rgba(94,224,214,.16); }
+  .holo-img{ position:absolute; inset:-6%; width:112%; height:112%; object-fit:cover; object-position:50% 24%;
+    transform:translate3d(calc(var(--px)*-10px), calc(var(--py)*-10px), 0); transition:transform .35s var(--ease-quint); }
+  .holo-scrim{ position:absolute; inset:0; z-index:1; background:linear-gradient(transparent 30%, rgba(8,10,9,.5) 58%, rgba(8,10,9,.93)); }
+  .holo-chip{ position:absolute; top:14px; left:14px; z-index:4; font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:#08090a; background:var(--sage); padding:5px 10px; border-radius:99px;
+    transform:translate3d(calc(var(--px)*16px), calc(var(--py)*16px), 60px); box-shadow:0 8px 22px -6px rgba(111,239,180,.7); }
+  .holo-lines{ position:absolute; left:18px; right:18px; bottom:18px; z-index:3; display:flex; flex-direction:column; gap:3px;
+    transform:translate3d(calc(var(--px)*22px), calc(var(--py)*22px), 44px); }
+  .holo-lines .hlabel{ font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--sage); margin-bottom:4px; }
+  .holo-lines .hl{ font-family:var(--display); font-weight:800; font-size:clamp(17px,2.1vw,22px); letter-spacing:-.03em; line-height:1.08; }
+  .holo-lines .hl.s2{ color:var(--cyan); font-size:clamp(13px,1.5vw,15.5px); }
+  .holo-stats{ position:absolute; right:16px; top:54px; z-index:3; display:flex; flex-direction:column; gap:11px; align-items:flex-end;
+    transform:translate3d(calc(var(--px)*32px), calc(var(--py)*32px), 70px); }
+  .holo-stat{ text-align:right; background:rgba(8,10,9,.42); border:1px solid var(--line); backdrop-filter:blur(6px); padding:7px 11px 8px; border-radius:13px; }
+  .holo-stat .sn{ font-family:var(--display); font-weight:800; font-size:21px; letter-spacing:-.03em; line-height:1; color:var(--sage); display:block; }
+  .holo-stat .sk{ font-family:var(--mono); font-size:8.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--mute); display:block; margin-top:4px; }
+  .holo-glare{ position:absolute; inset:0; z-index:5; pointer-events:none; border-radius:inherit;
+    background:radial-gradient(440px circle at var(--gx) var(--gy), rgba(255,255,255,.18), rgba(120,255,224,.05) 34%, transparent 62%);
+    opacity:0; transition:opacity .4s var(--ease-quint); mix-blend-mode:screen; transform:translateZ(80px); }
+  .holo.lifted .holo-glare{ opacity:1; }
+  .holo-sheen{ position:absolute; inset:0; z-index:5; pointer-events:none; border-radius:inherit;
+    background:linear-gradient(105deg, transparent 42%, rgba(123,232,200,.14) 50%, transparent 58%); background-size:300% 300%;
+    background-position:calc(var(--gx)) calc(var(--gy)); mix-blend-mode:screen; opacity:0; transition:opacity .4s var(--ease-quint); }
+  .holo.lifted .holo-sheen{ opacity:1; }
+  .holo .cue .rot{ display:inline-block; }
+  .holo:hover .cue, .holo.lifted .cue{ color:var(--cyan); border-color:rgba(94,224,214,.32); box-shadow:0 0 18px -4px rgba(94,224,214,.5); }
+  .holo:active .holo-tilt{ transition-duration:.12s; transform:scale(.99); }
+  @media (prefers-reduced-motion: reduce){ .holo-tilt,.holo-img,.holo-chip,.holo-lines,.holo-stats,.face{ transition:none; } }
+</style>
+</head>
+<body>
+  <div>
+    <div class="stage">
+      <div class="card-sq">
+        <div class="holo" id="holo" tabindex="0" role="button" aria-label="Holographic identity card. Move the cursor to tilt; depth layers shift with parallax.">
+          <div class="holo-tilt">
+            <div class="face">
+              <span class="cue"><span class="rot">◈</span> tilt</span>
+              <img class="holo-img" src="assets/dreamship-donate.jpg" alt="Bill Bricker on stage with the giant Dreamship donation check" onerror="this.style.display='none'" />
+              <div class="holo-scrim"></div>
+              <span class="holo-chip">▸ the deal · in year one</span>
+              <div class="holo-stats">
+                <div class="holo-stat"><span class="sn">$45M+</span><span class="sk">ad-spend channel</span></div>
+                <div class="holo-stat"><span class="sn">$35M+</span><span class="sk">peak revenue</span></div>
+              </div>
+              <div class="holo-lines">
+                <span class="hlabel">▸ AI-forward GTM</span>
+                <span class="hl">Closed Google as a partner.</span>
+                <span class="hl s2">40+ apps across 31 repos, shipped solo.</span>
+              </div>
+              <div class="holo-sheen"></div>
+              <div class="holo-glare"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caption">
+      <span class="idea">Hologram — one surface; the stats &amp; lines float on parallax depth.</span>
+      <span class="trade">Desktop: move the cursor to tilt. Touch: it auto-shimmers. No flip.</span>
+    </div>
+  </div>
+
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = !reduce && window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var holo = document.getElementById('holo'); if(!holo) return;
+  var MAXX=8, MAXY=10, tx=0, ty=0, nx=0, ny=0, gx=50, gy=32, raf=0;
+  function paint(){ raf=0;
+    holo.style.setProperty('--rx', tx.toFixed(2)+'deg');
+    holo.style.setProperty('--ry', ty.toFixed(2)+'deg');
+    holo.style.setProperty('--px', nx.toFixed(3));
+    holo.style.setProperty('--py', ny.toFixed(3));
+    holo.style.setProperty('--gx', gx.toFixed(1)+'%');
+    holo.style.setProperty('--gy', gy.toFixed(1)+'%'); }
+  function queue(){ if(!raf) raf=requestAnimationFrame(paint); }
+
+  if(fine){
+    holo.addEventListener('pointermove', function(e){ if(e.pointerType==='touch') return;
+      var r=holo.getBoundingClientRect(); var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+      px=Math.min(1,Math.max(0,px)); py=Math.min(1,Math.max(0,py));
+      ty=(px-0.5)*2*MAXY; tx=-(py-0.5)*2*MAXX;          /* tilt toward cursor */
+      nx=(px-0.5)*2; ny=(py-0.5)*2;                      /* parallax offset for the float layers */
+      gx=px*100; gy=py*100; queue(); });
+    holo.addEventListener('pointerenter', function(e){ if(e.pointerType==='touch') return; holo.classList.add('lifted'); holo.style.setProperty('--lift','1'); });
+    holo.addEventListener('pointerleave', function(){ holo.classList.remove('lifted'); holo.style.setProperty('--lift','0'); tx=ty=nx=ny=0; gx=50; gy=32; queue(); });
+    holo.addEventListener('focus', function(){ holo.classList.add('lifted'); });
+    holo.addEventListener('blur', function(){ holo.classList.remove('lifted'); });
+  } else if(!reduce){
+    /* touch / no-hover: a gentle auto-shimmer so mobile still feels the depth */
+    var t0=null;
+    (function auto(ts){ if(t0===null) t0=ts; var e=(ts-t0)/1000;
+      nx=Math.sin(e*0.9)*0.6; ny=Math.cos(e*0.7)*0.45;
+      gx=50+nx*26; gy=40+ny*22; holo.classList.add('lifted');
+      holo.style.setProperty('--px', nx.toFixed(3));
+      holo.style.setProperty('--py', ny.toFixed(3));
+      holo.style.setProperty('--gx', gx.toFixed(1)+'%');
+      holo.style.setProperty('--gy', gy.toFixed(1)+'%');
+      requestAnimationFrame(auto); })(0);
+    holo.addEventListener('click', function(){ holo.classList.add('lifted'); });
+  }
+})();
+</script>
+</body>
+</html>
