@@ -28,6 +28,7 @@
   h1,.brand{font-family:var(--disp)}
   ::selection{background:var(--sage);color:#08090a}
   a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:8px}
   .wrap{max-width:1000px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
   .mesh{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
   .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.42;mix-blend-mode:screen}
@@ -84,7 +85,8 @@
   @keyframes blink{50%{opacity:0}}
 
   /* input bar */
-  .ibar{display:flex;align-items:center;gap:9px;padding:12px 15px;border-top:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .ibar{display:flex;align-items:center;gap:9px;padding:12px 15px;border-top:1px solid var(--line);background:rgba(255,255,255,.02);transition:box-shadow .15s,background .15s}
+  .ibar:focus-within{background:rgba(134,224,164,.05);box-shadow:inset 0 1px 0 rgba(134,224,164,.4)}
   .ibar .pr{font-family:var(--mono);font-size:13.5px;color:var(--green);flex-shrink:0}
   .ibar input{flex:1;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:13.5px;color:var(--text);caret-color:var(--green)}
   .ibar input::placeholder{color:var(--faint)}

@@ -39,6 +39,7 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 .17 0 0 0 0 .12 0 0 0 0 .06 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   ::selection{background:var(--ink);color:var(--paper)}
   a{color:inherit}
+  :focus-visible{outline:2px solid var(--sienna);outline-offset:3px;border-radius:4px}
   .wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
 
   nav{position:sticky;top:0;z-index:60;background:rgba(245,238,213,.92);backdrop-filter:blur(8px);border-bottom:.5px solid var(--rule)}
@@ -596,7 +597,6 @@ function lblTitle(n){
 }
 function nodeHTML(n,i){
   let x=n.x,y=n.y,leader='',lbl='',extra='';
-  let scls=sealCls[n.cat]+(n.big?'':'')+(n.live?'':'');
   let sealClass='seal seal--'+sealCls[n.cat]+(n.big?' seal--hero':'')+(n.fill?' brandfill':'');
   const title=lblTitle(n);
 
