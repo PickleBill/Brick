@@ -194,9 +194,9 @@
       '<span class="dim">wildcards:</span> <span style="color:#a78bfa">chuck  billygoat  surprise</span>',
       '<span class="dim">tip:</span> <span class="am">tailor Partnerships Lead at Anthropic</span> <span class="dim">— or paste a job description.</span>']); },
     whoami:function(){ block([
-      '<span class="m">Bill Bricker</span> — AI-Forward Sales &amp; Partnerships Leader.',
-      'I close what the biggest names in tech say yes to, then build',
-      'the AI that does the work. Closed Google as a partner in year one.',
+      '<span class="m">Bill Bricker</span> — Forward-Deployed GTM Operator · AI-Native Builder.',
+      'I close the room, then build the AI-native system behind it.',
+      'Closed Google as a partner in year one.',
       'Raleigh, NC · father of three · still building.']); },
     companies:function(){ block([
       '<span class="m">Courtana</span>  founder/CEO · 2023→now — AI smart-court SaaS, 36 courts.',
@@ -250,10 +250,10 @@
       suggest(['tailor Partnerships Lead at Anthropic','reference-check']); },
     'the-fit':function(){ block([
       '<span class="am"># The frontier-lab fit.</span>',
-      'Labs are hiring the <span class="m">forward-deployed / GTM engineer</span> hardest:',
-      'the line between selling and building has collapsed. That\'s the job',
+      'Teams are hiring the <span class="m">forward-deployed GTM operator</span> hardest:',
+      'the line between selling, partnering, and building has collapsed. That\'s the job',
       'I\'ve already been doing for two companies: close the room, then ship',
-      'the integration myself. I translate frontier capability into a signed yes.']);
+      'the operating system behind the close. I translate frontier capability into a signed yes.']);
       suggest(['tailor GTM lead at a frontier lab','reference-check']); },
     'reference-check':function(){ block([
       '<span class="am"># Reference check — a former Dreamship colleague speaks:</span>',
@@ -284,7 +284,7 @@
     block(['<span class="am"># tailoring the case for:</span> '+esc(role.slice(0,120))]);
     var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner in year one; led Dreamship to $35M+ peak revenue and 11x; ships production AI solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; 20 years carrying an enterprise number). Address the role directly; be concrete and confident; no generic filler.';
     askQuiet(q, function(){ // local fallback
-      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner in year one, turned it into $35M+ peak revenue and 11x at Dreamship, and today I build production AI solo — 40+ apps across 31 repos. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
+      typed('For '+role.slice(0,80)+': you need someone who can close the room AND build the system behind it. I closed Google as a partner in year one, turned it into $35M+ peak revenue and 11x at Dreamship, and today I build production AI solo — 40+ apps across 31 repos. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
       suggest(['reference-check','why-you','contact']);
     }, function(){ suggest(['reference-check','why-you','contact']); });
   }
