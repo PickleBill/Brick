@@ -457,6 +457,8 @@
   .foot-arch a:hover { color:var(--text); border-color:var(--line2); }
   .foot-tag { font-family:var(--mono); font-size:11.5px; color:var(--faint); }
   .foot-tag b { color:var(--accent-dim); font-weight:500; }
+  .foot-lab { color:var(--faint); text-decoration:underline; text-decoration-color:rgba(255,255,255,.18); text-underline-offset:2px; transition:color .15s; }
+  .foot-lab:hover { color:var(--mute); }
 
   /* reveal */
   .js .rv { opacity:0; transform:translateY(22px); transition:opacity .8s var(--ease),transform .8s var(--ease); }
@@ -760,7 +762,7 @@
   <footer>
     <div class="wrap">
       <div class="foot-in">
-        <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>designed &amp; shipped solo.</b></span>
+        <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>designed &amp; shipped solo.</b> · <a class="foot-lab" href="playground.html">playground</a></span>
         <div class="foot-arch">
           <a href="climb.html">Story</a>
           <a href="work.html">Proof</a>
