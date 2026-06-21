@@ -57,8 +57,9 @@
 - First-of-its-kind Google **partnership** (a trust layer verifying high-volume merchants on
   Google Vision) — *closing Google as an account/partner*, **never an acquisition**.
 - Channel drove **$45M+ in partner AD SPEND over 5+ years** (vFinal confirms) → see guardrail #1.
-- Parlayed into a repeatable flywheel: **Stripe, PayPal, Payoneer, Meta**, plus a
+- Parlayed into a repeatable flywheel: **Stripe, PayPal, Payoneer, Meta, Adobe**, plus a
   **Microsoft / Bing–ChatGPT** merchant deal (partner tier earned on volume).
+  *(Adobe promoted cleared-logo → closed partner — Bill-authorized 2026-06-21, see decisions D-7.)*
 - ✅ **RESOLVED — VP-level sign-off across 5–6 internal Google teams** (vFinal résumé = source-of-truth).
   Teams: trust & safety, business integrity, commercial. **VP-level** (résumé + Bill's pick agree) overturns
   the old "director-level" everywhere. Team count = **5–6** per the résumé (Bill's quiz said "five"; using the
