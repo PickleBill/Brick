@@ -1,45 +1,47 @@
 /* =============================================================================
-   <operator-card> — Bill Bricker's holographic identity card, as a Web Component.
+   <operator-card> — Bill Bricker's identity card, as a Web Component.
 
-   A framework-agnostic custom element (Shadow DOM, vanilla JS, no runtime deps)
-   that reproduces the "Operator Card v4" design: a portrait 3:4 faux-3D cube with
-   six facets (identity · the work · home · after hrs · powder · proof). Two stacked
-   face panels pivot around a shared lit seam to "turn" between facets; pointer (or
-   phone gyro) drives tilt-parallax across layered depth planes, with a holographic
-   foil, cursor glare, resting sheen + grain. Navigate by swipe, tap (= next),
-   arrow keys, or the dot rail.
+   "Operator Card v6": a portrait 3:4 card holding four facets —
+   Operator · Conscious Capitalist · DJ BillyGoat · 3× Father. Facets change with
+   an aperture bloom (a foil-lit circular wipe that radiates from the touch
+   origin), while pointer (or drift) drives tilt + parallax across the photo,
+   bullets and a violet holographic foil; the card floats on a slow idle sine.
 
-   Ported from the Claude Design prototypes `Operator Card v4.dc.html` +
-   `Operator Face.dc.html`. The CDN libraries those used (Atropos / GSAP / Lenis)
-   are intentionally re-implemented in a tuned rAF loop so the element is
-   self-contained and safe to drop into any page.
+   Framework-agnostic custom element (Shadow DOM, vanilla JS, no runtime deps).
+   Natively ported from the Claude Design export `design-refs/operator-card-v6.html`
+   (a React/dc-runtime bundle) — re-implemented in a tuned rAF loop against the
+   site's real tokens (--accent #6fefb4, --bg #08090a, Bricolage/Hanken/JetBrains
+   Mono, --ease) so the element is self-contained and safe to drop into any page.
+   Navigate by swipe, tap (= next), arrow keys, or the dot rail.
 
    Usage:
      <script src="operator-card.js" defer></script>
      <operator-card></operator-card>
 
    Optional attributes:
-     asset-base="assets/"   directory holding the images/logos (default "assets/")
-     tilt-max="20"          max tilt in degrees
-     foil-intensity="1"     holographic foil strength (0–2.5)
-     cube-depth="0.65"      how far the turn dips into Z (0.4–1.6)
-     start="identity"       facet to open on (identity|work|home|vibe|powder|signal)
+     asset-base="assets/"   directory holding the facet photos (default "assets/")
+     start="operator"       facet to open on (operator|capitalist|dj|father)
+     accent="#6fefb4"       brand-green accent for non-vibrant facets
+     tilt="13"              max tilt in degrees (0–22)
+     foil-intensity="1.1"   holographic foil strength (0–2.2)
+     flip-depth="1.5"       foil-flash punch on a facet change (0.3–1.5)
+     auto-advance="true"    advance once after entering view ("false" to disable)
 
-   Honors prefers-reduced-motion (static card, instant facet swaps) and degrades
-   to tap/gyro on coarse-pointer / touch devices.
+   Honors prefers-reduced-motion (static card, instant facet swaps, no float/foil
+   motion) and degrades to tap/swipe on coarse-pointer / touch devices.
 ============================================================================= */
 (function () {
   "use strict";
   if (customElements.get("operator-card")) return;
 
   var FONT_HREF =
-    "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap";
+    "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap";
 
   // Ensure the three brand fonts are available to the shadow tree. Shadow DOM
   // resolves @font-face registered at the document level, so we inject the link
   // once into <head> if the host page hasn't already loaded it.
   function ensureFonts() {
-    if (document.querySelector('link[data-operator-card-fonts]')) return;
+    if (document.querySelector("link[data-operator-card-fonts]")) return;
     if (
       document.querySelector(
         'link[href*="Bricolage+Grotesque"][href*="JetBrains+Mono"]'
@@ -53,112 +55,101 @@
     document.head.appendChild(l);
   }
 
-  var GRAIN =
-    "data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>";
-
-  // ----- shared content (from Operator Face) --------------------------------
-  var BARS = [
-    { n: "$45M+", d: "Google ad-spend", c: "#6fefb4", glow: "rgba(111,239,180,.6)" },
-    { n: "6", d: "big-tech partners", c: "#5ee0d6", glow: "rgba(94,224,214,.6)" },
-    { n: "11×", d: "zero-to-one · 2020", c: "#a78bfa", glow: "rgba(167,139,250,.6)" },
-    { n: "40+", d: "apps shipped solo", c: "#ff8a5c", glow: "rgba(255,138,92,.6)" }
-  ];
-  var DESCRIPTORS = [
-    { t: "Zero → 1 Builder" },
-    { t: "GTM Operator" },
-    { t: "Revenue Leader" },
-    { t: "AI-Native Force Multiplier" }
-  ];
-  var STATS = [
-    { v: "27", k: "pow days", c: "#ccff00", glow: "rgba(204,255,0,.45)", bd: "rgba(204,255,0,.4)", bg: "rgba(8,10,12,.62)" },
-    { v: "4/4", k: "matching fits", c: "#ff2d9b", glow: "rgba(255,45,155,.45)", bd: "rgba(255,45,155,.4)", bg: "rgba(8,10,12,.62)" },
-    { v: "11.2k", k: "summit vert", c: "#ccff00", glow: "rgba(204,255,0,.45)", bd: "rgba(204,255,0,.4)", bg: "rgba(8,10,12,.62)" },
-    { v: "MAX", k: "stoke level", c: "#ff2d9b", glow: "rgba(255,45,155,.45)", bd: "rgba(255,45,155,.4)", bg: "rgba(8,10,12,.62)" }
-  ];
-  var LOGOS = [
-    "logos/google.svg", "logos/meta.svg", "logos/microsoft.svg",
-    "logos/ibm.png", "logos/stripe.svg", "logos/paypal.svg",
-    "logos/macys.svg", "logos/zillow.svg", "logos/payoneer.svg"
-  ];
-  var EQBARS = [".0s", ".12s", ".05s", ".2s", ".08s", ".16s", ".02s", ".24s", ".1s"];
-  var BEATBARS = (function () {
-    var a = [];
-    for (var i = 0; i < 22; i++) a.push((((i * 37) % 70) / 100).toFixed(2) + "s");
-    return a;
-  })();
-
-  // ----- the six facets (from Operator Card v4 FACES) -----------------------
+  // ----- the four facets ------------------------------------------------------
+  // `img` is a bare filename, resolved against asset-base at mount.
   var FACES = [
-    { key: "identity", kind: "identity", label: "identity", accent: "#6fefb4", aura: "rgba(111,239,180,.22)", core: "rgba(111,239,180,.3)", foilBoost: 1,
-      img: "bb-headshot-li.jpg",
-      sub: { left: "-10%", top: "-8%", width: "120%", height: "120%", pos: "50% 15%", filter: "saturate(1.03) contrast(1.02)" },
-      vign: "linear-gradient(180deg,rgba(8,9,10,.05) 0%,transparent 36%,rgba(8,9,10,.5) 58%,#08090a 80%)", vignOp: 1, scan: 0, idx: "01" },
-    { key: "work", kind: "work", label: "the work", accent: "#a78bfa", aura: "rgba(167,139,250,.24)", core: "rgba(167,139,250,.32)", foilBoost: 1,
-      img: "dreamship-donate.jpg",
-      sub: { left: "-8%", top: "-8%", width: "116%", height: "116%", pos: "50% 42%", filter: "saturate(1.05) brightness(.82)" },
-      vign: "linear-gradient(180deg,rgba(8,9,10,.22),transparent 24%,transparent 44%,rgba(8,9,10,.8) 64%,#08090a 92%)", vignOp: 1, scan: 0, idx: "02" },
-    { key: "home", kind: "bleed", label: "home", accent: "#5ee0d6", aura: "rgba(94,224,214,.24)", core: "rgba(94,224,214,.32)", foilBoost: 1,
-      img: "family.jpg",
-      sub: { left: "-10%", top: "-10%", width: "120%", height: "120%", pos: "50% 22%", filter: "saturate(1.04)" },
-      vign: "linear-gradient(180deg,rgba(8,9,10,.06),transparent 32%,transparent 50%,rgba(8,9,10,.86) 86%,#08090a)", vignOp: 1, scan: 0,
-      title: "3× founder.", title2: "3× father.", titleFill: "#5ee0d6", titleSize: "34px",
-      caption: "You can guess which really matters.", captionStyle: "color:#f4f2ec;font-weight:600;", idx: "03" },
-    { key: "vibe", kind: "vibe", label: "after hrs", accent: "#ff5fa8", aura: "rgba(255,95,168,.26)", core: "rgba(255,95,168,.34)", foilBoost: 1.9,
-      img: "portrait-sales.jpg",
-      sub: { left: "-10%", top: "-10%", width: "120%", height: "120%", pos: "50% 22%", filter: "saturate(1.3) contrast(1.06)" },
-      vign: "linear-gradient(180deg,rgba(8,9,10,.08),transparent 28%,transparent 48%,rgba(8,9,10,.84) 84%,#08090a)", vignOp: 1, scan: 1,
-      title: "DJ Billygoat", titleFill: "linear-gradient(92deg,#ff5fa8,#ffb050 42%,#5ee0d6)", titleGradient: true, titleSize: "34px",
-      caption: "after hours · sets the room on fire", captionStyle: "color:rgba(244,242,236,.74);", idx: "04" },
-    { key: "powder", kind: "stats", label: "powder", accent: "#ccff00", aura: "rgba(255,45,155,.22)", core: "rgba(204,255,0,.26)", foilBoost: 1.1,
-      img: "family-ski.jpg",
-      sub: { left: "-6%", top: "60%", width: "112%", height: "48%", pos: "50% 26%", filter: "saturate(1.22) contrast(1.05)" },
-      vign: "linear-gradient(180deg,rgba(8,9,10,.97) 0%,rgba(8,9,10,.95) 46%,rgba(8,9,10,.5) 58%,rgba(8,9,10,.22) 70%,rgba(8,9,10,.62) 90%,#08090a 100%)", vignOp: 1, scan: 0, idx: "05" },
-    { key: "signal", kind: "signal", label: "proof", accent: "#36c6e0", aura: "rgba(54,198,224,.22)", core: "rgba(54,198,224,.3)", foilBoost: 1,
-      img: "", sub: { left: "0", top: "0", width: "100%", height: "100%", pos: "50% 50%", filter: "none" },
-      vign: "linear-gradient(180deg,rgba(8,9,10,.3),transparent 38%,rgba(8,9,10,.45))", vignOp: 1, scan: 0, idx: "06" }
+    {
+      key: "operator", kind: "cover", img: "bb-headshot-li.jpg", pos: "50% 24%",
+      aria: "Operator — zero to one operator, bridge builder, AI-native force multiplier.",
+      bullets: [{ t: "0 → 1 Operator", k: "hi" }, { t: "Bridge Builder" }, { t: "AI-Native Force Multiplier" }]
+    },
+    {
+      key: "capitalist", kind: "fit", img: "dreamship-donate.jpg", pos: "50% 4%",
+      aria: "Conscious capitalist — connection capital, pay it forward. A $10,000 Dreamship donation to Freedom United.",
+      bullets: [{ t: "Conscious Capitalist", k: "hi" }, { t: "Connection Capital" }, { t: "Pay It Forward" }]
+    },
+    {
+      key: "dj", kind: "cover", img: "portrait-sales.jpg", pos: "50% 15%", vibrant: 1, accent: "#ff3fa0",
+      aria: "Vibe pusher, also known as DJ BillyGoat or PickleBill — social momentum creator.",
+      bullets: [{ t: "Vibe Pusher", k: "higrad" }, { t: "Aka DJ BillyGoat or PickleBill" }, { t: "Social Momentum Creator" }]
+    },
+    {
+      key: "father", kind: "cover", img: "family.jpg", pos: "50% 42%", textPos: "top",
+      aria: "Three-time father, three-time founder — guess which one matters more.",
+      bullets: [{ t: "3× Father", k: "hi" }, { t: "3× Founder" }, { t: "Guess which one matters more", k: "aside" }]
+    }
   ];
 
-  // ring-neighbour + cube-side placement + landing angle, per swipe direction
-  var DIRS = {
-    left:  { axis: "Y", step:  1, target: -90, place: "translateX(100%) rotateY(90deg)",   origin: "left center" },
-    right: { axis: "Y", step: -1, target:  90, place: "translateX(-100%) rotateY(-90deg)", origin: "right center" },
-    up:    { axis: "X", step:  1, target:  90, place: "translateY(-100%) rotateX(-90deg)", origin: "bottom center" },
-    down:  { axis: "X", step: -1, target: -90, place: "translateY(100%) rotateX(90deg)",   origin: "top center" }
-  };
+  var EQBARS = [
+    "0s", ".18s", ".05s", ".24s", ".1s", ".3s", ".08s", ".21s", ".14s", ".27s",
+    ".03s", ".16s", ".22s", ".07s", ".25s", ".12s", ".19s", ".29s", ".09s", ".15s"
+  ];
+
+  // --accent #6fefb4 — the site's real brand green (the export shipped #8be5b6).
+  var ACCENT_DEFAULT = "#6fefb4";
+
+  // The DJ color-dodge wash + equalizer markup (card-only pink/cyan/amber).
+  var DJ_OVERLAY =
+    '<div class="dj-wash" aria-hidden="true"></div>' +
+    '<div class="dj-eq" aria-hidden="true">' +
+    EQBARS.map(function (d) {
+      return '<i style="animation-delay:' + d + '"></i>';
+    }).join("") +
+    "</div>";
 
   var STYLE = [
-    ":host{display:block;width:100%;--oc-w:360px;}",
-    "*{box-sizing:border-box;}",
-    ".scene{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;width:100%;font-family:'Hanken Grotesk',system-ui,sans-serif;user-select:none;-webkit-user-select:none;}",
-    ".aura{position:absolute;top:50%;left:50%;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;transition:background .7s ease;}",
-    ".aura.halo{width:min(82%,460px);aspect-ratio:1;filter:blur(60px);animation:ocDrift 17s ease-in-out infinite;}",
-    ".aura.core{width:min(56%,250px);aspect-ratio:1;filter:blur(40px);}",
-    ".card{position:relative;width:min(var(--oc-w),100%);aspect-ratio:3/4;z-index:2;touch-action:pan-y;cursor:grab;outline:none;perspective:1200px;}",
-    ".card:focus-visible{outline:2px solid rgba(111,239,180,.6);outline-offset:6px;border-radius:24px;}",
-    ".edge{position:absolute;inset:0;pointer-events:none;z-index:6;color:rgba(255,255,255,.4);font-family:'JetBrains Mono',monospace;font-size:9px;}",
-    ".edge span{position:absolute;top:50%;transform:translateY(-50%);}",
-    ".edge .l{left:12px;animation:ocEdge 2.8s ease-in-out 1.4s infinite;}",
-    ".edge .r{right:12px;animation:ocEdge 2.8s ease-in-out 2.1s infinite;}",
-    ".tilt{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;transition:transform .25s cubic-bezier(.22,1,.36,1);}",
-    ".stage{position:absolute;inset:0;perspective:900px;transform-style:preserve-3d;will-change:transform;--px:0;--py:0;--fx:50%;--fy:50%;--fhue:0deg;--fop:.13;--gop:0;}",
-    ".panel{position:absolute;inset:0;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform,opacity;}",
-    ".panel.b{opacity:0;visibility:hidden;}",
-    ".seam{position:absolute;inset:0;pointer-events:none;border-radius:22px;opacity:0;z-index:7;}",
-    ".rail{display:flex;align-items:center;gap:9px;justify-content:center;z-index:2;}",
-    ".rail span{height:7px;border-radius:7px;cursor:pointer;transition:all .42s cubic-bezier(.22,1,.36,1);}",
-    ".hint{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.34);z-index:2;}",
-    ".hint .tick{width:5px;height:5px;border-radius:50%;background:#6fefb4;animation:ocTick 2s ease-in-out infinite;}",
-    "@keyframes ocDrift{0%,100%{transform:translate(-54%,-53%) scale(1)}50%{transform:translate(-45%,-46%) scale(1.16)}}",
-    "@keyframes ocTick{0%,100%{opacity:.3}50%{opacity:1}}",
-    "@keyframes ocEdge{0%,100%{opacity:.1}50%{opacity:.4}}",
-    "@keyframes ofScan{0%{background-position:0 0}100%{background-position:0 6px}}",
-    "@keyframes ofBeat{0%,100%{transform:scaleY(.28)}50%{transform:scaleY(.72)}}",
-    "@keyframes ofBeat2{0%,100%{transform:scaleY(.16)}45%{transform:scaleY(1)}70%{transform:scaleY(.46)}}",
-    "@keyframes ofSweep{0%{background-position:140% 0}100%{background-position:-140% 0}}",
-    "@media (prefers-reduced-motion: reduce){.aura,.edge span,.hint .tick,.tilt{animation:none!important;transition:none!important;}}"
-  ].join("");
+    ":host{display:block;font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-user-select:none;user-select:none}",
+    "*{box-sizing:border-box}",
+    ".scene{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;overflow:visible}",
+    ".aura{position:absolute;top:50%;left:50%;width:64vmin;max-width:480px;height:64vmin;max-height:480px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,.22),transparent 66%);filter:blur(64px);pointer-events:none;animation:v6Aura 17s ease-in-out infinite}",
+    ".wrap{position:relative;width:min(360px,100%);aspect-ratio:3/4;z-index:2;touch-action:pan-y;cursor:grab;outline:none}",
+    ".wrap:focus-visible{outline:2px solid #6fefb4;outline-offset:7px;border-radius:30px}",
+    ".edges{position:absolute;inset:0;pointer-events:none;z-index:6;color:rgba(244,247,240,.55);font-size:15px}",
+    ".edges span{position:absolute;top:50%;transform:translateY(-50%)}",
+    ".edges .l{left:8px;animation:v6Edge 2.8s ease-in-out 1.4s infinite}",
+    ".edges .r{right:8px;animation:v6Edge 2.8s ease-in-out 2.1s infinite}",
+    ".persp{position:absolute;inset:0;perspective:1100px}",
+    ".card{position:absolute;inset:0;will-change:transform;--px:0;--py:0;--fx:50%;--fy:50%;--fhue:0deg;--fop:.12;--gop:0}",
+    ".body{position:absolute;inset:0;border-radius:22px;overflow:hidden;background:#08090a;border:1px solid rgba(255,255,255,.12);box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 40px 100px -40px rgba(0,0,0,.95)}",
+    ".layer{position:absolute;inset:0}",
+    ".fwrap{position:absolute;inset:0}",
+    ".backdrop{position:absolute;inset:0;background-size:cover;background-position:center}",
+    ".img{position:absolute;inset:0;background-repeat:no-repeat}",
+    ".scrim{position:absolute;inset:0;pointer-events:none}",
+    ".bullets{position:absolute;left:0;right:0;transform:translate(calc(var(--px,0)*14px),calc(var(--py,0)*14px))}",
+    ".bcol{display:flex;flex-direction:column;gap:8px;padding-left:16px}",
+    ".bcol>div{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.06;letter-spacing:-.015em;text-wrap:pretty}",
+    ".dj-wash{position:absolute;inset:0;pointer-events:none;mix-blend-mode:color-dodge;opacity:.74;background:radial-gradient(120% 80% at 20% 16%,rgba(255,45,155,.64),transparent 52%),radial-gradient(120% 80% at 84% 28%,rgba(54,198,224,.56),transparent 54%),radial-gradient(90% 72% at 60% 98%,rgba(255,176,80,.46),transparent 60%)}",
+    ".dj-eq{position:absolute;left:24px;right:24px;bottom:176px;height:44px;display:flex;align-items:flex-end;gap:4px;opacity:.92;filter:drop-shadow(0 0 8px rgba(255,79,160,.45))}",
+    ".dj-eq i{flex:1;height:100%;border-radius:2px;background:linear-gradient(180deg,#ff4fa0,#ffb050 55%,#5ee0d6);transform-origin:bottom;animation:v6Beat .6s ease-in-out infinite}",
+    ".incoming{position:absolute;inset:0;display:none}",
+    ".incoming.on{display:block}",
+    ".clip{position:absolute;inset:0}",
+    ".radiate{position:absolute;width:74px;height:74px;border-radius:50%;pointer-events:none;mix-blend-mode:screen;filter:blur(2px) saturate(1.4)}",
+    // violet mesh material, pointer-masked
+    ".mesh-foil{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:calc(var(--fop,.12)*1.1);background:linear-gradient(rgba(167,139,250,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,.10) 1px,transparent 1px);background-size:32px 32px,32px 32px;-webkit-mask:radial-gradient(120% 120% at var(--fx,50%) var(--fy,50%),#000,transparent 70%);mask:radial-gradient(120% 120% at var(--fx,50%) var(--fy,50%),#000,transparent 70%)}",
+    // violet foil material
+    ".foil{position:absolute;inset:0;pointer-events:none;border-radius:22px;mix-blend-mode:screen;opacity:var(--fop,.12);background:repeating-linear-gradient(82deg,rgba(255,255,255,.05) 0 1.5px,transparent 1.5px 4px),repeating-linear-gradient(115deg,rgba(150,130,255,.6) 0%,rgba(196,150,255,.5) 16%,rgba(120,110,255,.55) 32%,rgba(180,140,255,.55) 48%,rgba(150,130,255,.6) 64%,rgba(200,160,255,.5) 82%,rgba(150,130,255,.6) 100%);background-size:200% 200%,240% 240%;background-position:var(--fx,50%) var(--fy,50%);filter:hue-rotate(var(--fhue,0deg)) saturate(1.25);-webkit-mask:linear-gradient(180deg,#000,#000 52%,rgba(0,0,0,.34) 78%,transparent 96%);mask:linear-gradient(180deg,#000,#000 52%,rgba(0,0,0,.34) 78%,transparent 96%)}",
+    // charged idle sheen — held violet wavelength
+    ".sheen{position:absolute;inset:0;pointer-events:none;border-radius:22px;mix-blend-mode:screen;background:linear-gradient(115deg,transparent 34%,rgba(190,170,255,.10) 47%,rgba(255,255,255,.16) 50%,rgba(190,170,255,.10) 53%,transparent 66%);background-size:300% 100%;animation:v6Sheen 7.5s ease-in-out infinite}",
+    ".glare{position:absolute;inset:0;pointer-events:none;border-radius:22px;mix-blend-mode:screen;opacity:var(--gop,0);background:radial-gradient(340px circle at var(--fx,50%) var(--fy,50%),rgba(255,255,255,.5),rgba(190,170,255,.08) 34%,transparent 62%)}",
+    ".ring{position:absolute;inset:0;pointer-events:none;border-radius:22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(255,255,255,.05)}",
+    ".rail{display:flex;align-items:center;gap:9px;justify-content:center;z-index:2}",
+    ".rail span{height:7px;border-radius:7px;cursor:pointer;transition:all .42s cubic-bezier(.22,1,.36,1)}",
+    "@keyframes v6Aura{0%,100%{transform:translate(-50%,-50%) translate(-3%,-2%) scale(1)}50%{transform:translate(-50%,-50%) translate(4%,3%) scale(1.14)}}",
+    "@keyframes v6Edge{0%,100%{opacity:.12}50%{opacity:.44}}",
+    "@keyframes v6Beat{0%,100%{transform:scaleY(.2)}45%{transform:scaleY(1)}72%{transform:scaleY(.5)}}",
+    "@keyframes v6Radiate{0%{opacity:0;transform:translate(-50%,-50%) scale(.18)}13%{opacity:.95}42%{opacity:.28}58%{opacity:.52}100%{opacity:0;transform:translate(-50%,-50%) scale(11)}}",
+    "@keyframes v6Sheen{0%{background-position:210% 0;opacity:.28}50%{background-position:-30% 0;opacity:.55}100%{background-position:-230% 0;opacity:.28}}",
+    "@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}"
+  ].join("\n");
 
-  function OperatorCardProto() {}
+  function hexA(hex, a) {
+    var m = hex.replace("#", "");
+    var n = m.length === 3 ? m.split("").map(function (c) { return c + c; }).join("") : m;
+    var r = parseInt(n.slice(0, 2), 16), g = parseInt(n.slice(2, 4), 16), b = parseInt(n.slice(4, 6), 16);
+    return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+  }
 
   class OperatorCard extends HTMLElement {
     connectedCallback() {
@@ -167,40 +158,59 @@
       ensureFonts();
 
       this.assetBase = (this.getAttribute("asset-base") || "assets/").replace(/\/?$/, "/");
-      this.tiltMax = parseFloat(this.getAttribute("tilt-max")) || 20;
-      this.foilI = this.hasAttribute("foil-intensity") ? parseFloat(this.getAttribute("foil-intensity")) : 1;
-      this.cubeD = this.hasAttribute("cube-depth") ? parseFloat(this.getAttribute("cube-depth")) : 0.65;
+      this.accent = this.getAttribute("accent") || ACCENT_DEFAULT;
+      this.tilt = this.hasAttribute("tilt") ? parseFloat(this.getAttribute("tilt")) : 13;
+      this.foilI = this.hasAttribute("foil-intensity") ? parseFloat(this.getAttribute("foil-intensity")) : 1.1;
+      this.flipDepth = this.hasAttribute("flip-depth") ? parseFloat(this.getAttribute("flip-depth")) : 1.5;
+      this.autoAdvance = this.getAttribute("auto-advance") !== "false";
 
       this.reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
       this.coarse = matchMedia("(pointer: coarse)").matches;
-      this.fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
 
       var startKey = this.getAttribute("start");
       var si = startKey ? FACES.findIndex(function (f) { return f.key === startKey; }) : 0;
-      this.i = si >= 0 ? si : 0;
-      this.j = (this.i + 1) % FACES.length;
+      this.cur = si >= 0 ? si : 0;
+      this.next = null;
+      this.phase = "idle"; // idle | arm | go
+      this.ox = 50; this.oy = 50;
 
-      this.angle = 0; this.dir = null; this.busy = false;
-      this.nx = 0; this.ny = 0; this.tnx = 0; this.tny = 0;
-      this.idleT = 0;
+      this.px = 0; this.py = 0; this.tpx = 0; this.tpy = 0;
+      this.flash = 0; this.clock = 0;
+      this.dragging = false; this.moved = false;
 
       this._build();
-      this._bind();
+      this._renderCur();
       this._renderRail();
-      this._applyAura();
-      this.applyTurn();
+      this.applyCard();
 
       if (!this.reduced) {
         this.running = true;
         this.raf = requestAnimationFrame(this._loop);
+
+        if (this.autoAdvance && "IntersectionObserver" in window) {
+          var self = this;
+          this.io = new IntersectionObserver(function (ents) {
+            ents.forEach(function (e) {
+              if (e.isIntersecting && !self.didAuto) {
+                self.didAuto = true;
+                self.io.disconnect();
+                self._a = setTimeout(function () {
+                  if (self.running && self.phase === "idle" && !self.dragging) self.go(+1);
+                }, 1700);
+              }
+            });
+          }, { threshold: 0.5 });
+          this.io.observe(this.wrapEl);
+        }
       }
     }
 
     disconnectedCallback() {
       this.running = false;
       cancelAnimationFrame(this.raf);
-      if (this._tw) cancelAnimationFrame(this._tw);
-      if (this._orient) window.removeEventListener("deviceorientation", this._orient);
+      if (this._t) clearTimeout(this._t);
+      if (this._a) clearTimeout(this._a);
+      if (this.io) this.io.disconnect();
     }
 
     asset(p) { return p ? this.assetBase + p : ""; }
@@ -211,392 +221,266 @@
       root.innerHTML =
         "<style>" + STYLE + "</style>" +
         '<div class="scene" part="scene">' +
-          '<div class="aura halo" aria-hidden="true"></div>' +
-          '<div class="aura core" aria-hidden="true"></div>' +
-          '<div class="card" part="card" tabindex="0" role="button" ' +
-              'aria-label="Identity card — swipe, tap, or use arrow keys to turn the cube to another facet.">' +
-            '<div class="edge" aria-hidden="true"><span class="l">◀</span><span class="r">▶</span></div>' +
-            '<div class="tilt">' +
-              '<div class="stage">' +
-                '<div class="panel b"></div>' +
-                '<div class="panel a"></div>' +
-                '<div class="seam" aria-hidden="true"></div>' +
-              "</div>" +
-            "</div>" +
-          "</div>" +
-          '<div class="rail" part="rail"></div>' +
-          '<div class="hint"><span class="tick"></span>swipe or tap to turn · tilt to feel the depth</div>' +
-        "</div>";
+          '<div class="aura" aria-hidden="true"></div>' +
+          '<div class="wrap" tabindex="0" role="button" aria-label="Operator card — arrow keys, swipe, or tap to change panels">' +
+            '<div class="edges" aria-hidden="true"><span class="l">‹</span><span class="r">›</span></div>' +
+            '<div class="persp">' +
+              '<div class="card">' +
+                '<div class="body">' +
+                  '<div class="layer cur"></div>' +
+                  '<div class="incoming"><div class="clip"></div><div class="radiate"></div></div>' +
+                  '<div class="mesh-foil" aria-hidden="true"></div>' +
+                  '<div class="foil" aria-hidden="true"></div>' +
+                  '<div class="sheen" aria-hidden="true"></div>' +
+                  '<div class="glare" aria-hidden="true"></div>' +
+                  '<div class="ring" aria-hidden="true"></div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="rail" role="tablist" aria-label="Card panels"></div>' +
+        '</div>';
 
+      this.wrapEl = root.querySelector(".wrap");
       this.cardEl = root.querySelector(".card");
-      this.tiltEl = root.querySelector(".tilt");
-      this.stageEl = root.querySelector(".stage");
-      this.panelAEl = root.querySelector(".panel.a");
-      this.panelBEl = root.querySelector(".panel.b");
-      this.seamEl = root.querySelector(".seam");
+      this.curEl = root.querySelector(".layer.cur");
+      this.incomingEl = root.querySelector(".incoming");
+      this.clipEl = root.querySelector(".clip");
+      this.radiateEl = root.querySelector(".radiate");
       this.railEl = root.querySelector(".rail");
-      this.haloEl = root.querySelector(".aura.halo");
-      this.coreEl = root.querySelector(".aura.core");
 
-      this.panelAEl.innerHTML = this._faceHTML(FACES[this.i]);
-      this.curFoilBoost = FACES[this.i].foilBoost || 1;
+      this._bind();
     }
 
-    // ---- a single Operator Face, as HTML (ported from Operator Face.dc.html) --
-    _faceHTML(f) {
-      var s = f.sub;
-      var isSignal = f.kind === "signal";
-      var isWork = f.kind === "work";
-      var hideSub = isSignal || isWork;
-      var subStyle = hideSub
-        ? "display:none;"
-        : "left:" + s.left + ";top:" + s.top + ";width:" + s.width + ";height:" + s.height +
-          ";background-image:url(" + this.asset(f.img) + ");background-position:" + s.pos +
-          ";filter:" + (s.filter || "none") + ";";
-      var bgStyle = isSignal
-        ? "background:radial-gradient(120% 80% at 50% 0%,#0e1a1d,#08090a 62%);"
-        : "background-image:url(" + this.asset(f.img) + ");";
-      var vignStyle = "background:" + f.vign + ";opacity:" + f.vignOp + ";";
-      var scanOp = f.scan ? 0.4 : 0;
-      var dotStyle = "background:" + f.accent + ";box-shadow:0 0 10px " + f.accent + ";";
-
-      var bleedTitleStyle = f.titleGradient
-        ? "font-size:" + f.titleSize + ";background:" + f.titleFill + ";-webkit-background-clip:text;background-clip:text;color:transparent;"
-        : "font-size:" + f.titleSize + ";color:" + f.titleFill + ";";
-
-      var topSpacer = f.kind !== "stats";
-      var bottomSpacer = f.kind === "stats" || f.kind === "signal";
-
-      var H = "";
-      H += '<div style="position:absolute;inset:0;border-radius:22px;overflow:hidden;background:#0a0c0e;border:1px solid rgba(255,255,255,.12);box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 40px 100px -40px rgba(0,0,0,.95);">';
-
-      // L1 · blurred backdrop
-      H += '<div style="position:absolute;inset:-15%;background-size:cover;background-position:center;filter:blur(9px) saturate(1.12) brightness(.6);transform:translate(calc(var(--px,0)*-9px),calc(var(--py,0)*-9px)) scale(1.14);' + bgStyle + '"></div>';
-      H += '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,9,10,.12),rgba(8,9,10,.36) 56%,rgba(8,9,10,.9));"></div>';
-
-      // holographic mesh grid (pointer-masked)
-      H += '<div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:calc(var(--fop,.13)*1.2);background:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);background-size:30px 30px,30px 30px;-webkit-mask:radial-gradient(120% 120% at var(--fx,50%) var(--fy,50%),#000,transparent 70%);mask:radial-gradient(120% 120% at var(--fx,50%) var(--fy,50%),#000,transparent 70%);"></div>';
-
-      // L2 · subject image (+ work check overlay)
-      H += '<div style="position:absolute;inset:0;transform:translate(calc(var(--px,0)*15px),calc(var(--py,0)*15px));">';
-      H += '<div style="position:absolute;background-size:cover;' + subStyle + '"></div>';
-      if (isWork) {
-        H += '<div style="position:absolute;left:7%;right:7%;top:9.5%;aspect-ratio:2/1;border-radius:7px;overflow:hidden;transform:translate(calc(var(--px,0)*9px),calc(var(--py,0)*9px));background-image:url(' + this.asset("dreamship-donate.jpg") + ');background-size:162%;background-position:49% 48%;box-shadow:0 28px 54px -18px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.16),0 0 0 6px rgba(8,9,10,.45);"></div>';
-      }
-      H += "</div>";
-
-      // vignette
-      H += '<div style="position:absolute;inset:0;pointer-events:none;' + vignStyle + '"></div>';
-      // scanlines (vibe)
-      H += '<div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:' + scanOp + ';background:repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0 1px,transparent 1px 3px);animation:ofScan 1.1s linear infinite;"></div>';
-
-      // L3 · foreground content
-      H += '<div style="position:absolute;inset:0;padding:19px 22px;display:flex;flex-direction:column;transform:translate(calc(var(--px,0)*24px),calc(var(--py,0)*24px));">';
-      H += '<div style="display:flex;align-items:center;justify-content:space-between;">';
-      H += '<span style="width:8px;height:8px;border-radius:50%;' + dotStyle + '"></span>';
-      H += '<span style="font-family:\'JetBrains Mono\',monospace;font-size:8.5px;letter-spacing:.22em;color:rgba(255,255,255,.42);">' + f.idx + " · 06</span>";
-      H += "</div>";
-      if (topSpacer) H += '<div style="flex:1;min-height:0;"></div>';
-
-      if (f.kind === "identity") {
-        H += '<div style="display:flex;flex-direction:column;gap:13px;">';
-        DESCRIPTORS.forEach(function (d) {
-          H += '<div style="display:flex;flex-direction:column;gap:5px;">';
-          H += '<div style="font-family:\'Bricolage Grotesque\',sans-serif;font-weight:700;font-size:19px;line-height:1;letter-spacing:-.02em;background:linear-gradient(92deg,#5ee0d6,#36c6e0 36%,#a78bfa 68%,#6fefb4);-webkit-background-clip:text;background-clip:text;color:transparent;width:max-content;max-width:100%;">' + d.t + "</div>";
-          H += '<div style="height:11px;width:60%;display:flex;align-items:flex-end;gap:2.5px;transform:scaleY(.5);transform-origin:bottom;opacity:.4;">';
-          EQBARS.forEach(function (b) {
-            H += '<div style="flex:1;height:100%;border-radius:2px;background:linear-gradient(180deg,#6fefb4,#36c6e0);transform-origin:bottom;animation:ofBeat .9s ease-in-out infinite;animation-delay:' + b + ';"></div>';
-          });
-          H += "</div></div>";
-        });
-        H += "</div>";
-      } else if (isWork) {
-        H += '<div style="display:flex;flex-direction:column;gap:13px;">';
-        H += '<div style="align-self:flex-start;display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:999px;border:1px solid rgba(167,139,250,.4);background:rgba(167,139,250,.12);font-family:\'JetBrains Mono\',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#c9b8ff;">grower + giver</div>';
-        H += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:11px 16px;">';
-        BARS.forEach(function (bar) {
-          H += '<div style="display:flex;align-items:baseline;gap:8px;">';
-          H += '<span style="font-family:\'Bricolage Grotesque\',sans-serif;font-weight:700;font-size:19px;line-height:1;color:' + bar.c + ";text-shadow:0 0 12px " + bar.glow + ';">' + bar.n + "</span>";
-          H += '<span style="font-size:10.5px;line-height:1.2;color:rgba(255,255,255,.55);">' + bar.d + "</span></div>";
-        });
-        H += "</div>";
-        H += '<div style="font-size:11.5px;line-height:1.45;color:#9aa0a3;">$10K to Freedom United, on behalf of the merchant community — profit and purpose, same hands.</div>';
-        H += "</div>";
-      } else if (f.kind === "bleed" || f.kind === "vibe") {
-        H += '<div style="display:flex;flex-direction:column;gap:7px;">';
-        H += '<div style="display:flex;flex-direction:column;line-height:.92;">';
-        H += '<div style="font-family:\'Bricolage Grotesque\',sans-serif;font-weight:800;letter-spacing:-.03em;' + bleedTitleStyle + '">' + (f.title || "") + "</div>";
-        if (f.title2) H += '<div style="font-family:\'Bricolage Grotesque\',sans-serif;font-weight:800;letter-spacing:-.03em;' + bleedTitleStyle + '">' + f.title2 + "</div>";
-        H += "</div>";
-        H += '<div style="font-size:13.5px;line-height:1.4;margin-top:4px;' + (f.captionStyle || "color:rgba(244,242,236,.72);") + '">' + (f.caption || "") + "</div>";
-        if (f.kind === "vibe") {
-          H += '<div style="margin-top:9px;height:24px;display:flex;align-items:flex-end;gap:3px;">';
-          BEATBARS.forEach(function (b) {
-            H += '<div style="flex:1;height:100%;border-radius:2px;background:linear-gradient(180deg,#ff5fa8,#ffb050);transform-origin:bottom;animation:ofBeat2 .7s ease-in-out infinite;animation-delay:' + b + ';opacity:.92;"></div>';
-          });
-          H += "</div>";
+    _bind() {
+      var w = this.wrapEl, self = this;
+      this.onDown = function (e) {
+        if (self.phase !== "idle") return;
+        self.dragging = true; self.dx = e.clientX; self.dy = e.clientY;
+        self.dt = performance.now(); self.moved = false;
+        w.style.cursor = "grabbing";
+      };
+      this.onMove = function (e) {
+        var r = w.getBoundingClientRect();
+        if (self.dragging) {
+          if (Math.abs(e.clientX - self.dx) > 4 || Math.abs(e.clientY - self.dy) > 4) self.moved = true;
+          self.tpx = 0; self.tpy = 0; return;
         }
-        H += "</div>";
-      } else if (f.kind === "stats") {
-        H += '<div style="display:flex;flex-direction:column;gap:12px;">';
-        H += '<div style="display:flex;align-items:baseline;justify-content:space-between;">';
-        H += '<div style="font-family:\'Bricolage Grotesque\',sans-serif;font-weight:800;font-size:30px;letter-spacing:-.03em;color:#ccff00;text-shadow:0 0 18px rgba(204,255,0,.45);">Powder day</div>';
-        H += '<div style="font-family:\'JetBrains Mono\',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#ff2d9b;">season ’26</div>';
-        H += "</div>";
-        H += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
-        STATS.forEach(function (st) {
-          H += '<div style="border:1px solid ' + st.bd + ";border-radius:11px;background:" + st.bg + ';padding:11px 13px;">';
-          H += '<div style="font-family:\'Bricolage Grotesque\',sans-serif;font-weight:800;font-size:25px;line-height:.9;color:' + st.c + ";text-shadow:0 0 14px " + st.glow + ';">' + st.v + "</div>";
-          H += '<div style="font-family:\'JetBrains Mono\',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:6px;">' + st.k + "</div></div>";
-        });
-        H += "</div>";
-        H += '<div><div style="display:flex;justify-content:space-between;font-family:\'JetBrains Mono\',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:5px;"><span>overall stoke</span><span style="color:#ccff00;">99</span></div>';
-        H += '<div style="height:7px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;"><div style="width:99%;height:100%;border-radius:99px;background:linear-gradient(90deg,#ff2d9b,#ccff00);box-shadow:0 0 12px rgba(204,255,0,.5);"></div></div></div>';
-        H += "</div>";
-      } else if (isSignal) {
-        H += '<div style="display:flex;flex-direction:column;gap:14px;">';
-        H += '<div><div style="font-family:\'Bricolage Grotesque\',sans-serif;font-weight:800;font-size:30px;letter-spacing:-.03em;color:#cfeff5;">Proof of work</div>';
-        H += '<div style="font-size:12px;line-height:1.4;color:#9aa0a3;margin-top:5px;">Eleven years shipping with the giants — and the upstarts.</div></div>';
-        H += '<div style="position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:9px;">';
-        var self = this;
-        LOGOS.forEach(function (src) {
-          H += '<div style="aspect-ratio:5/2;border-radius:9px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;overflow:hidden;">';
-          H += '<div style="width:62%;height:48%;background-image:url(' + self.asset(src) + ');background-size:contain;background-repeat:no-repeat;background-position:center;filter:brightness(0) invert(1);opacity:.62;"></div></div>';
-        });
-        H += '<div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;border-radius:9px;mix-blend-mode:screen;background:linear-gradient(105deg,transparent 38%,rgba(54,198,224,.22) 50%,transparent 62%);background-size:280% 100%;animation:ofSweep 3.6s linear infinite;"></div>';
-        H += "</div></div>";
-      }
-
-      if (bottomSpacer) H += '<div style="flex:1;min-height:0;"></div>';
-      H += "</div>"; // /foreground
-
-      // holographic foil
-      H += '<div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;border-radius:22px;mix-blend-mode:screen;opacity:var(--fop,.13);background:repeating-linear-gradient(82deg,rgba(255,255,255,.06) 0 1.5px,transparent 1.5px 4px),repeating-linear-gradient(115deg,rgba(255,70,150,.55) 0%,rgba(255,176,80,.45) 9%,rgba(111,239,180,.5) 19%,rgba(94,224,214,.5) 29%,rgba(150,130,255,.55) 40%,rgba(255,70,150,.55) 50%);background-size:200% 200%,240% 240%;background-position:var(--fx,50%) var(--fy,50%);filter:hue-rotate(var(--fhue,0deg)) saturate(1.3);-webkit-mask:linear-gradient(180deg,#000,#000 52%,rgba(0,0,0,.34) 78%,transparent 96%);mask:linear-gradient(180deg,#000,#000 52%,rgba(0,0,0,.34) 78%,transparent 96%);"></div>';
-      // pointer glare
-      H += '<div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;border-radius:22px;mix-blend-mode:screen;opacity:var(--gop,0);background:radial-gradient(340px circle at var(--fx,50%) var(--fy,50%),rgba(255,255,255,.5),rgba(120,255,224,.06) 34%,transparent 62%);"></div>';
-      // resting sheen + grain
-      H += '<div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;border-radius:22px;mix-blend-mode:screen;opacity:.4;background:linear-gradient(122deg,transparent 40%,rgba(255,255,255,.08) 52%,transparent 60%);-webkit-mask:linear-gradient(180deg,#000,transparent 50%);mask:linear-gradient(180deg,#000,transparent 50%);"></div>';
-      H += '<div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;border-radius:22px;opacity:.5;mix-blend-mode:overlay;background-image:url(\'' + GRAIN + '\');background-size:120px 120px;"></div>';
-      // inner sheen edge
-      H += '<div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;border-radius:22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 0 0 1px rgba(255,255,255,.04);"></div>';
-
-      H += "</div>"; // /face root
-      return H;
+        if (self.reduced) return;
+        self.tpx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+        self.tpy = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      };
+      this.onUp = function (e) {
+        if (!self.dragging) return;
+        self.dragging = false;
+        w.style.cursor = "grab";
+        self.tpx = 0; self.tpy = 0;
+        var o = self._origin(e);
+        var ddx = e.clientX - self.dx, ddy = e.clientY - self.dy;
+        var dist = Math.hypot(ddx, ddy), dt = performance.now() - self.dt;
+        if (dist < 8 && dt < 400) { self.go(+1, null, o.ox, o.oy); return; }
+        if (dist < 28) return;
+        if (Math.abs(ddx) >= Math.abs(ddy)) self.go(ddx < 0 ? +1 : -1, null, o.ox, o.oy);
+        else self.go(ddy < 0 ? +1 : -1, null, o.ox, o.oy);
+      };
+      this.onKey = function (e) {
+        if (e.key === "ArrowRight" || e.key === "ArrowUp") { self.go(+1); e.preventDefault(); }
+        else if (e.key === "ArrowLeft" || e.key === "ArrowDown") { self.go(-1); e.preventDefault(); }
+        else if (e.key === "Enter" || e.key === " ") { self.go(+1); e.preventDefault(); }
+      };
+      w.addEventListener("pointerdown", this.onDown);
+      w.addEventListener("pointermove", this.onMove);
+      w.addEventListener("pointerup", this.onUp);
+      w.addEventListener("pointercancel", this.onUp);
+      w.addEventListener("pointerleave", function () { if (!self.dragging) { self.tpx = 0; self.tpy = 0; } });
+      w.addEventListener("keydown", this.onKey);
     }
 
-    // ---- rail + aura ---------------------------------------------------------
+    _origin(e) {
+      var r = this.wrapEl.getBoundingClientRect();
+      return {
+        ox: Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100)),
+        oy: Math.max(0, Math.min(100, (e.clientY - r.top) / r.height * 100))
+      };
+    }
+
+    ring(s) { var n = FACES.length; return ((this.cur + s) % n + n) % n; }
+
+    faceAccent(f) { return (f && f.accent) || this.accent || ACCENT_DEFAULT; }
+
+    // ---- per-facet decoration (mirrors the export's deco()) -------------------
+    deco(f) {
+      var acc = this.faceAccent(f);
+      var isFit = f.kind === "fit", top = f.textPos === "top";
+      var wrapStyle = isFit
+        ? "transform:translate(calc(var(--px,0)*-6px),calc(var(--py,0)*-6px));"
+        : "transform:translate(calc(var(--px,0)*-9px),calc(var(--py,0)*-9px)) scale(1.06);";
+      var img = this.asset(f.img), backdropStyle = "display:none;", imgStyle = "";
+      if (isFit) {
+        backdropStyle = "background-image:url(" + img + ");filter:blur(32px) saturate(1.3) brightness(.3);transform:scale(1.5);";
+        imgStyle = "background-image:url(" + img + ");background-size:contain;background-position:" + f.pos + ";";
+      } else {
+        var filt = f.vibrant ? "filter:saturate(1.5) contrast(1.06);" : "";
+        imgStyle = "background-image:url(" + img + ");background-size:cover;background-position:" + f.pos + ";" + filt;
+      }
+      var scrimStyle;
+      if (top) scrimStyle = "background:linear-gradient(180deg,rgba(8,9,10,.9) 0%,rgba(8,9,10,.46) 20%,transparent 46%,transparent 84%,rgba(8,9,10,.4) 100%);";
+      else if (isFit) scrimStyle = "background:linear-gradient(180deg,rgba(8,9,10,.55) 0%,rgba(8,9,10,.12) 18%,transparent 42%,rgba(8,9,10,.6) 64%,rgba(8,9,10,.96) 100%);";
+      else scrimStyle = "background:linear-gradient(180deg,rgba(8,9,10,.16) 0%,transparent 30%,rgba(8,9,10,.14) 46%,rgba(8,9,10,.64) 70%,rgba(8,9,10,.94) 100%);";
+      var bulletsBox = top ? "top:0;padding:26px 26px 20px;" : "bottom:0;padding:24px 26px 28px;";
+      var bullets = f.bullets.map(function (b) {
+        var style;
+        if (b.k === "higrad") style = "font-weight:800;font-size:29px;background:linear-gradient(92deg,#ff4fa0,#ffb050 46%,#5ee0d6);-webkit-background-clip:text;background-clip:text;color:transparent;";
+        else if (b.k === "hi") style = "font-weight:800;font-size:27px;color:" + acc + ";";
+        else if (b.k === "aside") style = "font-weight:500;font-size:19px;font-style:italic;color:rgba(244,247,240,.62);font-family:'Hanken Grotesk',sans-serif;";
+        else style = "font-weight:600;font-size:22px;color:#f4f7f0;";
+        return { t: b.t, style: style };
+      });
+      return {
+        wrapStyle: wrapStyle, backdropStyle: backdropStyle, imgStyle: imgStyle,
+        scrimStyle: scrimStyle, bulletsBox: bulletsBox, bullets: bullets,
+        isDj: f.key === "dj", accentBorder: hexA(acc, 0.6)
+      };
+    }
+
+    // Build the inner HTML for one facet layer (photo + scrim + dj + bullets).
+    _layerHTML(f) {
+      var d = this.deco(f);
+      var bullets = d.bullets.map(function (b) {
+        return '<div style="' + b.style + '">' + b.t + "</div>";
+      }).join("");
+      return (
+        '<div class="fwrap" style="' + d.wrapStyle + '">' +
+          '<div class="backdrop" aria-hidden="true" style="' + d.backdropStyle + '"></div>' +
+          '<div class="img" aria-hidden="true" style="' + d.imgStyle + '"></div>' +
+        "</div>" +
+        '<div class="scrim" aria-hidden="true" style="' + d.scrimStyle + '"></div>' +
+        (d.isDj ? DJ_OVERLAY : "") +
+        '<div class="bullets" style="' + d.bulletsBox + '">' +
+          '<div class="bcol" style="border-left:2px solid ' + d.accentBorder + '">' + bullets + "</div>" +
+        "</div>"
+      );
+    }
+
+    _renderCur() {
+      var f = FACES[this.cur];
+      this.curEl.innerHTML = this._layerHTML(f);
+      this.wrapEl.setAttribute(
+        "aria-label",
+        f.bullets[0].t + ", panel " + (this.cur + 1) + " of " + FACES.length + ". " + f.aria + " Arrow keys to change panels."
+      );
+    }
+
     _renderRail() {
-      var self = this, i = this.i;
       this.railEl.innerHTML = "";
+      var self = this;
       FACES.forEach(function (ff, idx) {
-        var sp = document.createElement("span");
-        var active = idx === i;
-        sp.style.width = active ? "24px" : "7px";
-        sp.style.background = active ? ff.accent : "rgba(255,255,255,.26)";
-        sp.style.boxShadow = active ? "0 0 10px " + ff.accent : "none";
-        sp.setAttribute("role", "button");
-        sp.setAttribute("aria-label", ff.label);
-        sp.addEventListener("click", function () { self._jump(idx); });
-        self.railEl.appendChild(sp);
+        var on = idx === self.cur, fa = self.faceAccent(ff);
+        var s = document.createElement("span");
+        s.setAttribute("role", "tab");
+        s.setAttribute("aria-label", ff.bullets[0].t);
+        s.setAttribute("aria-selected", on ? "true" : "false");
+        s.style.cssText =
+          "width:" + (on ? "24px" : "7px") + ";" +
+          "background:" + (on ? fa : "rgba(244,247,240,.26)") + ";" +
+          "box-shadow:" + (on ? "0 0 10px " + hexA(fa, 0.8) : "none") + ";";
+        s.addEventListener("click", function () {
+          if (idx === self.cur || self.phase !== "idle") return;
+          self.go(idx > self.cur ? +1 : -1, idx);
+        });
+        self.railEl.appendChild(s);
       });
     }
 
-    _applyAura() {
-      var f = FACES[this.i];
-      this.haloEl.style.background = "radial-gradient(circle," + f.aura + ",transparent 66%)";
-      this.coreEl.style.background = "radial-gradient(circle," + (f.core || f.aura) + ",transparent 60%)";
-    }
+    // ---- facet change: aperture bloom ----------------------------------------
+    go(dir, target, ox, oy) {
+      if (this.phase !== "idle") return;
+      if (this._a) { clearTimeout(this._a); this._a = null; }
+      if (this._t) { clearTimeout(this._t); this._t = null; }
+      var next = (target != null) ? target : this.ring(dir);
+      if (next === this.cur) return;
 
-    // ---- events --------------------------------------------------------------
-    _bind() {
-      var c = this.cardEl;
-      this.onDown = this.onDown.bind(this);
-      this.onUp = this.onUp.bind(this);
-      this.onKey = this.onKey.bind(this);
-      this._loop = this._loop.bind(this);
-      c.addEventListener("pointerdown", this.onDown);
-      c.addEventListener("pointerup", this.onUp);
-      c.addEventListener("pointercancel", this.onUp);
-      c.addEventListener("keydown", this.onKey);
+      if (this.reduced) { this.cur = next; this._renderCur(); this._renderRail(); return; }
 
-      if (this.fine && !this.reduced) {
-        var self = this;
-        c.addEventListener("pointermove", function (e) {
-          if (e.pointerType === "touch") return;
-          var r = c.getBoundingClientRect();
-          var px = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
-          var py = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
-          self.tnx = (px - 0.5) * 2;
-          self.tny = (py - 0.5) * 2;
-        });
-        c.addEventListener("pointerleave", function () { self.tnx = 0; self.tny = 0; });
-      }
+      var cx = (ox != null) ? ox : 50, cy = (oy != null) ? oy : 50;
+      this.next = next; this.ox = cx; this.oy = cy; this.phase = "arm";
+      this.flash = 1;
 
-      // Phone gyroscope → tilt-parallax (best-effort; permission-gated on iOS).
-      if (this.coarse && !this.reduced && window.DeviceOrientationEvent) {
-        var s = this;
-        this._orient = function (ev) {
-          if (ev.gamma == null || ev.beta == null) return;
-          s._gyro = true;
-          s.tnx = Math.max(-1, Math.min(1, ev.gamma / 28));
-          s.tny = Math.max(-1, Math.min(1, (ev.beta - 45) / 28));
-        };
-        window.addEventListener("deviceorientation", this._orient);
-      }
-    }
+      // incoming facet, clip closed at the touch origin
+      this.clipEl.innerHTML = this._layerHTML(FACES[next]);
+      var cp = "circle(0% at " + cx + "% " + cy + "%)";
+      this.clipEl.style.cssText =
+        "position:absolute;inset:0;clip-path:" + cp + ";-webkit-clip-path:" + cp + ";" +
+        "transition:clip-path .6s cubic-bezier(.4,.75,.25,1),-webkit-clip-path .6s cubic-bezier(.4,.75,.25,1);";
 
-    onDown(e) {
-      if (this.busy) return;
-      this.downX = e.clientX; this.downY = e.clientY;
-      this.downT = performance.now(); this.tracking = true;
-      this.cardEl.style.cursor = "grabbing";
-    }
-    onUp(e) {
-      if (!this.tracking) return;
-      this.tracking = false;
-      this.cardEl.style.cursor = "grab";
-      var dx = e.clientX - this.downX, dy = e.clientY - this.downY;
-      var dist = Math.hypot(dx, dy), dt = performance.now() - this.downT;
-      if (dist < 8 && dt < 400) { this.turn("left"); return; } // tap → next
-      if (dist < 26) return;
-      var horiz = Math.abs(dx) >= Math.abs(dy);
-      var name = horiz ? (dx < 0 ? "left" : "right") : (dy < 0 ? "up" : "down");
-      this.turn(name, dist / Math.max(1, dt));
-    }
-    onKey(e) {
-      var map = { ArrowRight: "right", ArrowLeft: "left", ArrowUp: "up", ArrowDown: "down" };
-      if (map[e.key]) { this.turn(map[e.key]); e.preventDefault(); }
-      else if (e.key === "Enter" || e.key === " ") { this.turn("left"); e.preventDefault(); }
-    }
+      // radiating foil-light band from the origin, tinted to the incoming accent
+      var rcol = this.faceAccent(FACES[next]);
+      this.radiateEl.style.cssText =
+        "position:absolute;left:" + cx + "%;top:" + cy + "%;width:74px;height:74px;border-radius:50%;" +
+        "pointer-events:none;mix-blend-mode:screen;filter:blur(2px) saturate(1.4);" +
+        "background:radial-gradient(circle, transparent 24%, " + rcol + " 44%, transparent 66%);" +
+        "transform:translate(-50%,-50%) scale(.18);animation:v6Radiate .64s cubic-bezier(.3,.7,.3,1) forwards;";
 
-    ring(step) { var N = FACES.length; return ((this.i + step) % N + N) % N; }
+      this.incomingEl.classList.add("on");
 
-    _jump(idx) {
-      if (idx === this.i || this.busy) return;
-      this.turn(idx > this.i ? "left" : "right", 0, idx);
-    }
-
-    _setDir(name, forceIdx) {
-      this.dir = name;
-      var d = DIRS[name];
-      this.neighbor = forceIdx != null ? forceIdx : this.ring(d.step);
-      this.j = this.neighbor;
-      this.panelBEl.innerHTML = this._faceHTML(FACES[this.neighbor]);
-      this.panelBEl.style.transformOrigin = d.origin;
-      this.panelBEl.style.transform = d.place;
-      this.panelBEl.style.visibility = "visible";
-    }
-
-    // ---- the turn ------------------------------------------------------------
-    turn(name, vel, forceIdx) {
-      if (this.busy) return;
-      this._setDir(name, forceIdx);
-
-      if (this.reduced) { this._commit(); return; }
-
-      var d = DIRS[name];
-      this.busy = true;
-      var from = 0, to = d.target;
-      var dur = Math.min(900, Math.max(400, 620 - (vel || 0) * 60)); // ms
-      var t0 = performance.now();
       var self = this;
-      if (this._tw) cancelAnimationFrame(this._tw);
-      (function step(now) {
-        var p = Math.min(1, (now - t0) / dur);
-        var e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; // power3.inOut
-        self.angle = from + (to - from) * e;
-        self.applyTurn();
-        if (p < 1) { self._tw = requestAnimationFrame(step); }
-        else { self.busy = false; self._commit(); }
-      })(t0);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          if (!self.running || self.phase !== "arm") return;
+          self.phase = "go";
+          var op = "circle(175% at " + cx + "% " + cy + "%)";
+          self.clipEl.style.clipPath = op;
+          self.clipEl.style.webkitClipPath = op;
+        });
+      });
+
+      this._t = setTimeout(function () {
+        self.cur = next; self.next = null; self.phase = "idle";
+        self._renderCur();
+        self._renderRail();
+        self.incomingEl.classList.remove("on");
+        self.radiateEl.style.animation = "none";
+      }, 640);
     }
 
-    _commit() {
-      this.i = this.neighbor;
-      this.angle = 0; this.dir = null;
-      this.panelBEl.style.opacity = "0";
-      this.panelBEl.style.visibility = "hidden";
-      this.panelAEl.innerHTML = this._faceHTML(FACES[this.i]);
-      this.curFoilBoost = FACES[this.i].foilBoost || 1;
-      this._renderRail();
-      this._applyAura();
-      this.applyTurn();
-    }
-
-    // ---- per-frame parallax + foil (ported from v4 applyTurn) -----------------
-    applyTurn() {
-      var st = this.stageEl; if (!st) return;
-      var cd = this.cubeD, fi = this.foilI;
-      var a = this.angle || 0;
-      var mag = Math.min(1, Math.abs(a) / 90);
-      var d = this.dir ? DIRS[this.dir] : null;
-      var axis = d ? d.axis : "Y";
-      var z = -Math.sin(mag * Math.PI) * 210 * cd;
-      var scl = 1 - Math.sin(mag * Math.PI) * 0.1 * cd;
-      var rot = axis === "X" ? "rotateX(" + a.toFixed(2) + "deg)" : "rotateY(" + a.toFixed(2) + "deg)";
-      st.style.transform = "translateZ(" + z.toFixed(1) + "px) " + rot + " scale(" + scl.toFixed(3) + ")";
-
-      if (this.panelBEl) {
-        var o = Math.max(0, Math.min(1, mag * 3.4 - 0.04));
-        this.panelBEl.style.opacity = o.toFixed(3);
-      }
-
-      // physical tilt rig
-      if (this.tiltEl) {
-        var rx = (-this.ny * this.tiltMax).toFixed(2);
-        var ry = (this.nx * this.tiltMax).toFixed(2);
-        this.tiltEl.style.transform = "rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
-      }
-
-      var px = this.nx + (axis === "Y" ? (a / 90) * 0.45 : 0);
-      var py = this.ny + (axis === "X" ? (a / 90) * 0.45 : 0);
-      st.style.setProperty("--px", px.toFixed(3));
-      st.style.setProperty("--py", py.toFixed(3));
-      st.style.setProperty("--fx", (50 + px * 60).toFixed(1) + "%");
-      st.style.setProperty("--fy", (50 + py * 60).toFixed(1) + "%");
-      st.style.setProperty("--fhue", (this.nx * 46 + a * 0.7).toFixed(1) + "deg");
-      var boost = (this.curFoilBoost || 1) * fi;
-      st.style.setProperty("--fop", ((0.12 + Math.abs(this.nx) * 0.2 + Math.abs(this.ny) * 0.16 + mag * 0.5) * boost).toFixed(3));
-      st.style.setProperty("--gop", Math.min(0.75, (Math.abs(this.nx) + Math.abs(this.ny)) * 0.7 + mag * 0.4).toFixed(3));
-
-      this._seam(mag, axis);
-    }
-
-    _seam(mag, axis) {
-      var el = this.seamEl; if (!el) return;
-      if (mag <= 0.001) { el.style.opacity = "0"; el.style.boxShadow = "none"; return; }
-      el.style.opacity = "1";
-      var s = Math.sin(mag * Math.PI);
-      var c = "rgba(255,255,255," + (s * 0.9).toFixed(2) + ")";
-      var c2 = "rgba(180,245,255," + (s * 0.6).toFixed(2) + ")";
-      var pos = this.angle > 0 ? 1 : -1;
-      if (axis === "Y") {
-        el.style.boxShadow = pos > 0
-          ? "inset 14px 0 34px -14px " + c + ", inset 3px 0 0 " + c2
-          : "inset -14px 0 34px -14px " + c + ", inset -3px 0 0 " + c2;
-      } else {
-        el.style.boxShadow = pos > 0
-          ? "inset 0 14px 34px -14px " + c + ", inset 0 3px 0 " + c2
-          : "inset 0 -14px 34px -14px " + c + ", inset 0 -3px 0 " + c2;
-      }
-    }
-
-    // ---- idle loop: ease tilt vars, add a gentle drift on touch ---------------
-    _loop(now) {
+    // ---- rAF: parallax lerp, idle float, foil ---------------------------------
+    _loop = (ts) => {
       if (!this.running) return;
-      // On touch with no real gyro yet, breathe a slow drift so depth reads.
-      if (this.coarse && !this._gyro) {
-        this.idleT = now || performance.now();
-        this.tnx = Math.sin(this.idleT / 2600) * 0.5;
-        this.tny = Math.cos(this.idleT / 3300) * 0.32;
-      }
-      this.nx += (this.tnx - this.nx) * 0.12;
-      this.ny += (this.tny - this.ny) * 0.12;
-      this.applyTurn();
+      this.clock = ts || 0;
+      this.px += (this.tpx - this.px) * 0.10;
+      this.py += (this.tpy - this.py) * 0.10;
+      this.flash *= 0.90; if (this.flash < 0.01) this.flash = 0;
+      this.applyCard();
       this.raf = requestAnimationFrame(this._loop);
+    };
+
+    applyCard() {
+      var c = this.cardEl; if (!c) return;
+      var t = this.tilt, px = this.px || 0, py = this.py || 0;
+      var fY = this.reduced ? 0 : Math.sin(this.clock * 0.0011) * 3.2;
+      var fX = this.reduced ? 0 : Math.cos(this.clock * 0.0008) * 2.2;
+      c.style.transform =
+        "translate3d(" + fX.toFixed(2) + "px," + fY.toFixed(2) + "px,0) " +
+        "rotateX(" + (-py * t).toFixed(2) + "deg) rotateY(" + (px * t).toFixed(2) + "deg)";
+      c.style.setProperty("--px", px.toFixed(3));
+      c.style.setProperty("--py", py.toFixed(3));
+      c.style.setProperty("--fx", (50 + px * 60).toFixed(1) + "%");
+      c.style.setProperty("--fy", (50 + py * 60).toFixed(1) + "%");
+      c.style.setProperty("--fhue", (px * 30).toFixed(1) + "deg");
+      var fi = this.foilI, fd = this.flipDepth;
+      var cur = FACES[this.cur];
+      var boost = cur && cur.vibrant ? 1.8 : 1;
+      var flash = this.flash || 0;
+      c.style.setProperty(
+        "--fop",
+        ((0.10 + Math.abs(px) * 0.22 + Math.abs(py) * 0.16 + flash * 0.55 * fd) * fi * boost).toFixed(3)
+      );
+      c.style.setProperty(
+        "--gop",
+        Math.min(0.8, (Math.abs(px) + Math.abs(py)) * 0.6 + flash * 0.5).toFixed(3)
+      );
     }
   }
 
-  OperatorCard.prototype._proto = OperatorCardProto;
   customElements.define("operator-card", OperatorCard);
 })();
