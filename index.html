@@ -513,39 +513,9 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-grid">
-        <!-- left: identity card -->
+        <!-- left: identity card — interactive holographic operator card (Web Component) -->
         <div class="hero-card rv">
-          <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card. Flip between the proof and the operator profile.">
-            <div class="flip-tilt">
-              <div class="flip-inner">
-                <div class="flip-face flip-front">
-                  <div class="cardface">
-                    <img class="card-img" src="assets/dreamship-donate.jpg" alt="Dreamship presents a giant donation check to Freedom United on stage, 2019" onerror="this.style.display='none'" />
-                    <div class="proofpanel">
-                      <div class="preadout"><span class="n" id="ringN">$45M+</span><span class="l" id="ringL">Google ad-spend channel</span></div>
-                      <div class="opbars bars stagger" id="bars">
-                        <div class="bar" data-m="$45M+" data-ml="Google ad-spend channel" style="--i:0"><span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span></div>
-                        <div class="bar" data-m="6" data-ml="big-tech partners" style="--i:1"><span class="nm">Closed big-tech partners</span><span class="vl">Stripe · Meta</span><span class="track"><i class="fill" data-w="82" style="background:var(--g-violet)"></i></span></div>
-                        <div class="bar" data-m="11x" data-ml="in 2020" style="--i:2"><span class="nm">Zero-to-one scale</span><span class="vl">11x · '20</span><span class="track"><i class="fill" data-w="90" style="background:var(--g-green)"></i></span></div>
-                        <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo" style="--i:3"><span class="nm">AI-native workflows</span><span class="vl">40+ apps</span><span class="track"><i class="fill" data-w="88" style="background:var(--g-wide)"></i></span></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="flip-face flip-back">
-                  <div class="cardback">
-                    <img class="card-img" src="assets/family.jpg" alt="Bill Bricker with his family" onerror="this.style.display='none'" />
-                    <div class="idpanel">
-                      <span class="idl">Forward-deployed GTM operator</span>
-                      <span class="idl s2">0 → 1 Builder</span>
-                      <span class="idl spectrum">Vibe Pusher</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <span class="flip-aff" aria-hidden="true"></span>
-            </div>
-          </div>
+          <operator-card start="identity"></operator-card>
         </div>
 
         <!-- right: copy -->
@@ -785,6 +755,7 @@
   </footer>
 </main>
 
+<script src="operator-card.js" defer></script>
 <script src="home.js"></script>
 </body>
 </html>
