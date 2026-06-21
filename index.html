@@ -262,7 +262,10 @@
 
 
   /* ---------- the names: partner constellation ---------- */
-  .constellation { position:relative; margin-top:30px; min-height:200px; display:flex; align-items:center; justify-content:center; padding:22px 0; overflow:hidden; }
+  .constellation { position:relative; margin-top:30px; min-height:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px; padding:26px 0; overflow:hidden; }
+  .constel-stack { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:30px; width:100%; }
+  .constel-group { display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .constel-lab { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent-dim); }
   .constel-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
   /* line-draw: the flywheel visibly wires itself up once, in view. Connectors
      start undrawn; the node dots fade in just behind the advancing strokes.
@@ -443,6 +446,8 @@
   .contact { text-align:center; padding:calc(96px*var(--sp)) 0 30px; }
   .contact h2 { font-family:var(--display); font-weight:800; font-size:clamp(27px,5.2vw,52px); letter-spacing:-.03em; line-height:1.04; text-wrap:balance; }
   .contact p { color:var(--mute); font-size:16px; max-width:52ch; margin:14px auto 0; }
+  .contact .now { font-family:var(--mono); font-size:12.5px; letter-spacing:.02em; line-height:1.6; color:var(--accent-dim); max-width:60ch; margin:0 auto 20px; }
+  .contact .now b { color:var(--accent); font-weight:600; }
   .contact .ctas { display:flex; justify-content:center; flex-wrap:wrap; gap:11px; margin-top:26px; }
 
   footer { margin-top:calc(64px*var(--sp)); padding:28px 0 70px; border-top:1px solid var(--line); }
@@ -513,46 +518,16 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-grid">
-        <!-- left: identity card -->
+        <!-- left: identity card — interactive holographic operator card (Web Component) -->
         <div class="hero-card rv">
-          <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card. Flip between the proof and the operator profile.">
-            <div class="flip-tilt">
-              <div class="flip-inner">
-                <div class="flip-face flip-front">
-                  <div class="cardface">
-                    <img class="card-img" src="assets/dreamship-donate.jpg" alt="Dreamship presents a giant donation check to Freedom United on stage, 2019" onerror="this.style.display='none'" />
-                    <div class="proofpanel">
-                      <div class="preadout"><span class="n" id="ringN">$45M+</span><span class="l" id="ringL">Google ad-spend channel</span></div>
-                      <div class="opbars bars stagger" id="bars">
-                        <div class="bar" data-m="$45M+" data-ml="Google ad-spend channel" style="--i:0"><span class="nm">Enterprise &amp; partnership GTM</span><span class="vl">IBM · Google</span><span class="track"><i class="fill" data-w="95" style="background:var(--g-green)"></i></span></div>
-                        <div class="bar" data-m="6" data-ml="big-tech partners" style="--i:1"><span class="nm">Closed big-tech partners</span><span class="vl">Stripe · Meta</span><span class="track"><i class="fill" data-w="82" style="background:var(--g-violet)"></i></span></div>
-                        <div class="bar" data-m="11x" data-ml="in 2020" style="--i:2"><span class="nm">Zero-to-one scale</span><span class="vl">11x · '20</span><span class="track"><i class="fill" data-w="90" style="background:var(--g-green)"></i></span></div>
-                        <div class="bar" data-m="0→40+" data-ml="AI apps shipped solo" style="--i:3"><span class="nm">AI-native workflows</span><span class="vl">40+ apps</span><span class="track"><i class="fill" data-w="88" style="background:var(--g-wide)"></i></span></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="flip-face flip-back">
-                  <div class="cardback">
-                    <img class="card-img" src="assets/family.jpg" alt="Bill Bricker with his family" onerror="this.style.display='none'" />
-                    <div class="idpanel">
-                      <span class="idl">Forward-deployed GTM operator</span>
-                      <span class="idl s2">0 → 1 Builder</span>
-                      <span class="idl spectrum">Vibe Pusher</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <span class="flip-aff" aria-hidden="true"></span>
-            </div>
-          </div>
+          <operator-card start="identity"></operator-card>
         </div>
 
         <!-- right: copy -->
         <div class="hero-copy rv">
-          <span class="avail">AI-Forward Sales &amp; Partnerships Leader</span>
+          <span class="avail">Sales &amp; Partnerships Leader for the AI Era</span>
           <h1 class="head">I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
-          <p class="lede">Two decades turning frontier tech into revenue — IBM, then three companies of my own. I build <b>the AI workflows that 10x my output</b> and still close the room myself. <span class="g">Everything below is real.</span></p>
+          <p class="lede">Two decades turning frontier tech into revenue: IBM, then three companies of my own. I build <b>the AI workflows behind the selling</b> and still close the room myself.</p>
           <div class="hero-cta">
             <a class="pill solid" href="#interface">Prompt my résumé ↓</a>
             <a class="pill ghost" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>Download résumé</a>
@@ -571,7 +546,7 @@
         <div class="gdeal-copy">
           <div class="kick">The deal that made Dreamship</div>
           <h2>I closed Google as a partner.<br><span class="flat">In year one.</span></h2>
-          <p>A first-of-its-kind cross-division partnership — won across <b>5–6 internal Google teams</b> to <b>VP-level</b> sign-off, then run for <b>5+ years</b>.</p>
+          <p>A first-of-its-kind cross-division partnership: an AI trademark and IP-compliance layer on Google Vision, won across internal Google teams to <b>VP-level</b> sign-off, then run for <b>5+ years</b>. The channel it opened drove <b>$45M+</b> in verified-merchant ad spend.</p>
         </div>
         <div class="gdeal-stats">
           <div class="gstat"><span class="gn" data-count="45" data-pre="$" data-suf="M+">$45M+</span><span class="gk">ad spend through the channel</span></div>
@@ -591,7 +566,7 @@
         <h2>Then the rest said yes.</h2>
         <p>Google was the hard yes. Every name below came easier.</p>
       </div>
-      <div class="constellation rv" role="img" aria-label="Brands and partners Bill has closed, shipped, and sold to: Google, Microsoft, Stripe, PayPal, Payoneer, Meta, IBM, McKesson, Zillow, Avalara, Macy's, Nordstrom">
+      <div class="constellation rv" role="img" aria-label="Brands Bill has closed and shipped with. Closed as partners and clients: Google, Microsoft, Stripe, PayPal, Payoneer, Meta. Enterprise customers: IBM, Zillow, Macy's, Nordstrom, McKesson, Avalara.">
         <svg class="constel-lines" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
           <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5be8a0"/><stop offset=".5" stop-color="#36c6e0"/><stop offset="1" stop-color="#8b7cf0"/></linearGradient></defs>
           <g stroke="url(#cg)" stroke-width="1" fill="none" opacity=".6" stroke-linecap="round">
@@ -603,19 +578,29 @@
             <circle cx="70" cy="70" r="1.7"/><circle cx="220" cy="140" r="1.7"/><circle cx="360" cy="60" r="1.7"/><circle cx="520" cy="150" r="1.7"/><circle cx="650" cy="80" r="1.7"/><circle cx="745" cy="160" r="1.7"/><circle cx="110" cy="220" r="1.7"/><circle cx="300" cy="175" r="1.7"/><circle cx="470" cy="230" r="1.7"/><circle cx="640" cy="185" r="1.7"/>
           </g>
         </svg>
-        <div class="constel-logos">
-          <span class="star anchor" style="--d:0s"><img src="assets/logos/google.svg" alt="Google"/></span>
-          <span class="star" style="--d:-1.1s"><img src="assets/logos/microsoft.svg" alt="Microsoft"/></span>
-          <span class="star" style="--d:-2.3s"><img src="assets/logos/stripe.svg" alt="Stripe"/></span>
-          <span class="star" style="--d:-3.0s"><img src="assets/logos/paypal.svg" alt="PayPal"/></span>
-          <span class="star" style="--d:-4.2s"><img src="assets/logos/payoneer.svg" alt="Payoneer"/></span>
-          <span class="star" style="--d:-5.1s"><img src="assets/logos/meta.svg" alt="Meta"/></span>
-          <span class="star" style="--d:-1.7s"><img src="assets/logos/ibm.png" alt="IBM"/></span>
-          <span class="star" style="--d:-2.9s"><img src="assets/logos/zillow.svg" alt="Zillow"/></span>
-          <span class="star" style="--d:-3.8s"><img src="assets/logos/macys.svg" alt="Macy's"/></span>
-          <span class="star wm" style="--d:-0.6s">McKesson</span>
-          <span class="star wm" style="--d:-4.7s">Avalara</span>
-          <span class="star wm" style="--d:-5.6s">Nordstrom</span>
+        <div class="constel-stack">
+          <div class="constel-group">
+            <div class="constel-lab">Closed as partners &amp; clients</div>
+            <div class="constel-logos">
+              <span class="star anchor" style="--d:0s"><img src="assets/logos/google.svg" alt="Google"/></span>
+              <span class="star" style="--d:-1.1s"><img src="assets/logos/microsoft.svg" alt="Microsoft"/></span>
+              <span class="star" style="--d:-2.3s"><img src="assets/logos/stripe.svg" alt="Stripe"/></span>
+              <span class="star" style="--d:-3.0s"><img src="assets/logos/paypal.svg" alt="PayPal"/></span>
+              <span class="star" style="--d:-4.2s"><img src="assets/logos/payoneer.svg" alt="Payoneer"/></span>
+              <span class="star" style="--d:-5.1s"><img src="assets/logos/meta.svg" alt="Meta"/></span>
+            </div>
+          </div>
+          <div class="constel-group">
+            <div class="constel-lab">Enterprise customers</div>
+            <div class="constel-logos">
+              <span class="star" style="--d:-1.7s"><img src="assets/logos/ibm.png" alt="IBM"/></span>
+              <span class="star" style="--d:-2.9s"><img src="assets/logos/zillow.svg" alt="Zillow"/></span>
+              <span class="star" style="--d:-3.8s"><img src="assets/logos/macys.svg" alt="Macy's"/></span>
+              <span class="star wm" style="--d:-5.6s">Nordstrom</span>
+              <span class="star wm" style="--d:-0.6s">McKesson</span>
+              <span class="star wm" style="--d:-4.7s">Avalara</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -681,7 +666,7 @@
     <div class="wrap">
       <div class="sec-head rv">
         <h2>I don't pitch the work.<br><span class="flat">I show you the work.</span></h2>
-        <p>Two companies built and sold — plus 40+ apps across 31 repos, shipped solo. Real products with revenue, users, and scar tissue.</p>
+        <p>Two operating companies, plus <b>40+ apps</b> shipped solo as the AI build engine behind the selling. Real products with real revenue and users.</p>
       </div>
 
       <!-- featured video — clean centerpiece -->
@@ -759,6 +744,7 @@
   <!-- ============ CONTACT ============ -->
   <section class="contact">
     <div class="wrap rv">
+      <p class="now"><b>Currently:</b> building Courtana and shipping production AI daily. Looking for a GTM or partnerships seat at a company building something hard.</p>
       <h2>Let's close <span class="flat">something big.</span></h2>
       <p>Hiring for GTM &amp; partnerships? Give me fifteen minutes and I'll show you something I built, not slides.</p>
       <div class="ctas">
@@ -785,6 +771,7 @@
   </footer>
 </main>
 
+<script src="operator-card.js" defer></script>
 <script src="home.js"></script>
 </body>
 </html>
