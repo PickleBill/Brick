@@ -18,8 +18,8 @@
 <link rel="stylesheet" href="ai-forward.css"/>
 <style>
   /* DOSSIER v2 — flip-panel operator ID, smaller image, top-aligned 2-line header */
-  .hero{display:grid;grid-template-columns:.7fr 1.3fr;gap:44px;align-items:start;padding:52px 28px 12px;max-width:var(--maxw);margin:0 auto}
-  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding:30px 22px 6px}.hero .hcopy{order:-1}.hero .hcard{max-width:300px;margin:0 auto}}
+  .hero{display:grid;grid-template-columns:minmax(0,440px) 1fr;gap:44px;align-items:center;padding:52px 28px 12px;max-width:var(--maxw);margin:0 auto}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding:30px 22px 6px}.hero .hcopy{order:-1}.hero .hcard{max-width:440px;margin:0 auto}}
   h1{font-family:var(--disp);font-size:clamp(33px,4.6vw,52px);font-weight:700;letter-spacing:-.035em;line-height:1.04;margin:18px 0 0;max-width:none;text-wrap:balance}
   .heavy-lede{font-size:clamp(15px,1.6vw,17.5px);color:var(--mute);margin-top:20px;max-width:48ch;line-height:1.6}
   .heavy-lede b{color:var(--ink);font-weight:600}
@@ -45,7 +45,7 @@
   .flip .grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(8,9,10,.88));z-index:2;pointer-events:none}
   .flip .cap{position:absolute;left:12px;right:12px;bottom:10px;z-index:3;font-family:var(--mono);font-size:10px;letter-spacing:.03em;color:#dfe3e6;pointer-events:none}
   .flip .cap b{color:#fff;font-weight:600}
-  .hcard{max-width:320px}
+  .hcard{max-width:440px}
   .idback{width:100%;padding:24px 22px;display:flex;flex-direction:column;gap:8px}
   .ibk-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint);margin-bottom:6px}
   .idback .ibl{font-family:var(--disp);font-size:18px;font-weight:700;letter-spacing:-.018em;line-height:1.15;color:var(--mute);transition:color .25s}
@@ -172,36 +172,10 @@
   <!-- HERO -->
   <header class="hero">
     <div class="hcard rv">
-      <div class="opcard">
-        <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Identity card — tap to flip between the family portrait and the on-stage give-back photo.">
-          <div class="flip-inner">
-            <div class="flip-face flip-front">
-              <span class="cue">⟲ flip</span>
-              <img src="../assets/family.jpg" alt="Bill Bricker with his family" decoding="async"/>
-              <div class="grad"></div>
-              <div class="cap"><b>Bill Bricker</b> · Raleigh, NC · father of three</div>
-            </div>
-            <div class="flip-face flip-back">
-              <span class="cue">⟲ back</span>
-              <div class="idback">
-                <span class="ibk-label">▸ the operator</span>
-                <span class="ibl">Zero-to-one builder</span>
-                <span class="ibl" style="animation-delay:2.7s">Forward-deployed</span>
-                <span class="ibl spectrum">GTM operator</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="opmeta">
-          <div class="opyears"><span class="n" id="ringN">20</span><span class="l" id="ringL">years in enterprise GTM</span></div>
-          <div class="bars">
-            <div class="bar" data-m="$45M+" data-ml="Google channel"><span class="t">Enterprise &amp; partnership GTM</span><span class="v">IBM · Google</span><span class="track"><i data-w="95" style="background:linear-gradient(90deg,#5be8a0,#36c6e0)"></i></span></div>
-            <div class="bar" data-m="6" data-ml="big-tech partners"><span class="t">Closed big-tech partners</span><span class="v">Stripe · Meta</span><span class="track"><i data-w="80" style="background:linear-gradient(90deg,#36c6e0,#8b7cf0)"></i></span></div>
-            <div class="bar" data-m="11x" data-ml="in 2020"><span class="t">Zero-to-one scale</span><span class="v">11x · '20</span><span class="track"><i data-w="90" style="background:linear-gradient(90deg,#5be8a0,#36c6e0)"></i></span></div>
-            <div class="bar" data-m="0→40+" data-ml="AI apps shipped"><span class="t">AI-native workflows</span><span class="v">40+ apps</span><span class="track"><i data-w="90" style="background:linear-gradient(90deg,#8b7cf0,#ff8a6b)"></i></span></div>
-          </div>
-        </div>
-      </div>
+      <iframe src="operator-card-standalone.html"
+              title="Operator identity card"
+              style="width:100%;max-width:440px;aspect-ratio:11/16;border:0;display:block;margin:0 auto;background:transparent;"
+              loading="lazy" allow="accelerometer; gyroscope"></iframe>
     </div>
 
     <div class="hcopy rv">
