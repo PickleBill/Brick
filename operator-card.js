@@ -139,7 +139,7 @@
     "@keyframes v6Aura{0%,100%{transform:translate(-50%,-50%) translate(-3%,-2%) scale(1)}50%{transform:translate(-50%,-50%) translate(4%,3%) scale(1.14)}}",
     "@keyframes v6Edge{0%,100%{opacity:.12}50%{opacity:.44}}",
     "@keyframes v6Beat{0%,100%{transform:scaleY(.2)}45%{transform:scaleY(1)}72%{transform:scaleY(.5)}}",
-    "@keyframes v6Radiate{0%{opacity:0;transform:translate(-50%,-50%) scale(.18)}13%{opacity:.95}42%{opacity:.28}58%{opacity:.52}100%{opacity:0;transform:translate(-50%,-50%) scale(11)}}",
+    "@keyframes v6Radiate{0%{opacity:0;transform:translate(-50%,-50%) scale(.18)}16%{opacity:.58}46%{opacity:.18}64%{opacity:.32}100%{opacity:0;transform:translate(-50%,-50%) scale(7)}}",
     "@keyframes v6Sheen{0%{background-position:210% 0;opacity:.28}50%{background-position:-30% 0;opacity:.55}100%{background-position:-230% 0;opacity:.28}}",
     "@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}"
   ].join("\n");
@@ -161,7 +161,7 @@
       this.accent = this.getAttribute("accent") || ACCENT_DEFAULT;
       this.tilt = this.hasAttribute("tilt") ? parseFloat(this.getAttribute("tilt")) : 13;
       this.foilI = this.hasAttribute("foil-intensity") ? parseFloat(this.getAttribute("foil-intensity")) : 1.1;
-      this.flipDepth = this.hasAttribute("flip-depth") ? parseFloat(this.getAttribute("flip-depth")) : 1.5;
+      this.flipDepth = this.hasAttribute("flip-depth") ? parseFloat(this.getAttribute("flip-depth")) : 0.9;
       this.autoAdvance = this.getAttribute("auto-advance") !== "false";
 
       this.reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -260,13 +260,13 @@
         self.dt = performance.now(); self.moved = false;
         w.style.cursor = "grabbing";
       };
+      // A drag rotates the card (parallax follows the finger/pointer) so you can
+      // grab it and look around the holographic foil; hover does the same on a
+      // fine pointer. Only a quick tap changes panels — no fast swipe-flip.
       this.onMove = function (e) {
-        var r = w.getBoundingClientRect();
-        if (self.dragging) {
-          if (Math.abs(e.clientX - self.dx) > 4 || Math.abs(e.clientY - self.dy) > 4) self.moved = true;
-          self.tpx = 0; self.tpy = 0; return;
-        }
         if (self.reduced) return;
+        var r = w.getBoundingClientRect();
+        if (self.dragging && (Math.abs(e.clientX - self.dx) > 4 || Math.abs(e.clientY - self.dy) > 4)) self.moved = true;
         self.tpx = ((e.clientX - r.left) / r.width - 0.5) * 2;
         self.tpy = ((e.clientY - r.top) / r.height - 0.5) * 2;
       };
@@ -274,14 +274,11 @@
         if (!self.dragging) return;
         self.dragging = false;
         w.style.cursor = "grab";
-        self.tpx = 0; self.tpy = 0;
-        var o = self._origin(e);
+        self.tpx = 0; self.tpy = 0; // spring back to rest
         var ddx = e.clientX - self.dx, ddy = e.clientY - self.dy;
         var dist = Math.hypot(ddx, ddy), dt = performance.now() - self.dt;
-        if (dist < 8 && dt < 400) { self.go(+1, null, o.ox, o.oy); return; }
-        if (dist < 28) return;
-        if (Math.abs(ddx) >= Math.abs(ddy)) self.go(ddx < 0 ? +1 : -1, null, o.ox, o.oy);
-        else self.go(ddy < 0 ? +1 : -1, null, o.ox, o.oy);
+        if (dist < 8 && dt < 400) { var o = self._origin(e); self.go(+1, null, o.ox, o.oy); }
+        // a drag just rotates and releases — it does not flip
       };
       this.onKey = function (e) {
         if (e.key === "ArrowRight" || e.key === "ArrowUp") { self.go(+1); e.preventDefault(); }
@@ -411,7 +408,7 @@
       var cp = "circle(0% at " + cx + "% " + cy + "%)";
       this.clipEl.style.cssText =
         "position:absolute;inset:0;clip-path:" + cp + ";-webkit-clip-path:" + cp + ";" +
-        "transition:clip-path .6s cubic-bezier(.4,.75,.25,1),-webkit-clip-path .6s cubic-bezier(.4,.75,.25,1);";
+        "transition:clip-path .85s cubic-bezier(.32,.72,.32,1),-webkit-clip-path .85s cubic-bezier(.32,.72,.32,1);";
 
       // radiating foil-light band from the origin, tinted to the incoming accent
       var rcol = this.faceAccent(FACES[next]);
@@ -419,7 +416,7 @@
         "position:absolute;left:" + cx + "%;top:" + cy + "%;width:74px;height:74px;border-radius:50%;" +
         "pointer-events:none;mix-blend-mode:screen;filter:blur(2px) saturate(1.4);" +
         "background:radial-gradient(circle, transparent 24%, " + rcol + " 44%, transparent 66%);" +
-        "transform:translate(-50%,-50%) scale(.18);animation:v6Radiate .64s cubic-bezier(.3,.7,.3,1) forwards;";
+        "transform:translate(-50%,-50%) scale(.18);animation:v6Radiate .9s cubic-bezier(.3,.7,.3,1) forwards;";
 
       this.incomingEl.classList.add("on");
 
@@ -440,16 +437,22 @@
         self._renderRail();
         self.incomingEl.classList.remove("on");
         self.radiateEl.style.animation = "none";
-      }, 640);
+      }, 900);
     }
 
     // ---- rAF: parallax lerp, idle float, foil ---------------------------------
     _loop = (ts) => {
       if (!this.running) return;
       this.clock = ts || 0;
+      // On touch devices there's no hover, so give the card a gentle ambient
+      // sway at rest — enough to see the foil/tilt breathe without being jumpy.
+      if (this.coarse && !this.dragging && !this.reduced) {
+        this.tpx = Math.sin(this.clock * 0.00037) * 0.16;
+        this.tpy = Math.cos(this.clock * 0.00029) * 0.12;
+      }
       this.px += (this.tpx - this.px) * 0.10;
       this.py += (this.tpy - this.py) * 0.10;
-      this.flash *= 0.90; if (this.flash < 0.01) this.flash = 0;
+      this.flash *= 0.93; if (this.flash < 0.01) this.flash = 0; // slower decay → softer, longer bloom
       this.applyCard();
       this.raf = requestAnimationFrame(this._loop);
     };
@@ -471,10 +474,9 @@
       var cur = FACES[this.cur];
       var boost = cur && cur.vibrant ? 1.8 : 1;
       var flash = this.flash || 0;
-      c.style.setProperty(
-        "--fop",
-        ((0.10 + Math.abs(px) * 0.22 + Math.abs(py) * 0.16 + flash * 0.55 * fd) * fi * boost).toFixed(3)
-      );
+      // Soft-cap the foil so a facet change is a gentle bloom, not a hard pulse.
+      var fop = (0.10 + Math.abs(px) * 0.22 + Math.abs(py) * 0.16 + flash * 0.42 * fd) * fi * boost;
+      c.style.setProperty("--fop", Math.min(0.78, fop).toFixed(3));
       c.style.setProperty(
         "--gop",
         Math.min(0.8, (Math.abs(px) + Math.abs(py)) * 0.6 + flash * 0.5).toFixed(3)
