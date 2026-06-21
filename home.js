@@ -20,17 +20,24 @@
   /* ---------- count-ups (Google deal stats + any [data-count]) ---------- */
   (function(){
     var els=[].slice.call(document.querySelectorAll('[data-count]')); if(!els.length) return;
+    /* The final value is the static HTML text, so it is always visible — reduced-motion,
+       JS off, fast scroll, screenshot, screen reader. The count-up is progressive
+       enhancement only: it eases 0→final once, then locks to the exact final string. */
     function go(el){ if(el._c) return; el._c=true;
-      var t=+el.dataset.count, pre=el.dataset.pre||'', suf=el.dataset.suf||'';
-      if(reduce){ el.textContent=pre+t+suf; return; }
-      var c=0, step=Math.max(1,Math.ceil(t/28)); el.textContent=pre+'0'+suf;
-      var iv=setInterval(function(){ c+=step; if(c>=t){ c=t; clearInterval(iv); } el.textContent=pre+c+suf; },26); }
+      var t=+el.dataset.count, pre=el.dataset.pre||'', suf=el.dataset.suf||'', final=pre+t+suf;
+      if(reduce){ el.textContent=final; return; }
+      var dur=560, t0=0;
+      (function frame(now){ now=now||(window.performance&&performance.now())||Date.now(); if(!t0) t0=now;
+        var p=Math.min(1,(now-t0)/dur);
+        if(p>=1){ el.textContent=final; return; }
+        el.textContent=pre+Math.round(t*(1-Math.pow(1-p,3)))+suf;   /* easeOutCubic */
+        requestAnimationFrame(frame); })(0); }
     if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ go(e.target); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px'});
+      /* fire when the stat is ~25% in view (not centered) so it finishes before it is read */
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ go(e.target); io.unobserve(e.target); } }); },{threshold:0.25});
       els.forEach(function(el){ io.observe(el); });
     } else {
-      var chk=function(){ var vh=innerHeight||800; els.forEach(function(el){ if(el._c) return; var r=el.getBoundingClientRect(); if(r.top<vh*0.92 && r.bottom>0) go(el); }); };
-      chk(); addEventListener('scroll',chk,{passive:true}); addEventListener('load',chk);
+      els.forEach(function(el){ el.textContent=(el.dataset.pre||'')+(+el.dataset.count)+(el.dataset.suf||''); });
     }
   })();
 
