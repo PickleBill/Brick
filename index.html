@@ -488,12 +488,14 @@
   .cmdrow .rowlbl { position:sticky; left:0; z-index:2; flex:0 0 auto; padding-right:9px; background:linear-gradient(90deg,var(--bg2) 72%,transparent); }
   .sr-only{ position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
   /* contact: tiny capture form + quiet alternates */
-  .capture{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; max-width:560px; }
-  .capture input{ flex:1 1 200px; min-width:0; padding:12px 14px; border-radius:12px; border:1px solid var(--line); background:var(--glass2); color:var(--text); font:inherit; }
+  .capture{ display:flex; flex-wrap:wrap; gap:10px; margin:18px auto 0; max-width:520px; justify-content:center; }
+  .capture input{ flex:1 1 200px; min-width:0; padding:13px 14px; border-radius:12px; border:1px solid var(--line); background:var(--glass2); color:var(--text); font:inherit; }
   .capture input::placeholder{ color:var(--faint); }
   .capture input:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-  .capture button{ flex:0 0 auto; cursor:pointer; }
-  .contact-alt{ margin-top:16px; font-size:13.5px; color:var(--faint); }
+  .capture .send{ flex:0 0 auto; cursor:pointer; padding:13px 16px; font:inherit; font-size:14px; color:var(--mute); background:var(--glass2); border:1px solid var(--line); border-radius:12px; }
+  .capture .send:hover{ color:var(--text); border-color:var(--line2); }
+  .capture .send:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .contact-alt{ margin-top:16px; font-size:13.5px; color:var(--mute); }
   .contact-alt a{ color:var(--mute); text-decoration:underline; text-decoration-color:rgba(255,255,255,.18); text-underline-offset:2px; }
   .contact-alt a:hover{ color:var(--text); }
 </style>
@@ -522,6 +524,7 @@
   <a href="#interface" data-s="interface"><span class="sn">03</span><span class="st">Ask</span></a>
   <a href="#builds" data-s="builds"><span class="sn">04</span><span class="st">Work</span></a>
   <a href="#person" data-s="person"><span class="sn">05</span><span class="st">Story</span></a>
+  <a href="#contact" data-s="contact"><span class="sn">06</span><span class="st">Talk</span></a>
 </nav>
 
 <main id="top">
@@ -538,9 +541,9 @@
         <div class="hero-copy rv">
           <span class="avail">Sales &amp; Partnerships Leader for the AI Era</span>
           <h1 class="head">I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
-          <p class="lede">Two decades turning frontier tech into revenue: IBM, then three companies of my own. I build <b>the AI workflows behind the selling</b> and still close the room myself.</p>
+          <p class="lede">Two decades turning frontier tech into revenue — IBM, then three companies of my own. I build <b>the AI behind the selling</b> and still close the room myself.</p>
           <div class="hero-cta">
-            <a class="pill solid plausible-event-name=Book" data-cta="book" href="mailto:bricker3@gmail.com?subject=Let%27s%20talk">Grab 20 minutes →</a>
+            <a class="pill solid plausible-event-name=Book" data-cta="book" href="https://calendly.com/bricker3-idwj/30min" target="_blank" rel="noopener">Grab 30 minutes →</a>
             <a class="pill ghost" href="#interface">Ask my AI anything ↓</a>
           </div>
         </div>
@@ -575,7 +578,7 @@
       <div class="sec-head rv">
         <div class="kick">The flywheel</div>
         <h2>Then the rest said yes.</h2>
-        <p>Google was the hard yes. Every name below came easier.</p>
+        <p>Google was the hard yes. The rest followed.</p>
       </div>
       <div class="constellation rv" role="img" aria-label="Brands Bill has closed and shipped with. Closed as partners and clients: Google, Microsoft, Stripe, PayPal, Payoneer, Meta, Adobe. Enterprise customers: IBM, Zillow, Macy's, Nordstrom, McKesson, Avalara.">
         <svg class="constel-lines" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
@@ -756,19 +759,18 @@
   <!-- ============ CONTACT ============ -->
   <section class="contact" id="contact">
     <div class="wrap rv">
-      <p class="now"><b>Currently:</b> building Courtana and shipping production AI daily. Looking for a GTM or partnerships seat at a company building something hard.</p>
+      <p class="now"><b>Currently</b> building Courtana and shipping production AI daily. Open to the right GTM or partnerships role — where the hard deals decide the company.</p>
       <h2>Let's close <span class="flat">something big.</span></h2>
-      <p>Hiring for GTM &amp; partnerships, raising, or building something hard? Grab twenty minutes — I'll show you something I built, not slides.</p>
+      <p>Hiring for GTM or partnerships? Grab thirty minutes — I'll show you something I built, not slides.</p>
       <div class="ctas">
-        <a class="pill solid plausible-event-name=Book" data-cta="book" href="mailto:bricker3@gmail.com?subject=Let%27s%20talk">Grab 20 minutes →</a>
-        <a class="pill ghost plausible-event-name=Email" href="mailto:bricker3@gmail.com?subject=Let%27s%20talk">Or email me →</a>
+        <a class="pill solid plausible-event-name=Book" data-cta="book" href="https://calendly.com/bricker3-idwj/30min" target="_blank" rel="noopener">Grab 30 minutes →</a>
       </div>
       <form class="capture" data-capture aria-label="Leave your email and a note">
         <input type="email" name="email" required placeholder="you@company.com" aria-label="Your email" />
         <input type="text" name="note" placeholder="Optional: a line on what's up" aria-label="Optional note" />
-        <button type="submit" class="pill ghost">Send →</button>
+        <button type="submit" class="send">Send a note →</button>
       </form>
-      <p class="contact-alt">Prefer another way? <a href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a> · <a class="plausible-event-name=Resume" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>résumé (PDF)</a></p>
+      <p class="contact-alt">Prefer another way? <a class="plausible-event-name=Email" href="mailto:bricker3@gmail.com?subject=Let%27s%20talk">email</a> · <a href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a> · <a class="plausible-event-name=Resume" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>résumé (PDF)</a></p>
     </div>
   </section>
 

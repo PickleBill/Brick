@@ -17,7 +17,7 @@
   "use strict";
 
   var CONFIG = {
-    calendlyUrl: "",     // ← paste Calendly event link
+    calendlyUrl: "https://calendly.com/bricker3-idwj/30min",     // ← Calendly event link
     formEndpoint: "",    // ← paste Formspree endpoint
     plausibleDomain: "", // ← e.g. "picklebill.github.io"
     clarityId: ""        // ← Microsoft Clarity project id
