@@ -487,6 +487,15 @@
   @media (max-width:560px){ .idl { font-size:18px; } .cf-left { gap:12px; } }
   .cmdrow .rowlbl { position:sticky; left:0; z-index:2; flex:0 0 auto; padding-right:9px; background:linear-gradient(90deg,var(--bg2) 72%,transparent); }
   .sr-only{ position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
+  /* contact: tiny capture form + quiet alternates */
+  .capture{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; max-width:560px; }
+  .capture input{ flex:1 1 200px; min-width:0; padding:12px 14px; border-radius:12px; border:1px solid var(--line); background:var(--glass2); color:var(--text); font:inherit; }
+  .capture input::placeholder{ color:var(--faint); }
+  .capture input:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .capture button{ flex:0 0 auto; cursor:pointer; }
+  .contact-alt{ margin-top:16px; font-size:13.5px; color:var(--faint); }
+  .contact-alt a{ color:var(--mute); text-decoration:underline; text-decoration-color:rgba(255,255,255,.18); text-underline-offset:2px; }
+  .contact-alt a:hover{ color:var(--text); }
 </style>
 </head>
 <body class="no-js">
@@ -500,7 +509,7 @@
     <nav class="navlinks" aria-label="Primary">
       <a href="climb.html">Story</a>
       <a href="work.html">Proof</a>
-      <a href="resume-v2.html" class="cta">Résumé</a>
+      <a href="#contact" class="cta">Let's talk →</a>
     </nav>
   </div>
 </header>
@@ -531,8 +540,8 @@
           <h1 class="head">I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
           <p class="lede">Two decades turning frontier tech into revenue: IBM, then three companies of my own. I build <b>the AI workflows behind the selling</b> and still close the room myself.</p>
           <div class="hero-cta">
-            <a class="pill solid" href="#interface">Prompt my résumé ↓</a>
-            <a class="pill ghost" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>Download résumé</a>
+            <a class="pill solid plausible-event-name=Book" data-cta="book" href="mailto:bricker3@gmail.com?subject=Let%27s%20talk">Grab 20 minutes →</a>
+            <a class="pill ghost" href="#interface">Ask my AI anything ↓</a>
           </div>
         </div>
       </div>
@@ -745,17 +754,21 @@
   </section>
 
   <!-- ============ CONTACT ============ -->
-  <section class="contact">
+  <section class="contact" id="contact">
     <div class="wrap rv">
       <p class="now"><b>Currently:</b> building Courtana and shipping production AI daily. Looking for a GTM or partnerships seat at a company building something hard.</p>
       <h2>Let's close <span class="flat">something big.</span></h2>
-      <p>Hiring for GTM &amp; partnerships? Give me fifteen minutes and I'll show you something I built, not slides.</p>
+      <p>Hiring for GTM &amp; partnerships, raising, or building something hard? Grab twenty minutes — I'll show you something I built, not slides.</p>
       <div class="ctas">
-        <a class="pill solid" href="mailto:bricker3@gmail.com?subject=Let%27s%20close%20something%20big">bricker3@gmail.com →</a>
-        <a class="pill ghost" href="#interface">Prompt the console ↑</a>
-        <a class="pill ghost" href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="pill ghost" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>Download résumé</a>
+        <a class="pill solid plausible-event-name=Book" data-cta="book" href="mailto:bricker3@gmail.com?subject=Let%27s%20talk">Grab 20 minutes →</a>
+        <a class="pill ghost plausible-event-name=Email" href="mailto:bricker3@gmail.com?subject=Let%27s%20talk">Or email me →</a>
       </div>
+      <form class="capture" data-capture aria-label="Leave your email and a note">
+        <input type="email" name="email" required placeholder="you@company.com" aria-label="Your email" />
+        <input type="text" name="note" placeholder="Optional: a line on what's up" aria-label="Optional note" />
+        <button type="submit" class="pill ghost">Send →</button>
+      </form>
+      <p class="contact-alt">Prefer another way? <a href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a> · <a class="plausible-event-name=Resume" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>résumé (PDF)</a></p>
     </div>
   </section>
 
@@ -776,5 +789,6 @@
 
 <script src="operator-card.js" defer></script>
 <script src="home.js"></script>
+<script src="site-config.js" defer></script>
 </body>
 </html>
