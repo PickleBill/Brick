@@ -243,6 +243,8 @@
       '<span class="m">2020</span>  Dreamship 11x — orders → routes → shipping trust.',
       '<span class="m">2019</span>  Closed Google. Stripe/PayPal/Meta followed.']); },
     contact:function(){ block([
+      '<span class="am"># Fastest path: grab 30 minutes.</span>',
+      '<span class="a" data-href="https://calendly.com/bricker3-idwj/30min">calendly.com/bricker3-idwj/30min →</span>',
       '<span class="a" data-href="mailto:bricker3@gmail.com">bricker3@gmail.com</span>',
       '<span class="a" data-href="https://linkedin.com/in/williambricker">linkedin.com/in/williambricker</span>',
       'Raleigh, NC',
