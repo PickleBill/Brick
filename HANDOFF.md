@@ -1,6 +1,7 @@
 # HANDOFF — Bill Bricker's Dynamic Résumé (Brick)
 
-> Read this first. It's the single source of truth for picking up cleanly in a fresh session.
+> **➡️ Start at `ORCHESTRATION.md` (repo root) — that's the live hub now** (surface map, workflows,
+> current board, open PRs). This file is kept as the 2026-06-13 convergence-pass history.
 > Last updated: 2026-06-13.
 
 ---
