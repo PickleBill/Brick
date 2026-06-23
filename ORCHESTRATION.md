@@ -163,9 +163,9 @@ Microsoft **Clarity** id · **Plausible** domain · **Formspree** (or Tally) for
 
 | ID | Workstream | Status | Lives in | Next action |
 |---|---|---|---|---|
-| **A** | Operator Card (hero) | ✅ shipped (web component, #38). v6.x design iterating in Claude Design | repo `operator-card.js`; Design `2ea72829…` | Apply naming convention (§3B); if porting new design, export Standalone HTML → upload here |
+| **A** | Operator Card (hero) | 🟡 v6.5 (6-facet) port queued — **blocked on the design code** | repo `operator-card.js` (4-facet live: `operator·capitalist·dj·father`); Design `2ea72829…` v6.5 (`builder·payforward·father·dj·gtm·community`) | Bill uploads the v6.5 Standalone HTML **or** project .zip here → port on a branch w/ subagents → preview |
 | **B** | Work / Proof Deck (4 builds) | 🟡 needs X-level pass (placeholder images, doesn't scroll on desktop) | repo `index.html` proof section | Real media (Courtana video), livelier desktop default — spoke prompt |
-| **C** | Front door + analytics | 🟢 **PR #39 ready to preview/merge** | branch `one-objective-analytics` | Bill previews on phone → drop the 4 analytics ids → merge |
+| **C** | Front door + analytics | ✅ **merged (#39, 2026-06-23)** → live; `/sales/` redirects to root; analytics dormant until ids (punted) | `main` / live | (optional) add Plausible domain later — easiest single add |
 | **D** | Skills (prompt-forge, design-iterate) | 🟡 drafted in Cowork "ABOUT BILL" folder, not installed | Dropbox `_skills-draft/` | Install via `/plugin` or `.claude/skills/` — spoke |
 | **E** | Lovable refresh | ⚪ not started | Lovable | spoke |
 | **F** | Job-search engine | 🟡 spec'd (Workstream-C signal-scan) | `handoffs/workstream-C-signal-scan-spec.md` (on #39 branch) | separate `signal-scan` repo when Bill says go |
@@ -175,7 +175,7 @@ Microsoft **Clarity** id · **Plausible** domain · **Formspree** (or Tally) for
 
 ## 6. Open PR board + triage (11 open as of 2026-06-23)
 
-> Verdicts are recommendations. Nothing is closed/merged without Bill's go. Closing is reversible.
+> **Resolved 2026-06-23:** #39 **merged** (live). **Closed:** #13 · #14 · #15 · #31 · #32 · #33 · #34 · #37. **Still open:** #40 (this hub) · #22 + #16 (Bill's call). Table kept for the record.
 
 | PR | What | Verdict |
 |---|---|---|
@@ -191,17 +191,16 @@ Microsoft **Clarity** id · **Plausible** domain · **Formspree** (or Tally) for
 | **#31** "Disable Codex Claude gate checks" | **NOT a draft**, stale base, **deletes 49,382 lines / 104 files** — rips out Impeccable + agents + hooks | 🚨 **CLOSE NOW** — most likely to merge by accident and would gut the whole setup |
 | **#14** Home copy + `career-os/` | contains **private** target-people / outreach / health material in a **public** repo | 🚨 **CLOSE** + move `career-os/` to a private location |
 
-**Recommended batch:** close the 8 superseded/risky (#13, #15, #31, #32, #33, #34, #37, #14); decide #22/#16; merge #39 when previewed. Say the word and I'll execute the closes (reopenable anytime).
+**Status:** the 8 closes + the #39 merge are done. ⚠️ **#14's branch (`claude/bricker-positioning-website-audit-3gar62`) still holds private `career-os/` material on a public branch — recommend deleting the branch.** #22 (fold into this hub & close?) and #16 (permissions — merge tightened or skip?) await Bill.
 
 ---
 
 ## 7. Needs-from-Bill (consolidated)
 
-- **Analytics ids** for #39: Clarity · Plausible · Formspree/Tally · Dub.
-- **#39 phone preview** sign-off → then merge the front door.
-- **PR cleanup go-ahead** (the batch in §6).
-- **Card photos** as JPG/PNG named by slot (family-luau, community-rooftop) if iterating the card.
-- **Privacy call** on `career-os/` (PR #14) — where should private job-hunt material live.
+- **The v6.5 card export** — upload the **Standalone HTML** or the **Project-archive .zip** (zip preferred; bundles the 6 photos) here, to unblock the port. Two photos are missing from `assets/`: `family-luau.jpg`, `community-rooftop.jpg`.
+- **#14 branch** — OK to delete `claude/bricker-positioning-website-audit-3gar62`? (private material on a public branch).
+- **#22 / #16** — fold #22's remote-control notes into this hub & close? merge a tightened #16, or skip?
+- **Analytics (punted):** when ready, the Plausible domain is the easiest single add.
 
 ---
 
