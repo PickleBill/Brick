@@ -163,7 +163,7 @@ Microsoft **Clarity** id · **Plausible** domain · **Formspree** (or Tally) for
 
 | ID | Workstream | Status | Lives in | Next action |
 |---|---|---|---|---|
-| **A** | Operator Card (hero) | 🟡 v6.5 (6-facet) port queued — **blocked on the design code** | repo `operator-card.js` (4-facet live: `operator·capitalist·dj·father`); Design `2ea72829…` v6.5 (`builder·payforward·father·dj·gtm·community`) | Bill uploads the v6.5 Standalone HTML **or** project .zip here → port on a branch w/ subagents → preview |
+| **A** | Operator Card (hero) | ✅ **v6.5 ported — PR #41** (`port/v6.5-hero`): 6 facets, live wire, gyro, persistence, A6/C2 speed fix; renders offline | repo `operator-card.js` | Bill previews → 2 decisions (accent `#6fefb4` vs `#8BE48A`; facet-5 photo) → merge. TODO: compress `community-rooftop.jpg` (3.4MB) |
 | **B** | Work / Proof Deck (4 builds) | 🟡 needs X-level pass (placeholder images, doesn't scroll on desktop) | repo `index.html` proof section | Real media (Courtana video), livelier desktop default — spoke prompt |
 | **C** | Front door + analytics | ✅ **merged (#39, 2026-06-23)** → live; `/sales/` redirects to root; analytics dormant until ids (punted) | `main` / live | (optional) add Plausible domain later — easiest single add |
 | **D** | Skills (prompt-forge, design-iterate) | 🟡 drafted in Cowork "ABOUT BILL" folder, not installed | Dropbox `_skills-draft/` | Install via `/plugin` or `.claude/skills/` — spoke |
@@ -191,9 +191,22 @@ Microsoft **Clarity** id · **Plausible** domain · **Formspree** (or Tally) for
 | **#31** "Disable Codex Claude gate checks" | **NOT a draft**, stale base, **deletes 49,382 lines / 104 files** — rips out Impeccable + agents + hooks | 🚨 **CLOSE NOW** — most likely to merge by accident and would gut the whole setup |
 | **#14** Home copy + `career-os/` | contains **private** target-people / outreach / health material in a **public** repo | 🚨 **CLOSE** + move `career-os/` to a private location |
 
-**Status:** the 8 closes + the #39 merge are done. ⚠️ **#14's branch (`claude/bricker-positioning-website-audit-3gar62`) still holds private `career-os/` material on a public branch — recommend deleting the branch.** #22 (fold into this hub & close?) and #16 (permissions — merge tightened or skip?) await Bill.
+**Status:** the 8 closes + the #39 merge are done; **#22 closed** (superseded by this hub). #16 left open (Bill's call). New: **PR #41** (v6.5 card). ⚠️ **#14's branch (`claude/bricker-positioning-website-audit-3gar62`) still holds private `career-os/` material on a public branch — recommend deleting it.**
 
 ---
+
+## 6b. RETRO — the design→code loop (2026-06-23): "this is killing me"
+
+**What happened tonight (count the steps):** Claude Design canvas → ballooned to 66 pages → "Send to Claude Code" sent a *pointer*, not the code (dead end, twice) → Cowork built a slim handoff `.zip` (the full project `.zip` was 48.8MB / 8.3MB standalone = too big to open) → manual download → manual upload into a Code session → port. **~7 hops across 4 surfaces for one component.**
+
+**Why it hurt:** there is **no direct pipe** from Claude Design to Claude Code; the canvas spawns copies on every edit/export; the standalone export is too heavy to ingest.
+
+**The process that works (do this next time — and it did tonight):**
+1. In Claude Design: keep **one** canonical card file; use the **Tweaks panel** (settings don't spawn copies); only make a new file for a real structural change.
+2. When ready: **Share → Export → Project archive `.zip`** → **upload the `.zip` into a Code thread that already has the hub context.** (Skip the "Send to Claude Code" button.)
+3. Code ports from the `.zip`'s **readable source + README + assets** (never the multi-MB standalone), on a branch, previews, PRs.
+
+**To-do (process):** consider a tiny **`design-to-code` skill** that encodes steps 2–3 (and the "never the standalone, never the Send button" rules) so it's one command, not a memory test. Tracked here; build when the card dust settles.
 
 ## 7. Needs-from-Bill (consolidated)
 
