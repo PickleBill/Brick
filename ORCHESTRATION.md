@@ -163,7 +163,7 @@ Microsoft **Clarity** id · **Plausible** domain · **Formspree** (or Tally) for
 
 | ID | Workstream | Status | Lives in | Next action |
 |---|---|---|---|---|
-| **A** | Operator Card (hero) | ✅ **v6.5 ported — PR #41** (`port/v6.5-hero`): 6 facets, live wire, gyro, persistence, A6/C2 speed fix; renders offline | repo `operator-card.js` | Bill previews → 2 decisions (accent `#6fefb4` vs `#8BE48A`; facet-5 photo) → merge. TODO: compress `community-rooftop.jpg` (3.4MB) |
+| **A** | Operator Card (hero) | ✅ **v6.5 MERGED (#41, 2026-06-23) → LIVE** — 6 facets, live wire, gyro, persistence, A6/C2 speed fix | `main` / live | Optional follow-ups: accent `#8BE48A` if preferred over `#6fefb4`; GTM photo for facet 5; compress `community-rooftop.jpg` (3.4MB) |
 | **B** | Work / Proof Deck (4 builds) | 🟡 needs X-level pass (placeholder images, doesn't scroll on desktop) | repo `index.html` proof section | Real media (Courtana video), livelier desktop default — spoke prompt |
 | **C** | Front door + analytics | ✅ **merged (#39, 2026-06-23)** → live; `/sales/` redirects to root; analytics dormant until ids (punted) | `main` / live | (optional) add Plausible domain later — easiest single add |
 | **D** | Skills (prompt-forge, design-iterate) | 🟡 drafted in Cowork "ABOUT BILL" folder, not installed | Dropbox `_skills-draft/` | Install via `/plugin` or `.claude/skills/` — spoke |
