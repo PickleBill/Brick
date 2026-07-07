@@ -1,8 +1,8 @@
 # Brick — Bill Bricker's Dynamic Résumé
 
-## ⛔ Non-Negotiable Build Rules (merge-to-one-front-door, 2026-06-17)
+## ⛔ Non-Negotiable Build Rules (established 2026-06-17, still binding)
 
-These five rules are binding for the whole front-door merge. Read them before any change.
+These five rules were set for the front-door merge and remain the standing rules for every change. Read them before any change.
 
 1. **`_source/facts.md` is LAW.** No surface gets a number that isn't in it; unverified =
    flagged (⚠️/🚩), never asserted. **`$45M+` = partner AD SPEND, never revenue.**
@@ -21,8 +21,9 @@ These five rules are binding for the whole front-door merge. Read them before an
    vertical rhythm;** children never add compensating margins. This is the fix for the
    overlap / uneven-gap problem.
 
-The front door being merged is **`/sales/`** (`sales/index.html`). The builder page at the repo
-root (`index.html`) is preserved and mined for parts. The one automation worth building is a
+The front-door merge **shipped** (PRs #30/#39): the front door is now the repo root
+(`index.html`), and `/sales/` is a redirect stub pointing there. The legacy sales site is
+preserved at `archive/sales-legacy-2026-06-22/`. The one automation worth building is a
 fact-consistency checker that scans every surface against `_source/facts.md`.
 
 ## What This Is
@@ -33,13 +34,26 @@ Part of the **Courtana organization** ecosystem (see sibling repos: `vibeco`, `p
 
 ## Key Documents
 
-- `ROADMAP.md` — product vision, phased plan, open decisions. Read this first.
+- `_source/facts.md` — **THE ledger.** Single source of truth for every number/claim; supersedes `content/FACTS.md`. ⚠️ marks unconfirmed facts.
+- `_source/spec.md` — the site spec every render check verifies against.
+- `_source/decisions.md` — decision log; conflicting facts get logged here for sign-off.
+- `_source/grader.md` — grading rubric for the site.
+- `HANDOFF.md` — session pickup doc. `PLAN.md` / `PRODUCT.md` / `DESIGN.md` / `BUILD-LOG.md` — the v2 build brief, product register, design system, and build log.
+- `ROADMAP.md` — product vision, phased plan, open decisions.
 - `INTERVIEW.md` — the corpus-extraction interview. Sessions act as interviewer; answers become `content/stories/`.
-- `content/FACTS.md` — single source of truth for every number/claim. Nothing ships to a surface unless it's in the ledger. ⚠️ marks unconfirmed facts.
 
-## Current State & Lineage
+## Site Structure (current)
 
-The live v1 site is at `picklebill.github.io/pickle-daas-data/showcase/v2/` (repo: `picklebill/pickle-daas-data`, not yet migrated here). Its `source/HANDOVER.md` and `source/content.json` are the design-system and content references. Phase 0 of the roadmap migrates that source into this repo and moves to a custom domain.
+The live site is `picklebill.github.io/Brick/`. All primary pages are at the repo root:
+
+- `index.html` — **the front door** (Main). One-objective page; scroll-spy sections: Deal (Google/Dreamship) · Flywheel · Ask · Work · Story · Talk. Nav = Story (`climb.html`) · Proof (`work.html`) · "Let's talk" CTA.
+- `climb.html` — Story (the sales-arc narrative). `work.html` — Proof. `resume-v2.html` — the résumé pages link to (`resume.html` is the older version).
+- `home.js` — front-door behavior (reveal, count-ups, identity card, ask-bill terminal with hiring-manager/reference modes, featured video, scroll-spy).
+- `operator-card.js` — `<operator-card>` Web Component (v6.5): the six-facet identity-card hero. `operator-card-cube.js` — parked cube variant, lives in `playground.html`. `card-lab.html` — card experiments.
+- `site-config.js` — one place to wire conversion + analytics (Calendly / Formspree / Plausible / Clarity); everything falls back to `mailto:bricker3@gmail.com` until configured. Calendly is live.
+- `tools/` — render harness: `shoot.mjs` (page screenshots), `elshot.mjs` (element shots), `record-motion.mjs`.
+- `sales/index.html` — redirect stub → root (forwards query/hash). `archive/sales-legacy-2026-06-22/` — the preserved legacy sales site. `archive/` root files — the pre-merge builder page.
+- `v3/` — parked experiment. `content/`, `source/` — legacy content/design references from the v1 lineage (`pickle-daas-data`).
 
 ## Conventions
 
@@ -53,7 +67,7 @@ The live v1 site is at `picklebill.github.io/pickle-daas-data/showcase/v2/` (rep
 
 - **Merging**: Bill authorized auto-merging Claude-authored roadmap PRs once they're mergeable and CI is green (decided 2026-06-13). Pause and ask before merges that are risky, irreversible, or outside the agreed scope.
 - **Always hand Bill a preview link** for any UI change (he's non-technical and previews everything): the live GitHub Pages URL after merge, or a `raw.githack.com/PickleBill/Brick/<branch>/<path>` link for a branch before merge (decided 2026-06-15).
-- **vSales (sales-first site)**: lives in `/sales/` (Dossier `index.html` is primary; `console.html` + `compare.html` are A/B variants; `climb.html` is the sales-arc story). Old site preserved untouched at the repo root. Build per the 2026-06-15 "Col bill" call: AI-Forward Sales & Partnerships lead, Dreamship/Google centerpiece, nav = Story · Work · Résumé, no phone, $45M+ ad-spend ≠ $35M+ peak revenue. Design system in `sales/ai-forward.css`; live terminal in `sales/ai-forward.js`.
+- **Positioning** (per the 2026-06-15 "Col bill" call, unchanged through the merge): AI-Forward Sales & Partnerships lead, Dreamship/Google centerpiece, no phone, $45M+ ad-spend ≠ $35M+ peak revenue. The sales-first Dossier that carried this was folded into the root front door; its legacy build (with `ai-forward.css` / `ai-forward.js`) is under `archive/sales-legacy-2026-06-22/`.
 
 ## Working With Bill
 
