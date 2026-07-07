@@ -1,5 +1,7 @@
 # START HERE — bricker-os handoff (two parallel sessions)
 
+> **➡️ The current entry point is `ORCHESTRATION.md` in the repo root.** This file is 2026-06-15 history.
+
 You're picking up Bill Bricker's personal site (`picklebill/Brick`, live at **https://picklebill.github.io/Brick/**). This session built rounds 1–4; it's near context capacity, so the work continues in **two fresh sessions you can start at the same time.**
 
 ## The workflow (order matters)
