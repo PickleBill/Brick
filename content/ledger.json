@@ -1,0 +1,81 @@
+{
+  "_README": "ask-bill corpus: the public + terminal tier of _source/facts.md (LAW), per Bill's sign-off 2026-09-25 (F-1..F-11). Highest-priority corpus file. If any other corpus text disagrees with this file, this file wins. Use only the numbers stated here.",
+  "rules_for_answers": [
+    "$45M+ is partner/merchant AD SPEND through the Google channel over 5+ years. It is never revenue. $35M+ is Dreamship's PEAK revenue. Keep the two visibly distinct.",
+    "Google: say Bill 'closed Google as a partner in year one' (or 'within its first year'), aligning five internal Google teams. It was a partnership, never an acquisition. Do not attach a seniority level to the Google sign-off.",
+    "Dreamship: Bill was Cofounder & CEO 2018-2024 and Board Chair 2024-2026. He holds no current role there; do not describe Dreamship's present-day finances.",
+    "Courtana: Founder & CEO 2024-2026. Talk about it in the past tense, as what Bill built. Do not call it live or current, and do not dwell on how it ended. If asked whether it is still running, say Bill led it from 2024 to 2026 and is now focused on his next GTM or partnerships role.",
+    "Never state Courtana fundraising amounts, a count of sports supported, expansion LOIs, or any number that is not in this file. Private details can be alluded to ('ask Bill directly'), never stated.",
+    "Contact is bricker3@gmail.com, LinkedIn, or the Calendly link. Never give a phone number.",
+    "Health: diagnosed with cancer in 2023, chemo through 2025, operated through treatment. Mention it only when asked, plainly and with dignity. Never frame a deal as closed during treatment.",
+    "Voice: plainspoken, specific, numbers-first. No superlatives, no hype."
+  ],
+  "identity": {
+    "name": "Bill Bricker",
+    "title": "AI-Forward Sales & Partnerships Leader (site) / Enterprise Sales & Partnerships Leader (resume)",
+    "summary": "3x founder, AI-native, 20 years carrying a number. Raleigh, NC. Father of three.",
+    "positioning_line": "I close the deals the biggest names in tech say yes to.",
+    "tagline": "Two decades turning frontier technology into revenue. Now all-in on AI-native go-to-market.",
+    "target_roles": "GTM / partnership leadership (incl. frontier AI labs), founder, forward-deployed, fractional, board",
+    "email": "bricker3@gmail.com",
+    "linkedin": "https://linkedin.com/in/williambricker",
+    "book_a_call": "https://calendly.com/bricker3-idwj/30min",
+    "resume_page": "https://picklebill.github.io/Brick/resume/",
+    "resume_pdf": "https://picklebill.github.io/Brick/assets/Bill_Bricker_Resume_2026-09.pdf",
+    "site": "https://picklebill.github.io/Brick/"
+  },
+  "google_partnership": {
+    "headline": "Founded Dreamship and closed Google as a partner in year one: a first-of-its-kind cross-division partnership.",
+    "what_it_was": "A trust layer verifying high-volume merchants on Google Vision (trademark and IP checks), so Google could reach merchants while protecting its brand.",
+    "how_it_was_won": "Aligned five internal Google teams (trust & safety, business integrity, commercial). Addressed merchant qualification and intellectual-property risk, connecting an underserved Vietnamese merchant market with a major technology platform. Organized the incentives so Google, the merchants and Dreamship all won. Bill was in the room from first contact.",
+    "result": "$45M+ in partner/merchant ad spend through the channel over 5+ years (ad spend, not revenue).",
+    "flywheel": "The Google deal became a repeatable partner playbook: Stripe, PayPal, Payoneer, Meta, Adobe, plus a Microsoft / Bing-ChatGPT merchant deal that earned a higher partner tier on volume.",
+    "stripe": "Shaped a Stripe partnership that gave merchants U.S. payments access, opened new business for Stripe, and supported joint events and Dreamship's brand growth. Substantial involvement with Stripe and PayPal; an evolving relationship with Payoneer."
+  },
+  "dreamship": {
+    "roles": "Cofounder & CEO 2018-2024; Board Chair 2024-2026",
+    "what": "API-driven on-demand fulfillment platform, built and run from zero.",
+    "headline_numbers": "11x in 2020 ($1.6M to $17M) and $35M+ peak revenue.",
+    "terminal_detail_numbers": "~$85M GMV; 2.3M+ units; 323% revenue CAGR (2019-21); EBITDA-profitable four years running; raised $2.2M (500 Startups).",
+    "the_11x_year": "First full year, some COVID tailwind, mostly execution: took in the orders, worked out supply routes, met the demand, and became a trusted source of reliable shipping.",
+    "operations": "21 fulfillment locations across 6 countries (delivery to 150+); 100+ catalog products / 2,100+ variants; 1.77-day average production time; team of 24 at peak with an ops hub in Vietnam; authored the 'How We Win' operating framework.",
+    "early_phase": "Built 3 product versions on ~$150K of lean early funding, with distributed contributors in Ukraine and Nigeria.",
+    "step_back": "Stepped back after a cancer diagnosis, with the Google deal already in flight."
+  },
+  "courtana": {
+    "roles": "Founder & CEO 2024-2026",
+    "what": "AI sports-intelligence platform: structured player and brand data from venue video. Pickleball was the wedge; the data was the business. Category line: 'TopGolf meets Pickleball'.",
+    "built": "Built and commercialized an AI smart-court ecosystem across 4 venues, 36 courts and 760 users. Multi-model pipeline (Gemini for vision, Claude for strategy) with a 2-person team and an AI-native operating stack (Claude, Codex, Lovable, Gemini).",
+    "proof": "The Courtana video on the Proof page: https://picklebill.github.io/Brick/work.html#courtana"
+  },
+  "ai_builds": {
+    "headline": "40+ apps across 31 repos, built & shipped solo. Stack: Claude, Codex, Lovable, Gemini.",
+    "vibeco": "VibeCo is the build engine: https://vibeco.lovable.app",
+    "pickle_daas": "Self-serve sports-data warehouse from raw video (Supabase, ingest agents, ground-truth validation): 21,000 clips processed, 4,097 deep-analyzed with Gemini, $0.0054/clip (~7x cheaper), 7,000+ brand detections across 336 brands, 8 dashboards. https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html",
+    "showcase_apps": "Litigator, Venue Connect, Layup Lab, Pickleball Freak Show, HeadsUpTime.",
+    "role_of_ai": "The AI building is the multiplier on the commercial work (research, demos, collateral, product feedback), not a developer identity."
+  },
+  "earlier_career": [
+    { "company": "GearLaunch", "role": "VP Sales & Marketing", "years": "2017-2018", "detail": "Led sales and marketing for an ecommerce / print-on-demand platform: seller acquisition, growth positioning, partner narrative; globally distributed team of 13." },
+    { "company": "IntroStellar", "role": "CEO / Cofounder", "years": "2015-2017", "detail": "Referral platform built around relationship-based recruiting." },
+    { "company": "GroupOrDare", "years": "2016", "detail": "Shipped a party card game." },
+    { "company": "WibiData", "role": "Director of Sales", "years": "2014-2015", "detail": "Built the enterprise sales motion for an open-source big-data platform backed by NEA, Canaan, Mike Olson and Eric Schmidt; sold technical pilots with Fortune 500 retailers including Macy's and Nordstrom." },
+    { "company": "IBM / Netezza", "role": "Watson Foundations Account Executive", "years": "2012-2014", "detail": "Seven-figure analytics and Watson-era deals (Zillow, Avalara); contributed to an 8-figure McKesson win (an enterprise deal, unrelated to the Google channel); achieved quota; selected for the IBM Summit Sales Program." },
+    { "company": "Northwestern Mutual", "role": "Financial Advisor / College Unit Director", "years": "2006-2010", "detail": "Built a financial advisory book through cold calls, referrals and relationship selling: $8M TCV across 185 accounts and a top-10 national ranking; recruited and trained interns as College Unit Director." }
+  ],
+  "education": [
+    "MBA, Entrepreneurship, UNC Kenan-Flagler (GMAT 730; Carolina Entrepreneurial Fellow)",
+    "BS, Finance, The College of New Jersey (Men's Rugby Captain)"
+  ],
+  "beyond": {
+    "pledge_1_percent": "Community engagement, onboarding and outreach during Pledge 1%'s growth from ~1,200 to 2,100+ organizations.",
+    "freedom_united": "Board member, 2020-2022.",
+    "music": "DJ Billygoat."
+  },
+  "personal": {
+    "family": "Father of three.",
+    "health": "Diagnosed with cancer in 2023; chemo through 2025; operated through treatment. Public, handled with dignity.",
+    "the_long_walk": "The present-tense 'figuring out what's next' chapter (not the cancer chapter). This site is part of it."
+  },
+  "cleared_logos": "Google, Microsoft, Adobe, Stripe, PayPal, Payoneer, Meta, IBM, Zillow, Macy's, McKesson, Avalara, Nordstrom"
+}
