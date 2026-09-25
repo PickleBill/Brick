@@ -443,15 +443,19 @@
       vw.classList.add('lit'); }                         /* one-pass entry FX + ambient drift; CSS neutralizes under reduced-motion */
     /* cycling glow stat badges — the reticle locks on, then stats surface one by one (rolling window) */
     var badges=[].slice.call(vw.querySelectorAll('.statbadge')), started=false, idx=0, bt=null;
-    /* window of 2 visible; with ≤2 badges there is nothing to roll, so surface each once and stop */
-    function cycleBadges(){ if(!badges.length) return; bt=setInterval(function(){
-      badges[idx % badges.length].classList.add('show');
-      if(badges.length>2) badges[(idx + badges.length - 2) % badges.length].classList.remove('show');
-      else if(idx>=badges.length-1) clearInterval(bt);
-      idx++; }, 1500); }
+    /* window of 2 visible, one step every 3.2s (each readout stays ~6s); the oldest fades out
+       before the next fades in. With ≤2 badges there is nothing to roll, so surface each once and stop */
+    function stepBadge(){
+      var b=badges[idx % badges.length], rolling=badges.length>2;
+      if(rolling) badges[(idx + badges.length - 2) % badges.length].classList.remove('show');
+      setTimeout(function(){ b.classList.add('show'); }, rolling && idx>=2 ? 450 : 0);
+      idx++; if(!rolling && idx>=badges.length) clearInterval(bt); }
+    function cycleBadges(){ if(!badges.length) return;
+      setTimeout(function(){ stepBadge(); bt=setInterval(stepBadge, 3200); }, 900); }
     function vCheck(){ var r=vw.getBoundingClientRect(), vh=innerHeight||800, inView=r.top<vh*0.85 && r.bottom>0;
       if(inView){ light();
-        if(!started){ started=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); }
+        if(!started){ started=true; /* reduced motion: one static readout per corner */
+          if(reduce){ badges.slice(0,3).forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); }
           if(vid && (reduce || (navigator.connection && navigator.connection.saveData))){ vid.controls=true; } }
         if(vid && !reduce && !(navigator.connection && navigator.connection.saveData)){ var p=vid.play(); if(p&&p.catch) p.catch(function(){}); } }
       else if(vid){ vid.pause(); } }
