@@ -1,6 +1,19 @@
 # Site overhaul, Sept 2026: the strategic plan
 
-> **Status: PLANNING. Nothing on the live site changes until Bill signs off on §3 (facts) and §5 (calls).**
+> **Status: BUILDING (Phase 1).** Bill signed off 2026-09-25 (commit `b8c6d67`, inline answers in §2 and §3);
+> Phase 0 applied them to `_source/facts.md`, `_source/decisions.md` (F-1…F-11, O-1…O-4 resolved) and
+> `_source/grader.md`. **Where Bill's answers differ from the recommendations below, his answers win:**
+> - **Hero card = 3 facets** (builder · pay it forward · father), per Bill's follow-up ("I liked your idea of
+>   the three cards"). DJ, GTM Operator and Community Curator come off the card (DJ stays a terminal easter
+>   egg). Family copy: **"3× Father · 3× Founder · Guess which matters most."**
+> - **Archive rule (O-5):** every major visual change keeps the old version with a before/after. Already
+>   done for this overhaul: `archive/2026-09-pre-overhaul/` + the v6.5 card beside the live one in `playground.html`.
+> - **Courtana is winding down** (F-4): never "live"/"now"/"currently", never "shut down"; past tense, what
+>   was built; no courtana.com links; the video is the proof.
+> - **All partners stay on the site** (F-8). No longer Dreamship Board Chair (F-3). $150K line is Dreamship (F-7).
+> - §5 calls Bill didn't comment on take my recommendation (Q3 paper sheet · Q4 yes/yes · Q5 yes).
+>   Q6 LinkedIn not yet received: build from the résumé. Q7: the PDF is rendered from the new résumé page
+>   (`assets/Bill_Bricker_Resume_2026-09.pdf`), so the garbled Doc line never ships.
 > Started 2026-09-25. Owner: Bill. Advisor + orchestrator: Claude. Binding rules: `CLAUDE.md` (the five
 > build rules), `_source/facts.md` (LAW). This file is the brief every build agent reads.
 

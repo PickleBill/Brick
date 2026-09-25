@@ -11,6 +11,7 @@
  * Output: tools/screens/<name>.<viewport>[.<tag>].png
  */
 import { chromium } from 'playwright';
+import { proxyOpts, trustedNet } from './net.mjs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, resolve, basename } from 'node:path';
 import { mkdirSync } from 'node:fs';
@@ -43,10 +44,12 @@ const VIEWPORTS = [
 const browser = await chromium.launch();
 for (const v of VIEWPORTS) {
   const ctx = await browser.newContext({
+    ...proxyOpts(),
     viewport: { width: v.width, height: v.height },
     deviceScaleFactor: v.dsf,
     reducedMotion: reduce ? 'reduce' : 'no-preference',
   });
+  await trustedNet(ctx);
   const page = await ctx.newPage();
   try {
     await page.goto(url, { waitUntil: 'networkidle', timeout: 20000 });

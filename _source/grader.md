@@ -12,11 +12,15 @@
 ## ⛔ GATE — facts & guardrail integrity (binary, must PASS)
 Auto-FAIL the entire grade if ANY is true (scan rendered HTML + copy against `_source/facts.md`):
 - A **phone number** appears anywhere in the HTML/surface.
-- **`$350K`** raise · **"11+ sports"** · **"sub-one-year-old startup"** is rendered.
+- The **Courtana raise amount** · **"11+ sports"** · **"sub-one-year-old startup"** is rendered (text *or* image —
+  `assets/shots/courtana.png` shows "11 sports" and is retired).
 - **`$45M+` reads as revenue** (must read as ad spend / channel), or `$45M+` and `$35M+` are conflated.
 - A number on a surface **isn't in `_source/facts.md`**, or **"8-fig" labels the Google channel** (that's the McKesson enterprise deal).
-- A **résumé link** points anywhere but `assets/Bill_Bricker_Resume_vFinal.pdf`.
-- Google sign-off reads **"director"** (must be **VP-level**).
+- A **résumé link** points anywhere but the `resume/` page or `assets/Bill_Bricker_Resume_2026-09.pdf`.
+- Google sign-off reads **"director"** or **"VP-level"** (F-1: it's **five internal teams**, no level claimed).
+- **Courtana reads as live / current** ("live", "now", "currently", LIVE badge, "present") or as a failure
+  ("shut down", "closed") — F-4 framing is past tense, about what was built. Any **courtana.com** link.
+- **Dreamship reads as current** ("present", "Board Chair" without 2024–2026) — F-3.
 
 PASS = none of the above. Non-negotiable — this is facts.md Tier A.
 
