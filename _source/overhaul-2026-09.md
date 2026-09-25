@@ -49,10 +49,10 @@ video) is cleanup on top of that rule.
 2. **Dead and non-compliant Courtana proof.** courtana.com is down but linked in 7 places (home, work,
    climb, both résumé pages). Worse, the Courtana website screenshot (`assets/shots/courtana.png`,
    used as the card image **and** as the video's poster frame) shows **"11 sports"**, a Tier A
-   never-render. It's on the page now, as a picture, so text scans miss it.
+   never-render. It's on the page now, as a picture, so text scans miss it. -  yes, this is an issue because courtana.com is actually no longer live and running. That's what I'm saying. Don't worry about the 11 sports. We can just us the teasere video and dont really need links to courtana.  
 3. **The hero card does too much.** 6 photos, auto-advance, dots, aperture bloom. It competes with the
    headline. Two facets are weak: "GTM Operator" sits on a luau family photo; "Vibe Pusher / DJ" is an
-   inside joke on the front door.
+   inside joke on the front door -  the vibe pusher DJ is a cool visual. I'm kind of okay with that. Anyway, agree with the GTM operator and the community curator ones can go away.  3x "Father, 3x founder" guess which matters most -> thats supposed to be the copy on the family one.
 4. **No Résumé in the nav**, and the résumé page is out of date and doesn't look like a résumé.
 5. **The proof section is two website screenshots.** The video is the real proof. The cards are
    brochure shots of websites, one of them dead.
@@ -71,17 +71,17 @@ video) is cleanup on top of that rule.
 
 | # | Fact | Ledger (LAW today) | Sep 21 résumé | My recommendation |
 |---|------|--------------------|---------------|-------------------|
-| F-1 | Google teams + sign-off | VP-level across 5–6 teams | "aligning five internal teams" (no VP) | Match the résumé: **five internal teams**. Bring "VP-level" back only if it goes on the résumé too. |
-| F-2 | Google framing | "closed Google as a partner in year one" | "Established a partnership in Dreamship's first year" | Keep **"closed Google as a partner, in year one"** on the site. Same claim, stronger verb. Your call. |
-| F-3 | Dreamship dates | CEO 2018–Sep 2023 · Board Chair Sep 2023–present | CEO 2018–2024 · Board Chair 2024–2026 | **Need you.** Which is right, and are you still Board Chair? |
-| F-4 | Courtana dates + status | Founder & CEO 2023–present · site says LIVE, "currently building" | Founder & CEO 2024–2026 | **Need you.** Active, paused, or wound down? This drives copy on every page. |
-| F-5 | IBM title | Watson Analytics & Netezza Brand Specialist | Watson Foundations Account Executive | Adopt the résumé. LinkedIn agrees (Netezza Brand Specialist was the Summit program role). |
-| F-6 | Northwestern Mutual | $6M+ TCV · 150+ accounts (C-2) | $8M TCV · 185 accounts | Adopt the résumé if you stand behind $8M (your original quiz answer). **The résumé line is garbled** ("…College Unit Director.that reached a top-10…"): fix it in the Doc before we export a PDF. |
-| F-7 | $150K · 3 product versions · Ukraine & Nigeria | Dreamship (early phase) | IntroStellar | **Need you.** Which company? |
-| F-8 | Partners named | Google, Stripe, PayPal, Payoneer, Meta, Adobe, Microsoft/Bing | Google, Stripe, PayPal, Payoneer ("evolving relationship") | **Need you.** Keep the ones you'd defend on a reference call, and put the **same list on both** résumé and site. |
-| F-9 | Numbers on the site, not on the résumé | 11x ($1.6M→$17M) · ~$85M GMV · 2.3M+ units · 323% CAGR · 4 yrs EBITDA-profitable · $2.2M raised · 40+ apps / 31 repos | none of these | Keep **11x** and **40+ apps** on the site (most forwardable) and add them back to the résumé. Move the rest to the terminal + PDF only. |
-| F-10 | Pledge 1% | not in ledger | ~1,200 → 2,100+ orgs (LinkedIn's 2017 text says 1,800+) | Adopt the résumé figure. |
-| F-11 | New facts | none | Stripe: U.S. payments access for merchants + joint events · GearLaunch team of 13 · Freedom United board 2020–22 · Courtana "TopGolf meets Pickleball" · Google deal served an underserved Vietnamese merchant market | Add to the ledger. |
+| F-1 | Google teams + sign-off | VP-level across 5–6 teams | "aligning five internal teams" (no VP) | Match the résumé: **five internal teams**. Bring "VP-level" back only if it goes on the résumé too. | yes
+| F-2 | Google framing | "closed Google as a partner in year one" | "Established a partnership in Dreamship's first year" | Keep **"closed Google as a partner, in year one"** on the site. Same claim, stronger verb. Your call. | yes agree
+| F-3 | Dreamship dates | CEO 2018–Sep 2023 · Board Chair Sep 2023–present | CEO 2018–2024 · Board Chair 2024–2026 | **Need you.** Which is right, and are you still Board Chair? | not still board chait
+| F-4 | Courtana dates + status | Founder & CEO 2023–present · site says LIVE, "currently building" | Founder & CEO 2024–2026 | **Need you.** Active, paused, or wound down? This drives copy on every page. |  the fact is, it is winding down, so we don't want to say "live," but we don't want to overly emphasize that we had to close down the business either. Figure out a way to have a frame that
+| F-5 | IBM title | Watson Analytics & Netezza Brand Specialist | Watson Foundations Account Executive | Adopt the résumé. LinkedIn agrees (Netezza Brand Specialist was the Summit program role). | yes
+| F-6 | Northwestern Mutual | $6M+ TCV · 150+ accounts (C-2) | $8M TCV · 185 accounts | Adopt the résumé if you stand behind $8M (your original quiz answer). **The résumé line is garbled** ("…College Unit Director.that reached a top-10…"): fix it in the Doc before we export a PDF. | yes please.  
+| F-7 | $150K · 3 product versions · Ukraine & Nigeria | Dreamship (early phase) | IntroStellar | **Need you.** Which company? | this was Dreamship. 
+| F-8 | Partners named | Google, Stripe, PayPal, Payoneer, Meta, Adobe, Microsoft/Bing | Google, Stripe, PayPal, Payoneer ("evolving relationship") | **Need you.** Keep the ones you'd defend on a reference call, and put the **same list on both** résumé and site. | you can leave them all on the site i think
+| F-9 | Numbers on the site, not on the résumé | 11x ($1.6M→$17M) · ~$85M GMV · 2.3M+ units · 323% CAGR · 4 yrs EBITDA-profitable · $2.2M raised · 40+ apps / 31 repos | none of these | Keep **11x** and **40+ apps** on the site (most forwardable) and add them back to the résumé. Move the rest to the terminal + PDF only. |. yes
+| F-10 | Pledge 1% | not in ledger | ~1,200 → 2,100+ orgs (LinkedIn's 2017 text says 1,800+) | Adopt the résumé figure. | yes
+| F-11 | New facts | none | Stripe: U.S. payments access for merchants + joint events · GearLaunch team of 13 · Freedom United board 2020–22 · Courtana "TopGolf meets Pickleball" · Google deal served an underserved Vietnamese merchant market | Add to the ledger. | yes
 
 After sign-off: update `_source/facts.md`, the GATE in `_source/grader.md` (it still hard-codes
 "VP-level" and "vFinal"), and move these rows to Resolved.
