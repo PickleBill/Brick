@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Bill Bricker — The Work</title>
-<meta property="og:title" content="bricker-os — Bill Bricker's terminal"/>
+<title>Bill Bricker — Proof of work</title>
+<meta name="description" content="Receipts, not slides: Courtana, Dreamship, Pickle DaaS, VibeCo and the app shelf, plus a terminal that answers for all of it."/>
+<meta property="og:title" content="Bill Bricker — Proof of work"/>
+<meta property="og:description" content="Two companies built from zero, 40+ apps shipped solo, and a terminal that answers for all of it."/>
 <meta property="og:type" content="website"/>
 <meta property="og:image" content="https://picklebill.github.io/Brick/assets/og-card.png"/>
 <meta property="og:image:width" content="1200"/>
@@ -19,8 +21,12 @@
     --glass:rgba(255,255,255,.05);--line:rgba(255,255,255,.10);--line2:rgba(255,255,255,.18);
     --text:#f4f2ec;--mute:#9aa0a3;--faint:#5c6164;
     --sage:#a8c98e;--coral:#e69270;--blue:#7fb0e8;--green:#86e0a4;--amber:#e6b86e;--cream:#f3ecdc;
-    --term:#d8ddd6;
+    --term:#d8ddd6;--cyan:#5ee0d6;--violet:#a78bfa;
+    --spectrum:linear-gradient(100deg,#5be8a0 0%,#36c6e0 33%,#8b7cf0 66%,#ff8a6b 100%);
     --sans:'Hanken Grotesk',system-ui,sans-serif;--disp:'Bricolage Grotesque','Hanken Grotesk',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+    /* one spacing scale (Rule 5) */
+    --s1:4px;--s2:8px;--s3:16px;--s4:24px;--s5:40px;--s6:64px;--s7:96px;
+    --radius:22px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -37,37 +43,41 @@
   @keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-30px) scale(1.08)}}
 
   /* ===== consistent nav (identical across site) ===== */
-  nav{position:sticky;top:0;z-index:50;background:rgba(8,9,10,.7);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  body>nav{position:sticky;top:0;z-index:50;background:rgba(8,9,10,.7);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+  body>nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
   .brand{display:flex;align-items:center;gap:0;font-family:var(--mono);font-weight:600;font-size:14.5px;letter-spacing:-.01em;white-space:nowrap;flex-shrink:0;color:var(--text)}
   .brand .caret{display:inline-block;width:8px;height:1em;background:var(--green);margin-left:5px;transform:translateY(1px);box-shadow:0 0 8px var(--green);animation:caretblink 1.1s steps(1) infinite}
   @keyframes caretblink{50%{opacity:0}}
   .nl{display:flex;gap:3px;align-items:center;font-family:var(--mono);font-size:13px;letter-spacing:-.01em;color:var(--mute)}
   .nl a{padding:8px 13px;border-radius:99px;transition:.15s;white-space:nowrap}
   .nl a:hover{color:var(--text);background:rgba(255,255,255,.05)}
-  .nl a.here{color:var(--green);background:rgba(134,224,164,.12)}
+  .nl a.here,.nl a[aria-current="page"]{color:var(--green);background:rgba(134,224,164,.12)}
   .nl a.cta{color:#08090a;background:var(--cream);font-weight:600}
-  @media(max-width:560px){nav .wrap{height:54px}.nl{gap:1px;font-size:11.5px}.nl a{padding:7px 8px}.brand{font-size:13px}}
+  @media(max-width:560px){body>nav .wrap{height:54px}.nl{gap:1px;font-size:11.5px}.nl a{padding:7px 8px}.brand{font-size:13px}}
+  @media(max-width:430px){.wrap{padding:0 var(--s3)}.nl{gap:0;font-size:11px}.nl a{padding:6px 6px}.brand{font-size:12.5px}}
+  @media(max-width:400px){.brand .caret{display:none}.nl a{padding:6px 5px}}
+  @media(max-width:370px){.nl a.cta .ar{display:none}.nl a.cta{padding:6px 8px}}
+  @media(max-width:340px){.nl{font-size:10px}.nl a{padding:6px 4px}.nl a.cta{padding:6px 6px}.brand{font-size:11.5px}}
 
   /* hero */
-  .top{padding:14px 0 2px;text-align:center}
+  .top{text-align:center;align-items:center}
   .kick{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);padding:7px 13px;border-radius:99px;background:var(--glass)}
-  .kick .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+  .kick .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(134,224,164,.5)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
-  h1{font-size:clamp(30px,5.4vw,46px);font-weight:800;letter-spacing:-.03em;margin:16px 0 0;line-height:1.04}
+  h1{font-size:clamp(30px,5.4vw,46px);font-weight:800;letter-spacing:-.03em;line-height:1.04}
   h1 .g{background:linear-gradient(100deg,var(--sage),var(--coral));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .sub{font-size:15px;color:var(--mute);margin:12px auto 0;max-width:48ch}
+  .sub{font-size:15px;color:var(--mute);max-width:50ch}
 
   /* terminal */
-  .term{margin:8px auto 14px;border-radius:16px;border:1px solid var(--line);overflow:hidden;
+  .term{border-radius:16px;border:1px solid var(--line);overflow:hidden;
     background:linear-gradient(180deg,#0d0f12,#0a0c0e);box-shadow:0 40px 90px -40px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.05)}
   .tbar{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02);flex-wrap:nowrap;overflow:hidden}
   .tbar .dots{display:flex;gap:7px}.tbar .dots i{width:11px;height:11px;border-radius:50%}
   .tbar .dots .r{background:#ff5f57}.tbar .dots .y{background:#febc2e}.tbar .dots .g{background:#28c840}
   .tbar .ttl{font-family:var(--mono);font-size:11.5px;color:var(--mute);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-  @media(max-width:560px){.tbar .live{display:none}}
   .tbar .live{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:6px}
   .tbar .live i{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
+  @media(max-width:560px){.tbar .live{display:none}}
   .screen{height:min(60vh,520px);overflow-y:auto;padding:18px 18px 8px;font-family:var(--mono);font-size:13.5px;line-height:1.65;color:var(--term);scroll-behavior:smooth}
   .screen::-webkit-scrollbar{width:8px}.screen::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:99px}
   @media(max-width:560px){.screen{font-size:12.5px;height:62vh}}
@@ -91,12 +101,9 @@
   .ibar .run{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);padding:5px 9px;border-radius:6px;flex-shrink:0}
 
   /* command marquee */
-  .cmdwrap{margin:0 0 10px}
-  .cmdlbl{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);margin-bottom:8px;animation:bob 2.4s ease-in-out infinite}
-  @keyframes bob{0%,100%{opacity:.65}50%{opacity:1}}
-  .cmdbar{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .cmdbar{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2);overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
   .cmdrow{display:flex;gap:8px;width:max-content;animation:marq 34s linear infinite}
-  .cmdrow.r2{animation-duration:40s;animation-direction:reverse;margin-top:8px}
+  .cmdrow.r2{animation-duration:40s;animation-direction:reverse}
   .cmdbar:hover .cmdrow{animation-play-state:paused}
   @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   .chip{font-family:var(--mono);font-size:11.5px;color:var(--mute);border:1px solid var(--line);background:var(--glass);padding:7px 13px;border-radius:99px;cursor:pointer;transition:.15s;white-space:nowrap;flex-shrink:0}
@@ -109,86 +116,224 @@
   @keyframes flash{0%{background:rgba(134,224,164,.16)}100%{background:transparent}}
   .cur{display:inline-block;width:9px;height:15px;background:var(--green);vertical-align:-2px;animation:blink 1s steps(2) infinite}
 
-  /* corpus of work */
-  .corpus{margin-top:22px}
-  .cgrid{display:grid;gap:14px}
-  .cgrid.two{grid-template-columns:1fr 1fr}
-  .cgrid.three{grid-template-columns:1fr 1fr 1fr;margin-top:14px}
-  @media(max-width:760px){.cgrid.two,.cgrid.three{grid-template-columns:1fr}}
-  .wcard{display:block;border:1px solid var(--line);border-radius:16px;background:var(--glass);padding:20px;transition:.18s;backdrop-filter:blur(6px)}
-  .wcard:hover{transform:translateY(-3px);border-color:var(--line2);box-shadow:0 24px 60px -42px rgba(0,0,0,.85)}
-  .wc-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}
-  .wc-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);padding:4px 9px;border-radius:99px}
-  .wc-badge.live{color:var(--green);border-color:rgba(134,224,164,.32)}
-  .wc-badge.live i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
-  .wc-yr{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
-  .wc-k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--sage)}
-  .wcard h3{font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:-.03em;margin:0}
-  .wcard h4{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.02em;margin:7px 0 0}
-  .wcard p{font-size:14px;color:var(--mute);line-height:1.55;margin-top:9px}
-  .wcard.sm p{font-size:13px}
-  .wcard p b{color:var(--text);font-weight:600}
-  .wc-go{display:inline-block;margin-top:13px;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--green)}
-  .wcard.sm .wc-go{font-size:11.5px}
-  .term-divider{display:flex;align-items:center;justify-content:center;text-align:center;margin:30px 0 14px}
-  .term-divider span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);opacity:.85}
+  /* ===== layout primitives (Rule 5): .page owns the rhythm between blocks; .stack owns it inside ===== */
+  .page{display:flex;flex-direction:column;gap:var(--s6);padding:var(--s5) 0 var(--s6)}
+  .stack{display:flex;flex-direction:column;gap:var(--g,var(--s3))}
+  .page>*,.stack>*,.apps>*,.pair>*{min-width:0}
+  .page>.wrap{width:100%}
+  main [id]{scroll-margin-top:calc(60px + var(--s3))}
+  @media(max-width:560px){.page{gap:var(--s5);padding-top:var(--s4)}}
 
-  footer{text-align:center;color:var(--faint);font-size:12px;font-family:var(--mono);padding:10px 0 60px;letter-spacing:.04em}
+  /* on-page index */
+  .jump{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2)}
+  .jump a{font-family:var(--mono);font-size:11.5px;color:var(--mute);border:1px solid var(--line);background:var(--glass);padding:6px 12px;border-radius:99px;transition:.15s}
+  .jump a:hover{color:var(--text);border-color:var(--line2)}
+
+  /* shared card vocabulary */
+  .wcard{display:block;border:1px solid var(--line);border-radius:var(--radius);background:var(--glass);padding:var(--s4);transition:.18s;backdrop-filter:blur(6px)}
+  .wcard.stack{display:flex}
+  a.wcard:hover{transform:translateY(-3px);border-color:var(--line2);box-shadow:0 24px 60px -42px rgba(0,0,0,.85)}
+  .wc-top{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);flex-wrap:wrap}
+  .wc-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);padding:4px 9px;border-radius:99px}
+  .wc-yr{font-family:var(--mono);font-size:11px;color:var(--mute)}
+  .wc-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage)}
+  .wcard h2,.shelf-h h2{font-family:var(--disp);font-weight:800;font-size:28px;letter-spacing:-.03em;line-height:1.05}
+  .wcard h3{font-family:var(--disp);font-weight:700;font-size:18px;letter-spacing:-.02em;line-height:1.15}
+  .wcard p{font-size:14.5px;color:var(--mute);line-height:1.55;text-wrap:pretty}
+  .wcard p b{color:var(--text);font-weight:600}
+  .wc-go{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--green)}
+  a.wc-go:hover,a.wcard:hover .wc-go{text-decoration:underline;text-underline-offset:3px}
+  .thumb{display:block;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#0c0e10;aspect-ratio:16/10}
+  .thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2)}
+  .kpi{border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);padding:var(--s3);display:flex;flex-direction:column;gap:var(--s1)}
+  .kpi b{font-family:var(--disp);font-weight:800;font-size:24px;letter-spacing:-.02em;line-height:1;color:var(--text)}
+  .kpi span{font-size:12.5px;color:var(--mute);line-height:1.35}
+  @media(max-width:560px){.kpis{grid-template-columns:1fr}.kpi{flex-direction:row;align-items:baseline;gap:var(--s2)}}
+
+  /* ===== featured: Courtana ===== */
+  .feature{position:relative;padding:0;overflow:hidden;border-color:var(--line2);background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.03))}
+  .feature::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:var(--spectrum);z-index:3}
+  .vid{position:relative;aspect-ratio:16/9;background:#050607;border-bottom:1px solid var(--line)}
+  .vid video{display:block;width:100%;height:100%;object-fit:cover}
+  .vid .vtag{position:absolute;left:var(--s3);top:var(--s3);font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);background:rgba(8,9,10,.62);border:1px solid var(--line2);padding:5px 10px;border-radius:99px;backdrop-filter:blur(8px)}
+  .vbtn{position:absolute;left:var(--s3);bottom:var(--s3);display:inline-flex;align-items:center;gap:var(--s2);font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text);background:rgba(8,9,10,.66);border:1px solid var(--line2);padding:8px 14px;border-radius:99px;cursor:pointer;backdrop-filter:blur(8px);transition:.18s}
+  .vbtn:hover{background:rgba(8,9,10,.85);border-color:rgba(255,255,255,.3)}
+  .vbtn .ic{width:0;height:0;border-left:9px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent}
+  .vid.playing .vbtn .ic{width:9px;height:12px;border:0;border-left:3px solid currentColor;border-right:3px solid currentColor}
+  /* paused (poster showing): the control grows into a clear, centred play button */
+  .vid:not(.playing) .vbtn{left:50%;top:50%;bottom:auto;transform:translate(-50%,-50%);padding:14px 22px;font-size:13px;background:rgba(8,9,10,.72)}
+  .vid:not(.playing) .vbtn .ic{border-left-width:12px;border-top-width:8px;border-bottom-width:8px}
+  .fbody{display:grid;grid-template-columns:1.15fr 1fr;gap:var(--s5);padding:var(--s5)}
+  .feature h2{font-size:clamp(30px,4.2vw,40px)}
+  .feature .lead{font-size:16px;color:var(--mute)}
+  .pull{font-family:var(--disp);font-weight:600;font-size:17px;line-height:1.35;color:var(--text);border-left:2px solid var(--cyan);padding-left:var(--s3)}
+  .flow-h{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+  .feature .kpis{grid-template-columns:1fr}
+  .feature .kpi{flex-direction:row;align-items:baseline;gap:var(--s3)}
+  .feature .kpi b{min-width:4.6em;background:linear-gradient(90deg,#7be88f,#36c6e0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  @media(max-width:860px){.fbody{grid-template-columns:1fr;gap:var(--s4);padding:var(--s4)}}
+  @media(max-width:560px){.vid .vtag{display:none}.feature .kpi b{min-width:4.2em;font-size:22px}}
+
+  /* ===== Dreamship: calmer split ===== */
+  .split{display:grid;grid-template-columns:1fr 1.15fr;gap:var(--s5);align-items:center}
+  @media(max-width:760px){.split{grid-template-columns:1fr;gap:var(--s4)}}
+
+  /* ===== Pickle DaaS + VibeCo pair ===== */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+  .pair .thumb{aspect-ratio:49/24}
+  @media(max-width:760px){.pair{grid-template-columns:1fr}}
+
+  /* ===== app shelf ===== */
+  .shelf-h p{font-size:14.5px;color:var(--mute);max-width:60ch}
+  .apps{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s3)}
+  .app{padding:var(--s3);--g:var(--s2)}
+  .app h3{font-size:16px}
+  .app p{font-size:13px}
+  .app .wc-go{font-size:11px;margin-top:auto}
+  .app .thumb{border-radius:10px}
+  .ph{display:flex;align-items:flex-end;padding:var(--s3);background:radial-gradient(120% 90% at 0% 0%,rgba(94,224,214,.18),transparent 60%),radial-gradient(120% 90% at 100% 100%,rgba(167,139,250,.18),transparent 60%),#0c0e10}
+  .ph span{font-family:var(--disp);font-weight:700;font-size:14px;line-height:1.15;letter-spacing:-.01em;color:var(--text)}
+  .shelf-more{font-family:var(--mono);font-size:12px;color:var(--mute)}
+  .shelf-more a{color:var(--green);font-weight:600}
+  @media(max-width:980px){.apps{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:560px){.apps{grid-template-columns:1fr 1fr;gap:var(--s2)}.app{padding:12px}.app:last-child{grid-column:1/-1}.app:last-child .thumb{aspect-ratio:auto;min-height:88px}}
+
+  /* terminal block */
+  .term-divider{text-align:center;text-wrap:balance;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);font-weight:500}
+
+  footer{text-align:center;color:var(--faint);font-size:12px;font-family:var(--mono);padding:0 0 var(--s6);letter-spacing:.04em}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2) var(--s3)}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
   footer a{color:var(--mute)}
+  footer a:hover{color:var(--text)}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
 </style>
 </head>
 <body>
 <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div></div>
 
-<nav><div class="wrap">
+<nav aria-label="Primary"><div class="wrap">
   <a class="brand" href="index.html" aria-label="Bill Bricker — home">Bill&nbsp;Bricker<span class="caret" aria-hidden="true"></span></a>
   <div class="nl">
     <a href="climb.html">Story</a>
-    <a href="work.html" class="here">Proof</a>
-    <a href="index.html#contact" class="cta">Let's talk →</a>
+    <a href="work.html" class="here" aria-current="page">Proof</a>
+    <a href="resume/">Résumé</a>
+    <a href="https://calendly.com/bricker3-idwj/30min" class="cta plausible-event-name=Book" data-cta="book" target="_blank" rel="noopener">Let's talk<span class="ar"> →</span></a>
   </div>
 </div></nav>
 
-<div class="wrap top">
+<main class="page">
+
+<header class="wrap top stack">
   <span class="kick"><span class="dot"></span>Proof of work</span>
   <h1>Receipts, <span class="g">not slides.</span></h1>
-  <p class="sub">Two live companies and 40+ apps shipped solo, plus a terminal that answers for all of it. Browse the work, then put it to the test.</p>
-</div>
+  <p class="sub">Two companies built from zero, 40+ apps shipped solo, and a terminal that answers for all of it.</p>
+  <nav class="jump" aria-label="On this page">
+    <a href="#courtana">Courtana</a><a href="#dreamship">Dreamship</a><a href="#pickle-daas">Pickle DaaS</a><a href="#vibeco">VibeCo</a><a href="#apps">Apps</a><a href="#terminal">Terminal</a>
+  </nav>
+</header>
 
-<div class="wrap corpus">
-  <div class="cgrid two">
-    <a class="wcard" href="https://courtana.com" target="_blank" rel="noopener">
-      <div class="wc-top"><span class="wc-badge live"><i></i> live · founder &amp; CEO</span><span class="wc-yr">2023 → now</span></div>
-      <h3>Courtana</h3>
-      <p>AI sports-intelligence from physical venues. <b>4 venues · 36 courts · 760 users.</b> Gemini vision + Claude strategy, two-person team.</p>
-      <span class="wc-go">courtana.com →</span>
-    </a>
-    <a class="wcard" href="https://dreamship.com" target="_blank" rel="noopener">
-      <div class="wc-top"><span class="wc-badge">cofounder &amp; CEO</span><span class="wc-yr">2018 – 23</span></div>
-      <h3>Dreamship</h3>
-      <p>API-driven fulfillment, built from zero to <b>$35M+ peak revenue · 11x in a year.</b> Where I closed Google, Stripe, PayPal &amp; Meta as partners.</p>
+<!-- 01 · featured: Courtana (the video is the proof; no outbound link, per F-4) -->
+<section class="wrap" id="courtana" aria-labelledby="courtana-h">
+  <article class="wcard feature">
+    <figure class="vid" id="cvWrap">
+      <video id="cv" muted loop playsinline preload="metadata" poster="assets/shots/courtana-video-poster.jpg" aria-label="Courtana smart-court footage: a doubles pickleball rally filmed by the court camera">
+        <source src="assets/courtana-shot.mp4" type="video/mp4"/>
+      </video>
+      <span class="vtag">Courtana · court camera</span>
+      <button class="vbtn" id="cvBtn" type="button" aria-label="Play video"><span class="ic" aria-hidden="true"></span><span class="t">Play</span></button>
+    </figure>
+    <div class="fbody">
+      <div class="stack">
+        <span class="wc-k">Courtana · Founder &amp; CEO · 2024–2026</span>
+        <h2 id="courtana-h">Courtana</h2>
+        <p class="lead">An AI smart-court platform: <b>“TopGolf meets Pickleball.”</b> Built and commercialized across <b>4 venues · 36 courts · 760 users</b> by a two-person team, with Gemini on vision and Claude on strategy.</p>
+        <p class="pull">Pickleball was the wedge; the data was the business.</p>
+      </div>
+      <div class="stack">
+        <span class="flow-h">The AI video-analysis workflow</span>
+        <div class="kpis">
+          <div class="kpi"><b>21,000+</b><span>clips processed from court video</span></div>
+          <div class="kpi"><b>4,097</b><span>clips deep-analyzed with Gemini</span></div>
+          <div class="kpi"><b>$0.0054</b><span>per clip analyzed</span></div>
+        </div>
+        <a class="wc-go" href="#pickle-daas">Where the data went: Pickle DaaS ↓</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- 02 · Dreamship -->
+<section class="wrap" id="dreamship" aria-labelledby="dreamship-h">
+  <a class="wcard split" href="https://dreamship.com" target="_blank" rel="noopener">
+    <span class="thumb"><img src="assets/shots/dreamship.png" alt="Dreamship's website: enterprise print-on-demand fulfillment" width="900" height="900" loading="lazy" decoding="async"/></span>
+    <div class="stack">
+      <div class="wc-top"><span class="wc-badge">Cofounder &amp; CEO</span><span class="wc-yr">2018–2024</span></div>
+      <h2 id="dreamship-h">Dreamship</h2>
+      <p>API-driven on-demand fulfillment, built from zero to <b>$35M+ peak revenue</b>, with <b>11x growth in 2020</b>. Where I closed <b>Google as a partner in year one</b>, aligning five internal Google teams, then Stripe, PayPal &amp; Meta.</p>
       <span class="wc-go">dreamship.com →</span>
+    </div>
+  </a>
+</section>
+
+<!-- 03 · the data layer + the build engine -->
+<div class="wrap pair">
+  <section id="pickle-daas" aria-labelledby="pickle-h">
+    <a class="wcard stack" href="https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html" target="_blank" rel="noopener">
+      <span class="thumb"><img src="assets/shots/brand-intelligence.png" alt="Pickle DaaS brand-intelligence dashboard" width="900" height="900" loading="lazy" decoding="async"/></span>
+      <span class="wc-k">The data layer</span>
+      <h2 id="pickle-h">Pickle DaaS</h2>
+      <p>A self-serve sports-data warehouse built from raw video: Supabase, ingest agents, ground-truth validation. <b>7,000+ brand detections across 336 brands</b>, browsable across 8 dashboards.</p>
+      <span class="wc-go">Open the dashboards →</span>
     </a>
-  </div>
-  <div class="cgrid three">
-    <a class="wcard sm" href="https://vibeco.lovable.app/" target="_blank" rel="noopener">
-      <span class="wc-k">the build engine</span><h4>VibeCo</h4>
-      <p>11 AI agents. Idea → brief → working app — the motion behind 40+ apps across 31 repos.</p><span class="wc-go">vibeco.lovable.app →</span>
+  </section>
+  <section id="vibeco" aria-labelledby="vibeco-h">
+    <a class="wcard stack" href="https://vibeco.lovable.app/" target="_blank" rel="noopener">
+      <span class="thumb"><img src="assets/shots/vibeco.png" alt="VibeCo's site: one conversation, one product" width="1100" height="1100" loading="lazy" decoding="async"/></span>
+      <span class="wc-k">The build engine</span>
+      <h2 id="vibeco-h">VibeCo</h2>
+      <p>Idea → brief → build prompts → working app. The engine behind <b>40+ apps across 31 repos, built &amp; shipped solo</b>, on Claude, Codex, Lovable and Gemini.</p>
+      <span class="wc-go">vibeco.lovable.app →</span>
     </a>
-    <a class="wcard sm" href="https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html" target="_blank" rel="noopener">
-      <span class="wc-k">the tech proof</span><h4>Pickle DaaS</h4>
-      <p>Self-serve sports-data warehouse from raw video. 21K+ clips · 4,097 analyzed · <b>$0.0054/clip</b> (~7x cheaper).</p><span class="wc-go">all dashboards →</span>
-    </a>
-    <a class="wcard sm" href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener">
-      <span class="wc-k">+ the shelf</span><h4>40+ apps</h4>
-      <p>Litigator, Venue Connect, Layup Lab, HeadsUpTime &amp; more — client-grade builds in days, not quarters.</p><span class="wc-go">browse the ecosystem →</span>
-    </a>
-  </div>
-  <div class="term-divider"><span>Don't take my word for it — run it yourself ↓</span></div>
+  </section>
 </div>
 
-<div class="wrap">
+<!-- 04 · the app shelf -->
+<section class="wrap stack" id="apps" aria-labelledby="apps-h">
+  <div class="shelf-h stack" style="--g:var(--s2)">
+    <span class="wc-k">The shelf</span>
+    <h2 id="apps-h">Five of the 40+</h2>
+    <p>Working apps, each built in days, not quarters.</p>
+  </div>
+  <div class="apps">
+    <a class="wcard app stack" href="https://litigator.lovable.app/dashboard" target="_blank" rel="noopener">
+      <span class="thumb"><img src="assets/shots/litigator.png" alt="Litigator's war-room dashboard" width="640" height="640" loading="lazy" decoding="async"/></span>
+      <h3>Litigator</h3><p>Mass-arbitration intelligence for legal teams.</p><span class="wc-go">Open →</span>
+    </a>
+    <a class="wcard app stack" href="https://courtana-venue-connect.lovable.app/" target="_blank" rel="noopener">
+      <span class="thumb"><img src="assets/shots/venue-connect.png" alt="Venue Connect partner portal" width="640" height="640" loading="lazy" decoding="async"/></span>
+      <h3>Venue Connect</h3><p>A venue-partner portal: proposal, launch plan and results in one asset.</p><span class="wc-go">Open →</span>
+    </a>
+    <a class="wcard app stack" href="https://layuplab.lovable.app/" target="_blank" rel="noopener">
+      <span class="thumb"><img src="assets/shots/layuplab.png" alt="Layup Lab landing page" width="800" height="445" loading="lazy" decoding="async"/></span>
+      <h3>Layup Lab</h3><p>An AI basketball coach for training and shot analytics.</p><span class="wc-go">Open →</span>
+    </a>
+    <a class="wcard app stack" href="https://freakfosho.lovable.app/" target="_blank" rel="noopener">
+      <span class="thumb"><img src="assets/shots/freakshow.jpg" alt="Pickleball Freak Show storefront" width="800" height="421" loading="lazy" decoding="async"/></span>
+      <h3>Pickleball Freak Show</h3><p>A consumer paddle brand, built as a working storefront.</p><span class="wc-go">Open →</span>
+    </a>
+    <a class="wcard app stack" href="https://headsuptime.lovable.app" target="_blank" rel="noopener">
+      <span class="thumb ph" aria-hidden="true"><span>Industrial safety at machine speed.</span></span>
+      <h3>HeadsUpTime</h3><p>A value-prop proof of concept for an industrial AI camera company.</p><span class="wc-go">Open →</span>
+    </a>
+  </div>
+  <p class="shelf-more">The rest are in the <a href="https://vibeco.lovable.app/#model" target="_blank" rel="noopener">VibeCo ecosystem →</a></p>
+</section>
+
+<!-- 05 · the terminal stays last -->
+<section class="wrap stack" id="terminal" aria-label="Terminal">
+  <p class="term-divider">Don't take my word for it. Run it yourself ↓</p>
   <div class="cmdwrap">
     <div class="cmdbar"><div class="cmdrow" id="row1"></div><div class="cmdrow r2" id="row2"></div></div>
   </div>
@@ -205,11 +350,13 @@
       <span class="run">↵ run</span>
     </form>
   </div>
+</section>
 
+</main>
 
-</div>
-
-<footer>bill@bricker-os · <a href="index.html">home</a> · <a href="climb.html">the story</a> · <a href="resume-v2.html">résumé</a> · type <span style="color:var(--sage)">help</span> for all commands</footer>
+<footer><div class="wrap">
+  <a href="index.html">Bill Bricker</a><a href="climb.html">Story</a><a href="work.html" aria-current="page">Proof</a><a href="resume/">Résumé</a><a href="https://calendly.com/bricker3-idwj/30min" data-cta="book" target="_blank" rel="noopener">Let's talk →</a><span>type <span style="color:var(--sage)">help</span> in the terminal</span>
+</div></footer>
 
 <script>
 const screen=document.getElementById('screen');
@@ -220,7 +367,7 @@ const CMDS={
   help:()=>`<span class="cmt">// tap a chip or type a command</span>
 <span class="key">whoami</span>       who I am, in one line
 <span class="key">ls</span>           the proof, as a directory
-<span class="key">companies</span>    Courtana &amp; Dreamship — both live
+<span class="key">companies</span>    Courtana &amp; Dreamship, built from zero
 <span class="key">google-deal</span>  the partnership I open interviews with
 <span class="key">sales-gtm</span>    connected-AI selling (Venue Connect)
 <span class="key">enterprise</span>   client-grade builds in days, not quarters
@@ -232,10 +379,10 @@ const CMDS={
 <span class="key">contact</span>      how to reach me
 <span class="cmt">// also:</span> <span class="key">clear</span> <span class="cmt">resets the screen</span>`,
 
-  whoami:()=>`<span class="h">Bill Bricker — I sell frontier tech, and I build it myself.</span>Enterprise seller turned founder-CEO. <span class="ok">achieved quota</span> at IBM, <span class="ok">$35M+</span> &amp; <span class="ok">11x</span> as a founder, closed <span class="ok">Google</span> as a partner in year one. Now I ship production AI daily. Father of three. Still walking.
+  whoami:()=>`<span class="h">Bill Bricker — I sell frontier tech, and I build it myself.</span>Enterprise seller turned founder-CEO. <span class="ok">achieved quota</span> at IBM, <span class="ok">$35M+</span> peak revenue &amp; <span class="ok">11x</span> as a founder, closed <span class="ok">Google</span> as a partner in year one. I ship production AI daily. Father of three. Still walking.
 <span class="cmt">// next: try</span> <span class="key">ls</span> <span class="cmt">to see the proof</span>`,
 
-  ls:()=>`<span class="cmt">drwx</span>  <span class="key">companies/</span>      <span class="cmt"># 2 live operating companies</span>
+  ls:()=>`<span class="cmt">drwx</span>  <span class="key">companies/</span>      <span class="cmt"># Courtana + Dreamship</span>
 <span class="cmt">-rw-</span>  <span class="key">google-deal.md</span>  <span class="cmt"># the Google partnership</span>
 <span class="cmt">drwx</span>  <span class="key">sales-gtm/</span>      <span class="cmt"># connected-AI selling</span>
 <span class="cmt">drwx</span>  <span class="key">enterprise/</span>     <span class="cmt"># client-grade builds</span>
@@ -243,22 +390,25 @@ const CMDS={
 <span class="cmt">drwx</span>  <span class="key">pickle-daas/</span>    <span class="cmt"># the tech proof</span>
 <span class="cmt">-rw-</span>  <span class="key">stats</span> · <span class="key">git log</span> · <span class="key">contact</span>`,
 
-  companies:()=>`<span class="h">Two operating companies — both live.</span><span class="ok">●</span> <span class="val">Courtana</span> — AI smart-court SaaS · founder/CEO · 36 courts live · 4 venues · 760 users
-   ${L('https://courtana.com','courtana.com ↗')}
-<span class="pink">●</span> <span class="val">Dreamship</span> — API fulfillment · cofounder/CEO · $35M+ · 11x in a year · the Google deal
+  companies:()=>`<span class="h">Two companies, built from zero.</span><span class="ok">●</span> <span class="val">Courtana</span> — AI smart-court platform · founder &amp; CEO 2024–2026 · 4 venues · 36 courts · 760 users
+   ${L('#courtana','▸ watch the Courtana video ↑',false)}
+<span class="pink">●</span> <span class="val">Dreamship</span> — API fulfillment · cofounder &amp; CEO 2018–2024 · $35M+ peak revenue · 11x in 2020 · the Google deal
+   <span class="cmt">early days: 3 product versions on ~$150K lean funding, with contributors in Ukraine &amp; Nigeria</span>
    ${L('https://dreamship.com','dreamship.com ↗')}`,
 
   'google-deal':()=>`<span class="h">google-deal.md — the partnership I open interviews with</span><span class="warn">SITUATION</span>  A startup in year one. No logo, no track record.
 <span class="warn">TASK</span>       Open a first-of-its-kind Google partnership — a $45M+
            ad-spend channel — for our verified merchants.
 <span class="warn">ACTION</span>     Built an AI trademark/IP-compliance checker on Google Vision to
-           solve <em>their</em> trust problem, then carried it through 5–6 internal
-           teams — trust &amp; safety, business integrity, commercial — to
-           VP-level sign-off. The work: organize the incentives so everyone
-           in the room won — Google, the merchants, and us.
-<span class="warn">RESULT</span>     A partnership that ran <span class="ok">5+ years</span>; then Stripe, PayPal,
-           Payoneer &amp; Meta wanted the same access. Later, from a chair at
-           Duke mid-chemo, I cut the Microsoft / Bing-ChatGPT merchant deal too.
+           solve <em>their</em> trust problem (merchant qualification and IP
+           risk), then aligned five internal Google teams behind it: trust
+           &amp; safety, business integrity, commercial. The work: organize the
+           incentives so everyone in the room won — Google, the merchants
+           (an underserved Vietnamese market), and us.
+<span class="warn">RESULT</span>     A partnership that ran <span class="ok">5+ years</span> and drove <span class="ok">$45M+</span> in partner
+           ad spend (ad spend, not revenue). Then Stripe, PayPal, Payoneer
+           &amp; Meta wanted the same access, and later a Microsoft /
+           Bing–ChatGPT merchant deal.
 <span class="cmt">// we didn't sell to Google — we built something Google hadn't done before.</span>
 <span class="cmt">// the full arc lives in the climb →</span> <a class="lnk" href="climb.html">the story</a>`,
 
@@ -268,18 +418,18 @@ built for a venue partner we <span class="ok">closed</span>.
    ${L('https://courtana-venue-connect.lovable.app/','▸ Courtana Venue Connect ↗')}
 <span class="cmt">// proposals that are products. onboarding that sells itself.</span>`,
 
-  enterprise:()=>`<span class="h">enterprise/ — client-grade builds, in days not quarters</span>${L('https://headsuptime.lovable.app','▸ HeadsUpTime ↗')}   <span class="cmt">25-yr industrial AI/ML camera co. — industry ID + value-prop POC</span>
-${L('https://naughtydata.lovable.app/','▸ NaughtyData ↗')}  <span class="cmt">Europe's largest marine-analytics co. — CTO rebrand in a few prompts</span>
+  enterprise:()=>`<span class="h">enterprise/ — client-grade builds, in days not quarters</span>${L('https://headsuptime.lovable.app','▸ HeadsUpTime ↗')}   <span class="cmt">industrial AI camera co. — industry ID + value-prop POC</span>
+${L('https://naughtydata.lovable.app/','▸ NaughtyData ↗')}  <span class="cmt">marine-analytics co. — CTO rebrand in a few prompts</span>
 ${L('https://litigator.lovable.app/dashboard','▸ Litigator ↗')}    <span class="cmt">legal · mass-arbitration intelligence app</span>`,
 
-  builds:()=>`<span class="h">builds/ — 40+ apps across 31 repos</span><span class="val">VibeCo</span> is the engine: 11 AI agents that turn an idea into briefs, build
-prompts &amp; art. Everything else falls out of it.
+  builds:()=>`<span class="h">builds/ — 40+ apps across 31 repos</span><span class="val">VibeCo</span> is the engine: it turns an idea into briefs, build prompts
+&amp; art. Everything else falls out of it.
    ${L('https://vibeco.lovable.app/simulate','▸ run the simulator ↗')}
-   ${L('https://layuplab.lovable.app/app/dashboard','▸ LayupLab ↗')} <span class="cmt">sports training</span>   ${L('https://freakfosho.lovable.app/','▸ FreakFoSho ↗')} <span class="cmt">consumer</span>
-   ${L('https://vibeco.lovable.app/#model','▸ the full ecosystem ↗')} <span class="cmt">FactFudge, The Load, an AI cooking app, a 12-yr-old's first build…</span>`,
+   ${L('https://layuplab.lovable.app/app/dashboard','▸ LayupLab ↗')} <span class="cmt">sports training</span>   ${L('https://freakfosho.lovable.app/','▸ Freak Show ↗')} <span class="cmt">consumer</span>
+   ${L('https://vibeco.lovable.app/#model','▸ the full ecosystem ↗')} <span class="cmt">FactFudge, The Load, an AI cooking app, a kid's first build…</span>`,
 
-  pickle:()=>`<span class="h">pickle-daas/ — the tech proof, tied back to Courtana</span><span class="key">cost/clip</span>     <span class="ok">$0.0054</span>  <span class="cmt">(~7x cheaper than GPT-4o)</span>
-<span class="key">corpus</span>        4,097+ clips analyzed
+  pickle:()=>`<span class="h">pickle-daas/ — the tech proof, tied back to Courtana</span><span class="key">cost/clip</span>     <span class="ok">$0.0054</span>  <span class="cmt">(~7x cheaper)</span>
+<span class="key">corpus</span>        21,000+ clips processed · 4,097 deep-analyzed (Gemini)
 <span class="key">output</span>        player-DNA · brand-exposure · coaching feedback
 <span class="key">infra</span>         autonomous agents w/ spend caps + ground-truth validation
    ${L('https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html','▸ investor walkthrough ↗')}
@@ -287,17 +437,18 @@ prompts &amp; art. Everything else falls out of it.
 <span class="cmt">// the model isn't the moat — the math is.</span>`,
 
   stats:()=>`<span class="h">the numbers</span><span class="ok">20</span>      years operating          <span class="ok">11x</span>     revenue in one year
-<span class="ok">$35M+</span>   peak revenue · Dreamship  <span class="ok">$45M+</span>  Google ad-spend channel
+<span class="ok">$35M+</span>   peak revenue · Dreamship  <span class="ok">$45M+</span>  partner ad spend (not revenue)
 <span class="ok">✓</span>      achieved IBM quota     <span class="ok">40+</span>     AI apps shipped solo
+<span class="ok">$8M</span>     TCV · 185 accounts · top-10 nationally (Northwestern Mutual)
 <span class="ok">$0.0054</span> per-clip AI analysis     <span class="ok">3</span>       kids · the why`,
 
   git:()=>`<span class="cmt">git log --oneline --career</span>
-<span class="warn">a37f63e</span> <span class="ok">(HEAD → now)</span> Courtana — AI smart-court SaaS, live          <span class="cmt">2023→</span>
-<span class="warn">8b9de71</span> Pickle DaaS + VibeCo — 40+ apps, $0.0054/clip          <span class="cmt">2026</span>
+<span class="warn">a37f63e</span> Courtana — AI smart courts, 36 courts · 760 users       <span class="cmt">2024–26</span>
+<span class="warn">8b9de71</span> Pickle DaaS + VibeCo — 40+ apps, $0.0054/clip          <span class="cmt">2025–26</span>
 <span class="warn">b3bb973</span> The Long Walk — diagnosed; pipeline kept moving        <span class="cmt">2023</span>
-<span class="warn">7a1a46f</span> Dreamship — $35M+, 11x, closed the Google partnership <span class="cmt">2018–25</span>
-<span class="warn">18b8b3f</span> IBM/Netezza — 7-fig deals, achieved quota               <span class="cmt">2012–14</span>
-<span class="warn">0001f00</span> Northwestern Mutual — doors &amp; dials, top 10           <span class="cmt">2006</span>
+<span class="warn">7a1a46f</span> Dreamship — $35M+ peak, 11x, closed Google as partner <span class="cmt">2018–24</span>
+<span class="warn">18b8b3f</span> IBM — Watson Foundations Account Executive, quota     <span class="cmt">2012–14</span>
+<span class="warn">0001f00</span> Northwestern Mutual — $8M TCV, 185 accts, top-10       <span class="cmt">2006–10</span>
    ${L('climb.html','▸ walk the full climb ↗',false)}`,
 
   ask:()=>`<span class="h">ask me anything — plain English works.</span>Try one of these, or type your own:
@@ -306,21 +457,23 @@ prompts &amp; art. Everything else falls out of it.
 <span class="key">"what is vibe coding?"</span>  <span class="key">"why pickleball?"</span>  <span class="key">"what's your superpower?"</span>`,
 
   contact:()=>`<span class="h">let's talk.</span>Open to founder roles, GTM &amp; partnership leadership, fractional, board.
+<span class="key">book</span>   ${L('https://calendly.com/bricker3-idwj/30min','30 minutes on Calendly')}
 <span class="key">email</span>  ${L('mailto:bricker3@gmail.com','bricker3@gmail.com',false)}
 <span class="key">in</span>     ${L('https://linkedin.com/in/williambricker','linkedin.com/in/williambricker')}`,
 };
 const ALIAS={'sales-gtm':'sales','pickle-daas':'pickle','git log':'git','ls -la':'ls','cat google-deal.md':'google-deal','companies/':'companies','ask me anything':'ask','ask-me':'ask'};
 const QA=[
  {k:['lab','anthropic','openai','frontier','why now','why a lab','join'],r:`<span class="h">why a frontier lab, why now</span>Because the gap I fill is the one labs feel most: people who can stand in front of an enterprise buyer <em>and</em> have personally shipped with the technology. I've sold the hardest room there is (Google, as a no-name startup) and I build with AI every single day. I want to do my best work where the frontier is actually being made.`},
- {k:['biggest deal','best deal','google','hardest sale'],r:`<span class="h">the biggest deal</span>Google, in Dreamship's first year. Built an AI IP-compliance checker to solve <em>their</em> trust problem, then carried it through 5-6 internal teams to VP-level sign-off. $45M+ ad-spend channel, ran 5+ years. Type <span class="key">google-deal</span> for the full STAR story.`},
- {k:['vibe coding','vibe code','vibeco','vibe-coding'],r:`<span class="h">what is vibe coding?</span>Describing what you want in plain English and shipping working software the same day. I built <span class="val">VibeCo</span> — an 11-agent simulator — to industrialize it: idea → brief → build prompts → working app. 40+ apps across 31 repos came out of that motion. Type <span class="key">builds</span> to see them.`},
- {k:['pickleball','courtana','why pickle','sports'],r:`<span class="h">why pickleball?</span>Fastest-growing sport in America, venues drowning in analog ops, and nobody owning the video layer. Courtana puts AI on the court — live video, instant highlights, coaching — and Pickle DaaS turns that footage into a data business. Type <span class="key">companies</span> or <span class="key">pickle-daas</span>.`},
+ {k:['biggest deal','best deal','google','hardest sale'],r:`<span class="h">the biggest deal</span>Google, in Dreamship's first year. Built an AI IP-compliance checker to solve <em>their</em> trust problem, then aligned five internal Google teams behind it. The channel ran 5+ years and drove $45M+ in partner ad spend (ad spend, not revenue). Type <span class="key">google-deal</span> for the full STAR story.`},
+ {k:['vibe coding','vibe code','vibeco','vibe-coding'],r:`<span class="h">what is vibe coding?</span>Describing what you want in plain English and shipping working software the same day. I built <span class="val">VibeCo</span>, a build simulator, to industrialize it: idea → brief → build prompts → working app. 40+ apps across 31 repos came out of that motion. Type <span class="key">builds</span> to see them.`},
+ {k:['pickleball','courtana','why pickle','sports'],r:`<span class="h">why pickleball?</span>A fast-growing sport, venues running on analog ops, and nobody owning the video layer. Courtana (2024–2026) put AI on the court (video, instant highlights, coaching) across 4 venues and 36 courts, and Pickle DaaS turned that footage into data. Pickleball was the wedge; the data was the business. Type <span class="key">companies</span> or <span class="key">pickle-daas</span>.`},
  {k:['superpower','strength','best at','why hire','why you'],r:`<span class="h">the honest answer</span>Translation. I make complicated things simple enough that one human buys them from another — and now I can <em>build</em> the demo before the second meeting. Sellers who build are rare; builders who can carry a quota are rarer.`},
  {k:['cancer','long walk','health','chemo'],r:`<span class="h">the long walk</span>Diagnosed 2023. Chemo through 2025. The pipeline kept moving. I keep it on the record because no one I'd want to work with would want it left out — and the operator instinct gets ruthlessly clear when the day is short.`},
  {k:['kids','family','father','three'],r:`<span class="h">the why</span>Three kids, a real kitchen, and an unreal amount of pickleball gear in the garage. The whole map exists to support that — not the other way around.`},
  {k:['available','hire','role','open to','looking for','work with'],r:`<span class="h">what I'm open to</span>Founder roles, GTM &amp; partnership leadership (frontier AI labs especially), fractional/advisory, board. Type <span class="key">contact</span> — or just email <a class="lnk" href="mailto:bricker3@gmail.com">bricker3@gmail.com</a>.`},
- {k:['dreamship','fulfillment','print'],r:`<span class="h">dreamship, short version</span>Cofounded, led as CEO: zero → $35M+, 11x in one year, on $2.2M raised. EBITDA-profitable 4 of 8 years. Closed Google as a partner, then sequenced Stripe/PayPal/Meta/Payoneer off it. Type <span class="key">companies</span> for links.`},
- {k:['ibm','quota','enterprise sales','netezza'],r:`<span class="h">enterprise pedigree</span>IBM/Netezza 2012-14: Zillow, Avalara, part of an 8-figure McKesson deal, achieved quota. The selling muscle everything else is built on.`},
+ {k:['dreamship','fulfillment','print'],r:`<span class="h">dreamship, short version</span>Cofounder &amp; CEO 2018–2024, then board chair to 2026. Zero → $35M+ peak revenue, 11x in 2020, on $2.2M raised (500 Startups); EBITDA-profitable four years running. The early product: 3 versions on ~$150K lean funding. Closed Google as a partner in year one, then sequenced Stripe/PayPal/Meta/Payoneer off it. Type <span class="key">companies</span> for links.`},
+ {k:['ibm','quota','enterprise sales','netezza'],r:`<span class="h">enterprise pedigree</span>IBM 2012–14, Watson Foundations Account Executive (in through the IBM Summit Sales Program): seven-figure Watson AI + analytics deals with Zillow and Avalara, contributed to an 8-figure McKesson win, achieved quota. Before that, Northwestern Mutual 2006–10: $8M TCV across 185 accounts and a top-10 national ranking. The selling muscle everything else is built on.`},
+ {k:['northwestern','nwm','financial advisor','cold call','first job'],r:`<span class="h">where I learned to sell</span>Northwestern Mutual, 2006–10. Built a financial advisory book through cold calls, referrals and relationship selling: $8M TCV across 185 accounts and a top-10 national ranking; recruited and trained interns as College Unit Director.`},
  {k:['stack','tools','claude','how do you build'],r:`<span class="h">the stack</span>Claude (Code + Design), Codex, Lovable, Gemini, Supabase, Stripe, GitHub. This site — terminal included — was built with the stack it describes.`},
  {k:['dj','billygoat','fka'],r:`<span class="h">fka DJ Billygoat</span>A past life behind the decks. The set lists are sealed; the crowd-reading skills transferred directly to enterprise sales.`},
 ];
@@ -430,6 +583,34 @@ const _qp=new URLSearchParams(location.search);
 const _dc=_qp.get('cmd')||_qp.get('q');
 if(_dc)setTimeout(()=>run(_dc),700);
 else setTimeout(()=>typeRun('whoami'),600); // first fold is alive: auto-run whoami
+
+// ─ Courtana video: plays muted while in view; paused + poster under reduced motion / save-data.
+//   One button toggles play/pause for everyone (and is the only way to start it under reduced motion).
+(function(){
+  const v=document.getElementById('cv'), b=document.getElementById('cvBtn'), fig=document.getElementById('cvWrap');
+  if(!v||!b||!fig)return;
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const save=navigator.connection&&navigator.connection.saveData;
+  const auto=!reduce&&!save;
+  let userPaused=false,userPlayed=false,inView=false;
+  const label=b.querySelector('.t');
+  function sync(){const on=!v.paused&&!v.ended;fig.classList.toggle('playing',on);
+    b.setAttribute('aria-label',on?'Pause video':'Play video');label.textContent=on?'Pause':'Play';}
+  function tryPlay(){const p=v.play();if(p&&p.catch)p.catch(()=>{sync();});}
+  v.addEventListener('play',sync);v.addEventListener('pause',sync);
+  b.addEventListener('click',()=>{
+    if(v.paused){userPaused=false;userPlayed=true;tryPlay();}
+    else{userPaused=true;v.pause();}
+  });
+  if('IntersectionObserver'in window){
+    new IntersectionObserver(es=>es.forEach(e=>{
+      inView=e.isIntersecting;
+      if(inView){if(!userPaused&&(auto||userPlayed))tryPlay();}
+      else if(!v.paused)v.pause();
+    }),{threshold:.35}).observe(fig);
+  }else if(auto){tryPlay();}
+  sync();
+})();
 </script>
 <script src="site-config.js" defer></script>
 </body>
