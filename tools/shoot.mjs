@@ -57,6 +57,16 @@ for (const v of VIEWPORTS) {
     await page.goto(url, { waitUntil: 'load', timeout: 20000 }).catch(() => {});
   }
   await page.waitForTimeout(1500); // let count-ups / reveals settle
+  // full-page captures don't scroll, so lazy images below the fold never load: force them,
+  // then walk the page once so scroll-triggered sections (terminal boot, reveals) fire
+  await page.evaluate(async () => {
+    document.querySelectorAll('img[loading="lazy"]').forEach((i) => { i.loading = 'eager'; });
+    const H = document.documentElement.scrollHeight;
+    for (let y = 0; y < H; y += innerHeight * 0.8) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 120)); }
+    scrollTo(0, 0);
+    await Promise.all([...document.images].filter((i) => !i.complete).map((i) => new Promise((r) => { i.onload = i.onerror = r; setTimeout(r, 4000); })));
+  });
+  await page.waitForTimeout(600);
   const file = resolve(outDir, `${name}.${v.id}${suffix}.png`);
   await page.screenshot({ path: file, fullPage: true });
   console.log(`✓ ${v.id.padEnd(7)} ${v.width}×${v.height}  →  ${file}`);

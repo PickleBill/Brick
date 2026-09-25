@@ -21,7 +21,7 @@
   :root {
     /* site frame (matches index.html) */
     --bg:#08090a; --glass:rgba(255,255,255,.045); --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.17);
-    --text:#f4f2ec; --mute:#9aa0a3; --faint:#6a7178;
+    --text:#f4f2ec; --mute:#9aa0a3; --faint:#80878d;
     --accent:#6fefb4; --accent-dim:#4cc890; --accent-soft:rgba(111,239,180,.5); --cream:#f3ecdc;
     --display:'Bricolage Grotesque',system-ui,sans-serif;
     --body:'Hanken Grotesk',system-ui,sans-serif;
@@ -45,7 +45,7 @@
     --g-item:var(--s2);    /* between bullets */
   }
   * { box-sizing:border-box; margin:0; padding:0; }
-  html { scroll-behavior:smooth; }
+  html { scroll-behavior:smooth; overflow-x:clip; }
   body { background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
     background:radial-gradient(560px 520px at 88% -6%,rgba(22,168,138,.34),transparent 70%),
@@ -64,6 +64,17 @@
   @media (prefers-reduced-motion: reduce){ .brand .caret{ animation:none; } }
   .navlinks { display:flex; gap:3px; align-items:center; font-size:13px; color:var(--mute); font-family:var(--mono); letter-spacing:-.01em; }
   .navlinks a { padding:8px 13px; border-radius:99px; transition:.15s; white-space:nowrap; }
+  @media (pointer:coarse){ .navlinks a{ min-height:44px; display:inline-flex; align-items:center; } .foot-arch a{ padding:12px 14px; } }
+  /* one footer, same as home */
+  footer.site { max-width:var(--maxw); margin:var(--s7) auto 0; padding:var(--s4) 30px var(--s6); border-top:1px solid var(--line); }
+  .foot-in { display:flex; justify-content:space-between; flex-wrap:wrap; gap:var(--s3); align-items:center; }
+  .foot-arch { display:flex; flex-wrap:wrap; gap:9px; }
+  .foot-arch a { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:rgba(255,255,255,.03); padding:8px 13px; border-radius:99px; transition:.15s; }
+  .foot-arch a:hover { color:var(--text); border-color:var(--line2); }
+  .foot-tag { font-family:var(--mono); font-size:11.5px; color:var(--faint); }
+  .foot-tag b { color:var(--accent-dim); font-weight:500; }
+  .foot-lab { color:var(--faint); text-decoration:underline; text-decoration-color:rgba(255,255,255,.18); text-underline-offset:2px; }
+  @media (max-width:560px){ footer.site { padding:var(--s4) var(--s3) var(--s6); } }
   .navlinks a:hover { color:var(--text); background:rgba(255,255,255,.05); }
   .navlinks a.here { color:var(--accent); background:rgba(111,239,180,.10); }
   .navlinks a.cta { color:#08090a; background:var(--cream); font-weight:600; }
@@ -101,7 +112,7 @@
   }
 
   /* ---------- the sheet ---------- */
-  .sheet { background:var(--paper); color:var(--ink2); border-radius:var(--radius); padding:var(--pad);
+  .sheet { background:var(--paper); color:var(--ink2); border-radius:6px; padding:var(--pad);
     box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 40px 90px -30px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.06);
     display:flex; flex-direction:column; gap:var(--g-sheet);
     font-size:var(--fs-body); line-height:var(--lh); font-weight:400; }
@@ -110,7 +121,7 @@
   .sheet p:not(.rh-title), .sheet li { text-wrap:pretty; }
   .sheet b, .sheet strong { color:var(--ink); font-weight:700; }
   @media (max-width:700px){ .sheet { --pad:var(--s5); } }
-  @media (max-width:560px){ .sheet { --pad:var(--s4); --g-sheet:var(--s5); border-radius:16px; } }
+  @media (max-width:560px){ .sheet { --pad:var(--s4); --g-sheet:var(--s5); border-radius:4px; } }
 
   /* header */
   .rh { display:grid; grid-template-columns:1fr auto; align-items:end; gap:var(--s3) var(--s4); padding-bottom:var(--s4); border-bottom:3px solid var(--ink); }
@@ -191,7 +202,7 @@
       --pad:0; --g-sheet:var(--s4); --g-sec:var(--s2); --g-jobs:var(--s3); --g-item:var(--s1);
     }
     html, body { background:#fff !important; }
-    body::before, header.nav, .actions, .see, .see-sep { display:none !important; }
+    body::before, header.nav, .actions, .see, .see-sep, footer.site { display:none !important; }
     .page { display:block; max-width:none; padding:0; }
     .sheet { max-width:none; box-shadow:none; border-radius:0; background:transparent; }
     .rh { padding-bottom:var(--s3); }
@@ -374,6 +385,18 @@
 
   </article>
 </main>
+
+<footer class="site">
+  <div class="foot-in">
+    <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>designed &amp; shipped solo.</b> · <a class="foot-lab" href="../playground.html">playground</a></span>
+    <div class="foot-arch">
+      <a href="../climb.html">Story</a>
+      <a href="../work.html">Proof</a>
+      <a href="./" aria-current="page">Résumé</a>
+      <a href="mailto:bricker3@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
 
 <script src="../site-config.js" defer></script>
 </body>

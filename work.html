@@ -19,8 +19,8 @@
   :root{
     --bg:#08090a;--bg2:#0c0e10;--panel:#101316;
     --glass:rgba(255,255,255,.05);--line:rgba(255,255,255,.10);--line2:rgba(255,255,255,.18);
-    --text:#f4f2ec;--mute:#9aa0a3;--faint:#5c6164;
-    --sage:#a8c98e;--coral:#e69270;--blue:#7fb0e8;--green:#86e0a4;--amber:#e6b86e;--cream:#f3ecdc;
+    --text:#f4f2ec;--mute:#9aa0a3;--faint:#80878d;
+    --sage:#6fefb4;--coral:#ff8a5c;--blue:#7fb0e8;--green:#6fefb4;--amber:#e6b86e;--cream:#f3ecdc;
     --term:#d8ddd6;--cyan:#5ee0d6;--violet:#a78bfa;
     --spectrum:linear-gradient(100deg,#5be8a0 0%,#36c6e0 33%,#8b7cf0 66%,#ff8a6b 100%);
     --sans:'Hanken Grotesk',system-ui,sans-serif;--disp:'Bricolage Grotesque','Hanken Grotesk',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
@@ -29,7 +29,7 @@
     --radius:22px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;overflow-x:clip}
   body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   h1,.brand{font-family:var(--disp)}
   ::selection{background:var(--sage);color:#08090a}
@@ -38,22 +38,22 @@
   .mesh{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
   .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.42;mix-blend-mode:screen}
   .b1{width:600px;height:600px;background:radial-gradient(circle,#2f6f7a,transparent 65%);top:-180px;right:-140px;animation:drift 24s ease-in-out infinite}
-  .b2{width:520px;height:520px;background:radial-gradient(circle,#6a7a44,transparent 65%);top:520px;left:-160px;animation:drift2 28s ease-in-out infinite}
+  .b2{width:520px;height:520px;background:radial-gradient(circle,#7b5be0,transparent 65%);top:520px;left:-160px;animation:drift2 28s ease-in-out infinite}
   @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,40px) scale(1.1)}}
   @keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-30px) scale(1.08)}}
 
   /* ===== consistent nav (identical across site) ===== */
   body>nav{position:sticky;top:0;z-index:50;background:rgba(8,9,10,.7);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
-  body>nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  body>nav .wrap{display:flex;align-items:center;justify-content:space-between;height:65px;max-width:1140px;padding:0 30px}
   .brand{display:flex;align-items:center;gap:0;font-family:var(--mono);font-weight:600;font-size:14.5px;letter-spacing:-.01em;white-space:nowrap;flex-shrink:0;color:var(--text)}
   .brand .caret{display:inline-block;width:8px;height:1em;background:var(--green);margin-left:5px;transform:translateY(1px);box-shadow:0 0 8px var(--green);animation:caretblink 1.1s steps(1) infinite}
   @keyframes caretblink{50%{opacity:0}}
   .nl{display:flex;gap:3px;align-items:center;font-family:var(--mono);font-size:13px;letter-spacing:-.01em;color:var(--mute)}
   .nl a{padding:8px 13px;border-radius:99px;transition:.15s;white-space:nowrap}
   .nl a:hover{color:var(--text);background:rgba(255,255,255,.05)}
-  .nl a.here,.nl a[aria-current="page"]{color:var(--green);background:rgba(134,224,164,.12)}
+  .nl a.here,.nl a[aria-current="page"]{color:var(--green);background:rgba(111,239,180,.10)}
   .nl a.cta{color:#08090a;background:var(--cream);font-weight:600}
-  @media(max-width:560px){body>nav .wrap{height:54px}.nl{gap:1px;font-size:11.5px}.nl a{padding:7px 8px}.brand{font-size:13px}}
+  @media(max-width:560px){body>nav .wrap{height:54px;padding:0 16px}.nl{gap:1px;font-size:11.5px}.nl a{padding:7px 8px}.brand{font-size:13px}}
   @media(max-width:430px){.wrap{padding:0 var(--s3)}.nl{gap:0;font-size:11px}.nl a{padding:6px 6px}.brand{font-size:12.5px}}
   @media(max-width:400px){.brand .caret{display:none}.nl a{padding:6px 5px}}
   @media(max-width:370px){.nl a.cta .ar{display:none}.nl a.cta{padding:6px 8px}}
@@ -65,7 +65,7 @@
   .kick .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(134,224,164,.5)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
   h1{font-size:clamp(30px,5.4vw,46px);font-weight:800;letter-spacing:-.03em;line-height:1.04}
-  h1 .g{background:linear-gradient(100deg,var(--sage),var(--coral));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  h1 .g{background:var(--spectrum);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .sub{font-size:15px;color:var(--mute);max-width:50ch}
 
   /* terminal */
@@ -96,7 +96,8 @@
   /* input bar */
   .ibar{display:flex;align-items:center;gap:9px;padding:12px 15px;border-top:1px solid var(--line);background:rgba(255,255,255,.02)}
   .ibar .pr{font-family:var(--mono);font-size:13.5px;color:var(--green);flex-shrink:0}
-  .ibar input{flex:1;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:13.5px;color:var(--text);caret-color:var(--green)}
+  .ibar input{flex:1;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:16px;color:var(--text);caret-color:var(--green)}
+  @media (hover:hover) and (pointer:fine){.ibar input{font-size:13.5px}}
   .ibar input::placeholder{color:var(--faint)}
   .ibar .run{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);padding:5px 9px;border-radius:6px;flex-shrink:0}
 
@@ -104,14 +105,15 @@
   .cmdbar{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2);overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
   .cmdrow{display:flex;gap:8px;width:max-content;animation:marq 34s linear infinite}
   .cmdrow.r2{animation-duration:40s;animation-direction:reverse}
-  .cmdbar:hover .cmdrow{animation-play-state:paused}
+  .cmdbar:hover .cmdrow,.cmdbar:focus-within .cmdrow{animation-play-state:paused}
+  /* reduced motion / phones: no marquee; every chip visible and reachable */
+  @media (prefers-reduced-motion:reduce),(max-width:680px){.cmdbar{-webkit-mask:none;mask:none;overflow:visible}.cmdrow{animation:none;width:auto;flex-wrap:wrap}.cmdrow .chip[aria-hidden="true"]{display:none}}
   @keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  .chip{font-family:var(--mono);font-size:11.5px;color:var(--mute);border:1px solid var(--line);background:var(--glass);padding:7px 13px;border-radius:99px;cursor:pointer;transition:.15s;white-space:nowrap;flex-shrink:0}
+  .chip{font-family:var(--mono);font-size:11.5px;color:var(--mute);border:1px solid var(--line);background:var(--glass);padding:7px 13px;appearance:none;line-height:1.3;border-radius:99px;cursor:pointer;transition:.15s;white-space:nowrap;flex-shrink:0}
   .chip:hover{color:#08090a;background:var(--sage);border-color:transparent}
   .chip:hover .s{color:#08090a}
   .chip .s{color:var(--green)}
-  .chip.glow{border-color:var(--green);box-shadow:0 0 12px rgba(134,224,164,.45);animation:gp 2.2s ease-in-out infinite}
-  @keyframes gp{0%,100%{box-shadow:0 0 7px rgba(134,224,164,.3)}50%{box-shadow:0 0 16px rgba(134,224,164,.65)}}
+  .chip.glow{border-color:var(--green);box-shadow:0 0 10px rgba(111,239,180,.35)}
   .flash{animation:flash .8s ease}
   @keyframes flash{0%{background:rgba(134,224,164,.16)}100%{background:transparent}}
   .cur{display:inline-block;width:9px;height:15px;background:var(--green);vertical-align:-2px;animation:blink 1s steps(2) infinite}
@@ -202,8 +204,15 @@
   /* terminal block */
   .term-divider{text-align:center;text-wrap:balance;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);font-weight:500}
 
-  footer{text-align:center;color:var(--faint);font-size:12px;font-family:var(--mono);padding:0 0 var(--s6);letter-spacing:.04em}
-  footer .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2) var(--s3)}
+  footer{margin-top:var(--s7);padding:var(--s4) 0 var(--s6);border-top:1px solid var(--line)}
+  .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--s3);align-items:center}
+  .foot-arch{display:flex;flex-wrap:wrap;gap:9px}
+  .foot-arch a{font-family:var(--mono);font-size:11.5px;color:var(--mute);border:1px solid var(--line);background:rgba(255,255,255,.03);padding:8px 13px;border-radius:99px;transition:.15s}
+  .foot-arch a:hover{color:var(--text);border-color:var(--line2)}
+  .foot-tag{font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+  .foot-tag b{color:#4cc890;font-weight:500}
+  .foot-lab{color:var(--faint);text-decoration:underline;text-decoration-color:rgba(255,255,255,.18);text-underline-offset:2px}
+  @media (pointer:coarse){.nl a{min-height:44px;display:inline-flex;align-items:center}.chip{min-height:40px}.foot-arch a{padding:12px 14px}}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
   footer a{color:var(--mute)}
   footer a:hover{color:var(--text)}
@@ -219,7 +228,7 @@
     <a href="climb.html">Story</a>
     <a href="work.html" class="here" aria-current="page">Proof</a>
     <a href="resume/">Résumé</a>
-    <a href="https://calendly.com/bricker3-idwj/30min" class="cta plausible-event-name=Book" data-cta="book" target="_blank" rel="noopener">Let's talk<span class="ar"> →</span></a>
+    <a href="https://calendly.com/bricker3-idwj/30min" class="cta plausible-event-name=Book" data-cta="book" target="_blank" rel="noopener">Let's talk <span class="ar" aria-hidden="true">→</span></a>
   </div>
 </div></nav>
 
@@ -355,7 +364,15 @@
 </main>
 
 <footer><div class="wrap">
-  <a href="index.html">Bill Bricker</a><a href="climb.html">Story</a><a href="work.html" aria-current="page">Proof</a><a href="resume/">Résumé</a><a href="https://calendly.com/bricker3-idwj/30min" data-cta="book" target="_blank" rel="noopener">Let's talk →</a><span>type <span style="color:var(--sage)">help</span> in the terminal</span>
+  <div class="foot-in">
+    <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>designed &amp; shipped solo.</b> · <a class="foot-lab" href="playground.html">playground</a></span>
+    <div class="foot-arch">
+      <a href="climb.html">Story</a>
+      <a href="work.html" aria-current="page">Proof</a>
+      <a href="resume/">Résumé</a>
+      <a href="mailto:bricker3@gmail.com">Email</a>
+    </div>
+  </div>
 </div></footer>
 
 <script>
@@ -550,10 +567,11 @@ function boot(short){
 }
 document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();const i=document.getElementById('cmd');run(i.value);i.value='';});
 const GLOW=['whoami','ask'];
-function chip(c,l){return `<span class="chip${GLOW.includes(c)?' glow':''}" data-c="${c}"><span class="s">$</span> ${l}</span>`;}
+function chip(c,l,dup){return `<button type="button" class="chip${GLOW.includes(c)?' glow':''}" data-c="${c}"${dup?' aria-hidden="true" tabindex="-1"':''}><span class="s">$</span> ${l}</button>`;}
 const R1=[['whoami','whoami'],['ask','ask me anything'],['companies','companies'],['google-deal','google-deal'],['sales','sales-gtm']];
 const R2=[['enterprise','enterprise'],['builds','builds'],['pickle','pickle-daas'],['ls','ls'],['stats','stats'],['git','git log'],['contact','contact']];
-function fill(id,arr){const h=arr.map(([c,l])=>chip(c,l)).join('');document.getElementById(id).innerHTML=h+h;}
+// the second copy only exists for the seamless marquee loop: hidden from screen readers and Tab
+function fill(id,arr){document.getElementById(id).innerHTML=arr.map(([c,l])=>chip(c,l)).join('')+arr.map(([c,l])=>chip(c,l,true)).join('');}
 fill('row1',R1);fill('row2',R2);
 document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{run(c.dataset.c);if(window.innerWidth>680)document.getElementById('cmd').focus();}));
 // auto-run a command on load with a typewriter effect, then leave a fresh prompt

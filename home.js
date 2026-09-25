@@ -5,6 +5,7 @@
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePtr = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches; /* focus the terminal input only where it won't open a phone keyboard */
   var $ = function (s, r) { return (r || document).querySelector(s); };
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
@@ -284,7 +285,7 @@
   }
 
   function localAnswer(q){ var s=q.toLowerCase();
-    if(/google/.test(s)) return CMDS['google-deal'];
+    if(/google|deal|biggest|largest|partnership|proud/.test(s)) return CMDS['google-deal'];
     if(/why|better|over|hire|fde|forward|fit/.test(s)) return CMDS['why-you'];
     if(/dreamship|\$35|11x|revenue|courtana|court|company|companies/.test(s)) return CMDS.companies;
     if(/build|app|vibe|ship|repo|code|solo/.test(s)) return CMDS.builds;
@@ -299,37 +300,38 @@
 
   var ASK_URL='https://ulgoahsxkrkzoquvntei.supabase.co/functions/v1/ask-bill';
   function ask(q, quiet){ askQuiet(q, function(){ // standard fallback
-      if(quiet) return; var f=localAnswer(q); if(f) f(); else block(['<span class="dim">live answer unavailable — try:</span> <span class="m">companies · google-deal · builds · stats</span>']); }); }
+      if(quiet) return; var f=localAnswer(q); if(f) f(); else block(['<span class="dim">The live AI is offline right now. Try:</span> <span class="m">companies · google-deal · builds · stats</span>','<span class="dim">or</span> <span class="a" data-href="https://calendly.com/bricker3-idwj/30min">grab 30 minutes with Bill →</span>']); }); }
   function askQuiet(q, onFail, onOk){
+    var gen=typeGen; /* a newer command bumps typeGen (cancelTyping): drop this answer if it lands late */
     var thinking=el('<span class="dim">thinking…</span>','blk'); out.appendChild(thinking); scroll();
     var done=false, ctrl=('AbortController' in window)?new AbortController():null;
     var to=setTimeout(function(){ if(ctrl)ctrl.abort(); },18000);
     fetch(ASK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,history:history.slice(-6)}),signal:ctrl?ctrl.signal:undefined})
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-      .then(function(d){ clearTimeout(to); done=true; thinking.remove();
+      .then(function(d){ clearTimeout(to); done=true; thinking.remove(); if(gen!==typeGen) return;
         var a=d.answer||d.response||d.text||d.message;
         if(a){ history.push({role:'assistant',content:a}); typed(String(a)); if(onOk) onOk(); } else if(onFail) onFail(); })
-      .catch(function(){ clearTimeout(to); if(done) return; thinking.remove(); if(onFail) onFail(); });
+      .catch(function(){ clearTimeout(to); if(done) return; thinking.remove(); if(gen!==typeGen) return; if(onFail) onFail(); });
   }
   /* LLM answers are plain text — escape so stray < & display literally, then type through the shared typewriter */
   function typed(text){ typeLines(String(text).split(/\n+/), {esc:true}); }
 
-  function chuck(){ var t=el('<span class="dim">fetching…</span>','blk'); out.appendChild(t); scroll();
+  function chuck(){ var gen=typeGen, t=el('<span class="dim">fetching…</span>','blk'); out.appendChild(t); scroll();
     fetch('https://api.chucknorris.io/jokes/random?category=dev').then(function(r){return r.json();}).then(function(d){
-      t.remove(); block(['<span class="m"># fact:</span> '+esc(String(d.value||'').replace(/Chuck Norris/g,'Bill Bricker'))]);
-    }).catch(function(){ t.remove(); block(['<span class="m"># fact:</span> Bill Bricker closed Google as a partner in Dreamship\'s first year. (API\'s napping; this one\'s true.)']); }); }
+      t.remove(); if(gen!==typeGen) return; block(['<span class="m"># fact:</span> '+esc(String(d.value||'').replace(/Chuck Norris/g,'Bill Bricker'))]);
+    }).catch(function(){ t.remove(); if(gen!==typeGen) return; block(['<span class="m"># fact:</span> Bill Bricker closed Google as a partner in Dreamship\'s first year. (API\'s napping; this one\'s true.)']); }); }
 
   function rel(iso){ var s=(Date.now()-new Date(iso).getTime())/1000;
     if(s<3600) return Math.max(1,Math.round(s/60))+'m ago'; if(s<86400) return Math.round(s/3600)+'h ago'; return Math.round(s/86400)+'d ago'; }
-  function shipped(){ var t=el('<span class="dim">pulling recent commits…</span>','blk'); out.appendChild(t); scroll();
+  function shipped(){ var gen=typeGen, t=el('<span class="dim">pulling recent commits…</span>','blk'); out.appendChild(t); scroll();
     fetch('https://api.github.com/users/picklebill/events/public?per_page=30').then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(ev){
       /* repo + time only: raw commit subjects are internal notes, and this site's own repo is its working log */
-      t.remove(); var ps=ev.filter(function(e){return e.type==='PushEvent' && e.repo && e.repo.name.toLowerCase()!=='picklebill/brick';}).slice(0,5); if(!ps.length) throw 0;
+      t.remove(); if(gen!==typeGen) return; var ps=ev.filter(function(e){return e.type==='PushEvent' && e.repo && e.repo.name.toLowerCase()!=='picklebill/brick';}).slice(0,5); if(!ps.length) throw 0;
       var L=['<span class="m"># still building — recent public pushes:</span>'];
       ps.forEach(function(p){ var repo=p.repo.name.split('/').pop(); var n=(p.payload&&p.payload.size)||((p.payload&&p.payload.commits)||[]).length||1;
         L.push('<span class="dim">'+rel(p.created_at)+'</span>  <span class="m">'+esc(repo)+'</span>  '+n+' commit'+(n===1?'':'s')); });
       L.push('<span class="dim">…live from github.com/picklebill — the build has a heartbeat.</span>'); block(L);
-    }).catch(function(){ t.remove(); block(['<span class="m"># still building.</span> 40+ apps across 31 repos, built &amp; shipped solo — VibeCo, Pickle DaaS, and whatever I touched today.']); }); }
+    }).catch(function(){ t.remove(); if(gen!==typeGen) return; block(['<span class="m"># still building.</span> 40+ apps across 31 repos, built &amp; shipped solo — VibeCo, Pickle DaaS, and whatever I touched today.']); }); }
 
   function run(raw){ var cmd=(raw||'').trim(); if(!cmd) return; cancelTyping(); if(out) out.innerHTML=''; echo(cmd); history.push({role:'user',content:cmd});
     var lc=cmd.toLowerCase(); var am=lc.match(/^ask\s+(.+)/); if(am){ ask(am[1]); return; }
@@ -345,7 +347,7 @@
 
   out && out.addEventListener('click', function(e){
     var a=e.target.closest('[data-href]'); if(a){ var u=a.dataset.href; if(u.indexOf('http')===0) window.open(u,'_blank','noopener'); else location.href=u; return; }
-    var r=e.target.closest('[data-run]'); if(r){ run(r.dataset.run); if(input) input.focus(); } });
+    var r=e.target.closest('[data-run]'); if(r){ run(r.dataset.run); if(input && finePtr) input.focus(); } });
 
   /* boot */
   function showInput(){ if(line){ line.style.display='flex'; scroll(); } }
@@ -364,7 +366,7 @@
   bootCheck(); addEventListener('scroll',bootCheck,{passive:true}); addEventListener('resize',bootCheck,{passive:true}); addEventListener('load',bootCheck);
   if(input){ input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ var v=input.value; input.value=''; run(v); } }); }
   if(chips){ chips.addEventListener('click',function(e){ var b=e.target.closest('.chip[data-cmd]'); if(!b) return;
-    if(!booted){ booted=true; boot(function(){ showInput(); }); } run(b.dataset.cmd); showInput(); if(input) input.focus(); }); }
+    if(!booted){ booted=true; boot(function(){ showInput(); }); } run(b.dataset.cmd); showInput(); if(input && finePtr) input.focus(); }); }
 
   /* ---------- featured video: autoplay in view + cinematic enter (Ken-Burns / sheen / scan / reticle) + cycling AI-vision stat badges ---------- */
   var vid=$('#cvid'), vw=$('#vidwrap');
@@ -383,7 +385,8 @@
       idx++; }, 1500); }
     function vCheck(){ var r=vw.getBoundingClientRect(), vh=innerHeight||800, inView=r.top<vh*0.85 && r.bottom>0;
       if(inView){ light();
-        if(!started){ started=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); } }
+        if(!started){ started=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); }
+          if(vid && (reduce || (navigator.connection && navigator.connection.saveData))){ vid.controls=true; } }
         if(vid && !reduce && !(navigator.connection && navigator.connection.saveData)){ var p=vid.play(); if(p&&p.catch) p.catch(function(){}); } }
       else if(vid){ vid.pause(); } }
     vCheck(); addEventListener('scroll',vCheck,{passive:true}); addEventListener('load',vCheck);
@@ -396,6 +399,7 @@
   if(spy){ var links=[].slice.call(spy.querySelectorAll('a')), secs=links.map(function(a){ return document.getElementById(a.dataset.s||(a.hash||'').slice(1)); });
     function spyCheck(){ var y=scrollY+(innerHeight||800)*0.3, best=0;
       secs.forEach(function(s,i){ if(s && s.offsetTop<=y) best=i; });
+      if(scrollY+(innerHeight||800) >= document.documentElement.scrollHeight-2) best=secs.length-1;
       links.forEach(function(a,i){ a.classList.toggle('on',i===best); }); }
     spyCheck(); addEventListener('scroll',spyCheck,{passive:true}); addEventListener('resize',spyCheck); }
 
