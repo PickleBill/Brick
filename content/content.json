@@ -22,7 +22,7 @@
       "name": "Dreamship",
       "url": "https://dreamship.com",
       "role": "Cofounder & CEO (2018\u20132024), Board Chair (2024\u20132026)",
-      "note": "API-driven on-demand fulfillment; $35M+ peak revenue; 11x in 2020 ($1.6M \u2192 $17M); closed Google as a partner in year one (five internal Google teams; merchant qualification + IP risk for an underserved Vietnamese merchant market) and ran it 5+ years: $45M+ in merchant AD SPEND through the channel, which is not revenue; flywheel: Stripe (U.S. payments access for merchants, joint events), PayPal, Payoneer, Meta, Adobe, Microsoft/Bing\u2013ChatGPT; built 3 product versions on ~$150K lean early funding with distributed contributors in Ukraine & Nigeria; $2.2M raised (500 Startups)"
+      "note": "API-driven on-demand fulfillment; $26M peak revenue; 11x in 2020 ($1.6M \u2192 $17M); closed Google as a partner in year one (five internal Google teams; merchant qualification + IP risk for an underserved Vietnamese merchant market) and ran it 5+ years: $45M+ in merchant AD SPEND through the channel, which is not revenue; flywheel: Stripe (U.S. payments access for merchants, joint events), PayPal, Payoneer, Meta, Adobe, Microsoft/Bing\u2013ChatGPT; built 3 product versions on ~$150K lean early funding with distributed contributors in Ukraine & Nigeria; $2.2M raised (500 Startups)"
     }
   ],
   "narrative_nodes_the_climb": [
@@ -60,7 +60,7 @@
       "id": "dreamship",
       "year": "2018-26",
       "title": "Dreamship",
-      "fact": "CEO 2018–2024, Board Chair 2024–2026; $35M+ peak revenue, 11x in 2020, closed Google as a partner in year one",
+      "fact": "CEO 2018–2024, Board Chair 2024–2026; $26M peak revenue, 11x in 2020, closed Google as a partner in year one",
       "link": "https://dreamship.com"
     },
     {

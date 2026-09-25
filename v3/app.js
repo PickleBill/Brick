@@ -13,7 +13,7 @@
   ========================================================================= */
   var RECEIPTS = {
     google:   { k:'The Google partnership', v:'Partner, not sold', c:'<b>In year one</b>, navigated 5–6 internal Google teams (trust &amp; safety, business integrity, commercial) to director+ sign-off — a first-of-its-kind cross-division <b>partnership</b> (not an acquisition). An 8-figure ad-spend channel that ran <b>5+ years</b>; Stripe, PayPal, Meta &amp; Payoneer followed off it.', src:'Dreamship · 2018–23', tag:'"closed as a partner" — never "sold"', link:{u:'https://dreamship.com',t:'dreamship.com ↗'} },
-    revenue:  { k:'Revenue led', v:'$35M+', c:'Led Dreamship as cofounder/CEO to <b>$35M+ revenue</b>, ~$85M GMV, 2.3M+ units — on $2.2M raised, profitable at step-back and every year since.', src:'Dreamship · cofounder &amp; CEO', tag:'durable, not a spike' },
+    revenue:  { k:'Revenue led', v:'$26M', c:'Led Dreamship as cofounder/CEO to <b>$26M revenue</b>, ~$85M GMV, 2.3M+ units — on $2.2M raised, profitable at step-back and every year since.', src:'Dreamship · cofounder &amp; CEO', tag:'durable, not a spike' },
     eleven:   { k:'Growth', v:'11x', c:'<b>11x revenue in a single year</b> — orders → supply routes → reliable shipping trust, compounded by a COVID tailwind and execution.', src:'Dreamship · the breakout year' },
     enterprise:{k:'Enterprise pedigree', v:'8-figure', c:'IBM / Netezza (2012–14): high-six-figure deals with Zillow &amp; Avalara, part of an <b>8-figure McKesson</b> contribution, &gt;100% of quota. Northwestern Mutual: top-10 nationally, <b>$6M+ TCV</b>. Twenty years carrying — and beating — a number.', src:'IBM/Netezza · Northwestern Mutual' },
     apps:     { k:'Shipped solo', v:'40+ apps', c:'<b>40+ apps across 31 repos</b>, built by one operator — enterprise tools, GTM collateral that closed a venue partner, consumer products. Quantity anchored to real, openable things.', src:'2025 → now · the AI build engine' },
@@ -107,7 +107,7 @@
     'why-you': function(){ block([
       '<span class="am"># Why me over a 28-year-old forward-deployed engineer?</span>',
       'They can build. Most can\'t walk into Google and leave with a',
-      '<span class="m">partnership</span> — I did that, then turned it into $35M+ and 11x.',
+      '<span class="m">partnership</span> — I did that, then turned it into $26M and 11x.',
       'I\'ve carried an 8-figure number for 20 years AND I ship production AI',
       'solo today (31 repos, my commits). The rare seam labs keep missing —',
       'someone who closes the room <span class="m">and</span> reads the codebase — is just my résumé.',
@@ -118,7 +118,7 @@
       '<span class="m">Courtana</span>  founder/CEO · 2023→now · <span class="dim">courtana.com</span>',
       '  AI smart-court SaaS — 36 courts live/piloting.',
       '<span class="m">Dreamship</span> cofounder/CEO · 2018–23 · <span class="dim">dreamship.com</span>',
-      '  API fulfillment — $35M+, 11x in a year, the Google partnership.',
+      '  API fulfillment — $26M, 11x in a year, the Google partnership.',
       rc('courts')+' '+rc('revenue')
     ]); suggest(['google-deal','builds']); },
     'google-deal': function(){ block([
@@ -156,7 +156,7 @@
     ]); },
     stats: function(){ block([
       '11x        revenue growth in one year',
-      '$35M+      cumulative revenue led',
+      '$26M      cumulative revenue led',
       '8-figure   Google channel closed &amp; run 5+ yrs',
       '40+ apps   shipped solo · 31 repos',
       '21K+       clips processed · 4,097 analyzed',
@@ -336,7 +336,7 @@
     setTimeout(function(){
       echo('tailor "'+role+'"');
       block(['<span class="am"># tailoring the case for: '+esc(role)+'</span>']);
-      var q='A hiring manager is hiring for "'+role+'". In 3-4 punchy sentences, make the specific case for why Bill Bricker is a strong fit for THAT role, grounded only in his real record (closed Google as a partner at a <1yr startup; Dreamship $35M+ and 11x; ships production AI solo — VibeCo, 40+ apps/31 repos, Pickle DaaS at $0.0054/clip). Address the role directly, be confident and concrete, no generic filler.';
+      var q='A hiring manager is hiring for "'+role+'". In 3-4 punchy sentences, make the specific case for why Bill Bricker is a strong fit for THAT role, grounded only in his real record (closed Google as a partner at a <1yr startup; Dreamship $26M and 11x; ships production AI solo — VibeCo, 40+ apps/31 repos, Pickle DaaS at $0.0054/clip). Address the role directly, be confident and concrete, no generic filler.';
       var fired=false;
       var fb=setTimeout(function(){ if(fired) return; fired=true; tailorFallback(role); }, 18500);
       // use ask(); if it fails it falls back internally — but provide a tailored local fallback too
@@ -357,7 +357,7 @@
   }
   function tailorFallback(role){
     typed('For '+role+': you need someone who can close the room and ship the product. '+
-      'I closed Google as a partner in year one, turned it into $35M+ and 11x at Dreamship, '+
+      'I closed Google as a partner in year one, turned it into $26M and 11x at Dreamship, '+
       'and today I build production AI solo — 40+ apps across 31 repos, a data pipeline at $0.0054/clip. '+
       'That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
     suggest(['why-you','google-deal','book the 20 min']);

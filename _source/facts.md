@@ -31,8 +31,10 @@
 **Tier A — integrity floor (sacred; breaking one asserts something *false or harmful*, not a taste call):**
 1. **`$45M+` = partner AD SPEND through the Google channel — NOT revenue.** Never let any
    surface imply it was Dreamship revenue. The #1 defensibility line.
-2. **`$35M+` = PEAK revenue** (not "cumulative," not the vague "revenue led").
-   `$45M+ ad spend` and `$35M+ peak revenue` stay visibly distinct.
+2. **`$26M` = PEAK revenue** (F-12, Bill 2026-09-25: "it was actually 26 million in peak revenue, not 35";
+   an accounting treatment could have counted it as $35M, but the forward-facing number is **$26M** on every
+   surface). Never `$35M+`, never "cumulative," never the vague "revenue led."
+   `$45M+ ad spend` and `$26M peak revenue` stay visibly distinct.
 3. **Contact = `bricker3@gmail.com` + LinkedIn only. No phone in any rendered site HTML/surface**
    (scrapers). The downloadable résumé PDF (`vFinal`) lists the phone at Bill's discretion — fine;
    just keep it out of the HTML.
@@ -84,9 +86,9 @@
 > ✅ **F-3 (2026-09-25):** dates per the Sep 21 résumé; Bill is **no longer Board Chair**. Never "present" /
 > "current" for Dreamship. (Supersedes "CEO 2018–Sep 2023 · Board Chair Sep 2023–present".)
 - API-driven on-demand fulfillment platform; built and run from zero.
-- **11x in 2020 ($1.6M → $17M)** · **$35M+ peak revenue** · **~$85M GMV** · **2.3M+ units** ·
+- **11x in 2020 ($1.6M → $17M)** · **$26M peak revenue** (F-12; was $35M+) · **~$85M GMV** · **2.3M+ units** ·
   **323% revenue CAGR (2019–21)** · **EBITDA-profitable four years running.**
-  ✅ **F-9 (2026-09-25) — surface tiers:** **11x** and **$35M+** may lead on any page (11x goes back on the
+  ✅ **F-9 (2026-09-25) — surface tiers:** **11x** and **$26M** may lead on any page (11x goes back on the
   résumé). **GMV · units · CAGR · EBITDA · $2.2M raised** = **terminal / PDF only**, not on page copy.
   "Profitable today" retired (Bill is no longer at Dreamship; can't be asserted as current).
 - Ops scale: **21 fulfillment locations across 6 countries** (delivery to 150+) ·
@@ -192,13 +194,13 @@
 - **Courtana raise amount (private):** `index.html:595` · `resume.html:135` · `resume-v2.html:209` · `climb.html:458`
 - **"11+ sports" (drop):** `index.html:594-595` · `work.html:191`
 - **"sub-one-year-old startup" (→ "in year one"):** `index.html:7,608` · `resume-v2.html:155` · `v3/index.html:7,305` · `work.html:196`
-- ✅ The front door `/sales/` is already clean of phone, the raise amount, 11+ sports, and uses `$45M+`/`$35M+`
+- ✅ The front door `/sales/` is already clean of phone, the raise amount, 11+ sports, and uses `$45M+`/`$26M` (F-12; was `$35M+`)
   correctly. Its only ledger gap vs vFinal: **"director sign-off" → "VP-level"** at `sales/ai-forward.js:126`
   (the `5–6 internal teams` count at `sales/index.html:225` already matches the résumé).
 
 ## ✅ Resolved this pass
 Contact = `bricker3@gmail.com`, no public phone · `$45M+` = ad-spend guardrail locked ·
-`$35M+` = peak revenue · "40+ apps / 31 repos" = locked verbatim phrasing ·
+`$26M` = peak revenue (F-12) · "40+ apps / 31 repos" = locked verbatim phrasing ·
 Dreamship tenure = 2018–Sep 2023, Board Chair Sep 2023–present · Adobe added to cleared logos ·
 `_source/facts.md` is now the canonical ledger · **vFinal résumé reconciled as source-of-truth (2026-06-17):
 VP-level across 5–6 Google teams · NWM $6M+ with top-10 nationally · $45M+ ad spend verbatim · IBM title +

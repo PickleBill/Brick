@@ -6,7 +6,7 @@ These five rules were set for the front-door merge and remain the standing rules
 
 1. **`_source/facts.md` is LAW.** No surface gets a number that isn't in it; unverified =
    flagged (⚠️/🚩), never asserted. **`$45M+` = partner AD SPEND, never revenue.**
-   **`$35M+` = peak revenue.** Contact = `bricker3@gmail.com`, **no phone** on any public surface.
+   **`$26M` = peak revenue.** Contact = `bricker3@gmail.com`, **no phone** on any public surface.
    (`_source/facts.md` supersedes `content/FACTS.md` — see decision D-0.)
 2. **The HUB repo is the only source of truth for the site.** Claude Design / Magic Patterns =
    scratchpad for single components only, never whole-page re-imports. Spokes
@@ -69,7 +69,7 @@ The live site is `picklebill.github.io/Brick/`. All primary pages are at the rep
 - **Merging**: Bill authorized auto-merging Claude-authored roadmap PRs once they're mergeable and CI is green (decided 2026-06-13). Pause and ask before merges that are risky, irreversible, or outside the agreed scope.
 - **Keep the old version of every major visual change** (decided 2026-09-25, O-5): before a page or big component changes, freeze the old one under `archive/<yyyy-mm>-<label>/` (or beside the live one in `playground.html` for components) with before/after screenshots, so Bill can compare "what it was" vs "what it became." Never overwrite without an archived copy.
 - **Always hand Bill a preview link** for any UI change (he's non-technical and previews everything): the live GitHub Pages URL after merge, or a `raw.githack.com/PickleBill/Brick/<branch>/<path>` link for a branch before merge (decided 2026-06-15).
-- **Positioning** (per the 2026-06-15 "Col bill" call, unchanged through the merge): AI-Forward Sales & Partnerships lead, Dreamship/Google centerpiece, no phone, $45M+ ad-spend ≠ $35M+ peak revenue. The sales-first Dossier that carried this was folded into the root front door; its legacy build (with `ai-forward.css` / `ai-forward.js`) is under `archive/sales-legacy-2026-06-22/`.
+- **Positioning** (per the 2026-06-15 "Col bill" call, unchanged through the merge): AI-Forward Sales & Partnerships lead, Dreamship/Google centerpiece, no phone, $45M+ ad-spend ≠ $26M peak revenue. The sales-first Dossier that carried this was folded into the root front door; its legacy build (with `ai-forward.css` / `ai-forward.js`) is under `archive/sales-legacy-2026-06-22/`.
 
 ## Working With Bill
 

@@ -205,6 +205,7 @@ const PHONE_PLUS = /\+1\d{10}\b/;
 const AMOUNT = /\$\s?(\d{3})(?:\s?[Kk]\b|,000\b)|\$\s?0?\.\d{1,2}\s?M\b/g;
 const RAISE_CTX = /\b(?:rais(?:e|ed|es|ing)|fund(?:ing|ed|raise|raising)?|seed|pre-seed|investors?|backed|round|courtana)\b/i;
 const SPORTS = /\b(?:11|eleven)\s*\+?(?:\s|<[^>]*>|&nbsp;)*sports?\b/gi;
+const OLD_PEAK = /\$\s?35\s?M\b|\b35\s?million\b/i; // F-12: peak revenue is $26M on every surface
 const SUB_ONE = /\bsub[-\s\u2011]?(?:one|1)[-\s\u2011]?year\b|(?:&lt;|<)\s?1[-\s]?(?:yr|year)[-\s]?old\b/i;
 
 // Live-surface rules
@@ -298,6 +299,7 @@ function scanFile(file, allowK) {
     for (const m of two.matchAll(SPORTS)) {
       if (m.index <= rawLine.length) report(file, ln, 'error', '11-sports', '"11+ sports" is a Tier A never-render');
     }
+    if (OLD_PEAK.test(n)) report(file, ln, scoped, 'old-peak', 'Dreamship peak revenue is $26M (F-12), not $35M');
     if (SUB_ONE.test(n)) report(file, ln, 'error', 'sub-one-year', '"sub-one-year-old" is banned: use "in year one" / "within its first year"');
 
     if (CT_LINK.test(n)) report(file, ln, scoped, 'courtana-link', 'links courtana.com, which is offline (F-4): use the Courtana video / work.html#courtana');

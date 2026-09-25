@@ -186,7 +186,7 @@
       'Raleigh, NC · father of three · still building.']); },
     companies:function(){ block([
       '<span class="m">Courtana</span>  founder/CEO · 2024–26 — built "TopGolf meets Pickleball".',
-      '<span class="m">Dreamship</span> cofounder/CEO · 2018–24 — $35M+ peak revenue, 11x, Google.']);
+      '<span class="m">Dreamship</span> cofounder/CEO · 2018–24 — $26M peak revenue, 11x, Google.']);
       suggest(['google-deal','builds']); },
     'google-deal':function(){ block([
       '<span class="m"># The Google partnership — not an acquisition.</span>',
@@ -216,7 +216,7 @@
       '<span class="m">21K processed</span> · <span class="m">4,097 analyzed</span> · <span class="m">$0.0054/clip</span> (~7x cheaper).']); },
     stats:function(){ block([
       '11x        revenue growth in 2020',
-      '$35M+      peak revenue · Dreamship',
+      '$26M       peak revenue · Dreamship',
       '$45M+      Google ad-spend channel · 5+ yrs',
       '40+ apps   across 31 repos, built & shipped solo',
       '21K        clips processed · 4,097 analyzed',
@@ -239,7 +239,7 @@
       '<span class="am"># I close the room and build the product.</span>',
       'Plenty of people can build with AI now. Far fewer walked into',
       'Google as a year-one startup and left with a <span class="m">partnership</span>, then led',
-      'Dreamship to $35M+ peak revenue and 11x. Two decades turning frontier',
+      'Dreamship to $26M peak revenue and 11x. Two decades turning frontier',
       'tech into revenue, plus 40+ apps across 31 repos, built &amp; shipped solo.']);
       ask('Make the sharp case for why Bill is a rare hire who both closes enterprise partnerships and builds and ships AI apps solo, grounded in his record.', true);
       suggest(['tailor Partnerships Lead at a frontier AI lab','reference-check']); },
@@ -253,7 +253,7 @@
     'reference-check':function(){ block([
       '<span class="am"># Reference check: what a reference call will confirm.</span>',
       'Closed Google as a partner in Dreamship\'s first year; it ran 5+ years.',
-      'Led Dreamship to $35M+ peak revenue, with 11x growth in 2020.',
+      'Led Dreamship to $26M peak revenue, with 11x growth in 2020.',
       'Achieved quota at IBM. Top-10 nationally at Northwestern Mutual.',
       '<span class="dim">For the real thing, ask me for an intro to people who were there.</span>']);
       ask('List, briefly, what a reference could verify about Bill, using only facts from his record. Never invent a person, a quote, or an opinion.', true);
@@ -277,9 +277,9 @@
   function tailor(role){ role=(role||'').trim();
     if(!role){ block(['<span class="am"># hiring-manager mode</span> — type e.g. <span class="m">tailor Partnerships Lead at a frontier AI lab</span>, or paste a job description, and I\'ll make the case for that exact role.']); return; }
     block(['<span class="am"># tailoring the case for:</span> '+esc(role.slice(0,120))]);
-    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner in year one; led Dreamship to $35M+ peak revenue and 11x; builds and ships AI apps solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; two decades turning frontier technology into revenue, including enterprise sales at IBM and WibiData). Address the role directly; be concrete and confident; no generic filler.';
+    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner in year one; led Dreamship to $26M peak revenue and 11x; builds and ships AI apps solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; two decades turning frontier technology into revenue, including enterprise sales at IBM and WibiData). Address the role directly; be concrete and confident; no generic filler.';
     askQuiet(q, function(){ // local fallback
-      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner in year one, led Dreamship to $35M+ peak revenue and 11x, plus 40+ apps across 31 repos, built & shipped solo. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
+      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner in year one, led Dreamship to $26M peak revenue and 11x, plus 40+ apps across 31 repos, built & shipped solo. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
       suggest(['reference-check','why-you','contact']);
     }, function(){ suggest(['reference-check','why-you','contact']); });
   }
@@ -287,7 +287,7 @@
   function localAnswer(q){ var s=q.toLowerCase();
     if(/google|deal|biggest|largest|partnership|proud/.test(s)) return CMDS['google-deal'];
     if(/why|better|over|hire|fde|forward|fit/.test(s)) return CMDS['why-you'];
-    if(/dreamship|\$35|11x|revenue|courtana|court|company|companies/.test(s)) return CMDS.companies;
+    if(/dreamship|\$26|\$35|11x|revenue|courtana|court|company|companies/.test(s)) return CMDS.companies;
     if(/build|app|vibe|ship|repo|code|solo/.test(s)) return CMDS.builds;
     if(/data|clip|pickle|warehouse|video|vision|cost/.test(s)) return CMDS['pickle-daas'];
     if(/sell|sale|gtm|quota|ibm|enterprise|partner/.test(s)) return CMDS.enterprise;

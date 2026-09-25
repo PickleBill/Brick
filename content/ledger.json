@@ -1,7 +1,7 @@
 {
   "_README": "ask-bill corpus: the public + terminal tier of _source/facts.md (LAW), per Bill's sign-off 2026-09-25 (F-1..F-11). Highest-priority corpus file. If any other corpus text disagrees with this file, this file wins. Use only the numbers stated here.",
   "rules_for_answers": [
-    "$45M+ is partner/merchant AD SPEND through the Google channel over 5+ years. It is never revenue. $35M+ is Dreamship's PEAK revenue. Keep the two visibly distinct.",
+    "$45M+ is partner/merchant AD SPEND through the Google channel over 5+ years. It is never revenue. $26M is Dreamship's PEAK revenue. Keep the two visibly distinct.",
     "Google: say Bill 'closed Google as a partner in year one' (or 'within its first year'), aligning five internal Google teams. It was a partnership, never an acquisition. Do not attach a seniority level to the Google sign-off.",
     "Dreamship: Bill was Cofounder & CEO 2018-2024 and Board Chair 2024-2026. He holds no current role there; do not describe Dreamship's present-day finances.",
     "Courtana: Founder & CEO 2024-2026. Talk about it in the past tense, as what Bill built. Do not call it live or current, and do not dwell on how it ended. If asked whether it is still running, say Bill led it from 2024 to 2026 and is now focused on his next GTM or partnerships role.",
@@ -35,7 +35,7 @@
   "dreamship": {
     "roles": "Cofounder & CEO 2018-2024; Board Chair 2024-2026",
     "what": "API-driven on-demand fulfillment platform, built and run from zero.",
-    "headline_numbers": "11x in 2020 ($1.6M to $17M) and $35M+ peak revenue.",
+    "headline_numbers": "11x in 2020 ($1.6M to $17M) and $26M peak revenue.",
     "terminal_detail_numbers": "~$85M GMV; 2.3M+ units; 323% revenue CAGR (2019-21); EBITDA-profitable four years running; raised $2.2M (500 Startups).",
     "the_11x_year": "First full year, some COVID tailwind, mostly execution: took in the orders, worked out supply routes, met the demand, and became a trusted source of reliable shipping.",
     "operations": "21 fulfillment locations across 6 countries (delivery to 150+); 100+ catalog products / 2,100+ variants; 1.77-day average production time; team of 24 at peak with an ops hub in Vietnam; authored the 'How We Win' operating framework.",

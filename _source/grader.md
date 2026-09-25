@@ -14,7 +14,7 @@ Auto-FAIL the entire grade if ANY is true (scan rendered HTML + copy against `_s
 - A **phone number** appears anywhere in the HTML/surface.
 - The **Courtana raise amount** · **"11+ sports"** · **"sub-one-year-old startup"** is rendered (text *or* image —
   `assets/shots/courtana.png` shows "11 sports" and is retired).
-- **`$45M+` reads as revenue** (must read as ad spend / channel), or `$45M+` and `$35M+` are conflated.
+- **`$45M+` reads as revenue** (must read as ad spend / channel), or `$45M+` and `$26M` are conflated.
 - A number on a surface **isn't in `_source/facts.md`**, or **"8-fig" labels the Google channel** (that's the McKesson enterprise deal).
 - A **résumé link** points anywhere but the `resume/` page or `assets/Bill_Bricker_Resume_2026-09.pdf`.
 - Google sign-off reads **"director"** or **"VP-level"** (F-1: it's **five internal teams**, no level claimed).
