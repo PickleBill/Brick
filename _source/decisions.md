@@ -4,6 +4,15 @@
 > `_source/facts.md`. Nothing here is acted on a surface until Bill signs off (Rule 3 + the
 > "do not silently pick" rule). Resolved decisions move to the bottom with a date.
 
+## ⏳ Open — after the Sept 2026 overhaul (Bill's call; none blocks the merge)
+| # | Item | Notes |
+|---|------|-------|
+| P-1 | Public repo | Pages no longer publishes `_source/`, but the GitHub repo is public, so the working notes (framing rules, upgrades) are readable. Options: move `_source/` + `handoffs/` to a private repo, or make Brick private (Pages on a private repo needs a paid plan). |
+| P-2 | Old résumé PDFs | `assets/Bill_Bricker_Resume.pdf` and `…_vFinal.pdf` still serve the June facts (VP-level, $6M+) to anyone with an old link. Keep (archive rule), replace their contents with the 2026-09 PDF, or delete. |
+| P-3 | ask-bill backend | The vibeco Supabase function returns HTTP 500 ("AI service error") on every request; the terminal falls back to its local answers. Fix lives in the vibeco repo (provider key / quota), outside this repo. |
+| P-4 | Optional copy (red-team suggestions, not applied) | Hero eyebrow → "AI-Forward Sales & Partnerships Leader"; hero CTA → "Prompt my résumé ↓"; drop the Story card's three principles and the contact sub-line as repeats. |
+| P-5 | Venue Connect screenshot | Shows "Courtana Connect · Live partnership portal · 16 courts" (image, not copy). Keep, or swap for a neutral shot under F-4. |
+
 ## ⏳ Open — minor / story-level (not blocking the front door)
 | # | Item | Notes |
 |---|------|-------|

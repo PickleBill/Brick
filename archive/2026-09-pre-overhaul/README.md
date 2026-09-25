@@ -16,6 +16,7 @@ reach, with a clear "here's what it looked like / here's what it changed to."
 ## How to compare
 - **Open an old page:** `picklebill.github.io/Brick/archive/2026-09-pre-overhaul/index.html` (and `work.html`, `climb.html`, `resume-v2.html`). Pages here link to each other, so you can click around the old site.
 - **The card, old vs new, side by side:** `picklebill.github.io/Brick/playground.html`.
-- **Screenshots:** `screens/` holds the "before" set; the "after" set lands next to it when the overhaul ships.
+- **Side by side:** `compare.html` pairs every before/after screenshot (desktop and 375px toggle).
+- **Screenshots:** `screens/*.before.jpg` (frozen 2026-09-25) and `screens/*.after.jpg` (after the build + two red-team rounds).
 
 These copies are `noindex` and never edited, except to point asset paths at `../../assets/`.
