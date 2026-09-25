@@ -143,7 +143,7 @@
   **GroupOrDare (2016, shipped party card game).**
 
 ## Education
-- **MBA, Entrepreneurship — UNC Kenan-Flagler** (GMAT 730; Carolina Entrepreneurial Fellow).
+- **MBA, Entrepreneurship — UNC Kenan-Flagler, 2010–2012** (GMAT 730; Carolina Entrepreneurial Fellow). Dates per the Sep 21 résumé + LinkedIn.
 - **BS, Finance — TCNJ** (Men's Rugby Captain).
 
 ## Beyond (F-10 / F-11, 2026-09-25)
