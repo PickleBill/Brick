@@ -284,7 +284,26 @@
     }, function(){ suggest(['reference-check','why-you','contact']); });
   }
 
+  /* stored answers (ported from work.html's terminal) so typed questions still get real answers when the live AI is down */
+  var QA=[
+    {k:["lab", "anthropic", "openai", "frontier", "why now", "why a lab", "join"],r:["<span class=\"m\"># why a frontier lab, why now</span>", "Because the gap I fill is the one labs feel most: people who can stand in front of an enterprise buyer <em>and</em> have personally shipped with the technology. I've sold the hardest room there is (Google, as a no-name startup) and I build with AI every single day. I want to do my best work where the frontier is actually being made."]},
+    {k:["biggest deal", "best deal", "google", "hardest sale"],r:["<span class=\"m\"># the biggest deal</span>", "Google, in Dreamship's first year. Built an AI IP-compliance checker to solve <em>their</em> trust problem, then aligned five internal Google teams behind it. The channel ran 5+ years and drove $45M+ in partner ad spend (ad spend, not revenue). Type <span class=\"m\">google-deal</span> for the full STAR story."]},
+    {k:["vibe coding", "vibe code", "vibeco", "vibe-coding"],r:["<span class=\"m\"># what is vibe coding?</span>", "Describing what you want in plain English and shipping working software the same day. I built <span class=\"val\">VibeCo</span>, a build simulator, to industrialize it: idea → brief → build prompts → working app. 40+ apps across 31 repos came out of that motion. Type <span class=\"m\">builds</span> to see them."]},
+    {k:["pickleball", "courtana", "why pickle", "sports"],r:["<span class=\"m\"># why pickleball?</span>", "A fast-growing sport, venues running on analog ops, and nobody owning the video layer. Courtana (2024–2026) put AI on the court (video, instant highlights, coaching) across 4 venues and 36 courts, and Pickle DaaS turned that footage into data. Pickleball was the wedge; the data was the business. Type <span class=\"m\">companies</span> or <span class=\"m\">pickle-daas</span>."]},
+    {k:["superpower", "strength", "best at", "why hire", "why you"],r:["<span class=\"m\"># the honest answer</span>", "Translation. I make complicated things simple enough that one human buys them from another. Now I can <em>build</em> the demo before the second meeting. Sellers who build are rare; builders who can carry a quota are rarer."]},
+    {k:["cancer", "long walk", "health", "chemo"],r:["<span class=\"m\"># on the record</span>", "Diagnosed 2023. Chemo through 2025. The pipeline kept moving. I keep it on the record because no one I'd want to work with would want it left out. The operator instinct gets clear when the day is short."]},
+    {k:["kids", "family", "father", "three"],r:["<span class=\"m\"># the why</span>", "Three kids, a real kitchen, and an unreal amount of pickleball gear in the garage. The whole map exists to support that — not the other way around."]},
+    {k:["available", "hire", "role", "open to", "looking for", "work with"],r:["<span class=\"m\"># what I'm open to</span>", "Founder roles, GTM &amp; partnership leadership (frontier AI labs especially), fractional/advisory, board. Type <span class=\"m\">contact</span> — or just email <a class=\"lnk\" href=\"mailto:bricker3@gmail.com\">bricker3@gmail.com</a>."]},
+    {k:["dreamship", "fulfillment", "print"],r:["<span class=\"m\"># dreamship, short version</span>", "Cofounder &amp; CEO 2018–2024, then board chair to 2026. Zero → $26M peak revenue, 11x in 2020, on $2.2M raised (500 Startups); EBITDA-profitable four years running. The early product: 3 versions on ~$150K lean funding. Closed Google as a partner in year one, then sequenced Stripe/PayPal/Meta/Payoneer off it. Type <span class=\"m\">companies</span> for links."]},
+    {k:["ibm", "quota", "enterprise sales", "netezza"],r:["<span class=\"m\"># enterprise pedigree</span>", "IBM 2012–14, Watson Foundations Account Executive (in through the IBM Summit Sales Program): seven-figure Watson AI + analytics deals with Zillow and Avalara, contributed to an 8-figure McKesson win, achieved quota. Before that, Northwestern Mutual 2006–10: $8M TCV across 185 accounts and a top-10 national ranking. The selling muscle everything else is built on."]},
+    {k:["northwestern", "nwm", "financial advisor", "cold call", "first job"],r:["<span class=\"m\"># where I learned to sell</span>", "Northwestern Mutual, 2006–10. Built a financial advisory book through cold calls, referrals and relationship selling: $8M TCV across 185 accounts and a top-10 national ranking; recruited and trained interns as College Unit Director."]},
+    {k:["stack", "tools", "claude", "how do you build"],r:["<span class=\"m\"># the stack</span>", "Claude (Code + Design), Codex, Lovable, Gemini, Supabase, Stripe, GitHub. This site, terminal included, was built with the stack it describes."]},
+    {k:["dj", "billygoat", "fka"],r:["<span class=\"m\"># fka DJ Billygoat</span>", "A past life behind the decks. The set lists are sealed; the crowd-reading skills transferred directly to enterprise sales."]}
+  ];
+  function qaAnswer(s){ var best=null, bs=0; QA.forEach(function(a){ var sc=0; a.k.forEach(function(k){ if(s.indexOf(k)>-1) sc++; }); if(sc>bs){ bs=sc; best=a; } }); return best ? function(){ block(best.r); } : null; }
+
   function localAnswer(q){ var s=q.toLowerCase();
+    var qa=qaAnswer(s); if(qa) return qa;
     if(/google|deal|biggest|largest|partnership|proud/.test(s)) return CMDS['google-deal'];
     if(/why|better|over|hire|fde|forward|fit/.test(s)) return CMDS['why-you'];
     if(/dreamship|\$26|\$35|11x|revenue|courtana|court|company|companies/.test(s)) return CMDS.companies;
@@ -300,7 +319,7 @@
 
   var ASK_URL='https://ulgoahsxkrkzoquvntei.supabase.co/functions/v1/ask-bill';
   function ask(q, quiet){ askQuiet(q, function(){ // standard fallback
-      if(quiet) return; var f=localAnswer(q); if(f) f(); else block(['<span class="dim">The live AI is offline right now. Try:</span> <span class="m">companies · google-deal · builds · stats</span>','<span class="dim">or</span> <span class="a" data-href="https://calendly.com/bricker3-idwj/30min">grab 30 minutes with Bill →</span>']); }); }
+      if(quiet) return; var f=localAnswer(q); if(f) f(); else block(['<span class="m"># good question.</span>','I don\'t have a stored answer for that one, which probably means it deserves a real conversation.','<span class="dim">try</span> <span class="m">google-deal · companies · builds · stats</span> <span class="dim">or</span> <span class="a" data-href="https://calendly.com/bricker3-idwj/30min">grab 30 minutes with Bill →</span>']); }); }
   function askQuiet(q, onFail, onOk){
     var gen=typeGen; /* a newer command bumps typeGen (cancelTyping): drop this answer if it lands late */
     var thinking=el('<span class="dim">thinking…</span>','blk'); out.appendChild(thinking); scroll();
@@ -367,6 +386,28 @@
   if(input){ input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ var v=input.value; input.value=''; run(v); } }); }
   if(chips){ chips.addEventListener('click',function(e){ var b=e.target.closest('.chip[data-cmd]'); if(!b) return;
     if(!booted){ booted=true; boot(function(){ showInput(); }); } run(b.dataset.cmd); showInput(); if(input && finePtr) input.focus(); }); }
+
+  /* ---------- constellation: one-time line-DRAW (the flywheel wires itself up) ----------
+     SVG connectors start undrawn (CSS sets stroke-dashoffset from --len). On first
+     scroll-in we set each path's dasharray/offset to its real length, then add .wired
+     so CSS eases the offset to 0 — the strokes trace, node dots fade in behind them.
+     Fires once, then unobserves. Reduced-motion: CSS already shows lines drawn, so we
+     just mark .wired without touching dash lengths (no flash, no transition). */
+  (function(){
+    var con=$('.constellation'); if(!con) return;
+    var wires=[].slice.call(con.querySelectorAll('.constel-lines .wire'));
+    function wire(){ if(con._w) return; con._w=true;
+      if(!reduce){ wires.forEach(function(p){
+        var len=0; try{ len=p.getTotalLength(); }catch(e){ len=600; }
+        len=Math.ceil(len)||600;
+        p.style.strokeDasharray=len; p.style.setProperty('--len',len); });
+        void con.offsetWidth; }                       /* commit the undrawn state before transitioning */
+      con.classList.add('wired'); }
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wire(); io.disconnect(); } }); },{rootMargin:'0px 0px -12% 0px'});
+      io.observe(con);
+    } else { wire(); }
+  })();
 
   /* ---------- featured video: autoplay in view + cinematic enter (Ken-Burns / sheen / scan / reticle) + cycling AI-vision stat badges ---------- */
   var vid=$('#cvid'), vw=$('#vidwrap');

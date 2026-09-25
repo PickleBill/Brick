@@ -11,7 +11,7 @@
  *   await trustedNet(ctx);
  */
 export const proxyOpts = () =>
-  process.env.HTTPS_PROXY ? { proxy: { server: process.env.HTTPS_PROXY } } : {};
+  process.env.HTTPS_PROXY ? { proxy: { server: process.env.HTTPS_PROXY, bypass: '127.0.0.1,localhost' } } : {};
 
 export async function trustedNet(ctx) {
   if (!process.env.HTTPS_PROXY) return;
