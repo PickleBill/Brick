@@ -128,7 +128,7 @@
     contact:function(){ block([
       '<span class="a" data-href="mailto:bricker3@gmail.com">bricker3@gmail.com</span>',
       '<span class="a" data-href="https://linkedin.com/in/williambricker">linkedin.com/in/williambricker</span>',
-      '908 · 601 · 8152 · Raleigh, NC',
+      'Raleigh, NC',
       '<span class="dim">open to founder / GTM / partnership / forward-deployed / fractional.</span>']); },
     'why-you':function(){ block([
       '<span class="am"># Why me, not a 28-year-old forward-deployed engineer?</span>',

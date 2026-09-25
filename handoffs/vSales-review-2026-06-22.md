@@ -25,4 +25,4 @@ Four-lens `/review-site` critique (design · copy · ux-flow · persona-panel) o
 
 ## Notes
 - Plausible tagged-event classes (`plausible-event-name=Book/Email/Resume`) are valid; they simply won't fire until `plausibleDomain` is set in `site-config.js`.
-- Separately fixed binding FACTS violations on `resume.html` found during the sweep: removed phone, `$350K`; "cumulative"→"peak" revenue; "sub-one-year-old"/"<1-year-old"→"in year one"; "director+"→"VP-level".
+- Separately fixed binding FACTS violations on `resume.html` found during the sweep: removed phone, the Courtana raise amount; "cumulative"→"peak" revenue; "sub-one-year-old"/"<1-year-old"→"in year one"; "director+"→"VP-level".

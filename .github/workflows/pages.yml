@@ -26,8 +26,55 @@ jobs:
         with:
           # creates the Pages site on first run — no manual settings step
           enablement: true
+      # Publish the site, not the working docs. Everything below stays in the repo but is left out
+      # of the Pages artifact. tools/factcheck.mjs reads these exclude lines to know what is
+      # published, so edit the list here and nowhere else (one pattern per line, single-quoted).
+      # Kept on purpose: pages + scripts, assets/, content/*.json (the ask-bill backend fetches
+      # content/index.json), .nojekyll, sales/, v3/, archive/ (old-vs-new comparisons).
+      - name: Stage public site
+        run: |
+          rsync -a \
+            --exclude='/_site' \
+            --exclude='.git' \
+            --exclude='/.github' \
+            --exclude='node_modules' \
+            --exclude='/_source' \
+            --exclude='/.claude' \
+            --exclude='/.impeccable' \
+            --exclude='/handoffs' \
+            --exclude='/design-refs' \
+            --exclude='/tools' \
+            --exclude='/source' \
+            --exclude='/content/stories' \
+            --exclude='/content/FACTS.md' \
+            --exclude='/HANDOFF.md' \
+            --exclude='/BUILD-LOG.md' \
+            --exclude='/PLAN.md' \
+            --exclude='/ROADMAP.md' \
+            --exclude='/INTERVIEW.md' \
+            --exclude='/PRODUCT.md' \
+            --exclude='/DESIGN.md' \
+            --exclude='/CLAUDE.md' \
+            --exclude='/README.md' \
+            --exclude='/package.json' \
+            --exclude='/package-lock.json' \
+            --exclude='/skills-lock.json' \
+            --exclude='/v3/RESEARCH.md' \
+            ./ _site/
+          # The ask-bill edge function fetches content/index.json from Pages, then every file it
+          # lists. Re-add those so the live terminal keeps its corpus; drop a file from the manifest
+          # and it stops being published.
+          jq -r '.files[]' content/index.json | while IFS= read -r f; do
+            case "$f" in /*|*..*) echo "::warning::skipping unsafe manifest path $f"; continue ;; esac
+            if [ -f "$f" ]; then
+              mkdir -p "_site/$(dirname "$f")" && cp "$f" "_site/$f" && echo "kept for ask-bill corpus: $f"
+            else
+              echo "::warning::content/index.json lists $f, which doesn't exist"
+            fi
+          done
+          echo "Staged $(find _site -type f | wc -l) files"
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4

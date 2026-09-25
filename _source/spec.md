@@ -151,7 +151,7 @@ one-time polish at the end. Map command → moment:
 
 **Cut / defer (not on the front-door spine):** `v3/index.html`, `work.html`, `console.html`,
 `compare.html` stay optional depth, not linked from this merge (brief: "demote to depth"). They still
-carry their own ledger violations (phone / `$350K` / "11+ sports" / "sub-one-year-old" — see the facts
+carry their own ledger violations (phone / the Courtana raise amount / "11+ sports" / "sub-one-year-old" — see the facts
 surface audit) → fix or `noindex` in **Phase 2**, not this merge.
 
 ## Spacing scale (Rule 5 — one ramp, defined once)
@@ -188,11 +188,11 @@ side-by-side operating companies, single-primitive section padding (`section.blo
 **Ledger fixes (each one is a GATE item):**
 - Bar1 + statband **"8-fig" Google channel → `$45M+` ad spend** (C-3); statband **"$35M+ revenue led" →
   `$35M+` peak revenue** (guardrail #2).
-- Courtana opco: **drop "11+ sports" + "$350K"** → 36 courts · 760 users · 4 venues.
+- Courtana opco: **drop "11+ sports" + the Courtana raise amount** → 36 courts · 760 users · 4 venues.
 - Dreamship opco: **"sub-one-year-old startup" → "in year one".**
 - Contact: **remove the phone (`tel:`)** → Download résumé (vFinal).
 - nav + footer résumé (`resume-v2.html`) → **vFinal PDF**.
-- `home.js` terminal copy: scan for 8-fig / phone / $350K / 11-sports / sub-one-year / director → fix to ledger.
+- `home.js` terminal copy: scan for 8-fig / phone / the Courtana raise amount / 11-sports / sub-one-year / director → fix to ledger.
 
 **The two bugs to kill (Q1) — verify against the grader, don't blind-refactor:**
 - **Rhythm:** confirm one section primitive owns vertical spacing; add the Rule-5 token ramp; kill any

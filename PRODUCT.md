@@ -25,6 +25,6 @@ Plainspoken, numbers-first, a little dry wit. No hype, no corporate filler. Conf
 ## Hard rules (facts ledger `content/FACTS.md` is binding)
 - `$35M+` = peak revenue; `$45M+` = ad spend **through** the Google channel (never revenue).
 - "closed Google **as a partner**" (never acquired/sold). "in year one" (never "sub-one-year").
-- Never on the public site: phone number, the $350K raise, "11+ sports".
+- Never on the public site: phone number, the Courtana raise amount, "11+ sports".
 
 Use `reference/brand.md` (design is the product).
