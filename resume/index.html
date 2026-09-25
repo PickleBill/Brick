@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bill Bricker · Résumé</title>
+<meta name="description" content="Résumé of Bill Bricker, Enterprise Sales & Partnerships Leader and 3× founder. Closed Google as a partner in Dreamship's first year, a channel that supported $45M+ in merchant ad spend, and led Dreamship to $35M+ peak revenue. Enterprise sales at IBM and WibiData." />
+<link rel="canonical" href="https://picklebill.github.io/Brick/resume/" />
+<meta property="og:title" content="Bill Bricker · Résumé" />
+<meta property="og:description" content="Enterprise Sales & Partnerships Leader · 3× Founder. Closed Google as a partner in year one ($45M+ in merchant ad spend through the channel) and led Dreamship to $35M+ peak revenue." />
+<meta property="og:type" content="profile" />
+<meta property="og:url" content="https://picklebill.github.io/Brick/resume/" />
+<meta property="og:image" content="https://picklebill.github.io/Brick/assets/og-card.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* site frame (matches index.html) */
+    --bg:#08090a; --glass:rgba(255,255,255,.045); --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.17);
+    --text:#f4f2ec; --mute:#9aa0a3; --faint:#6a7178;
+    --accent:#6fefb4; --accent-dim:#4cc890; --accent-soft:rgba(111,239,180,.5); --cream:#f3ecdc;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Hanken Grotesk',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --radius:22px; --maxw:1140px;
+    --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:64px; --s7:96px;
+    --ease-quint:cubic-bezier(.22,1,.36,1);
+
+    /* the paper sheet: one accent (Bill's résumé violet) */
+    --paper:#f6f4ee; --ink:#141519; --ink2:#34373e; --ink3:#62666f; --hair:rgba(20,21,25,.14);
+    --violet:#6a2cf5; --mark:rgba(106,44,245,.13);
+    --sheetw:860px;
+
+    /* type ramp (screen); print overrides below */
+    --fs-name:clamp(40px,7.4vw,64px); --fs-title:clamp(17px,2.2vw,20px); --fs-lead:17px;
+    --fs-body:15.5px; --fs-co:19px; --fs-meta:11px; --fs-label:11.5px; --lh:1.58;
+    --pad:var(--s6);
+    --g-sheet:var(--s5);   /* between sheet blocks */
+    --g-sec:var(--s3);     /* inside a section */
+    --g-jobs:var(--s4);    /* between jobs */
+    --g-item:var(--s2);    /* between bullets */
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  body::before { content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(560px 520px at 88% -6%,rgba(22,168,138,.34),transparent 70%),
+               radial-gradient(620px 560px at -8% 42%,rgba(123,91,224,.26),transparent 70%),
+               radial-gradient(520px 480px at 104% 96%,rgba(255,138,92,.16),transparent 70%); }
+  a { color:inherit; text-decoration:none; }
+  :focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:8px; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+  /* ---------- nav (shared contract; same markup + styles as index.html) ---------- */
+  header.nav { position:sticky; top:0; z-index:60; backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px); background:rgba(8,9,10,.64); border-bottom:1px solid var(--line); }
+  .nav-in { max-width:var(--maxw); margin:0 auto; padding:14px 30px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+  .brand { font-family:var(--mono); font-weight:600; font-size:14.5px; letter-spacing:-.01em; display:flex; align-items:center; white-space:nowrap; color:var(--text); }
+  .brand .caret { display:inline-block; width:8px; height:1em; background:var(--accent); margin-left:5px; transform:translateY(1px); box-shadow:0 0 8px var(--accent); animation:caretblink 1.1s steps(1) infinite; }
+  @keyframes caretblink { 50%{ opacity:0; } }
+  @media (prefers-reduced-motion: reduce){ .brand .caret{ animation:none; } }
+  .navlinks { display:flex; gap:3px; align-items:center; font-size:13px; color:var(--mute); font-family:var(--mono); letter-spacing:-.01em; }
+  .navlinks a { padding:8px 13px; border-radius:99px; transition:.15s; white-space:nowrap; }
+  .navlinks a:hover { color:var(--text); background:rgba(255,255,255,.05); }
+  .navlinks a.here { color:var(--accent); background:rgba(111,239,180,.10); }
+  .navlinks a.cta { color:#08090a; background:var(--cream); font-weight:600; }
+  .navlinks a.cta:hover { background:#fff; }
+  @media (max-width:560px){
+    .nav-in { padding:11px 16px; gap:8px; }
+    .brand { font-size:13px; }
+    .navlinks { gap:1px; font-size:11px; }
+    .navlinks a { padding:7px 6px; }
+  }
+  /* four nav items at phone width: drop the decorative caret, then (≤370px) the CTA arrow */
+  @media (max-width:400px){ .brand .caret { display:none; } .navlinks { gap:0; } .navlinks a { padding:7px 5px; } .navlinks a.cta { padding:7px 7px; } }
+  @media (max-width:370px){ .navlinks a.cta .ar { display:none; } }
+
+  /* ---------- page: ONE stack owns the vertical rhythm ---------- */
+  .page { position:relative; z-index:2; max-width:calc(var(--sheetw) + 2*var(--s4)); margin:0 auto; padding:var(--s5) var(--s4) var(--s7); display:flex; flex-direction:column; gap:var(--s4); }
+  @media (max-width:560px){ .page { padding:var(--s4) var(--s3) var(--s6); gap:var(--s3); } }
+
+  /* action row */
+  .actions { display:flex; flex-wrap:wrap; align-items:center; gap:var(--s2); }
+  .actions .push { margin-left:auto; }
+  .pill { display:inline-flex; align-items:center; gap:var(--s2); font-family:var(--body); font-size:14.5px; font-weight:600; padding:12px 20px; border-radius:99px; border:1px solid transparent; cursor:pointer; transition:transform .28s var(--ease-quint),box-shadow .28s var(--ease-quint),border-color .28s var(--ease-quint),background .28s var(--ease-quint); }
+  .pill svg { width:16px; height:16px; flex:none; }
+  .pill.solid { background:var(--cream); color:#08090a; }
+  .pill.solid:hover, .pill.solid:focus-visible { transform:translateY(-2px); box-shadow:0 16px 36px -14px rgba(243,236,220,.5); }
+  .pill.ghost { background:var(--glass); color:var(--text); border-color:var(--line2); backdrop-filter:blur(10px); }
+  .pill.ghost:hover, .pill.ghost:focus-visible { transform:translateY(-2px); border-color:var(--accent); box-shadow:0 0 0 1px var(--accent-soft),0 14px 32px -18px var(--accent-soft); }
+  .pill.text { padding-left:var(--s2); padding-right:var(--s2); color:var(--mute); font-family:var(--mono); font-size:13px; font-weight:500; }
+  .pill.text:hover, .pill.text:focus-visible { color:var(--accent); }
+  .pill:active { transform:translateY(0) scale(.985); transition-duration:.09s; }
+  @media (prefers-reduced-motion: reduce){ .pill,.pill:hover,.pill:focus-visible,.pill:active{ transform:none; transition:none; } }
+  @media (max-width:560px){
+    .pill { font-size:14px; padding:11px 16px; }
+    .actions .push { margin-left:0; }
+  }
+
+  /* ---------- the sheet ---------- */
+  .sheet { background:var(--paper); color:var(--ink2); border-radius:var(--radius); padding:var(--pad);
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 40px 90px -30px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.06);
+    display:flex; flex-direction:column; gap:var(--g-sheet);
+    font-size:var(--fs-body); line-height:var(--lh); font-weight:400; }
+  .sheet ::selection { background:var(--violet); color:#fff; }
+  .sheet :focus-visible { outline-color:var(--violet); outline-offset:2px; border-radius:4px; }
+  .sheet p:not(.rh-title), .sheet li { text-wrap:pretty; }
+  .sheet b, .sheet strong { color:var(--ink); font-weight:700; }
+  @media (max-width:700px){ .sheet { --pad:var(--s5); } }
+  @media (max-width:560px){ .sheet { --pad:var(--s4); --g-sheet:var(--s5); border-radius:16px; } }
+
+  /* header */
+  .rh { display:grid; grid-template-columns:1fr auto; align-items:end; gap:var(--s3) var(--s4); padding-bottom:var(--s4); border-bottom:3px solid var(--ink); }
+  .rh-name { font-family:var(--display); font-weight:800; font-size:var(--fs-name); line-height:.94; letter-spacing:-.04em; color:var(--ink); }
+  .rh-title { font-family:var(--display); font-weight:600; font-size:var(--fs-title); line-height:1.3; letter-spacing:-.01em; color:var(--ink); padding-top:var(--s2); text-wrap:balance; }
+  .rh-title .x { color:var(--violet); }
+  .rh-contact { list-style:none; display:flex; flex-direction:column; align-items:flex-end; gap:2px; font-family:var(--mono); font-size:var(--fs-meta); line-height:1.5; color:var(--ink3); text-align:right; }
+  .rh-contact a { color:var(--ink); background:linear-gradient(var(--hair),var(--hair)) 0 100%/100% 1px no-repeat; transition:color .15s,background-size .15s; }
+  .rh-contact a:hover { color:var(--violet); background-image:linear-gradient(var(--violet),var(--violet)); }
+  @media (max-width:700px){
+    .rh { grid-template-columns:1fr; align-items:start; }
+    .rh-contact { align-items:flex-start; text-align:left; }
+  }
+
+  .lead { font-size:var(--fs-lead); line-height:1.6; color:var(--ink); max-width:68ch; }
+  .nw { white-space:nowrap; }   /* keeps a paragraph's last line from ending on a 1–3-word runt */
+  .nb { white-space:nowrap; }   /* hyphenated compounds never split across lines */
+  @media (max-width:560px){ .sheet { --fs-lead:16px; --fs-body:15px; } .nw { white-space:normal; } }
+
+  /* key numbers: violet figure + a quiet marker that keeps the qualifier attached */
+  .k { background:linear-gradient(180deg,transparent 60%,var(--mark) 60%,var(--mark) 94%,transparent 94%); padding:0 .06em; color:var(--ink); white-space:nowrap; }
+  .k b { color:var(--violet); font-weight:800; }
+
+  /* sections */
+  .rs { display:flex; flex-direction:column; gap:var(--g-sec); }
+  .rs-h { display:flex; flex-wrap:wrap; align-items:baseline; gap:0 var(--s2); padding-top:var(--s2); border-top:1.5px solid var(--ink);
+    font-family:var(--mono); font-size:var(--fs-label); font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); line-height:1.4; }
+  .rs-h .n { color:var(--violet); }
+  .rs-h .dot { color:var(--ink3); font-weight:400; }
+  @media (max-width:560px){ .rs-h { letter-spacing:.08em; font-size:10.5px; } }
+
+  /* bullets */
+  /* markers, not positioned pseudo-elements: positioned boxes paint late and scramble the PDF's text order */
+  .bl { list-style:"–" outside; padding-left:var(--s3); display:flex; flex-direction:column; gap:var(--g-item); }
+  .bl li { display:list-item; padding-left:var(--s2); }
+  .bl li::marker { color:var(--ink3); }
+
+  /* proof links (screen only) */
+  .see { font-family:var(--mono); font-size:.76em; font-weight:500; letter-spacing:.01em; color:var(--violet); white-space:nowrap; border-bottom:1px solid rgba(106,44,245,.28); transition:border-color .15s; }
+  .see:hover { border-bottom-color:var(--violet); }
+  .see-sep { color:var(--ink3); font-size:.76em; }
+
+  /* experience */
+  .jobs { display:flex; flex-direction:column; gap:var(--g-jobs); }
+  .job { display:flex; flex-direction:column; gap:var(--g-item); }
+  /* company · role left, dates right; when both don't fit, the dates drop to their own line whole */
+  .job-h { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:2px var(--s4); }
+  .job-co { font-family:var(--display); font-weight:700; font-size:var(--fs-co); line-height:1.25; letter-spacing:-.015em; color:var(--ink); }
+  .job-role { font-family:var(--body); font-weight:600; font-size:calc(var(--fs-body) * .94); letter-spacing:0; color:var(--ink2); }
+  .job-role::before { content:"·"; color:var(--ink3); font-weight:400; padding:0 var(--s2) 0 var(--s1); }
+  .job-meta { font-family:var(--mono); font-size:var(--fs-meta); color:var(--ink3); }
+  .job-meta .where::before { content:" · "; }
+  .job-desc { color:var(--ink3); }
+  @media (max-width:560px){
+    .job-role { display:block; }
+    .job-role::before { content:none; }
+    .job-meta { width:100%; }
+    .job-meta.long .where { display:block; }
+    .job-meta.long .where::before { content:none; }
+  }
+
+  /* education */
+  .edu { list-style:none; display:flex; flex-direction:column; gap:var(--g-item); }
+  .edu li { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:0 var(--s4); }
+  .edu .d { font-family:var(--mono); font-size:var(--fs-meta); color:var(--ink3); }
+  .edu .sub { display:block; color:var(--ink3); }
+
+  /* how I work: label / line rows */
+  .how { list-style:none; display:flex; flex-direction:column; gap:var(--g-item); }
+  .how li { display:grid; grid-template-columns:8.5em 1fr; gap:0 var(--s3); align-items:baseline; }
+  @media (max-width:560px){ .how li { grid-template-columns:1fr; } }
+
+  /* ---------- print: Letter, two pages ---------- */
+  @page { size:Letter; margin:.5in .55in; }
+  @media print {
+    :root {
+      --fs-name:32pt; --fs-title:12.5pt; --fs-lead:10.5pt; --fs-body:10pt; --fs-co:11.5pt; --fs-meta:8pt; --fs-label:8pt; --lh:1.42;
+      --pad:0; --g-sheet:var(--s4); --g-sec:var(--s2); --g-jobs:var(--s3); --g-item:var(--s1);
+    }
+    html, body { background:#fff !important; }
+    body::before, header.nav, .actions, .see, .see-sep { display:none !important; }
+    .page { display:block; max-width:none; padding:0; }
+    .sheet { max-width:none; box-shadow:none; border-radius:0; background:transparent; }
+    .rh { padding-bottom:var(--s3); }
+    .rh-title { padding-top:var(--s1); }
+    .lead { max-width:none; }
+    .edu .sub { display:inline; }
+    .edu .sub::before { content:"·"; padding:0 var(--s2) 0 var(--s1); }
+    .job, .rs-h, .edu li, .how li { break-inside:avoid; }
+    .rs-h { break-after:avoid; }
+    .job-h, .job-desc { break-after:avoid; }
+    p, li { orphans:3; widows:3; }
+    /* greedy fill in print (fuller lines); the .nw endings prevent runts */
+    .sheet p:not(.rh-title), .sheet li { text-wrap:wrap; }
+    a { color:inherit; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="../index.html" aria-label="Bill Bricker — home">Bill&nbsp;Bricker<span class="caret" aria-hidden="true"></span></a>
+    <nav class="navlinks" aria-label="Primary">
+      <a href="../climb.html">Story</a>
+      <a href="../work.html">Proof</a>
+      <a href="./" class="here" aria-current="page">Résumé</a>
+      <a href="https://calendly.com/bricker3-idwj/30min" class="cta plausible-event-name=Book" data-cta="book" target="_blank" rel="noopener">Let's talk <span class="ar" aria-hidden="true">→</span></a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <div class="actions" role="group" aria-label="Résumé actions">
+    <a class="pill solid" href="../assets/Bill_Bricker_Resume_2026-09.pdf" download>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg>
+      Download PDF
+    </a>
+    <a class="pill ghost" href="mailto:bricker3@gmail.com?subject=Your%20r%C3%A9sum%C3%A9">Email Bill</a>
+    <a class="pill text push" href="../work.html">See the proof →</a>
+  </div>
+
+  <article class="sheet" aria-label="Résumé">
+
+    <header class="rh">
+      <div>
+        <h1 class="rh-name">Bill Bricker</h1>
+        <p class="rh-title">Enterprise Sales &amp; Partnerships&nbsp;Leader <span class="x">·</span> 3×&nbsp;Founder</p>
+      </div>
+      <ul class="rh-contact" aria-label="Contact">
+        <li>Raleigh, NC</li>
+        <li><a href="mailto:bricker3@gmail.com">bricker3@gmail.com</a></li>
+        <li><a href="https://www.linkedin.com/in/williambricker" target="_blank" rel="noopener">linkedin.com/in/williambricker</a></li>
+        <li><a href="https://picklebill.github.io/Brick/">picklebill.github.io/Brick</a></li>
+      </ul>
+    </header>
+
+    <p class="lead">Commercial operator who turns complex technology into partnerships, customer adoption and revenue. Experience spans enterprise sales at IBM and WibiData, building Dreamship to <span class="k"><b>$35M+</b> peak revenue</span>. <span class="nb">AI-native</span> operator who uses tech as a force multiplier across research, demos, collateral, and product feedback, and recruits <span class="nb">high-leverage</span> teams with no money &amp; no brand. Brings founder-level judgment to <span class="nw">hands-on sales &amp; partnership work.</span></p>
+
+    <section class="rs" aria-labelledby="s1">
+      <h2 class="rs-h" id="s1"><span class="n">01</span><span class="dot">·</span><span>Selected sales &amp; partnership proof</span></h2>
+      <ul class="bl">
+        <li><b>Google:</b> Established a partnership in Dreamship's first year, aligning five internal teams around qualified merchants in an underserved market. The resulting channel supported <span class="k"><b>$45M+</b> in merchant ad spend</span> over more than five&nbsp;years. <a class="see" href="../index.html#google">see it →</a></li>
+        <li><b>Stripe:</b> Shaped a partnership that gave merchants U.S. payments access, opened new business for Stripe, and supported joint events and Dreamship's brand&nbsp;growth.</li>
+        <li><b>Enterprise sales:</b> Sold seven-figure analytics solutions at IBM and contributed to an eight-figure McKesson win; sold technical pilots involving Macy's and Nordstrom at&nbsp;WibiData.</li>
+      </ul>
+    </section>
+
+    <section class="rs" aria-labelledby="s2">
+      <h2 class="rs-h" id="s2"><span class="n">02</span><span class="dot">·</span><span>Experience</span></h2>
+      <div class="jobs">
+
+        <article class="job">
+          <div class="job-h">
+            <h3 class="job-co">Dreamship <span class="job-role">Cofounder &amp; CEO; Board Chair</span></h3>
+            <p class="job-meta long"><span class="when">CEO: 2018–2024 · Board Chair: 2024–2026</span><span class="where">SF Bay Area</span></p>
+          </div>
+          <p class="job-desc">On-demand fulfillment platform serving international ecommerce merchants &amp; corporate gifting&nbsp;platforms</p>
+          <ul class="bl">
+            <li>Cofounded and led the business to <span class="k"><b>$35M+</b> peak revenue</span>, including <span class="k"><b>11x</b> growth in 2020</span> ($1.6M&nbsp;→&nbsp;$17M), building commercial partnerships and the operating capabilities to support&nbsp;growth.</li>
+            <li>Developed the Google partnership by addressing merchant qualification and intellectual-property risk, connecting an underserved Vietnamese merchant market with a major technology&nbsp;platform.</li>
+            <li>Shaped partner strategy, positioning and joint events, with substantial involvement in Stripe and PayPal and an evolving relationship with Payoneer; delegated execution while remaining involved <span class="nw">in important commercial decisions.</span></li>
+            <li>Built and led a 24-person distributed organization with a SF executive team &amp; a hub in Vietnam. Developed the "How&nbsp;We&nbsp;Win" operating framework and a fulfillment network spanning <span class="nw">21 locations in 6 countries.</span></li>
+            <li>Built three product versions on ~$150K of early funding with distributed contributors <span class="nw">in Ukraine and Nigeria.</span></li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-h">
+            <h3 class="job-co">Courtana <span class="job-role">Founder &amp; CEO</span></h3>
+            <p class="job-meta"><span class="when">2024–2026</span><span class="where">Raleigh, NC</span></p>
+          </div>
+          <p class="job-desc">Sports-intelligence platform using venue video to create player and brand&nbsp;data.</p>
+          <ul class="bl">
+            <li>Built and commercialized an AI <span class="nb">smart-court</span> ecosystem across 4 venues, 36 courts, and 760 users, defining a new product category: "TopGolf meets&nbsp;Pickleball."</li>
+            <li>Founded the company and led product direction leveraging an <span class="nb">AI-native</span> operating stack (Claude, Codex, Lovable, Gemini) that transformed venue discovery into tailored interactive demos &amp; helped launch AI coaching and a <span class="nb">real-time</span> gamified <span class="nb">on-court</span>&nbsp;experience.</li>
+            <li>Personally built an AI video-analysis workflow that processed more than <span class="k"><b>21,000</b> clips</span>, including 4,097 fully analyzed with Gemini to monetize the "dark data of sports"; one of 40+ apps across 31 repos, <span class="nw">built &amp; shipped solo.</span> <a class="see" href="../work.html#courtana">see it →</a><span class="see-sep" aria-hidden="true"> · </span><a class="see" href="https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html" target="_blank" rel="noopener">the data →</a></li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-h">
+            <h3 class="job-co">GearLaunch <span class="job-role">VP Sales &amp; Marketing</span></h3>
+            <p class="job-meta"><span class="when">2017–2018</span><span class="where">SF Bay Area</span></p>
+          </div>
+          <ul class="bl">
+            <li>Led sales and marketing for an ecommerce and print-on-demand platform, owning seller acquisition, growth positioning and partner narrative with a globally distributed team of&nbsp;13.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-h">
+            <h3 class="job-co">IntroStellar <span class="job-role">CEO / Cofounder</span></h3>
+            <p class="job-meta"><span class="when">2015–2017</span><span class="where">SF Bay Area</span></p>
+          </div>
+          <ul class="bl">
+            <li>Built a referral platform around relationship-based&nbsp;recruiting.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-h">
+            <h3 class="job-co">WibiData <span class="job-role">Director of Sales</span></h3>
+            <p class="job-meta"><span class="when">2014–2015</span><span class="where">SF Bay Area</span></p>
+          </div>
+          <ul class="bl">
+            <li>Built the enterprise sales motion for an open-source big-data platform and sold technical pilots involving Fortune&nbsp;500 retailers, including Macy's and&nbsp;Nordstrom.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-h">
+            <h3 class="job-co">IBM / Netezza <span class="job-role">Watson Foundations Account Executive</span></h3>
+            <p class="job-meta"><span class="when">2012–2014</span><span class="where">SF Bay Area</span></p>
+          </div>
+          <ul class="bl">
+            <li>Sold seven-figure analytics and <span class="nb">Watson-era</span> solutions, achieved quota, and worked with enterprise accounts including Zillow and Avalara; contributed to an eight-figure McKesson&nbsp;win.</li>
+            <li>Selected for the IBM Summit Sales Program, combining consultative-selling development with <span class="nw">product and technical training.</span></li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-h">
+            <h3 class="job-co">Northwestern Mutual <span class="job-role">Financial Advisor / College Unit Director</span></h3>
+            <p class="job-meta"><span class="when">2006–2010</span><span class="where">Princeton, NJ</span></p>
+          </div>
+          <ul class="bl">
+            <li>Built a financial advisory book through cold calls, referrals, and relationship selling: $8M TCV across 185 accounts and a top-10 national ranking; recruited and trained interns as College Unit&nbsp;Director.</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="rs" aria-labelledby="s3">
+      <h2 class="rs-h" id="s3"><span class="n">03</span><span class="dot">·</span><span>Education</span></h2>
+      <ul class="edu">
+        <li><span><b>MBA, Entrepreneurship, UNC Kenan-Flagler Business School</b> <span class="sub">Carolina Entrepreneurial Fellow</span></span><span class="d">2010–2012</span></li>
+        <li><span><b>BS, Finance, The College of New Jersey</b> <span class="sub">Captain, Men's Rugby</span></span></li>
+      </ul>
+    </section>
+
+    <section class="rs" aria-labelledby="s4">
+      <h2 class="rs-h" id="s4"><span class="n">04</span><span class="dot">·</span><span>Capabilities</span></h2>
+      <p>Strategic partnerships&nbsp;· business development&nbsp;· enterprise technology sales&nbsp;· market development&nbsp;· partner positioning and joint events&nbsp;· founder-led sales&nbsp;· pilot development&nbsp;· distributed-team leadership&nbsp;· customer discovery&nbsp;· AI-assisted demos and proposals&nbsp;· Claude, Codex, Lovable and&nbsp;Gemini</p>
+    </section>
+
+    <section class="rs" aria-labelledby="s5">
+      <h2 class="rs-h" id="s5"><span class="n">05</span><span class="dot">·</span><span>How I work</span></h2>
+      <ul class="how">
+        <li><b>How I sell</b> <span>Understand customer economics, address risk, align incentives and build trust.</span></li>
+        <li><b>What I build</b> <span>Partner motions and customer facing tools that make an opportunity tangible.</span></li>
+        <li><b>How I lead</b> <span>Set direction, build teams and stay close to important customers and partners.</span></li>
+      </ul>
+    </section>
+
+    <section class="rs" aria-labelledby="s6">
+      <h2 class="rs-h" id="s6"><span class="n">06</span><span class="dot">·</span><span>Beyond</span></h2>
+      <p class="beyond"><b>Pledge 1%:</b> Community engagement, onboarding and outreach during growth from approximately 1,200 to 2,100+ organizations. <b>Freedom United:</b> Board member, 2020–2022. <b>Music:</b> DJ&nbsp;Billygoat.</p>
+    </section>
+
+  </article>
+</main>
+
+<script src="../site-config.js" defer></script>
+</body>
+</html>
