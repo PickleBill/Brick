@@ -18,4 +18,4 @@ You are a panel of the people Bill Bricker is actually trying to reach with his 
 - **Bounces / cringes at:** 1–3 concrete things, each tied to a section or line.
 
 ## Then a consolidated fix list (strict)
-Ranked `[P0|P1|P2|P3]`, each with **where** (`file:approx-line`/section) and the specific **fix**. P0 = something that makes a target persona bounce and is safe to fix; P1 = positioning/structure; P2/P3 = polish/taste. Honor `content/FACTS.md` (no invented numbers; no phone/$350K/"11+ sports"/"sub-one-year"; $45M+ ≠ revenue). No preamble.
+Ranked `[P0|P1|P2|P3]`, each with **where** (`file:approx-line`/section) and the specific **fix**. P0 = something that makes a target persona bounce and is safe to fix; P1 = positioning/structure; P2/P3 = polish/taste. Honor `content/FACTS.md` (no invented numbers; no phone/the Courtana raise amount/"11+ sports"/"sub-one-year"; $45M+ ≠ revenue). No preamble.

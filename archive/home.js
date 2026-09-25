@@ -86,7 +86,7 @@
     whoami:function(){ block([
       '<span class="m">Bill Bricker</span> — forward-deployed GTM operator.',
       'I sell frontier tech AND I build it. Closed &amp; ran the Google',
-      'partnership at a &lt;1-yr-old startup. Now shipping production AI daily.',
+      'partnership in year one. Now shipping production AI daily.',
       'Raleigh, NC · father of three · fka DJ Billygoat · still walking.']); },
     companies:function(){ block([
       '<span class="m">Courtana</span>  founder/CEO · 2023→now — AI smart-court SaaS, 36 courts.',
@@ -94,7 +94,7 @@
       suggest(['google-deal','builds']); },
     'google-deal':function(){ block([
       '<span class="m"># The Google partnership — not an acquisition.</span>',
-      'As a &lt;1-year-old startup, navigated 5–6 internal Google teams to',
+      'In year one, navigated 5–6 internal Google teams to',
       'director+ sign-off — a first-of-its-kind cross-division <span class="m">partnership</span>.',
       '→ 8-figure ad-spend channel, run <span class="m">5+ years</span>. Stripe, PayPal, Meta followed.',
       '<span class="dim">"Sold Google" was sales shorthand for closing the account.</span>']);
@@ -172,9 +172,9 @@
   function tailor(role){ role=(role||'').trim();
     if(!role){ block(['<span class="am"># hiring-manager mode</span> — type e.g. <span class="m">tailor Partnerships Lead at Anthropic</span>, or paste a job description, and I\'ll make the case for that exact role.']); return; }
     block(['<span class="am"># tailoring the case for:</span> '+esc(role.slice(0,120))]);
-    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner at a <1-yr-old startup; led Dreamship to $35M+ and 11x; ships production AI solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; 20 years carrying an enterprise number). Address the role directly; be concrete and confident; no generic filler.';
+    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner in year one; led Dreamship to $35M+ and 11x; ships production AI solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; 20 years carrying an enterprise number). Address the role directly; be concrete and confident; no generic filler.';
     askQuiet(q, function(){ // local fallback
-      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner at a sub-one-year-old startup, turned it into $35M+ and 11x at Dreamship, and today I build production AI solo — 40+ apps across 31 repos. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
+      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner in year one, turned it into $35M+ and 11x at Dreamship, and today I build production AI solo — 40+ apps across 31 repos. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
       suggest(['reference-check','why-you','contact']);
     }, function(){ suggest(['reference-check','why-you','contact']); });
   }
@@ -251,7 +251,7 @@
   function boot(after){ var ls=[
       {t:'brick.os — forward-deployed operator console. booting…',c:'dim'},
       {t:'Bill Bricker — I sell frontier tech AND I build it myself.',c:'m'},
-      {t:'Closed & ran the Google partnership at a <1-yr-old startup.',c:''},
+      {t:'Closed & ran the Google partnership in year one.',c:''},
       {t:'Now shipping production AI daily — 40+ apps, solo. Ask me anything.',c:''}];
     echo('whoami');
     if(reduce){ block(ls.map(function(l){return l.c?'<span class="'+l.c+'">'+esc(l.t)+'</span>':esc(l.t);})); if(after)after(); return; }
