@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="robots" content="noindex" />
+<!-- ARCHIVE: frozen copy of resume/index.html (the paper-sheet design) as of 150e3e8 (2026-09-25), before the digital redesign. Rule O-5. -->
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Bill Bricker · Résumé</title>
@@ -194,158 +196,6 @@
   .how li { display:grid; grid-template-columns:8.5em 1fr; gap:0 var(--s3); align-items:baseline; }
   @media (max-width:560px){ .how li { grid-template-columns:1fr; } }
 
-  /* ---------- screen: the digital résumé ----------
-     Everything below is screen-only. The paper rules above + the print block below still
-     produce the PDF; nothing here reaches print. */
-  .hero { display:flex; flex-direction:column; gap:var(--s4); }
-  @media screen {
-    :root {
-      --sheetw:920px;
-      --fs-name:clamp(48px,8.4vw,88px); --fs-title:clamp(18px,2.4vw,23px); --fs-lead:clamp(17px,1.9vw,19.5px);
-      --fs-body:15.5px; --fs-co:21px; --fs-meta:11.5px; --fs-label:11.5px; --lh:1.6;
-      --pad:0; --g-sheet:var(--s6); --g-sec:var(--s4); --g-jobs:var(--s3); --g-item:var(--s2);
-      --body2:rgba(244,242,236,.8);
-      --v2:#a78bfa; --cyan:#5ee0d6;
-      --g-wide:linear-gradient(90deg,#7be88f 0%,#36c6e0 45%,#8b7cf0 100%);
-      --spectrum:linear-gradient(100deg,#5be8a0 0%,#36c6e0 33%,#8b7cf0 66%,#ff8a6b 100%);
-    }
-    .page { padding-top:var(--s6); }
-    .sheet { --pad:0; background:none; box-shadow:none; border-radius:0; color:var(--body2);
-      display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--g-sheet) var(--s4); align-items:start; }
-    .sheet > * { grid-column:1 / -1; min-width:0; }
-    .sheet > .half { grid-column:auto; height:100%; }
-    .sheet ::selection { background:var(--v2); color:#08090a; }
-    .sheet :focus-visible { outline-color:var(--accent); outline-offset:3px; }
-    .sheet b, .sheet strong { color:var(--text); font-weight:700; }
-
-    /* glass: one card recipe */
-    .proof > li, .job, .half > :not(.rs-h), .how > li, .stat {
-      background:var(--glass); border:1px solid var(--line); border-radius:var(--radius);
-      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
-
-    /* hero */
-    .rh { border-bottom:0; padding-bottom:0; align-items:end; }
-    .rh-name { color:var(--text); line-height:.92; letter-spacing:-.045em; }
-    .rh-title { color:var(--text); padding-top:var(--s3); }
-    .rh-title .x { color:var(--faint); }
-    .rh-title .g { background:var(--spectrum); background-size:220% 100%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; animation:flow 9s ease-in-out infinite; }
-    @keyframes flow { 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
-    .rh-contact { color:var(--mute); gap:var(--s1); }
-    .rh-contact a { color:var(--text); background-image:linear-gradient(var(--line2),var(--line2)); }
-    .rh-contact a:hover { color:var(--accent); background-image:linear-gradient(var(--accent),var(--accent)); }
-
-    /* headline numbers */
-    .hi { display:flex; flex-direction:column; gap:var(--s3); padding-top:var(--s2); }
-    .stats { list-style:none; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--s3); }
-    .stat { position:relative; overflow:hidden; padding:var(--s4) var(--s4) var(--s3); display:flex; flex-direction:column; gap:var(--s2); --gs:var(--g-wide); }
-    .stat:nth-child(2) { --gs:linear-gradient(90deg,#46d6b6,#36c6e0 60%,#7bb4e6); }
-    .stat:nth-child(3) { --gs:linear-gradient(90deg,#36c6e0,#7bb4e6 50%,#a78bfa); }
-    .stat:nth-child(4) { --gs:linear-gradient(90deg,#a78bfa,#cf8fd0 55%,#ff8a6b); }
-    .stat::before { content:""; position:absolute; inset:0 0 auto; height:2px; background:var(--gs); opacity:.85; }
-    .sv { font-family:var(--display); font-weight:800; font-size:clamp(30px,3.6vw,40px); line-height:1; letter-spacing:-.03em; font-variant-numeric:tabular-nums;
-      background:var(--gs); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
-    .sl { font-family:var(--mono); font-size:11.5px; line-height:1.45; color:var(--mute); text-wrap:balance; }
-    .chips { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s4); }
-    .chip-g { display:flex; flex-wrap:wrap; align-items:center; gap:var(--s2); }
-    .chip-l { font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); padding-right:var(--s1); }
-    .chip { font-family:var(--mono); font-size:11.5px; letter-spacing:.02em; color:var(--mute); border:1px solid var(--line2); background:rgba(255,255,255,.03); padding:6px 12px; border-radius:99px; transition:color .2s,border-color .2s; }
-    .chip:hover { color:var(--text); border-color:var(--accent-soft); }
-    .chip.on { color:#08090a; background:var(--g-wide); border-color:transparent; font-weight:600; }
-
-    /* summary */
-    .lead { color:var(--text); max-width:62ch; padding-left:var(--s4); border-left:2px solid; border-image:var(--g-wide) 1; }
-    .k { background:none; padding:0; color:var(--text); }
-    .k b { color:var(--accent); }
-
-    /* section heads: number in gradient, trailing hairline */
-    .rs-h { border-top:0; padding-top:0; color:var(--text); align-items:center; gap:var(--s2); }
-    .rs-h .n { background:var(--g-wide); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
-    .rs-h .dot { color:var(--faint); }
-    .rs-h::after { content:""; flex:1 1 var(--s5); min-width:var(--s5); height:1px; background:linear-gradient(90deg,var(--line2),transparent); }
-
-    /* bullets */
-    .bl { list-style:disc outside; padding-left:var(--s3); }
-    .bl li { padding-left:var(--s1); }
-    .bl li::marker { color:var(--cyan); }
-
-    /* proof links */
-    .see { color:var(--accent); border-bottom-color:var(--accent-soft); }
-    .see:hover { border-bottom-color:var(--accent); }
-    .see-sep { color:var(--faint); }
-
-    /* 01 proof: Google featured, the other two side by side */
-    .proof { list-style:none; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--s3); }
-    .proof > li { padding:var(--s4); position:relative; overflow:hidden; }
-    .proof > li:first-child { grid-column:1 / -1; font-size:calc(var(--fs-body) + 1.5px); }
-    .proof > li:first-child::before { content:""; position:absolute; inset:0 0 auto; height:2px; background:var(--spectrum); }
-    .proof > li > b:first-child { display:block; padding-bottom:var(--s2); font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
-
-    /* 02 experience: a timeline of glass cards */
-    .jobs { position:relative; padding-left:var(--s5); }
-    .jobs::before { content:""; position:absolute; left:11px; top:var(--s4); bottom:var(--s4); width:2px; border-radius:2px;
-      background:linear-gradient(180deg,#7be88f 0%,#36c6e0 35%,#8b7cf0 70%,rgba(139,124,240,0) 100%); opacity:.7; }
-    .job { position:relative; padding:var(--s4); transition:border-color .3s var(--ease-quint),background .3s var(--ease-quint); }
-    .job:hover { border-color:var(--line2); background:rgba(255,255,255,.06); }
-    .job::before { content:""; position:absolute; left:calc(-1 * var(--s5) + 5px); top:30px; width:14px; height:14px; border-radius:50%;
-      background:var(--bg); border:2px solid var(--cyan); box-shadow:0 0 0 4px var(--bg),0 0 14px rgba(94,224,214,.45); }
-    .job:nth-child(-n+2)::before { background:var(--accent); border-color:var(--accent); box-shadow:0 0 0 4px var(--bg),0 0 16px var(--accent-soft); }
-    .job-co { color:var(--text); }
-    .job-role { color:var(--mute); font-weight:500; }
-    .job-role::before { color:var(--faint); }
-    .job-meta { color:var(--mute); border:1px solid var(--line); border-radius:99px; padding:4px 12px; background:rgba(255,255,255,.03); }
-    .job-desc { color:var(--mute); }
-
-    /* 03 + 04 side by side */
-    .half { display:flex; flex-direction:column; }
-    .half > :not(.rs-h) { padding:var(--s4); flex:1; }
-    .edu { gap:var(--s3); }
-    .edu li { flex-direction:column; gap:var(--s1); }
-    .edu .d { order:-1; color:var(--accent-dim); }
-    .caps { font-size:0; display:flex; flex-wrap:wrap; gap:var(--s2); align-content:flex-start; }
-    .caps .c { font-family:var(--mono); font-size:12px; line-height:1.4; color:var(--body2); border:1px solid var(--line); background:rgba(255,255,255,.03); padding:6px 12px; border-radius:99px; }
-
-    /* 05 how I work: three cards */
-    .how { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--s3); }
-    .how li { display:flex; flex-direction:column; gap:var(--s2); padding:var(--s4); }
-    .how li b { font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
-
-    /* 06 beyond */
-    .beyond { color:var(--mute); max-width:72ch; }
-
-    /* reveal: only when motion is welcome and JS ran */
-    .js-rv .rv { opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease-quint) var(--d,0ms),transform .7s var(--ease-quint) var(--d,0ms); }
-    .js-rv .rv.in { opacity:1; transform:none; }
-  }
-  @media screen and (prefers-reduced-motion: reduce) {
-    .rh-title .g { animation:none; }
-    .js-rv .rv { opacity:1; transform:none; transition:none; }
-  }
-  @media screen and (max-width:880px) {
-    .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
-    .sheet > .half { grid-column:1 / -1; }
-  }
-  @media screen and (max-width:700px) {
-    .rh { grid-template-columns:1fr; }
-    .rh-contact { flex-direction:row; flex-wrap:wrap; gap:var(--s1) var(--s3); }
-    .proof { grid-template-columns:1fr; }
-    .how { grid-template-columns:1fr; }
-  }
-  @media screen and (max-width:560px) {
-    .sheet { --pad:0; --fs-body:15px; --fs-lead:16.5px; --g-sheet:var(--s5); --g-sec:var(--s3); }
-    .page { padding-top:var(--s5); }
-    .stats { gap:var(--s2); }
-    .stat { padding:var(--s3); }
-    .sv { font-size:30px; }
-    .sl { font-size:11px; }
-    .lead { padding-left:var(--s3); }
-    .proof > li, .job, .half > :not(.rs-h), .how li { padding:var(--s3); }
-    .proof > li:first-child { font-size:var(--fs-body); }
-    .jobs { padding-left:var(--s4); }
-    .jobs::before { left:5px; }
-    .job::before { left:calc(-1 * var(--s4) - 1px); top:22px; width:12px; height:12px; }
-    .job-meta { border:0; padding:0; background:none; }
-  }
-
   /* ---------- print: Letter, two pages ---------- */
   @page { size:Letter; margin:.5in .55in; }
   @media print {
@@ -355,9 +205,6 @@
     }
     html, body { background:#fff !important; }
     body::before, header.nav, .actions, .see, .see-sep, footer.site { display:none !important; }
-    .scr { display:none !important; }
-    .hero { display:contents; }
-    .rv { transition:none !important; }
     .page { display:block; max-width:none; padding:0; }
     .sheet { max-width:none; box-shadow:none; border-radius:0; background:transparent; }
     .rh { padding-bottom:var(--s3); }
@@ -379,60 +226,47 @@
 
 <header class="nav">
   <div class="nav-in">
-    <a class="brand" href="../index.html" aria-label="Bill Bricker — home">Bill&nbsp;Bricker<span class="caret" aria-hidden="true"></span></a>
+    <a class="brand" href="../../index.html" aria-label="Bill Bricker — home">Bill&nbsp;Bricker<span class="caret" aria-hidden="true"></span></a>
     <nav class="navlinks" aria-label="Primary">
-      <a href="../climb.html">Story</a>
-      <a href="../work.html">Proof</a>
-      <a href="./" class="here" aria-current="page">Résumé</a>
+      <a href="../../climb.html">Story</a>
+      <a href="../../work.html">Proof</a>
+      <a href="../../resume/" class="here">Résumé</a>
       <a href="https://calendly.com/bricker3-idwj/30min" class="cta plausible-event-name=Book" data-cta="book" target="_blank" rel="noopener">Let's talk <span class="ar" aria-hidden="true">→</span></a>
     </nav>
   </div>
 </header>
 
 <main class="page">
+  <div class="actions" role="group" aria-label="Résumé actions">
+    <a class="pill solid" href="../../assets/Bill_Bricker_Resume_2026-09.pdf" download>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg>
+      Download PDF
+    </a>
+    <a class="pill ghost" href="mailto:bricker3@gmail.com?subject=Your%20r%C3%A9sum%C3%A9">Email Bill</a>
+    <a class="pill text push" href="../../work.html">See the proof →</a>
+  </div>
+
   <article class="sheet" aria-label="Résumé">
 
-    <div class="hero">
-      <header class="rh">
-        <div>
-          <h1 class="rh-name">Bill Bricker</h1>
-          <p class="rh-title">Enterprise Sales &amp; Partnerships&nbsp;Leader <span class="x">·</span> <span class="g">3×&nbsp;Founder</span></p>
-        </div>
-        <ul class="rh-contact" aria-label="Contact">
-          <li>Raleigh, NC</li>
-          <li><a href="mailto:bricker3@gmail.com">bricker3@gmail.com</a></li>
-          <li><a href="https://www.linkedin.com/in/williambricker" target="_blank" rel="noopener">linkedin.com/in/williambricker</a></li>
-          <li><a href="https://picklebill.github.io/Brick/">picklebill.github.io/Brick</a></li>
-        </ul>
-      </header>
-      <div class="actions" role="group" aria-label="Résumé actions">
-        <a class="pill solid" href="../assets/Bill_Bricker_Resume_2026-09.pdf" download>
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg>
-          Download PDF
-        </a>
-        <a class="pill ghost" href="mailto:bricker3@gmail.com?subject=Your%20r%C3%A9sum%C3%A9">Email Bill</a>
-        <a class="pill text push" href="../work.html">See the proof →</a>
+    <header class="rh">
+      <div>
+        <h1 class="rh-name">Bill Bricker</h1>
+        <p class="rh-title">Enterprise Sales &amp; Partnerships&nbsp;Leader <span class="x">·</span> 3×&nbsp;Founder</p>
       </div>
-      <div class="hi scr" aria-label="At a glance">
-        <ul class="stats">
-          <li class="stat"><span class="sv">$45M+</span><span class="sl">merchant ad spend through the Google channel</span></li>
-          <li class="stat"><span class="sv">$26M</span><span class="sl">Dreamship peak revenue</span></li>
-          <li class="stat"><span class="sv">11x</span><span class="sl">growth in 2020 ($1.6M&nbsp;→&nbsp;$17M)</span></li>
-          <li class="stat"><span class="sv">40+</span><span class="sl">apps across 31 repos, built &amp; shipped solo</span></li>
-        </ul>
-        <div class="chips">
-          <div class="chip-g"><span class="chip-l">Partners</span><span class="chip on">Google</span><span class="chip">Stripe</span><span class="chip">PayPal</span><span class="chip">Payoneer</span></div>
-          <div class="chip-g"><span class="chip-l">Enterprise</span><span class="chip">IBM</span><span class="chip">McKesson</span><span class="chip">Macy's</span><span class="chip">Nordstrom</span></div>
-        </div>
-    </div>
-    </div>
+      <ul class="rh-contact" aria-label="Contact">
+        <li>Raleigh, NC</li>
+        <li><a href="mailto:bricker3@gmail.com">bricker3@gmail.com</a></li>
+        <li><a href="https://www.linkedin.com/in/williambricker" target="_blank" rel="noopener">linkedin.com/in/williambricker</a></li>
+        <li><a href="https://picklebill.github.io/Brick/">picklebill.github.io/Brick</a></li>
+      </ul>
+    </header>
 
     <p class="lead">Commercial operator who turns complex technology into partnerships, customer adoption and revenue. Experience spans enterprise sales at IBM and WibiData, building Dreamship to <span class="k"><b>$26M</b> peak revenue</span>. <span class="nb">AI-native</span> operator who uses tech as a force multiplier across research, demos, collateral, and product feedback, and recruits <span class="nb">high-leverage</span> teams with no money &amp; no brand. Brings founder-level judgment to <span class="nw">hands-on sales &amp; partnership work.</span></p>
 
     <section class="rs" aria-labelledby="s1">
       <h2 class="rs-h" id="s1"><span class="n">01</span><span class="dot">·</span><span>Selected sales &amp; partnership proof</span></h2>
-      <ul class="bl proof">
-        <li><b>Google:</b> Established a partnership in Dreamship's first year, aligning five internal teams around qualified merchants in an underserved market. The resulting channel supported <span class="k"><b>$45M+</b> in merchant ad spend</span> over more than five&nbsp;years. <a class="see" href="../index.html#google">see it →</a></li>
+      <ul class="bl">
+        <li><b>Google:</b> Established a partnership in Dreamship's first year, aligning five internal teams around qualified merchants in an underserved market. The resulting channel supported <span class="k"><b>$45M+</b> in merchant ad spend</span> over more than five&nbsp;years. <a class="see" href="../../index.html#google">see it →</a></li>
         <li><b>Stripe:</b> Shaped a partnership that gave merchants U.S. payments access, opened new business for Stripe, and supported joint events and Dreamship's brand&nbsp;growth.</li>
         <li><b>Enterprise sales:</b> Sold seven-figure analytics solutions at IBM and contributed to an eight-figure McKesson win; sold technical pilots involving Macy's and Nordstrom at&nbsp;WibiData.</li>
       </ul>
@@ -466,7 +300,7 @@
           <ul class="bl">
             <li>Built and commercialized an AI <span class="nb">smart-court</span> ecosystem across 4 venues, 36 courts, and 760 users, defining a new product category: "TopGolf meets&nbsp;Pickleball."</li>
             <li>Founded the company and led product direction leveraging an <span class="nb">AI-native</span> operating stack (Claude, Codex, Lovable, Gemini) that transformed venue discovery into tailored interactive demos &amp; helped launch AI coaching and a <span class="nb">real-time</span> gamified <span class="nb">on-court</span>&nbsp;experience.</li>
-            <li>Personally built an AI video-analysis workflow that processed more than <span class="k"><b>21,000</b> clips</span>, including 4,097 fully analyzed with Gemini to monetize the "dark data of sports"; one of 40+ apps across 31 repos, <span class="nw">built &amp; shipped solo.</span> <a class="see" href="../work.html#courtana">see it →</a><span class="see-sep" aria-hidden="true"> · </span><a class="see" href="https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html" target="_blank" rel="noopener">the data →</a></li>
+            <li>Personally built an AI video-analysis workflow that processed more than <span class="k"><b>21,000</b> clips</span>, including 4,097 fully analyzed with Gemini to monetize the "dark data of sports"; one of 40+ apps across 31 repos, <span class="nw">built &amp; shipped solo.</span> <a class="see" href="../../work.html#courtana">see it →</a><span class="see-sep" aria-hidden="true"> · </span><a class="see" href="https://picklebill.github.io/pickle-daas-data/dashboards/showcase-portal-v4.html" target="_blank" rel="noopener">the data →</a></li>
           </ul>
         </article>
 
@@ -524,7 +358,7 @@
       </div>
     </section>
 
-    <section class="rs half" aria-labelledby="s3">
+    <section class="rs" aria-labelledby="s3">
       <h2 class="rs-h" id="s3"><span class="n">03</span><span class="dot">·</span><span>Education</span></h2>
       <ul class="edu">
         <li><span><b>MBA, Entrepreneurship, UNC Kenan-Flagler Business School</b> <span class="sub">Carolina Entrepreneurial Fellow</span></span><span class="d">2010–2012</span></li>
@@ -532,9 +366,9 @@
       </ul>
     </section>
 
-    <section class="rs half" aria-labelledby="s4">
+    <section class="rs" aria-labelledby="s4">
       <h2 class="rs-h" id="s4"><span class="n">04</span><span class="dot">·</span><span>Capabilities</span></h2>
-      <p class="caps"><span class="c">Strategic partnerships</span>&nbsp;· <span class="c">business development</span>&nbsp;· <span class="c">enterprise technology sales</span>&nbsp;· <span class="c">market development</span>&nbsp;· <span class="c">partner positioning and joint events</span>&nbsp;· <span class="c">founder-led sales</span>&nbsp;· <span class="c">pilot development</span>&nbsp;· <span class="c">distributed-team leadership</span>&nbsp;· <span class="c">customer discovery</span>&nbsp;· <span class="c">AI-assisted demos and proposals</span>&nbsp;· <span class="c">Claude, Codex, Lovable and&nbsp;Gemini</span></p>
+      <p>Strategic partnerships&nbsp;· business development&nbsp;· enterprise technology sales&nbsp;· market development&nbsp;· partner positioning and joint events&nbsp;· founder-led sales&nbsp;· pilot development&nbsp;· distributed-team leadership&nbsp;· customer discovery&nbsp;· AI-assisted demos and proposals&nbsp;· Claude, Codex, Lovable and&nbsp;Gemini</p>
     </section>
 
     <section class="rs" aria-labelledby="s5">
@@ -556,40 +390,16 @@
 
 <footer class="site">
   <div class="foot-in">
-    <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>designed &amp; shipped solo.</b> · <a class="foot-lab" href="../playground.html">playground</a></span>
+    <span class="foot-tag">Bill Bricker · Raleigh, NC · <b>designed &amp; shipped solo.</b> · <a class="foot-lab" href="../../playground.html">playground</a></span>
     <div class="foot-arch">
-      <a href="../climb.html">Story</a>
-      <a href="../work.html">Proof</a>
-      <a href="./" aria-current="page">Résumé</a>
+      <a href="../../climb.html">Story</a>
+      <a href="../../work.html">Proof</a>
+      <a href="../../resume/">Résumé</a>
       <a href="mailto:bricker3@gmail.com">Email</a>
     </div>
   </div>
 </footer>
 
-<script>
-/* calm reveal + headline count-up; skipped entirely under reduced motion (content is static HTML) */
-(() => {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
-  const els = document.querySelectorAll('.stat, .chips, .lead, .rs-h, .proof > li, .job, .half > :not(.rs-h), .how > li, .beyond');
-  const count = (el) => {
-    const m = el.textContent.match(/^(\D*)(\d+)(.*)$/); if (!m) return;
-    const [, pre, num, post] = m, to = +num, t0 = performance.now(), dur = 1100;
-    const tick = (t) => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 5);
-      el.textContent = pre + Math.round(to * e) + post; if (k < 1) requestAnimationFrame(tick); };
-    requestAnimationFrame(tick);
-  };
-  const io = new IntersectionObserver((es) => es.forEach((e) => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('in'); io.unobserve(e.target);
-    const sv = e.target.querySelector('.sv'); if (sv) count(sv);
-  }), { rootMargin: '0px 0px -6% 0px', threshold: 0.08 });
-  document.documentElement.classList.add('js-rv');
-  els.forEach((el) => {
-    const i = [...el.parentNode.children].indexOf(el);
-    el.classList.add('rv'); el.style.setProperty('--d', (i % 4) * 70 + 'ms'); io.observe(el);
-  });
-})();
-</script>
-<script src="../site-config.js" defer></script>
+<script src="../../site-config.js" defer></script>
 </body>
 </html>
