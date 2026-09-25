@@ -1,9 +1,12 @@
 /* =============================================================================
    <operator-card> — Bill Bricker's identity card, as a Web Component.
 
-   "Operator Card v6.5": a portrait 3:4 foil card holding SIX facets of one
-   operator — Builder · Connector Capital · 3× Father · Vibe Pusher · GTM ·
-   Community. Facets change with an aperture bloom (a circular clip-path wipe
+   "Operator Card v6.5": a portrait 3:4 foil card holding THREE facets of one
+   operator — Builder · Connector Capital · 3× Father (decision O-1,
+   2026-09-25). The six-facet v6.5 that shipped before the Sept 2026 overhaul
+   is frozen at `archive/2026-09-pre-overhaul/operator-card.js` (registered as
+   <operator-card-v65>) and shown beside this one in `playground.html`.
+   Facets change with an aperture bloom (a circular clip-path wipe
    that radiates from the touch origin); a "live wire" of accent light travels
    the border at rest and surges on a flip; pointer / drag / gyro drive tilt +
    parallax across the photo, text, and a violet holographic foil; the card
@@ -22,20 +25,21 @@
 
    Usage:
      <script src="operator-card.js" defer></script>
-     <operator-card start="builder" auto-advance="true"></operator-card>
+     <operator-card start="builder"></operator-card>
 
    Optional attributes (defaults match the v6.5 spec's Tweaks):
      asset-base="assets/"    directory holding the facet photos (default "assets/")
-     start="builder"         facet to open on (builder|payforward|father|dj|gtm|community)
+     start="builder"         facet to open on (builder|payforward|father); an
+                             unknown key (e.g. a retired dj|gtm|community) → builder
      text-density="Medium"   text shown (Full · Medium · Off)
      flip-mode="Tap"         how facets change (Tap · Swipe · Buttons)
      flip-speed="Quick"      bloom duration (Quick · Calm · Luxe)
      parallax="9"            tilt strength 1–10 (→ up to 22° of tilt)
      motion="Auto"           Auto (honor OS reduced-motion) · Full (force on) · Off
-     accent="#6fefb4"        global green accent (facet 4 / DJ overrides to pink)
+     accent="#6fefb4"        global green accent (a facet's own `accent` overrides)
      foil-intensity="1"      holographic foil strength (0–2)
      flip-depth="0.8"        foil-flash punch on a facet change (0–1.4)
-     auto-advance="false"    advance once after entering view ("true" to enable)
+     auto-advance="false"    advance once after entering view (off unless "true")
      tilt="…"                optional hard override of max tilt in degrees
 
    Honors prefers-reduced-motion (static card, instant facet swaps, no float /
@@ -61,9 +65,10 @@
     document.head.appendChild(l);
   }
 
-  // ----- the six facets (v6.5) ------------------------------------------------
+  // ----- the three facets (O-1) ------------------------------------------------
   // `img` is a bare filename, resolved against asset-base at mount. Accent is
-  // green (#6fefb4, the site token) on all facets except DJ, which is pink.
+  // green (#6fefb4, the site token) on every facet. `mid` is an optional line
+  // shown between head and sub at Medium density.
   var FACES = [
     {
       key: "builder", kind: "cover", img: "bb-headshot-li.jpg", pos: "50% 24%",
@@ -79,47 +84,19 @@
     },
     {
       key: "father", kind: "cover", img: "family.jpg", pos: "50% 30%", textPos: "top",
-      head: "3 × Father", sub: "Guess which one matters more", subRole: "aside",
-      full: ["3 × Father", "3 × Founder", "Guess which one matters more"],
-      aria: "Three-time father, three-time founder — guess which one matters more."
-    },
-    {
-      key: "dj", kind: "cover", img: "portrait-sales.jpg", pos: "50% 15%", vibrant: 1, accent: "#ff3fa0",
-      head: "Vibe Pusher", sub: "Social Catalyst", headRole: "grad",
-      full: ["Vibe Pusher", "aka DJ BillyGoat / PickleBill", "Social Catalyst"],
-      aria: "Vibe pusher, also known as DJ BillyGoat or PickleBill — social catalyst."
-    },
-    {
-      key: "gtm", kind: "cover", img: "family-luau.jpg", pos: "50% 26%",
-      head: "GTM Operator", sub: "Closes the room",
-      full: ["GTM Operator", "Closes the room"],
-      aria: "GTM operator — closes the room."
-    },
-    {
-      key: "community", kind: "cover", img: "community-rooftop.jpg", pos: "50% 50%", textPos: "top",
-      head: "Community Curator", sub: "Brings the room together",
-      full: ["Community Curator", "Brings the room together"],
-      aria: "Community curator — brings the room together."
+      head: "3× Father", mid: "3× Founder", sub: "Guess which matters most", subRole: "aside",
+      full: ["3× Father", "3× Founder", "Guess which matters most"],
+      aria: "Three-time father, three-time founder. Guess which matters most."
     }
-  ];
-
-  var EQBARS = [
-    "0s", ".18s", ".05s", ".24s", ".1s", ".3s", ".08s", ".21s", ".14s", ".27s",
-    ".03s", ".16s", ".22s", ".07s", ".25s", ".12s", ".19s", ".29s", ".09s", ".15s"
   ];
 
   // --accent #6fefb4 — the site's real brand green. PORT DECISION (C2 #1): the
   // v6.5 design used #8BE48A; we default to the LIVE token for one consistent
   // global green. One-token change if Bill prefers the design green.
   var ACCENT_DEFAULT = "#6fefb4";
-  var LS_KEY = "opcard_v65_panel";
-
-  // The DJ color-dodge wash + equalizer markup (card-only pink/cyan/amber).
-  var DJ_OVERLAY =
-    '<div class="dj-wash" aria-hidden="true"></div>' +
-    '<div class="dj-eq" aria-hidden="true">' +
-    EQBARS.map(function (d) { return '<i style="animation-delay:' + d + '"></i>'; }).join("") +
-    "</div>";
+  // Stores the facet KEY (not an index) so a retired or reordered facet can't
+  // resolve to the wrong panel. New name: the frozen v6.5 keeps "opcard_v65_panel".
+  var LS_KEY = "opcard_facet";
 
   // Live wire — a resting current that travels the card edge (the v6.5 signature).
   var WIRE_SVG =
@@ -149,9 +126,6 @@
     ".bullets{position:absolute;left:0;right:0;transform:translate(calc(var(--px,0)*14px),calc(var(--py,0)*14px))}",
     ".bcol{display:flex;flex-direction:column;gap:6px;padding-left:16px}",
     ".bcol>div{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.06;letter-spacing:-.015em;text-wrap:pretty}",
-    ".dj-wash{position:absolute;inset:0;pointer-events:none;mix-blend-mode:color-dodge;opacity:.82;background:radial-gradient(120% 80% at 20% 16%,rgba(255,45,155,.72),transparent 52%),radial-gradient(120% 80% at 84% 28%,rgba(54,198,224,.6),transparent 54%),radial-gradient(90% 72% at 60% 98%,rgba(255,176,80,.5),transparent 60%)}",
-    ".dj-eq{position:absolute;left:24px;right:24px;bottom:176px;height:50px;display:flex;align-items:flex-end;gap:4px;opacity:.96;filter:drop-shadow(0 0 10px rgba(255,79,160,.5))}",
-    ".dj-eq i{flex:1;height:100%;border-radius:2px;background:linear-gradient(180deg,#ff4fa0,#ffb050 55%,#5ee0d6);transform-origin:bottom;animation:v6Beat .7s ease-in-out infinite}",
     ".incoming{position:absolute;inset:0;display:none}",
     ".incoming.on{display:block}",
     ".clip{position:absolute;inset:0}",
@@ -167,10 +141,9 @@
     ".rail span{height:7px;border-radius:50%;cursor:pointer;transition:all .4s ease}",
     "@keyframes v6Aura{0%,100%{transform:translate(-50%,-50%) translate(-3%,-2%) scale(1)}50%{transform:translate(-50%,-50%) translate(4%,3%) scale(1.14)}}",
     "@keyframes v6Edge{0%,100%{opacity:.1}50%{opacity:.4}}",
-    "@keyframes v6Beat{0%,100%{transform:scaleY(.2)}45%{transform:scaleY(1)}72%{transform:scaleY(.5)}}",
     "@keyframes v6Radiate{0%{opacity:0;transform:translate(-50%,-50%) scale(.18)}16%{opacity:.95}46%{opacity:.26}62%{opacity:.5}100%{opacity:0;transform:translate(-50%,-50%) scale(11)}}",
     "@keyframes v6Sheen{0%{background-position:210% 0;opacity:.24}50%{background-position:-30% 0;opacity:.5}100%{background-position:-230% 0;opacity:.24}}",
-    "@media (prefers-reduced-motion: reduce){.aura,.sheen,.dj-eq i,.edges span{animation:none !important}}"
+    "@media (prefers-reduced-motion: reduce){.aura,.sheen,.edges span{animation:none !important}}"
   ].join("\n");
 
   function hexA(hex, a) {
@@ -202,14 +175,13 @@
       this.osReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
       this.coarse = matchMedia("(pointer: coarse)").matches;
 
-      // ---- starting facet: localStorage > start attr > 0 ---------------------
+      // ---- starting facet: localStorage > start attr > 0 (builder) -----------
+      // Any key that no longer exists (dj / gtm / community) falls through.
+      function keyIdx(k) { return k ? FACES.findIndex(function (f) { return f.key === k; }) : -1; }
       var saved = -1;
-      try { var v = parseInt(localStorage.getItem(LS_KEY), 10); if (v >= 0 && v < FACES.length) saved = v; } catch (e) {}
-      if (saved < 0) {
-        var startKey = this.getAttribute("start");
-        var si = startKey ? FACES.findIndex(function (f) { return f.key === startKey; }) : 0;
-        saved = si >= 0 ? si : 0;
-      }
+      try { saved = keyIdx(localStorage.getItem(LS_KEY)); } catch (e) {}
+      if (saved < 0) saved = keyIdx(this.getAttribute("start"));
+      if (saved < 0) saved = 0;
       this.cur = saved;
       this.next = null;
       this.phase = "idle"; // idle | arm | go
@@ -423,8 +395,9 @@
           return { t: t, style: self.styleFor(role, acc) };
         });
       }
-      // Medium = headline + one-liner under
+      // Medium = headline (+ optional mid line) + one-liner under
       var out = [{ t: f.head, style: this.styleFor(f.headRole || "head", acc) }];
+      if (f.mid) out.push({ t: f.mid, style: this.styleFor("mid", acc) });
       if (f.sub) out.push({ t: f.sub, style: this.styleFor(f.subRole || "mid", acc) });
       return out;
     }
@@ -452,7 +425,7 @@
       return {
         wrapStyle: wrapStyle, backdropStyle: backdropStyle, imgStyle: imgStyle,
         scrimStyle: scrimStyle, bulletsBox: bulletsBox, bullets: bullets,
-        showText: bullets.length > 0, isDj: !!f.vibrant, accentBorder: hexA(acc, 0.55)
+        showText: bullets.length > 0, accentBorder: hexA(acc, 0.55)
       };
     }
 
@@ -465,7 +438,6 @@
           '<div class="img" aria-hidden="true" style="' + d.imgStyle + '"></div>' +
         "</div>" +
         '<div class="scrim" aria-hidden="true" style="' + d.scrimStyle + '"></div>' +
-        (d.isDj ? DJ_OVERLAY : "") +
         (d.showText
           ? '<div class="bullets" style="' + d.bulletsBox + '"><div class="bcol" style="border-left:2px solid ' + d.accentBorder + '">' + bullets + "</div></div>"
           : "")
@@ -502,7 +474,7 @@
       });
     }
 
-    persist(i) { try { localStorage.setItem(LS_KEY, String(i)); } catch (e) {} }
+    persist(i) { try { localStorage.setItem(LS_KEY, FACES[i].key); } catch (e) {} }
 
     // ---- facet change: aperture bloom ----------------------------------------
     go(dir, target, ox, oy) {
