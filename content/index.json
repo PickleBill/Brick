@@ -1,9 +1,7 @@
 {
-  "description": "Corpus manifest for the bricker-os LLM terminal. The ask-bill edge function (vibeco Supabase) fetches this list and builds its system prompt from these files. Order = priority.",
+  "description": "Corpus manifest for the bricker-os LLM terminal. The ask-bill edge function (vibeco Supabase) fetches this list and builds its system prompt from these files. Order = priority. content/ledger.json is the Sept 2026 signed-off ledger (from _source/facts.md). content/FACTS.md and content/stories/*.md are held out until they are refreshed to that ledger: they still carry retired facts and private details.",
   "files": [
-    "source/content.json",
-    "content/FACTS.md",
-    "content/stories/the-bridge.md",
-    "content/stories/the-google-deal.md"
+    "content/ledger.json",
+    "content/content.json"
   ]
 }
