@@ -4,6 +4,28 @@
 > `_source/facts.md`. Nothing here is acted on a surface until Bill signs off (Rule 3 + the
 > "do not silently pick" rule). Resolved decisions move to the bottom with a date.
 
+## ⏳ Open — Sept 2026 overhaul (blocking; details + recommendations in `_source/overhaul-2026-09.md` §3 and §5)
+> Source of the conflicts: Bill's Sep 21 résumé (snapshot `_source/resume-2026-09-21.md`) vs this ledger.
+> Nothing below touches a surface until Bill signs off.
+
+| # | Item | Ledger today | Sep 21 résumé |
+|---|------|--------------|---------------|
+| F-1 | Google teams + sign-off | VP-level · 5–6 teams | five teams, no VP |
+| F-2 | Google framing | "closed Google as a partner" | "established a partnership" |
+| F-3 | Dreamship dates | CEO 2018–Sep 2023 · Chair Sep 2023–present | CEO 2018–2024 · Chair 2024–2026 |
+| F-4 | Courtana dates + status | 2023–present · "live" | 2024–2026 · courtana.com down |
+| F-5 | IBM title | Watson Analytics & Netezza Brand Specialist | Watson Foundations Account Executive |
+| F-6 | Northwestern Mutual | $6M+ TCV · 150+ accounts | $8M TCV · 185 accounts (line garbled in Doc) |
+| F-7 | $150K · 3 versions · Ukraine & Nigeria | Dreamship | IntroStellar |
+| F-8 | Partners named | + Meta, Adobe, Microsoft/Bing | Google, Stripe, PayPal, Payoneer only |
+| F-9 | Site numbers absent from résumé | 11x, GMV, units, CAGR, EBITDA, $2.2M, 40+ apps | none |
+| F-10 | Pledge 1% | — | ~1,200 → 2,100+ orgs |
+| F-11 | New facts to add | — | Stripe detail · GearLaunch 13 · Freedom United board · "TopGolf meets Pickleball" · Vietnamese merchant market |
+| O-1 | Hero card photos | 6, auto-rotate | rec: 3 (builder · father · pay it forward), no auto-rotate |
+| O-2 | Résumé page look + nav | footer-only, `resume-v2.html` | rec: new `resume/` paper sheet, Résumé in top nav |
+| O-3 | Home declutter | 7 sections | rec: fold constellation into Google; drop inline email form |
+| O-4 | Privacy | whole repo published by Pages | rec: stop publishing working docs; scrub private raise figure |
+
 ## ⏳ Open — minor / story-level (not blocking the front door)
 | # | Item | Notes |
 |---|------|-------|

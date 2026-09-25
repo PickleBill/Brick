@@ -38,6 +38,7 @@ Part of the **Courtana organization** ecosystem (see sibling repos: `vibeco`, `p
 - `_source/spec.md` — the site spec every render check verifies against.
 - `_source/decisions.md` — decision log; conflicting facts get logged here for sign-off.
 - `_source/grader.md` — grading rubric for the site.
+- `_source/overhaul-2026-09.md` — the Sept 2026 overhaul plan: facts to reconcile against the new résumé (`_source/resume-2026-09-21.md`), target site, parallel workstreams + agent briefs. Read before any overhaul work.
 - `HANDOFF.md` — session pickup doc. `PLAN.md` / `PRODUCT.md` / `DESIGN.md` / `BUILD-LOG.md` — the v2 build brief, product register, design system, and build log.
 - `ROADMAP.md` — product vision, phased plan, open decisions.
 - `INTERVIEW.md` — the corpus-extraction interview. Sessions act as interviewer; answers become `content/stories/`.
