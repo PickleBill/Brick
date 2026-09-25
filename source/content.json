@@ -4,7 +4,6 @@
     "name": "Bill Bricker",
     "location": "Raleigh, NC",
     "email": "bricker3@gmail.com",
-    "phone": "908-601-8152",
     "linkedin": "https://linkedin.com/in/williambricker",
     "personal_site": "this portfolio (The Climb)",
     "positioning": "AI-native founder \u00b7 zero-to-one builder \u00b7 GTM operator \u00b7 connector. Father of three. Still walking.",
@@ -14,9 +13,9 @@
   "operating_companies": [
     {
       "name": "Courtana",
-      "url": "https://courtana.com",
-      "role": "Founder / CEO (2023\u2013now)",
-      "note": "AI smart-court SaaS; 36 courts live/piloting; $350K raised; 44-court LOI; 11+ sports"
+      "url": "https://picklebill.github.io/Brick/work.html#courtana",
+      "role": "Founder / CEO (2024\u20132026)",
+      "note": "AI smart-court platform (2024\u20132026); built across 4 venues, 36 courts, 760 users"
     },
     {
       "name": "Dreamship",
@@ -67,8 +66,8 @@
       "id": "courtana",
       "year": "2023+",
       "title": "Courtana",
-      "fact": "$350K, 36 courts, 44-court LOI",
-      "link": "https://courtana.com"
+      "fact": "4 venues, 36 courts, 760 users",
+      "link": "https://picklebill.github.io/Brick/work.html#courtana"
     },
     {
       "id": "manifesto",

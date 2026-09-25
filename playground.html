@@ -23,7 +23,8 @@
     --ease:cubic-bezier(.22,.61,.36,1);
   }
   * { box-sizing:border-box; margin:0; padding:0; }
-  html { scroll-behavior:smooth; }
+  html { scroll-behavior:smooth; overflow-x:clip; }
+  .home { font-family:var(--mono); font-size:12px; color:var(--mute); text-decoration:underline; text-underline-offset:3px; }
   body { background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden; min-height:100vh; }
   ::selection { background:var(--accent); color:#08090a; }
   a { color:inherit; text-decoration:none; }
@@ -51,6 +52,10 @@
   .concept-note { color:var(--mute); font-size:14px; max-width:62ch; }
   .stage { display:flex; justify-content:center; }
   .stage operator-card-cube { width:min(380px,86vw); }
+  .stage operator-card, .stage operator-card-v65 { width:min(360px,86vw); }
+  .pair { display:grid; gap:var(--s5); grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); align-items:start; }
+  .pair figure { margin:0; display:grid; gap:var(--s3); justify-items:center; }
+  .pair figcaption { font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); }
 
   @media (max-width:560px){ .wrap { padding:var(--s5) var(--s3) var(--s6); } }
 </style>
@@ -60,12 +65,31 @@
 
 <main class="wrap">
   <header>
+    <p><a class="home" href="index.html">← back to the site</a></p>
     <p class="eyebrow">Internal · not in nav</p>
     <h1>Playground — design concepts</h1>
     <p class="sub">A parking lot for hero / identity-card concepts. Each one is frozen here exactly as it shipped, so concepts can be swapped in and out of the home hero without losing the old ones.</p>
   </header>
 
   <div class="concepts">
+    <section class="concept" aria-labelledby="c-v65">
+      <div class="concept-head">
+        <h2 id="c-v65">Operator Card: before vs now</h2>
+        <span class="tag">Sept 2026 overhaul</span>
+      </div>
+      <p class="concept-note">Left: v6.5 exactly as it shipped on the home hero before the Sept 2026 overhaul (six facets, auto-advance), frozen in <code>archive/2026-09-pre-overhaul/operator-card.js</code>. Right: the live <code>operator-card.js</code>, i.e. whatever the home hero runs today.</p>
+      <div class="pair">
+        <figure>
+          <div class="stage"><operator-card-v65 asset-base="assets/" start="builder" auto-advance="true"></operator-card-v65></div>
+          <figcaption>Before · v6.5 · 6 facets</figcaption>
+        </figure>
+        <figure>
+          <div class="stage"><operator-card asset-base="assets/" start="builder"></operator-card></div>
+          <figcaption>Now · live home hero</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section class="concept" aria-labelledby="c-cube">
       <div class="concept-head">
         <h2 id="c-cube">Operator Card — v4 cube</h2>
@@ -80,5 +104,7 @@
 </main>
 
 <script src="operator-card-cube.js" defer></script>
+<script src="archive/2026-09-pre-overhaul/operator-card.js" defer></script>
+<script src="operator-card.js" defer></script>
 </body>
 </html>

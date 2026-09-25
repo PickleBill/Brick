@@ -4,15 +4,17 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Bill Bricker — AI-Forward Sales &amp; Partnerships Leader.</title>
-<meta name="description" content="Bill Bricker — AI-Forward Sales & Partnerships Leader. I close the deals the biggest names in tech say yes to. Founded Dreamship, closed Google as a partner in year one — a $45M+ ad-spend channel — and led the company to $35M+ peak revenue. Then I built the AI workflows behind the selling — 40+ apps, solo." />
+<meta name="description" content="Bill Bricker, AI-Forward Sales & Partnerships Leader. I close the deals the biggest names in tech say yes to. Founded Dreamship and closed Google as a partner in year one, opening a channel that drove $45M+ in partner ad spend, then led the company to $26M peak revenue. I also build the AI behind the selling: 40+ apps across 31 repos, built & shipped solo." />
 <meta property="og:title" content="Bill Bricker — AI-Forward Sales &amp; Partnerships Leader." />
-<meta property="og:description" content="I close the deals the biggest names in tech say yes to. Founded Dreamship, closed Google as a partner in year one — opening a $45M+ ad-spend channel — and led it to $35M+ peak revenue. Then I built the AI workflows behind the selling." />
+<meta property="og:description" content="I close the deals the biggest names in tech say yes to. Founded Dreamship and closed Google as a partner in year one, opening a channel that drove $45M+ in partner ad spend, then led the company to $26M peak revenue. I also build the AI behind the selling." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://picklebill.github.io/Brick/" />
-<meta property="og:image" content="https://picklebill.github.io/Brick/assets/og-card.png" />
+<meta property="og:image" content="https://picklebill.github.io/Brick/assets/og-card-2026-09.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Bill Bricker — AI-Forward Sales &amp; Partnerships Leader." />
+<meta name="twitter:description" content="I close the deals the biggest names in tech say yes to. Closed Google as a partner in year one: a channel that drove $45M+ in partner ad spend. Then led Dreamship to $26M peak revenue." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -21,7 +23,7 @@
     --bg:#08090a; --bg2:#0d0f11;
     --glass:rgba(255,255,255,.045); --glass2:rgba(255,255,255,.026);
     --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.17);
-    --text:#f4f2ec; --mute:#9aa0a3; --faint:#6a7178;
+    --text:#f4f2ec; --mute:#9aa0a3; --faint:#80878d;
     --sage:#6fefb4; --sage-dim:#4cc890; --cyan:#5ee0d6; --teal:#3fd6c8;
     --violet:#a78bfa; --purple:#b18bff; --coral:#ff8a5c; --amber:#ffb454; --cream:#f3ecdc; --term:#d8ddd6;
     --accent:#6fefb4; --accent-dim:#4cc890; --accent-soft:rgba(111,239,180,.5);
@@ -33,14 +35,14 @@
     --display:'Bricolage Grotesque',system-ui,sans-serif;
     --body:'Hanken Grotesk',system-ui,sans-serif;
     --mono:'JetBrains Mono',ui-monospace,monospace;
-    --radius:22px; --blur:20px; --maxw:1140px; --sp:1;
+    --radius:22px; --blur:20px; --maxw:1140px; --sp:1; --fs-h1:clamp(34px,4.8vw,56px); --fs-h2:clamp(26px,3.4vw,40px); --fs-h3:clamp(20px,2.2vw,28px);
     --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:64px; --s7:96px;
     --ease:cubic-bezier(.22,.61,.36,1);
     --ease-quint:cubic-bezier(.22,1,.36,1);   /* snappy, decisive */
     --ease-expo:cubic-bezier(.16,1,.3,1);     /* confident, premium */
   }
   * { box-sizing:border-box; margin:0; padding:0; }
-  html { scroll-behavior:smooth; }
+  html { scroll-behavior:smooth; overflow-x:clip; }
   body { background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   ::selection { background:var(--accent); color:#08090a; }
   a { color:inherit; text-decoration:none; }
@@ -86,9 +88,13 @@
   .navlinks a.cta:hover { background:#fff; }
   @media (max-width:560px){
     .nav-in { padding:11px 16px; gap:8px; }
-    .navlinks { gap:1px; font-size:11.5px; }
-    .navlinks a { padding:7px 8px; }
+    .brand { font-size:13px; }
+    .navlinks { gap:1px; font-size:11px; }
+    .navlinks a { padding:7px 6px; }
   }
+  /* four nav items at phone width: drop the decorative caret, then (≤370px) the CTA arrow */
+  @media (max-width:400px){ .brand .caret { display:none; } .navlinks { gap:0; } .navlinks a { padding:7px 5px; } .navlinks a.cta { padding:7px 7px; } }
+  @media (max-width:370px){ .navlinks a.cta .ar { display:none; } }
 
   /* ---------- right-side scroll-spy ---------- */
   .spy { position:fixed; top:50%; right:18px; transform:translateY(-50%); z-index:50; display:flex; flex-direction:column; gap:3px; padding:9px; background:rgba(8,9,10,.6); border:1px solid var(--line); border-radius:13px; backdrop-filter:blur(14px); }
@@ -99,18 +105,18 @@
   .spy a.on { background:rgba(111,239,180,.08); border-color:rgba(111,239,180,.22); }
   .spy a.on .sn { color:var(--accent); }
   .spy a.on .st { color:var(--text); opacity:1; max-width:120px; }
-  @media (max-width:1040px){ .spy{ display:none; } }
+  @media (max-width:1365px){ .spy{ display:none; } }
 
   /* ---------- hero ---------- */
-  .hero { padding:56px 0 22px; }
-  .hero-grid { display:grid; grid-template-columns:.82fr 1.18fr; gap:52px; align-items:center; }
+  .hero { padding:var(--s5) 0 0; }
+  .hero-grid { display:grid; grid-template-columns:.82fr 1.18fr; gap:var(--s6); align-items:center; }
   @media (max-width:940px){ .hero-grid{ grid-template-columns:1fr; gap:24px; } .hero-copy{ order:-1; } }
-  @media (max-width:560px){ .hero{ padding:26px 0 14px; } h1.head{ font-size:clamp(31px,8.6vw,42px); margin-top:12px; } .lede{ font-size:16.5px; margin-top:13px; max-width:none; } .hero-cta{ margin-top:16px; } .hero-grid{ gap:16px; } }
+  @media (max-width:560px){ .hero{ padding:26px 0 0; } h1.head{ font-size:clamp(31px,8.6vw,42px); margin-top:12px; } .lede{ font-size:16.5px; margin-top:13px; max-width:none; } .hero-cta{ margin-top:16px; } .hero-grid{ gap:16px; } }
   .avail { display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-dim); }
   .avail i { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 0 var(--accent-soft); animation:pulse 2.1s infinite; }
   @keyframes pulse { 0%{box-shadow:0 0 0 0 var(--accent-soft)} 70%{box-shadow:0 0 0 8px transparent} 100%{box-shadow:0 0 0 0 transparent} }
   @media (prefers-reduced-motion: reduce){ .avail i{ animation:none; } }
-  h1.head { font-family:var(--display); font-weight:800; font-size:clamp(31px,4.4vw,50px); line-height:1.02; letter-spacing:-.035em; margin:16px 0 0; max-width:21ch; text-wrap:balance; }
+  h1.head { font-family:var(--display); font-weight:800; font-size:var(--fs-h1); line-height:1.02; letter-spacing:-.035em; margin:16px 0 0; max-width:21ch; text-wrap:balance; }
   .lede { font-size:clamp(17px,2vw,21px); color:var(--text); line-height:1.5; margin-top:20px; max-width:39ch; font-weight:500; }
   .lede b { font-weight:700; }
   .lede .g { color:var(--accent); font-weight:700; }
@@ -247,23 +253,47 @@
   }
 
   /* ---------- google deal card ---------- */
-  .gdeal { display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center; border:1px solid var(--line2); border-radius:var(--radius); background:linear-gradient(180deg,var(--glass),var(--glass2)); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur)); padding:32px 36px; box-shadow:0 40px 90px -50px rgba(0,0,0,.85); }
-  @media (max-width:780px){ .gdeal{ grid-template-columns:1fr; gap:22px; padding:26px 22px; } }
-  .gdeal-copy h2 { font-family:var(--display); font-size:clamp(26px,3.6vw,40px); font-weight:700; letter-spacing:-.03em; line-height:1.05; margin:12px 0 0; }
-  @media (max-width:560px){ .gdeal-copy h2{ font-size:20px; letter-spacing:-.02em; } }
+  .gdeal { display:grid; grid-template-columns:1.1fr .9fr; gap:var(--s5); align-items:center; border:1px solid var(--line2); border-radius:var(--radius); background:linear-gradient(180deg,var(--glass),var(--glass2)); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur)); padding:var(--s5); box-shadow:0 40px 90px -50px rgba(0,0,0,.85); }
+  @media (max-width:780px){ .gdeal{ grid-template-columns:1fr; gap:var(--s4); padding:var(--s4); } }
+  .gdeal-copy h2 { font-family:var(--display); font-size:var(--fs-h2); font-weight:700; letter-spacing:-.03em; line-height:1.05; margin:12px 0 0; text-wrap:balance; }
   .gdeal-copy p { color:var(--mute); font-size:15.5px; line-height:1.6; margin-top:14px; max-width:48ch; }
   .gdeal-copy p b { color:var(--text); font-weight:600; }
   .gdeal-copy .e-go { margin-top:18px; }
-  .gdeal-stats { display:grid; grid-template-columns:1fr 1fr; gap:20px 22px; }
-  .gstat { display:flex; flex-direction:column; gap:5px; }
+  /* three stats: the channel number leads on its own row, so $45M+ ad spend never sits beside $26M revenue */
+  .gdeal-stats { display:grid; grid-template-columns:1fr 1fr; gap:var(--s4); }
+  .gstat { display:flex; flex-direction:column; gap:var(--s1); }
+  .gstat.lead { grid-column:1/-1; padding-bottom:var(--s4); border-bottom:1px solid var(--line); }
   .gstat .gn { font-family:var(--display); font-weight:800; font-size:clamp(23px,2.7vw,31px); letter-spacing:-.03em; color:var(--sage); line-height:1; }
+  .gstat.lead .gn { font-size:clamp(34px,4.2vw,48px); }
   .gstat .gk { font-family:var(--mono); font-size:10px; letter-spacing:.03em; color:var(--mute); text-transform:uppercase; line-height:1.45; }
   .gstat .gk em { color:var(--coral); font-style:normal; }
 
-
-  /* ---------- the names: partner constellation ---------- */
-  .constellation { position:relative; margin-top:30px; min-height:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px; padding:26px 0; overflow:hidden; }
-  .constel-stack { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:30px; width:100%; }
+  /* the names: one quiet row of logos inside the Google card (the flywheel, folded in). No motion. */
+  .gnames { grid-column:1/-1; display:flex; flex-direction:column; gap:var(--s3); padding-top:var(--s4); border-top:1px solid var(--line); }
+  /* ---------- proof: two cards, simplified from work.html (Courtana + Dreamship) ---------- */
+  .pw { display:grid; grid-template-columns:1fr 1fr; gap:var(--s4); margin-top:var(--s5); align-items:stretch; }
+  .pw-card { display:flex; flex-direction:column; border:1px solid var(--line); border-radius:var(--radius); background:var(--glass); overflow:hidden; transition:border-color .18s, transform .18s; }
+  a.pw-card:hover { border-color:var(--line2); transform:translateY(-2px); }
+  .pw-vid, .pw-thumb { position:relative; display:block; margin:0; aspect-ratio:16/9; background:#050607; border-bottom:1px solid var(--line); overflow:hidden; }
+  .pw-vid video, .pw-thumb img { display:block; width:100%; height:100%; object-fit:cover; object-position:top center; }
+  .pw-tag { position:absolute; left:var(--s3); top:var(--s3); font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--text); background:rgba(8,9,10,.62); border:1px solid var(--line2); padding:5px 10px; border-radius:99px; backdrop-filter:blur(8px); }
+  .pw-body { display:flex; flex-direction:column; gap:var(--s3); padding:var(--s4); flex:1; }
+  .pw-top { display:flex; align-items:center; justify-content:space-between; gap:var(--s2); }
+  .pw-k { font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--mute); border:1px solid var(--line); padding:4px 9px; border-radius:99px; }
+  .pw-yr { font-family:var(--mono); font-size:11px; color:var(--mute); }
+  .pw-body h3 { font-family:var(--display); font-weight:800; font-size:var(--fs-h3); letter-spacing:-.03em; line-height:1.05; }
+  .pw-body p { font-size:15px; color:var(--mute); line-height:1.55; text-wrap:pretty; }
+  .pw-body p b { color:var(--text); font-weight:600; }
+  .pw-kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s2); }
+  .pw-kpis div { border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.03); padding:var(--s2) var(--s3); display:flex; flex-direction:column; gap:2px; }
+  .pw-kpis b { font-family:var(--display); font-weight:800; font-size:19px; letter-spacing:-.02em; color:var(--text); }
+  .pw-kpis span { font-size:11.5px; color:var(--mute); line-height:1.3; }
+  .pw-go { margin-top:auto; font-family:var(--mono); font-size:12px; font-weight:600; color:var(--accent); }
+  @media (max-width:860px){ .pw { grid-template-columns:1fr; } }
+  @media (max-width:560px){ .pw-tag { display:none; } .pw-kpis { grid-template-columns:1fr; } .pw-kpis div { flex-direction:row; align-items:baseline; gap:var(--s2); } }
+  /* ---------- logo constellation (restored from the pre-overhaul flywheel section, compacted into the deal card) ---------- */
+  .constellation { position:relative; margin-top:0; min-height:150px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--s4); padding:var(--s3) 0 var(--s2); overflow:hidden; }
+  .constel-stack { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:var(--s4); width:100%; }
   .constel-group { display:flex; flex-direction:column; align-items:center; gap:14px; }
   .constel-lab { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent-dim); }
   .constel-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; }
@@ -278,12 +308,12 @@
   .constel-logos { position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px 38px; max-width:760px; }
   .star { position:relative; display:inline-flex; align-items:center; justify-content:center; animation:starfloat 7s ease-in-out infinite; animation-delay:var(--d,0s); }
   .star::before { content:""; position:absolute; inset:-16px; border-radius:50%; background:radial-gradient(circle,rgba(111,239,180,.12),transparent 70%); opacity:0; transition:opacity .3s var(--ease-quint),transform .3s var(--ease-quint); }
-  .star img { height:27px; width:auto; max-width:108px; object-fit:contain; filter:brightness(0) invert(.86); opacity:.8; transition:filter .25s var(--ease-quint),opacity .25s var(--ease-quint),transform .3s var(--ease-quint); }
+  .star img { height:24px; width:auto; max-width:108px; object-fit:contain; filter:brightness(0) invert(.86); opacity:.8; transition:filter .25s var(--ease-quint),opacity .25s var(--ease-quint),transform .3s var(--ease-quint); }
   .star:hover img, .star:focus-visible img { opacity:1; filter:brightness(0) invert(1); transform:scale(1.07); }
   .star:hover::before, .star:focus-visible::before { opacity:1; transform:scale(1.12); }
   .star.wm { font-family:var(--display); font-weight:700; font-size:22px; letter-spacing:-.012em; color:var(--faint); transition:color .25s var(--ease-quint),transform .3s var(--ease-quint); }
   .star.wm:hover, .star.wm:focus-visible { color:var(--text); transform:scale(1.05); }
-  .star.anchor img { height:46px; opacity:1; filter:brightness(0) invert(1); }
+  .star.anchor img { height:38px; opacity:1; filter:brightness(0) invert(1); }
   .star.anchor::before { background:radial-gradient(circle,rgba(91,232,160,.20),transparent 68%); opacity:1; }
   @keyframes starfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
   @media (max-width:560px){ .constellation{ min-height:0; padding:16px 0; } .constel-logos{ gap:15px 22px; max-width:320px; } .star img{ height:22px; } .star.anchor img{ height:30px; } .star.wm{ font-size:18px; } .star{ animation:none; } .constel-lines{ opacity:.45; } }
@@ -292,19 +322,34 @@
     .constel-lines .nodes{ opacity:.5; transition:none; }
     .star:hover img, .star:focus-visible img, .star.wm:hover, .star.wm:focus-visible{ transform:none; }
     .star:hover::before, .star:focus-visible::before{ transform:none; } }
+  .gnames-lead { font-size:15px; color:var(--text); font-weight:600; }
+  .gnames-row { display:grid; grid-template-columns:168px 1fr; gap:var(--s2) var(--s4); align-items:center; }
+  .gnames-lab { font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-dim); }
+  .gnames-logos { list-style:none; display:flex; flex-wrap:wrap; align-items:center; gap:var(--s2) var(--s4); }
+  .gnames-logos li { display:inline-flex; align-items:center; gap:var(--s2); font-family:var(--mono); font-size:12.5px; line-height:16px; color:var(--mute); white-space:nowrap; }
+  .gnames-logos img { width:15px; height:15px; object-fit:contain; filter:brightness(0) invert(.86); opacity:.8; }
+  @media (max-width:780px){
+    .gnames-row { grid-template-columns:1fr; }
+    .gnames-logos { gap:var(--s2) var(--s3); }
+    .gnames-logos li { font-size:12px; }
+  }
 
   /* ---------- section heads ---------- */
-  section.block { padding:var(--s7) 0 0; }
-  .sec-head { max-width:62ch; }
-  .sec-head h2 { font-family:var(--display); font-size:clamp(27px,4vw,42px); font-weight:700; letter-spacing:-.03em; line-height:1.04; margin:13px 0 0; text-wrap:balance; }
+  section.block { padding:var(--s6) 0 0; }
+  @media (max-width:560px){ section.block{ padding-top:var(--s5); } .hero-card operator-card{ display:block; max-width:280px; margin-inline:auto; } .avail{ display:block; text-wrap:balance; letter-spacing:.08em; } .hero-cta .pill{ flex:1 1 100%; justify-content:center; } }
+  @media (pointer:coarse){ .navlinks a{ min-height:44px; display:inline-flex; align-items:center; } .chip{ min-height:40px; } .foot-arch a{ padding:12px 14px; } }
+
+  .sec-head { max-width:62ch; display:flex; flex-direction:column; gap:var(--s3); }
+  .sec-head > * { margin-top:0 !important; }
+  .sec-head h2 { font-family:var(--display); font-size:var(--fs-h2); font-weight:700; letter-spacing:-.03em; line-height:1.04; margin:13px 0 0; text-wrap:balance; }
+  .sec-head h2:first-child { margin-top:0; }
   .sec-head p { color:var(--mute); font-size:16px; line-height:1.6; margin-top:11px; }
   .sec-head p em { color:var(--text); font-style:normal; font-weight:600; }
 
   /* ---------- terminal ---------- */
-  .interface-grid { display:grid; grid-template-columns:0.82fr 1.18fr; gap:48px; align-items:center; margin-top:36px; }
+  .interface-grid { display:grid; grid-template-columns:0.82fr 1.18fr; gap:var(--s5); align-items:center; }
   .interface-grid > * { min-width:0; }
   .interface-grid .sec-head { max-width:46ch; }
-  .interface-grid .sec-head h2 { font-size:clamp(26px,2.4vw,33px); }
   @media (max-width:940px){ .interface-grid { grid-template-columns:1fr; gap:26px; } .interface-grid .sec-head{ max-width:62ch; } }
   .term { background:#0a0c0d; border:1px solid var(--line2); border-radius:16px; overflow:hidden; box-shadow:0 34px 80px -44px rgba(0,0,0,.85); }
   .term-bar { display:flex; align-items:center; gap:8px; padding:12px 15px; border-bottom:1px solid var(--line); background:rgba(255,255,255,.02); }
@@ -338,6 +383,7 @@
   .cmds { margin-top:15px; display:flex; flex-direction:column; gap:9px; }
   .cmdrow { display:flex; flex-wrap:nowrap; align-items:center; gap:7px; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -ms-overflow-style:none; scroll-behavior:smooth; padding:1px 0; }
   .cmdrow::-webkit-scrollbar { display:none; }
+  .cmdrow { -webkit-mask-image:linear-gradient(90deg,#000 88%,transparent); mask-image:linear-gradient(90deg,#000 88%,transparent); }
   .cmdrow > .chip { flex:0 0 auto; }
   .rowlbl { font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; padding:3px 0; margin-right:3px; }
   .rowlbl.green { color:var(--accent); } .rowlbl.orange { color:var(--amber); } .rowlbl.wild { color:var(--violet); }
@@ -351,29 +397,6 @@
   .cmdrow.wild .chip:hover, .cmdrow.wild .chip:focus-visible { border-color:var(--violet); box-shadow:0 0 0 1px rgba(167,139,250,.22); } .cmdrow.wild .chip .s { color:var(--violet); }
   .cmdrow.wild .chip { border-color:rgba(167,139,250,.28); }
   @media (prefers-reduced-motion: reduce){ .chip,.chip:hover,.chip:focus-visible,.chip:active{ transform:none; transition:none; } }
-
-  /* ---------- side-by-side operating companies ---------- */
-  .opco-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:34px; }
-  @media (max-width:780px){ .opco-grid{ grid-template-columns:1fr; } }
-  .opco { display:block; border:1px solid var(--line); border-radius:var(--radius); background:var(--glass); backdrop-filter:blur(var(--blur)); overflow:hidden; transition:transform .32s var(--ease-quint),border-color .32s var(--ease-quint),box-shadow .32s var(--ease-quint); }
-  .opco:hover, .opco:focus-visible { transform:translateY(-4px); border-color:var(--line2); box-shadow:0 30px 70px -46px rgba(0,0,0,.85); }
-  .opco .oshot { position:relative; aspect-ratio:16/9; overflow:hidden; border-bottom:1px solid var(--line); background:linear-gradient(135deg,#15171b,#0d0f12); }
-  .opco .oshot img, .opco .oshot video { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .6s var(--ease-expo); }
-  .opco:hover .oshot img, .opco:focus-visible .oshot img { transform:scale(1.04); }
-  @media (prefers-reduced-motion: reduce){ .opco,.opco:hover,.opco:focus-visible{ transform:none; transition:none; } .opco .oshot img{ transition:none; } .opco:hover .oshot img,.opco:focus-visible .oshot img{ transform:none; } }
-  .opco .oshot .ph { position:absolute; inset:0; display:none; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; color:var(--faint); }
-  .opco .obody { padding:20px 20px 22px; }
-  .opco .okick { font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-dim); }
-  .opco h3 { font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.028em; margin:8px 0 0; display:flex; align-items:center; gap:10px; }
-  .live-tag { font-family:var(--mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:#08090a; background:var(--accent); padding:3px 8px; border-radius:99px; }
-  .opco .olede { color:var(--mute); font-size:14.5px; line-height:1.55; margin-top:11px; }
-  .opco .olede b { color:var(--text); font-weight:600; }
-  .opco .ometrics { display:flex; gap:24px; margin-top:16px; flex-wrap:wrap; }
-  .opco .ometrics .v { font-family:var(--display); font-weight:700; font-size:21px; letter-spacing:-.03em; color:var(--text); }
-  .opco .ometrics .k { font-family:var(--mono); font-size:9.5px; color:var(--mute); text-transform:uppercase; letter-spacing:.04em; margin-top:2px; }
-  .opco .ogo { display:inline-flex; align-items:center; gap:7px; margin-top:18px; font-family:var(--mono); font-size:12px; font-weight:600; color:var(--accent); }
-  .opco .ogo .ar { transition:transform .26s var(--ease-quint); } .opco:hover .ogo .ar, .opco:focus-visible .ogo .ar { transform:translateX(4px); }
-  @media (prefers-reduced-motion: reduce){ .opco .ogo .ar,.opco:hover .ogo .ar,.opco:focus-visible .ogo .ar{ transform:none; transition:none; } }
 
   /* ---------- featured video (cinematic enter FX) ---------- */
   .vidwrap { position:relative; border-radius:16px; overflow:hidden; border:1px solid var(--line2); aspect-ratio:16/11; background:#0a0c0d; box-shadow:0 30px 70px -42px rgba(0,0,0,.85); }
@@ -417,14 +440,23 @@
   .vidwrap .vretc.br { bottom:14px; right:14px; border-left:0; border-top:0; }
   .vidwrap.lit .vretc { animation:vidLock .7s var(--ease) .55s 1 both; }
   @keyframes vidLock { 0%{ opacity:0; transform:scale(1.55); } 60%{ opacity:.85; } 100%{ opacity:.5; transform:scale(1); } }
-  .e-links { display:flex; flex-wrap:wrap; gap:7px; margin-top:20px; }
-  .e-links a { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:var(--glass2); padding:7px 12px; border-radius:99px; transition:.14s; }
-  .e-links a:hover { color:var(--text); border-color:var(--accent); }
-  .e-links a.hot { color:var(--accent); border-color:rgba(111,239,180,.3); }
 
-  /* ---------- proof glimpse: featured video + see-all ---------- */
-  .proof-video { margin:30px auto 0; max-width:880px; }
-  .proof-all { margin-top:26px; display:flex; justify-content:center; }
+  /* ---------- proof teaser: featured video + caption, a 3-link strip, see-all ----------
+     .proof-stack owns the spacing between its children (gap); children carry no margins. */
+  .proof-stack { display:flex; flex-direction:column; gap:var(--s4); max-width:880px; margin:var(--s5) auto 0; }
+  .proof-video { display:flex; flex-direction:column; gap:var(--s3); }
+  .proof-cap { font-family:var(--mono); font-size:12px; line-height:1.55; color:var(--mute); text-align:center; text-wrap:balance; }
+  .proof-cap b { color:var(--text); font-weight:500; }
+  .proof-strip { list-style:none; display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s3); }
+  .proof-strip a { display:grid; grid-template-columns:1fr auto; gap:var(--s1) var(--s3); align-items:center; align-content:start; height:100%; padding:var(--s3) var(--s4); border:1px solid var(--line); border-radius:16px; background:var(--glass2); transition:border-color .24s var(--ease-quint),background .24s var(--ease-quint); }
+  .proof-strip a:hover, .proof-strip a:focus-visible { border-color:rgba(111,239,180,.34); background:var(--glass); }
+  .proof-strip .pk { font-family:var(--display); font-weight:700; font-size:17px; letter-spacing:-.02em; line-height:1.2; color:var(--text); }
+  .proof-strip .pv { grid-column:1; font-family:var(--mono); font-size:11px; line-height:1.45; color:var(--mute); }
+  .proof-strip .ar { grid-column:2; grid-row:1 / span 2; font-family:var(--mono); color:var(--accent); transition:transform .26s var(--ease-quint); }
+  .proof-strip a:hover .ar, .proof-strip a:focus-visible .ar { transform:translateX(4px); }
+  @media (max-width:680px){ .proof-strip{ grid-template-columns:1fr; gap:var(--s2); } }
+  @media (prefers-reduced-motion: reduce){ .proof-strip a, .proof-strip .ar{ transition:none; } .proof-strip a:hover .ar, .proof-strip a:focus-visible .ar{ transform:none; } }
+  .proof-all { display:flex; justify-content:center; margin-top:var(--s4); }
   .proof-all .pill .ar { transition:transform .26s var(--ease-quint); } .proof-all .pill:hover .ar, .proof-all .pill:focus-visible .ar { transform:translateX(4px); }
   @media (prefers-reduced-motion: reduce){ .proof-all .pill .ar,.proof-all .pill:hover .ar,.proof-all .pill:focus-visible .ar{ transform:none; transition:none; } }
   .principles { list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:9px; }
@@ -432,10 +464,10 @@
   .principles li::before { content:"▸"; position:absolute; left:0; color:var(--accent); }
 
   /* ---------- story ---------- */
-  .story { margin-top:34px; display:grid; grid-template-columns:1.25fr .75fr; gap:34px; align-items:center; padding:30px; border-radius:var(--radius); border:1px solid var(--line); background:var(--glass); backdrop-filter:blur(var(--blur)); transition:.2s var(--ease); }
+  .story { display:grid; grid-template-columns:1.25fr .75fr; gap:var(--s5); align-items:center; padding:var(--s5); border-radius:var(--radius); border:1px solid var(--line); background:var(--glass); backdrop-filter:blur(var(--blur)); transition:.2s var(--ease); }
   .story:hover { border-color:var(--line2); }
   @media (max-width:680px){ .story{ grid-template-columns:1fr; gap:18px; } }
-  .story h3 { font-family:var(--display); font-weight:700; font-size:clamp(23px,3.2vw,32px); letter-spacing:-.028em; margin:11px 0 0; }
+  .story h3 { font-family:var(--display); font-weight:700; font-size:var(--fs-h3); letter-spacing:-.028em; margin:11px 0 0; }
   .story p { color:var(--mute); font-size:15px; line-height:1.6; margin-top:11px; max-width:48ch; }
   .story svg { width:100%; height:120px; }
   .e-go { display:inline-flex; align-items:center; gap:8px; margin-top:16px; font-family:var(--mono); font-size:12.5px; font-weight:600; color:var(--accent); }
@@ -443,14 +475,14 @@
   @media (prefers-reduced-motion: reduce){ .e-go .ar,a:hover .e-go .ar,a:focus-visible .e-go .ar,.story:hover .e-go .ar{ transform:none; transition:none; } }
 
   /* ---------- contact ---------- */
-  .contact { text-align:center; padding:calc(96px*var(--sp)) 0 30px; }
-  .contact h2 { font-family:var(--display); font-weight:800; font-size:clamp(27px,5.2vw,52px); letter-spacing:-.03em; line-height:1.04; text-wrap:balance; }
+  .contact { text-align:center; padding:var(--s6) 0 0; }
+  .contact h2 { font-family:var(--display); font-weight:800; font-size:var(--fs-h2); letter-spacing:-.03em; line-height:1.04; text-wrap:balance; }
   .contact p { color:var(--mute); font-size:16px; max-width:52ch; margin:14px auto 0; }
   .contact .now { font-family:var(--mono); font-size:12.5px; letter-spacing:.02em; line-height:1.6; color:var(--accent-dim); max-width:60ch; margin:0 auto 20px; }
   .contact .now b { color:var(--accent); font-weight:600; }
   .contact .ctas { display:flex; justify-content:center; flex-wrap:wrap; gap:11px; margin-top:26px; }
 
-  footer { margin-top:calc(64px*var(--sp)); padding:28px 0 70px; border-top:1px solid var(--line); }
+  footer { margin-top:var(--s7); padding:var(--s4) 0 var(--s6); border-top:1px solid var(--line); }
   .foot-in { display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; align-items:center; }
   .foot-arch { display:flex; flex-wrap:wrap; gap:9px; }
   .foot-arch a { font-family:var(--mono); font-size:11.5px; color:var(--mute); border:1px solid var(--line); background:var(--glass2); padding:8px 13px; border-radius:99px; transition:.15s; }
@@ -487,16 +519,9 @@
   @media (max-width:560px){ .idl { font-size:18px; } .cf-left { gap:12px; } }
   .cmdrow .rowlbl { position:sticky; left:0; z-index:2; flex:0 0 auto; padding-right:9px; background:linear-gradient(90deg,var(--bg2) 72%,transparent); }
   .sr-only{ position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
-  /* contact: tiny capture form + quiet alternates */
-  .capture{ display:flex; flex-wrap:wrap; gap:10px; margin:18px auto 0; max-width:520px; justify-content:center; }
-  .capture input{ flex:1 1 200px; min-width:0; padding:13px 14px; border-radius:12px; border:1px solid var(--line); background:var(--glass2); color:var(--text); font:inherit; }
-  .capture input::placeholder{ color:var(--faint); }
-  .capture input:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-  .capture .send{ flex:0 0 auto; cursor:pointer; padding:13px 16px; font:inherit; font-size:14px; color:var(--mute); background:var(--glass2); border:1px solid var(--line); border-radius:12px; }
-  .capture .send:hover{ color:var(--text); border-color:var(--line2); }
-  .capture .send:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  /* contact: quiet alternates under the one primary CTA */
   .contact-alt{ margin-top:16px; font-size:13.5px; color:var(--mute); }
-  .contact-alt a{ color:var(--mute); text-decoration:underline; text-decoration-color:rgba(255,255,255,.18); text-underline-offset:2px; }
+  .contact-alt a{ white-space:nowrap; color:var(--mute); text-decoration:underline; text-decoration-color:rgba(255,255,255,.18); text-underline-offset:2px; }
   .contact-alt a:hover{ color:var(--text); }
 </style>
 </head>
@@ -511,7 +536,8 @@
     <nav class="navlinks" aria-label="Primary">
       <a href="climb.html">Story</a>
       <a href="work.html">Proof</a>
-      <a href="#contact" class="cta">Let's talk →</a>
+      <a href="resume/">Résumé</a>
+      <a href="https://calendly.com/bricker3-idwj/30min" class="cta plausible-event-name=Book" data-cta="book" target="_blank" rel="noopener">Let's talk <span class="ar" aria-hidden="true">→</span></a>
     </nav>
   </div>
 </header>
@@ -520,11 +546,10 @@
 <nav class="spy" id="spy" aria-label="Section navigation">
   <a href="#top" data-s="top"><span class="sn">00</span><span class="st">Top</span></a>
   <a href="#google" data-s="google"><span class="sn">01</span><span class="st">Deal</span></a>
-  <a href="#names" data-s="names"><span class="sn">02</span><span class="st">Flywheel</span></a>
+  <a href="#person" data-s="person"><span class="sn">02</span><span class="st">Story</span></a>
   <a href="#interface" data-s="interface"><span class="sn">03</span><span class="st">Ask</span></a>
   <a href="#builds" data-s="builds"><span class="sn">04</span><span class="st">Work</span></a>
-  <a href="#person" data-s="person"><span class="sn">05</span><span class="st">Story</span></a>
-  <a href="#contact" data-s="contact"><span class="sn">06</span><span class="st">Talk</span></a>
+  <a href="#contact" data-s="contact"><span class="sn">05</span><span class="st">Talk</span></a>
 </nav>
 
 <main id="top">
@@ -534,14 +559,14 @@
       <div class="hero-grid">
         <!-- left: identity card — interactive holographic operator card (Web Component) -->
         <div class="hero-card rv">
-          <operator-card start="builder" auto-advance="true"></operator-card>
+          <operator-card start="builder"></operator-card>
         </div>
 
         <!-- right: copy -->
         <div class="hero-copy rv">
           <span class="avail">Sales &amp; Partnerships Leader for the AI Era</span>
           <h1 class="head">I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
-          <p class="lede">Two decades turning frontier tech into revenue — IBM, then three companies of my own. I build <b>the AI behind the selling</b> and still close the room myself.</p>
+          <p class="lede">Two decades turning frontier tech into revenue: IBM, then three companies of my own. I build <b>the AI behind the selling</b> and still close the room myself.</p>
           <div class="hero-cta">
             <a class="pill solid plausible-event-name=Book" data-cta="book" href="https://calendly.com/bricker3-idwj/30min" target="_blank" rel="noopener">Grab 30 minutes →</a>
             <a class="pill ghost" href="#interface">Ask my AI anything ↓</a>
@@ -553,81 +578,100 @@
     </div>
   </section>
 
-  <!-- ============ THE GOOGLE DEAL ============ -->
+  <!-- ============ 01 · THE GOOGLE DEAL (+ the names) ============ -->
   <section class="block" id="google">
     <div class="wrap">
       <div class="gdeal rv">
         <div class="gdeal-copy">
           <div class="kick">The deal that made Dreamship</div>
           <h2>I closed Google as a partner.<br><span class="flat">In year one.</span></h2>
-          <p>A first-of-its-kind cross-division partnership: an AI trademark and IP-compliance layer on Google Vision, won across internal Google teams to <b>VP-level</b> sign-off, then run for <b>5+ years</b>. The channel it opened drove <b>$45M+</b> in verified-merchant ad spend.</p>
+          <p>A first-of-its-kind partnership: an AI trademark and IP checker on Google Vision that verified high-volume merchants, connecting an underserved Vietnamese merchant market with Google. <b>Five internal Google teams</b> aligned behind it, and it ran <b>5+ years</b>.</p>
         </div>
         <div class="gdeal-stats">
-          <div class="gstat"><span class="gn" data-count="45" data-pre="$" data-suf="M+">$45M+</span><span class="gk">ad spend through the channel</span></div>
-          <div class="gstat"><span class="gn" data-count="35" data-pre="$" data-suf="M+">$35M+</span><span class="gk">peak revenue</span></div>
+          <div class="gstat lead"><span class="gn" data-count="45" data-pre="$" data-suf="M+">$45M+</span><span class="gk">ad spend through the Google channel</span></div>
+          <div class="gstat"><span class="gn" data-count="26" data-pre="$" data-suf="M">$26M</span><span class="gk">peak revenue</span></div>
           <div class="gstat"><span class="gn" data-count="11" data-suf="x">11x</span><span class="gk">growth in 2020 · $1.6M→$17M</span></div>
-          <div class="gstat"><span class="gn" data-count="4" data-suf=" yrs">4 yrs</span><span class="gk">EBITDA-profitable · profitable today</span></div>
+        </div>
+        <!-- the flywheel, folded in: one quiet row of names (was the #names constellation section) -->
+        <div class="gnames">
+          <p class="gnames-lead">Google was the hard yes. The rest followed.</p>
+          <div class="constellation" role="img" aria-label="Brands Bill has closed and shipped with. Closed as partners and clients: Google, Microsoft, Stripe, PayPal, Payoneer, Meta, Adobe. Enterprise sales: IBM, Zillow, Macy's, Nordstrom, McKesson, Avalara.">
+            <svg class="constel-lines" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+              <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5be8a0"/><stop offset=".5" stop-color="#36c6e0"/><stop offset="1" stop-color="#8b7cf0"/></linearGradient></defs>
+              <g stroke="url(#cg)" stroke-width="1" fill="none" opacity=".6" stroke-linecap="round">
+                <path class="wire" style="--wd:0s"    d="M70 70 L220 140 L360 60 L520 150 L650 80 L745 160"/>
+                <path class="wire" style="--wd:.18s"  d="M110 220 L300 175 L470 230 L640 185"/>
+                <path class="wire" style="--wd:.62s"  d="M220 140 L300 175"/><path class="wire" style="--wd:.7s" d="M360 60 L470 230"/><path class="wire" style="--wd:.78s" d="M520 150 L640 185"/>
+              </g>
+              <g class="nodes" fill="#6fefb4" opacity=".5">
+                <circle cx="70" cy="70" r="1.7"/><circle cx="220" cy="140" r="1.7"/><circle cx="360" cy="60" r="1.7"/><circle cx="520" cy="150" r="1.7"/><circle cx="650" cy="80" r="1.7"/><circle cx="745" cy="160" r="1.7"/><circle cx="110" cy="220" r="1.7"/><circle cx="300" cy="175" r="1.7"/><circle cx="470" cy="230" r="1.7"/><circle cx="640" cy="185" r="1.7"/>
+              </g>
+            </svg>
+            <div class="constel-stack">
+              <div class="constel-group">
+                <div class="constel-lab">Closed as partners &amp; clients</div>
+                <div class="constel-logos">
+                  <span class="star anchor" style="--d:0s"><img src="assets/logos/google.svg" alt="Google"/></span>
+                  <span class="star" style="--d:-1.1s"><img src="assets/logos/microsoft.svg" alt="Microsoft"/></span>
+                  <span class="star" style="--d:-2.3s"><img src="assets/logos/stripe.svg" alt="Stripe"/></span>
+                  <span class="star" style="--d:-3.0s"><img src="assets/logos/paypal.svg" alt="PayPal"/></span>
+                  <span class="star" style="--d:-4.2s"><img src="assets/logos/payoneer.svg" alt="Payoneer"/></span>
+                  <span class="star" style="--d:-5.1s"><img src="assets/logos/meta.svg" alt="Meta"/></span>
+                  <span class="star wm" style="--d:-2.6s">Adobe</span>
+                </div>
+              </div>
+              <div class="constel-group">
+                <div class="constel-lab">Enterprise sales</div>
+                <div class="constel-logos">
+                  <span class="star" style="--d:-1.7s"><img src="assets/logos/ibm.png" alt="IBM"/></span>
+                  <span class="star" style="--d:-2.9s"><img src="assets/logos/zillow.svg" alt="Zillow"/></span>
+                  <span class="star" style="--d:-3.8s"><img src="assets/logos/macys.svg" alt="Macy's"/></span>
+                  <span class="star wm" style="--d:-5.6s">Nordstrom</span>
+                  <span class="star wm" style="--d:-0.6s">McKesson</span>
+                  <span class="star wm" style="--d:-4.7s">Avalara</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ THE NAMES — partner constellation ============ -->
-  <section class="block" id="names">
+  <!-- ============ 02 · STORY (pulled up so more people click into the climb) ============ -->
+  <section class="block" id="person">
     <div class="wrap">
-      <div class="sec-head rv">
-        <div class="kick">The flywheel</div>
-        <h2>Then the rest said yes.</h2>
-        <p>Google was the hard yes. The rest followed.</p>
-      </div>
-      <div class="constellation rv" role="img" aria-label="Brands Bill has closed and shipped with. Closed as partners and clients: Google, Microsoft, Stripe, PayPal, Payoneer, Meta, Adobe. Enterprise customers: IBM, Zillow, Macy's, Nordstrom, McKesson, Avalara.">
-        <svg class="constel-lines" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-          <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5be8a0"/><stop offset=".5" stop-color="#36c6e0"/><stop offset="1" stop-color="#8b7cf0"/></linearGradient></defs>
-          <g stroke="url(#cg)" stroke-width="1" fill="none" opacity=".6" stroke-linecap="round">
-            <path class="wire" style="--wd:0s"    d="M70 70 L220 140 L360 60 L520 150 L650 80 L745 160"/>
-            <path class="wire" style="--wd:.18s"  d="M110 220 L300 175 L470 230 L640 185"/>
-            <path class="wire" style="--wd:.62s"  d="M220 140 L300 175"/><path class="wire" style="--wd:.7s" d="M360 60 L470 230"/><path class="wire" style="--wd:.78s" d="M520 150 L640 185"/>
-          </g>
-          <g class="nodes" fill="#6fefb4" opacity=".5">
-            <circle cx="70" cy="70" r="1.7"/><circle cx="220" cy="140" r="1.7"/><circle cx="360" cy="60" r="1.7"/><circle cx="520" cy="150" r="1.7"/><circle cx="650" cy="80" r="1.7"/><circle cx="745" cy="160" r="1.7"/><circle cx="110" cy="220" r="1.7"/><circle cx="300" cy="175" r="1.7"/><circle cx="470" cy="230" r="1.7"/><circle cx="640" cy="185" r="1.7"/>
-          </g>
-        </svg>
-        <div class="constel-stack">
-          <div class="constel-group">
-            <div class="constel-lab">Closed as partners &amp; clients</div>
-            <div class="constel-logos">
-              <span class="star anchor" style="--d:0s"><img src="assets/logos/google.svg" alt="Google"/></span>
-              <span class="star" style="--d:-1.1s"><img src="assets/logos/microsoft.svg" alt="Microsoft"/></span>
-              <span class="star" style="--d:-2.3s"><img src="assets/logos/stripe.svg" alt="Stripe"/></span>
-              <span class="star" style="--d:-3.0s"><img src="assets/logos/paypal.svg" alt="PayPal"/></span>
-              <span class="star" style="--d:-4.2s"><img src="assets/logos/payoneer.svg" alt="Payoneer"/></span>
-              <span class="star" style="--d:-5.1s"><img src="assets/logos/meta.svg" alt="Meta"/></span>
-              <span class="star wm" style="--d:-2.6s">Adobe</span>
-            </div>
-          </div>
-          <div class="constel-group">
-            <div class="constel-lab">Enterprise customers</div>
-            <div class="constel-logos">
-              <span class="star" style="--d:-1.7s"><img src="assets/logos/ibm.png" alt="IBM"/></span>
-              <span class="star" style="--d:-2.9s"><img src="assets/logos/zillow.svg" alt="Zillow"/></span>
-              <span class="star" style="--d:-3.8s"><img src="assets/logos/macys.svg" alt="Macy's"/></span>
-              <span class="star wm" style="--d:-5.6s">Nordstrom</span>
-              <span class="star wm" style="--d:-0.6s">McKesson</span>
-              <span class="star wm" style="--d:-4.7s">Avalara</span>
-            </div>
-          </div>
+      <a class="story rv" href="climb.html">
+        <div>
+          <h3>Twenty years, one climb.</h3>
+          <p>IBM. The Google partnership. Three kids, unimpressed by any of it. A cancer diagnosis in 2023, met head-on. Here's what twenty years taught me:</p>
+          <ul class="principles">
+            <li>Earn the first yes — the flywheel follows.</li>
+            <li>Ship the thing; don't pitch the deck.</li>
+            <li>Carry the number and build the product.</li>
+          </ul>
+          <span class="e-go">Walk The Climb <span class="ar">→</span></span>
         </div>
-      </div>
+        <div class="climb-prev">
+          <img src="assets/climb-preview-2026-09.jpg" alt="The Climb — Bill's 20-year career map" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.cp-fallback').style.display='block'" />
+          <svg class="cp-fallback" viewBox="0 0 320 200" preserveAspectRatio="none" aria-hidden="true" style="display:none;width:100%;height:100%">
+            <rect width="320" height="200" fill="#efe3c4"/>
+            <path d="M0 180 L46 152 L92 140 L140 100 L196 70 L252 40 L320 16" fill="none" stroke="#a8421d" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="252" cy="40" r="7" fill="#14211d" stroke="#a8421d" stroke-width="2"/>
+          </svg>
+          <span class="cp-hint">the full map ↗</span>
+        </div>
+      </a>
     </div>
   </section>
 
-  <!-- ============ 01 · ASK / TERMINAL ============ -->
+  <!-- ============ 03 · ASK / TERMINAL ============ -->
   <section class="block" id="interface">
     <div class="wrap">
       <div class="interface-grid">
         <div class="sec-head rv">
           <h2>Don't read the résumé.<br><span class="flat">Prompt it.</span></h2>
-          <p>A live AI that answers from a fact-checked ledger of twenty years. Ask it anything — it's the product, pitching itself.</p>
+          <p>An AI that answers from a fact-checked record of twenty years. Ask it anything, or paste a job description.</p>
         </div>
 
         <div class="term-wrap rv">
@@ -676,101 +720,61 @@
     </div>
   </section>
 
-  <!-- ============ BUILDS — featured + swipe rail ============ -->
+  <!-- ============ 04 · WORK — Courtana + Dreamship cards → work.html ============ -->
   <section class="block" id="builds">
     <div class="wrap">
       <div class="sec-head rv">
         <h2>I don't pitch the work.<br><span class="flat">I show you the work.</span></h2>
-        <p>Two operating companies, plus <b>40+ apps</b> shipped solo as the AI build engine behind the selling. Real products with real revenue and users.</p>
       </div>
 
-      <!-- featured video — clean centerpiece -->
-      <div class="proof-video rv">
-        <div class="vidwrap" id="vidwrap">
-          <video id="cvid" muted loop playsinline preload="metadata" poster="assets/shots/courtana.png">
-            <source src="assets/courtana-shot.mp4" type="video/mp4" />
-          </video>
-          <div class="vgrad"></div>
-          <div class="statbadge" style="--x:6%;--y:9%;--c:#F1C40F"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
-          <div class="statbadge" style="--x:7%;--y:66%;--c:#6EEFC0"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
-          <div class="statbadge" style="--x:56%;--y:64%;--c:#BD93F9"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
-          <i class="vretc tl" aria-hidden="true"></i><i class="vretc tr" aria-hidden="true"></i><i class="vretc bl" aria-hidden="true"></i><i class="vretc br" aria-hidden="true"></i>
-          <div class="vscan" aria-hidden="true"></div>
-          <div class="vsheen" aria-hidden="true"></div>
-        </div>
-      </div>
-
-      <!-- the two companies, side by side -->
-      <div class="opco-grid rv">
-        <a class="opco" href="https://courtana.com" target="_blank" rel="noopener">
-          <div class="oshot"><img src="assets/shots/courtana.png" alt="Courtana smart-court platform" loading="lazy" onerror="this.style.opacity=0" /></div>
-          <div class="obody">
-            <div class="okick">AI sports intelligence</div>
-            <h3>Courtana <span class="live-tag">live</span></h3>
-            <p class="olede">Structured data from physical sports venues — <b>4 venues · 36 courts · 760 users.</b> Gemini vision + Claude strategy, two-person team.</p>
-            <span class="ogo">courtana.com <span class="ar">→</span></span>
+      <!-- simplified from work.html's top two cards: Courtana (with the video) + Dreamship -->
+      <div class="pw rv">
+        <article class="pw-card">
+          <figure class="pw-vid" id="vidwrap">
+            <video id="cvid" aria-label="Courtana: raw court video turned into player and brand data" muted loop playsinline preload="metadata" poster="assets/shots/courtana-video-poster.jpg">
+              <source src="assets/courtana-shot.mp4" type="video/mp4" />
+            </video>
+            <span class="pw-tag">Courtana · court camera</span>
+          </figure>
+          <div class="pw-body">
+            <div class="pw-top"><span class="pw-k">Founder &amp; CEO</span><span class="pw-yr">2024–2026</span></div>
+            <h3>Courtana</h3>
+            <p>An AI smart-court platform: <b>“TopGolf meets Pickleball.”</b> Built and commercialized across <b>4 venues · 36 courts · 760 users</b>.</p>
+            <div class="pw-kpis">
+              <div><b>21,000+</b><span>clips processed</span></div>
+              <div><b>4,097</b><span>deep-analyzed with Gemini</span></div>
+              <div><b>$0.0054</b><span>per clip</span></div>
+            </div>
+            <a class="pw-go" href="work.html#courtana">The full Courtana story <span class="ar" aria-hidden="true">→</span></a>
           </div>
-        </a>
-        <a class="opco" href="https://dreamship.com" target="_blank" rel="noopener">
-          <div class="oshot"><img src="assets/shots/dreamship.png" alt="Dreamship fulfillment platform" loading="lazy" onerror="this.style.opacity=0" /></div>
-          <div class="obody">
-            <div class="okick">where I closed Google</div>
+        </article>
+        <a class="pw-card" href="work.html#dreamship">
+          <span class="pw-thumb"><img src="assets/shots/dreamship.png" alt="Dreamship's website: enterprise print-on-demand fulfillment" width="900" height="900" loading="lazy" decoding="async" /></span>
+          <div class="pw-body">
+            <div class="pw-top"><span class="pw-k">Cofounder &amp; CEO</span><span class="pw-yr">2018–2024</span></div>
             <h3>Dreamship</h3>
-            <p class="olede">API-driven fulfillment, built from zero to <b>$35M+ peak revenue · 11x in a year.</b> The platform behind the Google, Stripe, and Meta partnerships.</p>
-            <span class="ogo">dreamship.com <span class="ar">→</span></span>
+            <p>API-driven on-demand fulfillment, built from zero to <b>$26M peak revenue</b>, with <b>11x growth in 2020</b>. A team of 24 and 21 fulfillment locations in 6 countries.</p>
+            <span class="pw-go">More on Dreamship <span class="ar" aria-hidden="true">→</span></span>
           </div>
         </a>
       </div>
 
-      <!-- see all the work -->
       <div class="proof-all rv">
-        <a class="pill ghost" href="work.html">See all the work — 40+ apps &amp; a live terminal <span class="ar">→</span></a>
+        <a class="pill ghost" href="work.html">See the full proof of work: 40+ apps &amp; more <span class="ar">→</span></a>
       </div>
     </div>
   </section>
 
-  <!-- ============ 05 · STORY ============ -->
-  <section class="block" id="person">
-    <div class="wrap">
-      <a class="story rv" href="climb.html">
-        <div>
-          <h3>Twenty years, one climb.</h3>
-          <p>IBM. The Google partnership. Three kids, unimpressed by any of it. A cancer diagnosis in 2023, met head-on. Here's what twenty years taught me:</p>
-          <ul class="principles">
-            <li>Earn the first yes — the flywheel follows.</li>
-            <li>Ship the thing; don't pitch the deck.</li>
-            <li>Carry the number and build the product.</li>
-          </ul>
-          <span class="e-go">Walk The Climb <span class="ar">→</span></span>
-        </div>
-        <div class="climb-prev">
-          <img src="assets/climb-preview.png" alt="The Climb — Bill's 20-year career map" loading="lazy" onerror="this.style.display='none';this.parentElement.querySelector('.cp-fallback').style.display='block'" />
-          <svg class="cp-fallback" viewBox="0 0 320 200" preserveAspectRatio="none" aria-hidden="true" style="display:none;width:100%;height:100%">
-            <rect width="320" height="200" fill="#efe3c4"/>
-            <path d="M0 180 L46 152 L92 140 L140 100 L196 70 L252 40 L320 16" fill="none" stroke="#a8421d" stroke-width="3" stroke-linejoin="round"/>
-            <circle cx="252" cy="40" r="7" fill="#14211d" stroke="#a8421d" stroke-width="2"/>
-          </svg>
-          <span class="cp-hint">hover to climb ↗</span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- ============ CONTACT ============ -->
+  <!-- ============ 05 · CONTACT ============ -->
   <section class="contact" id="contact">
     <div class="wrap rv">
-      <p class="now"><b>Currently</b> building Courtana and shipping production AI daily. Open to the right GTM or partnerships role — where the hard deals decide the company.</p>
+      <p class="now"><b>Open to the right GTM or partnerships role,</b> where the hard deals decide the company.</p>
       <h2>Let's close <span class="flat">something big.</span></h2>
-      <p>Hiring for GTM or partnerships? Grab thirty minutes — I'll show you something I built, not slides.</p>
+      <p>Hiring for GTM or partnerships? Grab thirty minutes. I'll show you something I built, not slides.</p>
       <div class="ctas">
         <a class="pill solid plausible-event-name=Book" data-cta="book" href="https://calendly.com/bricker3-idwj/30min" target="_blank" rel="noopener">Grab 30 minutes →</a>
       </div>
-      <form class="capture" data-capture aria-label="Leave your email and a note">
-        <input type="email" name="email" required placeholder="you@company.com" aria-label="Your email" />
-        <input type="text" name="note" placeholder="Optional: a line on what's up" aria-label="Optional note" />
-        <button type="submit" class="send">Send a note →</button>
-      </form>
-      <p class="contact-alt">Prefer another way? <a class="plausible-event-name=Email" href="mailto:bricker3@gmail.com?subject=Let%27s%20talk">email</a> · <a href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a> · <a class="plausible-event-name=Resume" href="assets/Bill_Bricker_Resume_vFinal.pdf" download>résumé (PDF)</a></p>
+      <p class="contact-alt">Prefer another way? <a class="plausible-event-name=Email" href="mailto:bricker3@gmail.com?subject=Let%27s%20talk">email</a> · <a href="https://linkedin.com/in/williambricker" target="_blank" rel="noopener">LinkedIn</a> · <a class="plausible-event-name=Resume" href="assets/Bill_Bricker_Resume_2026-09.pdf" download>résumé (PDF)</a></p>
     </div>
   </section>
 
@@ -781,7 +785,7 @@
         <div class="foot-arch">
           <a href="climb.html">Story</a>
           <a href="work.html">Proof</a>
-          <a href="resume-v2.html">Résumé</a>
+          <a href="resume/">Résumé</a>
           <a href="mailto:bricker3@gmail.com">Email</a>
         </div>
       </div>

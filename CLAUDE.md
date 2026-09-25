@@ -6,7 +6,7 @@ These five rules were set for the front-door merge and remain the standing rules
 
 1. **`_source/facts.md` is LAW.** No surface gets a number that isn't in it; unverified =
    flagged (⚠️/🚩), never asserted. **`$45M+` = partner AD SPEND, never revenue.**
-   **`$35M+` = peak revenue.** Contact = `bricker3@gmail.com`, **no phone** on any public surface.
+   **`$26M` = peak revenue.** Contact = `bricker3@gmail.com`, **no phone** on any public surface.
    (`_source/facts.md` supersedes `content/FACTS.md` — see decision D-0.)
 2. **The HUB repo is the only source of truth for the site.** Claude Design / Magic Patterns =
    scratchpad for single components only, never whole-page re-imports. Spokes
@@ -38,6 +38,7 @@ Part of the **Courtana organization** ecosystem (see sibling repos: `vibeco`, `p
 - `_source/spec.md` — the site spec every render check verifies against.
 - `_source/decisions.md` — decision log; conflicting facts get logged here for sign-off.
 - `_source/grader.md` — grading rubric for the site.
+- `_source/overhaul-2026-09.md` — the Sept 2026 overhaul plan: facts to reconcile against the new résumé (`_source/resume-2026-09-21.md`), target site, parallel workstreams + agent briefs. Read before any overhaul work.
 - `HANDOFF.md` — session pickup doc. `PLAN.md` / `PRODUCT.md` / `DESIGN.md` / `BUILD-LOG.md` — the v2 build brief, product register, design system, and build log.
 - `ROADMAP.md` — product vision, phased plan, open decisions.
 - `INTERVIEW.md` — the corpus-extraction interview. Sessions act as interviewer; answers become `content/stories/`.
@@ -46,12 +47,12 @@ Part of the **Courtana organization** ecosystem (see sibling repos: `vibeco`, `p
 
 The live site is `picklebill.github.io/Brick/`. All primary pages are at the repo root:
 
-- `index.html` — **the front door** (Main). One-objective page; scroll-spy sections: Deal (Google/Dreamship) · Flywheel · Ask · Work · Story · Talk. Nav = Story (`climb.html`) · Proof (`work.html`) · "Let's talk" CTA.
-- `climb.html` — Story (the sales-arc narrative). `work.html` — Proof. `resume-v2.html` — the résumé pages link to (`resume.html` is the older version).
+- `index.html` — **the front door** (Main). One-objective page; scroll-spy sections: Deal (Google + partner logos) · Ask · Work · Story · Talk. Nav (every page) = Story (`climb.html`) · Proof (`work.html`) · Résumé (`resume/`) · "Let's talk" CTA (Calendly).
+- `climb.html` — Story (the sales-arc narrative). `work.html` — Proof (the full proof of work; anchors `#courtana` `#dreamship` `#pickle-daas` `#vibeco` `#apps`). `resume/` — the résumé page; its PDF `assets/Bill_Bricker_Resume_2026-09.pdf` is rendered from it by `tools/resume-pdf.mjs`. `resume-v2.html` / `resume.html` are redirect stubs → `resume/`.
 - `home.js` — front-door behavior (reveal, count-ups, identity card, ask-bill terminal with hiring-manager/reference modes, featured video, scroll-spy).
-- `operator-card.js` — `<operator-card>` Web Component (v6.5): the six-facet identity-card hero. `operator-card-cube.js` — parked cube variant, lives in `playground.html`. `card-lab.html` — card experiments.
+- `operator-card.js` — `<operator-card>` Web Component: the three-facet identity-card hero (builder · pay it forward · father; O-1, 2026-09-25). The six-facet v6.5 is frozen in `archive/2026-09-pre-overhaul/operator-card.js` and shown beside the live card in `playground.html`. `operator-card-cube.js` — parked cube variant, lives in `playground.html`. `card-lab.html` — card experiments.
 - `site-config.js` — one place to wire conversion + analytics (Calendly / Formspree / Plausible / Clarity); everything falls back to `mailto:bricker3@gmail.com` until configured. Calendly is live.
-- `tools/` — render harness: `shoot.mjs` (page screenshots), `elshot.mjs` (element shots), `record-motion.mjs`.
+- `tools/` — render harness: `shoot.mjs` (page screenshots), `elshot.mjs` (element shots), `record-motion.mjs`; `net.mjs` makes headless Chromium load Google Fonts behind the cloud sandbox proxy. **`npm run factcheck`** (`tools/factcheck.mjs`) scans every published surface against the ledger's Tier A rules; CI runs it on every PR.
 - `sales/index.html` — redirect stub → root (forwards query/hash). `archive/sales-legacy-2026-06-22/` — the preserved legacy sales site. `archive/` root files — the pre-merge builder page.
 - `v3/` — parked experiment. `content/`, `source/` — legacy content/design references from the v1 lineage (`pickle-daas-data`).
 
@@ -66,8 +67,9 @@ The live site is `picklebill.github.io/Brick/`. All primary pages are at the rep
 ## Operating Preferences
 
 - **Merging**: Bill authorized auto-merging Claude-authored roadmap PRs once they're mergeable and CI is green (decided 2026-06-13). Pause and ask before merges that are risky, irreversible, or outside the agreed scope.
+- **Keep the old version of every major visual change** (decided 2026-09-25, O-5): before a page or big component changes, freeze the old one under `archive/<yyyy-mm>-<label>/` (or beside the live one in `playground.html` for components) with before/after screenshots, so Bill can compare "what it was" vs "what it became." Never overwrite without an archived copy.
 - **Always hand Bill a preview link** for any UI change (he's non-technical and previews everything): the live GitHub Pages URL after merge, or a `raw.githack.com/PickleBill/Brick/<branch>/<path>` link for a branch before merge (decided 2026-06-15).
-- **Positioning** (per the 2026-06-15 "Col bill" call, unchanged through the merge): AI-Forward Sales & Partnerships lead, Dreamship/Google centerpiece, no phone, $45M+ ad-spend ≠ $35M+ peak revenue. The sales-first Dossier that carried this was folded into the root front door; its legacy build (with `ai-forward.css` / `ai-forward.js`) is under `archive/sales-legacy-2026-06-22/`.
+- **Positioning** (per the 2026-06-15 "Col bill" call, unchanged through the merge): AI-Forward Sales & Partnerships lead, Dreamship/Google centerpiece, no phone, $45M+ ad-spend ≠ $26M peak revenue. The sales-first Dossier that carried this was folded into the root front door; its legacy build (with `ai-forward.css` / `ai-forward.js`) is under `archive/sales-legacy-2026-06-22/`.
 
 ## Working With Bill
 

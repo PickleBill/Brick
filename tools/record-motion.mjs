@@ -10,6 +10,7 @@
  * Scenes are scripted action sequences; update selectors here as markup evolves.
  */
 import { chromium } from 'playwright';
+import { proxyOpts, trustedNet } from './net.mjs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, resolve, basename } from 'node:path';
 import { mkdirSync, renameSync, statSync } from 'node:fs';
@@ -98,7 +99,8 @@ const SCENES = {
 const scene = SCENES[sceneName] || SCENES.scroll;
 
 const browser = await chromium.launch();
-const ctx = await browser.newContext({ viewport, recordVideo: { dir: outDir, size: viewport }, reducedMotion: 'no-preference', deviceScaleFactor: 1 });
+const ctx = await browser.newContext({ ...proxyOpts(), viewport, recordVideo: { dir: outDir, size: viewport }, reducedMotion: 'no-preference', deviceScaleFactor: 1 });
+await trustedNet(ctx);
 const page = await ctx.newPage();
 try { await page.goto(url, { waitUntil: 'networkidle', timeout: 20000 }); }
 catch { await page.goto(url, { waitUntil: 'load', timeout: 20000 }).catch(() => {}); }

@@ -34,7 +34,7 @@ The bundle's `assets/portrait.jpg` was a **placeholder** with a baked-in dev-not
 
 ## ⚠️ For Bill to confirm (surfaced on public pages, per the ledger's ⚠️ tags)
 These are live on the site as easy-to-edit constants. Confirm or correct:
-- **Courtana:** 36 courts live/piloting · 11+ sports · $350K raised · 44-court LOI — all still current / public-safe?
+- **Courtana:** 36 courts live/piloting · 11+ sports · [private] raised · 44-court LOI — all still current / public-safe?
 - **Dreamship:** $35M+ revenue · 11x (which year/base) · ~$85M GMV · 2.3M+ units · $2.2M raised · "5–6 internal Google teams" · 8-figure channel run 5+ yrs — public-safe?
 - **Earlier:** NWM top-10 / $6M+ TCV / 150+ accounts · IBM 8-figure McKesson / >100% quota.
 - **Personal:** phone `908·601·8152` (site-public vs card-only?) · "father of three" framing · keep the name "The Long Walk"? · the DJ Billygoat story.

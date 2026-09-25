@@ -12,15 +12,15 @@
      ⚠️ values are surfaced as the design intends; see BUILD-LOG for confirms.
   ========================================================================= */
   var RECEIPTS = {
-    google:   { k:'The Google partnership', v:'Partner, not sold', c:'As a <b>sub-one-year-old startup</b>, navigated 5–6 internal Google teams (trust &amp; safety, business integrity, commercial) to director+ sign-off — a first-of-its-kind cross-division <b>partnership</b> (not an acquisition). An 8-figure ad-spend channel that ran <b>5+ years</b>; Stripe, PayPal, Meta &amp; Payoneer followed off it.', src:'Dreamship · 2018–23', tag:'"closed as a partner" — never "sold"', link:{u:'https://dreamship.com',t:'dreamship.com ↗'} },
-    revenue:  { k:'Revenue led', v:'$35M+', c:'Led Dreamship as cofounder/CEO to <b>$35M+ revenue</b>, ~$85M GMV, 2.3M+ units — on $2.2M raised, profitable at step-back and every year since.', src:'Dreamship · cofounder &amp; CEO', tag:'durable, not a spike' },
+    google:   { k:'The Google partnership', v:'Partner, not sold', c:'<b>In year one</b>, navigated 5–6 internal Google teams (trust &amp; safety, business integrity, commercial) to director+ sign-off — a first-of-its-kind cross-division <b>partnership</b> (not an acquisition). An 8-figure ad-spend channel that ran <b>5+ years</b>; Stripe, PayPal, Meta &amp; Payoneer followed off it.', src:'Dreamship · 2018–23', tag:'"closed as a partner" — never "sold"', link:{u:'https://dreamship.com',t:'dreamship.com ↗'} },
+    revenue:  { k:'Revenue led', v:'$26M', c:'Led Dreamship as cofounder/CEO to <b>$26M revenue</b>, ~$85M GMV, 2.3M+ units — on $2.2M raised, profitable at step-back and every year since.', src:'Dreamship · cofounder &amp; CEO', tag:'durable, not a spike' },
     eleven:   { k:'Growth', v:'11x', c:'<b>11x revenue in a single year</b> — orders → supply routes → reliable shipping trust, compounded by a COVID tailwind and execution.', src:'Dreamship · the breakout year' },
     enterprise:{k:'Enterprise pedigree', v:'8-figure', c:'IBM / Netezza (2012–14): high-six-figure deals with Zillow &amp; Avalara, part of an <b>8-figure McKesson</b> contribution, &gt;100% of quota. Northwestern Mutual: top-10 nationally, <b>$6M+ TCV</b>. Twenty years carrying — and beating — a number.', src:'IBM/Netezza · Northwestern Mutual' },
     apps:     { k:'Shipped solo', v:'40+ apps', c:'<b>40+ apps across 31 repos</b>, built by one operator — enterprise tools, GTM collateral that closed a venue partner, consumer products. Quantity anchored to real, openable things.', src:'2025 → now · the AI build engine' },
     repos:    { k:'On the commits', v:'31 repos', c:'<b>31 repositories with my name on the commits.</b> Not no-code, not a demo account — designed and shipped production AI systems myself.', src:'github.com/picklebill' },
     clip:     { k:'Unit economics', v:'$0.0054', c:'Pickle DaaS analyzes video at <b>$0.0054 per clip</b> (~7x cheaper than the obvious approach) — the measured unit-cost instinct a forward-deployed role runs on.', src:'Pickle DaaS · verified Apr 2026' },
     daas:     { k:'Data pipeline', v:'21K+', c:'A self-serve sports-data warehouse spun from raw video: <b>21K+ clips processed</b>, <b>4,097 analyzed</b> — Supabase, autonomous ingest, a ground-truth validation loop. A working system, not a slide.', src:'Pickle DaaS', link:{u:'https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html',t:'walkthrough ↗'} },
-    courts:   { k:'Now shipping', v:'36 courts', c:'Courtana — AI smart-court SaaS — concept to <b>36 courts live or piloting</b> across 11+ sports, with a 44-court LOI, on $350K raised. The current live peak of the climb.', src:'Courtana · 2023 → now', link:{u:'https://courtana.com',t:'courtana.com ↗'} },
+    courts:   { k:'Now shipping', v:'36 courts', c:'Courtana — AI smart-court SaaS — concept to <b>36 courts live or piloting</b>, with a 44-court LOI. The current live peak of the climb.', src:'Courtana · 2023 → now', link:{u:'https://courtana.com',t:'courtana.com ↗'} },
     years:    { k:'The career', v:'20 yrs', c:'<b>Twenty years</b> translating frontier/complex tech into a "yes" — enterprise data, then a platform, now the models themselves. The only thing that changed is I now build what I sell.', src:'2006 → now' }
   };
   var SELLS_R = ['google','revenue','eleven','enterprise'];
@@ -100,14 +100,14 @@
     whoami: function(){ block([
       '<span class="m">Bill Bricker</span> — forward-deployed operator. I sell frontier tech AND I build it.',
       'Enterprise seller turned founder-CEO. Closed &amp; ran the Google partnership',
-      'at a &lt;1-yr-old startup. Now shipping production AI daily — 40+ apps, solo.',
+      'at a first-year startup. Now shipping production AI daily — 40+ apps, solo.',
       'Raleigh, NC · father of three · fka DJ Billygoat · still walking.',
       rc('years')
     ]); },
     'why-you': function(){ block([
       '<span class="am"># Why me over a 28-year-old forward-deployed engineer?</span>',
       'They can build. Most can\'t walk into Google and leave with a',
-      '<span class="m">partnership</span> — I did that, then turned it into $35M+ and 11x.',
+      '<span class="m">partnership</span> — I did that, then turned it into $26M and 11x.',
       'I\'ve carried an 8-figure number for 20 years AND I ship production AI',
       'solo today (31 repos, my commits). The rare seam labs keep missing —',
       'someone who closes the room <span class="m">and</span> reads the codebase — is just my résumé.',
@@ -116,14 +116,14 @@
     'shipped-this-week': function(){ shippedThisWeek(); },
     companies: function(){ block([
       '<span class="m">Courtana</span>  founder/CEO · 2023→now · <span class="dim">courtana.com</span>',
-      '  AI smart-court SaaS — 36 courts live/piloting, 11+ sports.',
+      '  AI smart-court SaaS — 36 courts live/piloting.',
       '<span class="m">Dreamship</span> cofounder/CEO · 2018–23 · <span class="dim">dreamship.com</span>',
-      '  API fulfillment — $35M+, 11x in a year, the Google partnership.',
+      '  API fulfillment — $26M, 11x in a year, the Google partnership.',
       rc('courts')+' '+rc('revenue')
     ]); suggest(['google-deal','builds']); },
     'google-deal': function(){ block([
       '<span class="m"># The Google partnership — not an acquisition.</span>',
-      'As a &lt;1-year-old startup, navigated 5–6 internal Google teams',
+      'In year one, navigated 5–6 internal Google teams',
       '(trust &amp; safety, business integrity, commercial) to director+ sign-off —',
       'a first-of-its-kind cross-division <span class="m">partnership</span>.',
       '→ 8-figure ad-spend channel, run <span class="m">5+ years</span>.',
@@ -156,7 +156,7 @@
     ]); },
     stats: function(){ block([
       '11x        revenue growth in one year',
-      '$35M+      cumulative revenue led',
+      '$26M      cumulative revenue led',
       '8-figure   Google channel closed &amp; run 5+ yrs',
       '40+ apps   shipped solo · 31 repos',
       '21K+       clips processed · 4,097 analyzed',
@@ -172,7 +172,7 @@
     contact: function(){ block([
       '<span class="a" data-href="mailto:bricker3@gmail.com">bricker3@gmail.com</span>',
       '<span class="a" data-href="https://linkedin.com/in/williambricker">linkedin.com/in/williambricker</span>',
-      '908 · 601 · 8152 · Raleigh, NC',
+      'Raleigh, NC',
       '<span class="dim">open to founder / GTM / partnership / forward-deployed / fractional.</span>'
     ]); },
     chuck: function(){ chuck(); },
@@ -304,7 +304,7 @@
     var ls=[
       {t:'bricker.os — forward-deployed operator console. booting…',c:'dim'},
       {t:'Bill Bricker — I sell frontier tech AND I build it myself.',c:'m'},
-      {t:'Closed & ran the Google partnership at a <1-yr-old startup.',c:''},
+      {t:'Closed & ran the Google partnership in year one.',c:''},
       {t:'Now shipping production AI daily — 40+ apps, solo. Ask me anything.',c:''}
     ];
     echo('whoami');
@@ -336,7 +336,7 @@
     setTimeout(function(){
       echo('tailor "'+role+'"');
       block(['<span class="am"># tailoring the case for: '+esc(role)+'</span>']);
-      var q='A hiring manager is hiring for "'+role+'". In 3-4 punchy sentences, make the specific case for why Bill Bricker is a strong fit for THAT role, grounded only in his real record (closed Google as a partner at a <1yr startup; Dreamship $35M+ and 11x; ships production AI solo — VibeCo, 40+ apps/31 repos, Pickle DaaS at $0.0054/clip). Address the role directly, be confident and concrete, no generic filler.';
+      var q='A hiring manager is hiring for "'+role+'". In 3-4 punchy sentences, make the specific case for why Bill Bricker is a strong fit for THAT role, grounded only in his real record (closed Google as a partner at a <1yr startup; Dreamship $26M and 11x; ships production AI solo — VibeCo, 40+ apps/31 repos, Pickle DaaS at $0.0054/clip). Address the role directly, be confident and concrete, no generic filler.';
       var fired=false;
       var fb=setTimeout(function(){ if(fired) return; fired=true; tailorFallback(role); }, 18500);
       // use ask(); if it fails it falls back internally — but provide a tailored local fallback too
@@ -357,7 +357,7 @@
   }
   function tailorFallback(role){
     typed('For '+role+': you need someone who can close the room and ship the product. '+
-      'I closed Google as a partner at a sub-one-year-old startup, turned it into $35M+ and 11x at Dreamship, '+
+      'I closed Google as a partner in year one, turned it into $26M and 11x at Dreamship, '+
       'and today I build production AI solo — 40+ apps across 31 repos, a data pipeline at $0.0054/clip. '+
       'That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
     suggest(['why-you','google-deal','book the 20 min']);

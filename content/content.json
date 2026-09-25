@@ -1,28 +1,28 @@
 {
-  "_README": "SINGLE SOURCE OF TRUTH (v3). Home=index.html (coalesced), Story=climb.html, Engine room=work.html, Resume=resume.html (full V7 spine + builder bullets).",
+  "_README": "Site + ask-bill corpus data, aligned to _source/facts.md (Sept 2026 sign-off). Home=index.html, Story=climb.html, Proof=work.html, Resume=resume/ (PDF: assets/Bill_Bricker_Resume_2026-09.pdf). Contact is email + LinkedIn only: no phone on any public surface.",
   "identity": {
     "name": "Bill Bricker",
     "location": "Raleigh, NC",
     "email": "bricker3@gmail.com",
-    "phone": "908-601-8152",
     "linkedin": "https://linkedin.com/in/williambricker",
-    "personal_site": "this portfolio (The Climb)",
-    "positioning": "AI-native founder \u00b7 zero-to-one builder \u00b7 GTM operator \u00b7 connector. Father of three. Still walking.",
-    "target": "Broad: founder roles, GTM/partnership leadership (incl. frontier AI labs), fractional/advisory, board, strategic partners",
+    "personal_site": "https://picklebill.github.io/Brick/",
+    "resume": "https://picklebill.github.io/Brick/resume/",
+    "positioning": "AI-Forward Sales & Partnerships Leader \u00b7 3\u00d7 founder \u00b7 AI-native. Closed Google as a partner in year one. Father of three.",
+    "target": "GTM/partnership leadership (incl. frontier AI labs), founder, forward-deployed, fractional/advisory, board",
     "voice": "editorial, literary, warm, plainspoken, numbers-first, unguarded; never buzzwords"
   },
   "operating_companies": [
     {
       "name": "Courtana",
-      "url": "https://courtana.com",
-      "role": "Founder / CEO (2023\u2013now)",
-      "note": "AI smart-court SaaS; 36 courts live/piloting; $350K raised; 44-court LOI; 11+ sports"
+      "url": "https://picklebill.github.io/Brick/work.html#courtana",
+      "role": "Founder & CEO (2024\u20132026)",
+      "note": "AI sports-intelligence platform, \"TopGolf meets Pickleball\": built and commercialized an AI smart-court ecosystem across 4 venues, 36 courts and 760 users; Gemini (vision) + Claude (strategy) pipeline, 2-person team. Speak about it in the past tense, as what Bill built. The proof is the Courtana video on the Proof page."
     },
     {
       "name": "Dreamship",
       "url": "https://dreamship.com",
-      "role": "Cofounder & CEO (2018\u201324), Board Chair (2024\u201325)",
-      "note": "API fulfillment; $35M+ rev; 11x in a year; won & ran the Google partnership; $2.2M raised"
+      "role": "Cofounder & CEO (2018\u20132024), Board Chair (2024\u20132026)",
+      "note": "API-driven on-demand fulfillment; $26M peak revenue; 11x in 2020 ($1.6M \u2192 $17M); closed Google as a partner in year one (five internal Google teams; merchant qualification + IP risk for an underserved Vietnamese merchant market) and ran it 5+ years: $45M+ in merchant AD SPEND through the channel, which is not revenue; flywheel: Stripe (U.S. payments access for merchants, joint events), PayPal, Payoneer, Meta, Adobe, Microsoft/Bing\u2013ChatGPT; built 3 product versions on ~$150K lean early funding with distributed contributors in Ukraine & Nigeria; $2.2M raised (500 Startups)"
     }
   ],
   "narrative_nodes_the_climb": [
@@ -30,7 +30,7 @@
       "id": "nwm",
       "year": "2006",
       "title": "Northwestern Mutual",
-      "fact": "top 10 nationally, $6M+ TCV, 150+ accounts"
+      "fact": "top-10 nationally, $8M TCV across 185 accounts; recruited and trained interns as College Unit Director"
     },
     {
       "id": "unc",
@@ -42,7 +42,7 @@
       "id": "ibm",
       "year": "2012-14",
       "title": "IBM / Netezza",
-      "fact": "Zillow, Avalara, 8-fig McKesson contribution, >100% quota"
+      "fact": "Watson Foundations Account Executive: seven-figure analytics + Watson-era deals (Zillow, Avalara), contributed to an 8-figure McKesson win, achieved quota, IBM Summit Sales Program"
     },
     {
       "id": "wibi",
@@ -54,21 +54,21 @@
       "id": "gear",
       "year": "2017",
       "title": "GearLaunch",
-      "fact": "VP Sales & Marketing"
+      "fact": "VP Sales & Marketing: seller acquisition, growth positioning, partner narrative; globally distributed team of 13"
     },
     {
       "id": "dreamship",
-      "year": "2018-25",
+      "year": "2018-26",
       "title": "Dreamship",
-      "fact": "$35M+, 11x in a year, the Google deal",
+      "fact": "CEO 2018–2024, Board Chair 2024–2026; $26M peak revenue, 11x in 2020, closed Google as a partner in year one",
       "link": "https://dreamship.com"
     },
     {
       "id": "courtana",
-      "year": "2023+",
+      "year": "2024-26",
       "title": "Courtana",
-      "fact": "$350K, 36 courts, 44-court LOI",
-      "link": "https://courtana.com"
+      "fact": "\"TopGolf meets Pickleball\": built an AI smart-court ecosystem across 4 venues, 36 courts, 760 users",
+      "link": "https://picklebill.github.io/Brick/work.html#courtana"
     },
     {
       "id": "manifesto",
@@ -81,6 +81,12 @@
       "year": "2016",
       "title": "GroupOrDare",
       "fact": "shipped a party card game"
+    },
+    {
+      "id": "freedom",
+      "year": "2020-22",
+      "title": "Freedom United",
+      "fact": "board member, 2020–2022"
     },
     {
       "id": "pickle",
@@ -114,7 +120,7 @@
       {
         "name": "Courtana Venue Connect",
         "url": "https://courtana-venue-connect.lovable.app/",
-        "note": "Personalized collateral for a CLOSED venue partner \u2014 presentation, proposal, analytics, client success, ecosystem. Bill's flagship 'how I think' interview asset."
+        "note": "Personalized collateral for a signed venue partner \u2014 presentation, proposal, analytics, client success, ecosystem. Bill's flagship 'how I think' interview asset."
       }
     ],
     "enterprise_builds": [
@@ -228,5 +234,5 @@
     "Pre-populated guided journey through the VibeCo simulator (intention noted).",
     "Custom domain (e.g. billbricker.com) to replace the github.io path."
   ],
-  "modeled_DO_NOT_PUBLISH": "Pickle DaaS $60M/yr brand-API model & 1,337:1 ratio are projections \u2014 excluded from public artifacts."
+  "modeled_DO_NOT_PUBLISH": "Pickle DaaS revenue models and ratios are projections, not results: never state them."
 }

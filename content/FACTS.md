@@ -2,7 +2,7 @@
 
 Every number and claim that appears on any surface (site, terminal, résumé, PDF, OG cards) lives here first. One defensible value per fact. Seeded from v2 `content.json`; ⚠️ = needs Bill's confirmation in Arc 6 of `INTERVIEW.md`.
 
-> **vSales (sales-first public site) rules — 2026-06-15 "Col bill" strategy call.** Lead = **AI-Forward Sales & Partnerships Leader**; building is the *multiplier* ("the AI workflows that 10x my output"), never a developer identity. **Dreamship/Google is the centerpiece, above Courtana.** Mantra: "tell the best story, not the full story." **NEVER render on the public site:** the $350K Courtana raise · "11+ sports" · "sub-one-year-old startup" (→ use "in year one" / "within its first year") · the phone number · the Microsoft-during-chemo detail as a flex (dignified only, if at all). **$35M+ = peak revenue; $45M+ = ad spend *through the Google channel* (NOT revenue) — keep distinct.**
+> **vSales (sales-first public site) rules — 2026-06-15 "Col bill" strategy call.** Lead = **AI-Forward Sales & Partnerships Leader**; building is the *multiplier* ("the AI workflows that 10x my output"), never a developer identity. **Dreamship/Google is the centerpiece, above Courtana.** Mantra: "tell the best story, not the full story." **NEVER render on the public site:** the Courtana raise amount · "11+ sports" · "sub-one-year-old startup" (→ use "in year one" / "within its first year") · the phone number · the Microsoft-during-chemo detail as a flex (dignified only, if at all). **$26M = peak revenue; $45M+ = ad spend *through the Google channel* (NOT revenue) — keep distinct.**
 
 ## Identity
 
@@ -22,7 +22,7 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Fact | Value | Tag |
 |------|-------|-----|
 | Courts live | 36 courts across 4 live venues; 760 users | public proof triple — frame as **AI-forward capability, not headline traction** (2026-06-15 call). |
-| Raised | $350K (sports-tech operators / industry experts) | **PRIVATE — never render on public site** (2026-06-15 call). OK on directly-sent résumé only. |
+| Raised | [private] (sports-tech operators / industry experts) | **PRIVATE — never render on public site** (2026-06-15 call). OK on directly-sent résumé only. |
 | LOI | 44-court expansion (flagship customer), ~$120K ARR motion | public — Bill confirmed shipping it (2026-06-15); ⚠️ signed/converted status still open |
 | Sports supported | 11+ | **do NOT render on public site** (2026-06-15 call — drop "11+ sports"). |
 | Ecosystem | **40+ apps built across 31 repos** (confirmed framing, Bill 2026-06-13). "65+ projects" is the looser org-wide count — don't mix the two on one surface | public |
@@ -36,7 +36,7 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Reason for step-back | Cancer diagnosis; Google deal already in flight | public (Bill: "very public") |
 | Profitability | Profitable at step-back and every year since, through present | public |
 | EBITDA | **EBITDA-profitable four years running** (co-work résumé, 2026-06-15 — supersedes the older "4 of 8 years" terminal copy) | public |
-| Revenue | **$35M+ = PEAK revenue** (not "cumulative" — corrected 2026-06-15 call) | public |
+| Revenue | **$26M = PEAK revenue** (not "cumulative" — corrected 2026-06-15 call) | public |
 | Growth | **11x in 2020 ($1.6M → $17M)**; 323% revenue CAGR 2019–21 | public (confirmed, co-work résumé 2026-06-15) |
 | Ops scale | 21 fulfillment locations across 6 countries; delivery to 150+ countries; 100+ catalog products / 2,100+ variants; 1.77-day avg production time | public (co-work résumé, 2026-06-15 — supersedes older "20+ partners / 400+ products / 1.4-day") |
 | Outcome | ⚠️ **RESOLVED 2026-06-12:** never an acquisition. "Sold Google" on the v2 site was sales-speak for *closing Google as an account* — first-of-its-kind cross-division Google *partnership* (trademark/IP checker on Google Vision; verified high-volume merchants via the Dreamship trust layer). Site copy rewritten to "closed Google as a partner" / "won & ran the Google partnership" to kill the ambiguous reading. One-line outcome statement still wanted (story doc, open thread 5) | public framing; economics untagged |

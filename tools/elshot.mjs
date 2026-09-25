@@ -4,12 +4,14 @@
  *   node tools/elshot.mjs index.html ".hero-card" back "document.getElementById('flip').classList.add('flipped')"
  */
 import { chromium } from 'playwright';
+import { proxyOpts, trustedNet } from './net.mjs';
 import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
 const [target, sel, tag, evalStr] = process.argv.slice(2);
 const url = pathToFileURL(resolve(target)).href;
 const b = await chromium.launch();
-const ctx = await b.newContext({ viewport: { width: 1280, height: 920 }, deviceScaleFactor: 2, reducedMotion: 'no-preference' });
+const ctx = await b.newContext({ ...proxyOpts(), viewport: { width: 1280, height: 920 }, deviceScaleFactor: 2, reducedMotion: 'no-preference' });
+await trustedNet(ctx);
 const p = await ctx.newPage();
 await p.goto(url, { waitUntil: 'load' });
 await p.waitForTimeout(900);

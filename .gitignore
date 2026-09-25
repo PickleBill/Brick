@@ -3,3 +3,6 @@ node_modules/
 tools/screens/
 tools/videos/
 package-lock.json
+
+# agent worktrees (parallel build sessions) — never part of the site
+.claude/worktrees/

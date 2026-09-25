@@ -15,7 +15,7 @@ résumé"); the recipient books the conversation. **Metric = forward-ability.** 
 (GTM hiring manager or colleague — frontier lab or otherwise).
 **Win test:** would a frontier-lab GTM hiring manager screenshot it and forward it to a colleague?
 **Proof spine (lead commercial, prove with builder):** Google in year one → VP-level across 5–6
-internal teams → **$45M+** partner ad spend → **$35M+** peak revenue (4 yrs EBITDA-profitable) → the AI
+internal teams → **$45M+** partner ad spend → **$26M** peak revenue (4 yrs EBITDA-profitable) → the AI
 multiplier (Courtana / Pickle DaaS, 40+ apps solo).
 
 **Interview decisions:**
@@ -23,7 +23,7 @@ multiplier (Courtana / Pickle DaaS, 40+ apps solo).
 - **Q2 — signature element:** the **live "prompt my résumé" terminal**, pulled **up** — hero hook →
   terminal high, right after the Google centerpiece. Everything else goes quiet around it.
 - **Q3 — message overlap:** slim the hero to the CLAIM (words, not numbers) + tease the build;
-  the 01 centerpiece owns the $45M+/$35M+ numbers, section 04 owns the AI-builder proof.
+  the 01 centerpiece owns the $45M+/$26M numbers, section 04 owns the AI-builder proof.
 - **Q4 — remove one accessory:** DEFERRED (Bill, "come back to it later") — keep all decorative
   elements for now; revisit against real pixels in the build.
 - **Q5 — single primary CTA:** **prompt the terminal** ("Ask my résumé anything ↓"); email = the calm
@@ -36,7 +36,7 @@ multiplier (Courtana / Pickle DaaS, 40+ apps solo).
 - Three-beat operating system (great section scaffold):
   - **HOW I CLOSE** — first-of-a-kind partnerships with the biggest names in tech (Google, Stripe,
     Meta, Microsoft); **$45M+ partner ad spend**; seven- and eight-figure enterprise deals.
-  - **WHAT I BUILD** — products that scale (**Dreamship → $35M+**) + an AI force multiplier:
+  - **WHAT I BUILD** — products that scale (**Dreamship → $26M**) + an AI force multiplier:
     intake, synthesis, proof, collateral, ship.
   - **WHO I LEAD** — top-tier talent recruited with no money and no brand; globally distributed
     teams (SF, NYC, Vietnam, SE Asia, Ukraine, Nigeria).
@@ -102,7 +102,7 @@ one-time polish at the end. Map command → moment:
 **Hero** (`:172–218`) — *the CLAIM in words; numbers teased, not stated (Q3)*
 - `KEEP` eyebrow "AI-Forward Sales & Partnerships Leader" `:209` + H1 "I close the deals the biggest
   names in tech **say yes to.**" `:210` (facts: positioning line).
-- `FIX` lede `:211` currently front-loads `$45M+`/`$35M+`; per Q3 the **01 centerpiece owns the
+- `FIX` lede `:211` currently front-loads `$45M+`/`$26M`; per Q3 the **01 centerpiece owns the
   numbers** — hero teases ("a first-of-its-kind Google deal… then I built the AI behind it"), keep one verbal hook.
 - `KEEP` operator flip-card (family ⇄ give-back) `:177–195` — Q4 deferred; stays subordinate to terminal.
 - `KEEP` glanceable hero bars `:199–202` — verify values are ledger-clean ($45M+ channel · 6 partners · 11x · 40+ apps). ✓
@@ -112,7 +112,7 @@ one-time polish at the end. Map command → moment:
 
 **01 — Centerpiece: Google / Dreamship** (`:220–235`) — *owns the numbers*
 - `KEEP` structure + "**5–6 internal teams**" `:225` (C-1 ✓). 
-- `KEEP` dstats verbatim: `$35M+` peak revenue · 11x ('20 $1.6M→$17M) · **`$45M+` ad spend "through
+- `KEEP` dstats verbatim: `$26M` peak revenue · 11x ('20 $1.6M→$17M) · **`$45M+` ad spend "through
   the channel — not revenue"** `:230` (Guardrail #1 — keep this exact caption) · 4 yrs EBITDA-profitable / profitable today.
 - `KEEP` foot8 "~$85M GMV · 2.3M+ units · 323% CAGR (2019–21)" `:233` (facts: Dreamship).
 
@@ -151,7 +151,7 @@ one-time polish at the end. Map command → moment:
 
 **Cut / defer (not on the front-door spine):** `v3/index.html`, `work.html`, `console.html`,
 `compare.html` stay optional depth, not linked from this merge (brief: "demote to depth"). They still
-carry their own ledger violations (phone / `$350K` / "11+ sports" / "sub-one-year-old" — see the facts
+carry their own ledger violations (phone / the Courtana raise amount / "11+ sports" / "sub-one-year-old" — see the facts
 surface audit) → fix or `noindex` in **Phase 2**, not this merge.
 
 ## Spacing scale (Rule 5 — one ramp, defined once)
@@ -186,13 +186,13 @@ side-by-side operating companies, single-primitive section padding (`section.blo
   billygoat as a terminal easter egg only).
 
 **Ledger fixes (each one is a GATE item):**
-- Bar1 + statband **"8-fig" Google channel → `$45M+` ad spend** (C-3); statband **"$35M+ revenue led" →
-  `$35M+` peak revenue** (guardrail #2).
-- Courtana opco: **drop "11+ sports" + "$350K"** → 36 courts · 760 users · 4 venues.
+- Bar1 + statband **"8-fig" Google channel → `$45M+` ad spend** (C-3); statband **"$26M revenue led" →
+  `$26M` peak revenue** (guardrail #2).
+- Courtana opco: **drop "11+ sports" + the Courtana raise amount** → 36 courts · 760 users · 4 venues.
 - Dreamship opco: **"sub-one-year-old startup" → "in year one".**
 - Contact: **remove the phone (`tel:`)** → Download résumé (vFinal).
 - nav + footer résumé (`resume-v2.html`) → **vFinal PDF**.
-- `home.js` terminal copy: scan for 8-fig / phone / $350K / 11-sports / sub-one-year / director → fix to ledger.
+- `home.js` terminal copy: scan for 8-fig / phone / the Courtana raise amount / 11-sports / sub-one-year / director → fix to ledger.
 
 **The two bugs to kill (Q1) — verify against the grader, don't blind-refactor:**
 - **Rhythm:** confirm one section primitive owns vertical spacing; add the Rule-5 token ramp; kill any
@@ -230,7 +230,7 @@ badges → 2–3 key ones. **Keep** (functional): terminal LIVE badge, the `whoa
 - New clean section, **brief**: first-of-its-kind Google partnership, closed **in year one**, **VP-level
   across 5–6 teams**, ran **5+ years**.
 - **Numbers folded in, slim** (Bill likes the stat card — keep its spirit, slimmed): `$45M+` ad spend
-  *(not revenue)* · `$35M+` peak revenue · `11x` ('20) · 4 yrs profitable. The old green 6-stat band is
+  *(not revenue)* · `$26M` peak revenue · `11x` ('20) · 4 yrs profitable. The old green 6-stat band is
   **absorbed here** — no separate band.
 - Hands off to the terminal ("ask the machine about it ↓").
 - **Design ground-up with `/impeccable craft`** — narrative-with-numbers, NOT a big-number hero-metric

@@ -7,14 +7,14 @@ _Built overnight 2026-06-15. A from-scratch, orthogonal reimagining of the site 
 ---
 
 ## The 6-second bet
-**Name → one line → one spectrum verb → a console already answering.** A frontier-lab hiring manager should, in one breath, get: _"I sell frontier tech and I build it myself,"_ see it's a live AI product, and be able to **interrogate it**. The share trigger is the juxtaposition no one else can post: _closed Google as a partner · $35M+ · solo AI builder · built through cancer._
+**Name → one line → one spectrum verb → a console already answering.** A frontier-lab hiring manager should, in one breath, get: _"I sell frontier tech and I build it myself,"_ see it's a live AI product, and be able to **interrogate it**. The share trigger is the juxtaposition no one else can post: _closed Google as a partner · $26M · solo AI builder · built through cancer._
 
 ---
 
 ## What's live in v3 (all working, all verified)
 1. **The console hero.** A self-booting `ask-bill` terminal as the centerpiece — runs commands *and* free-text questions, grounded in the FACTS ledger, with a local fallback so it never dies. Instrument aesthetic: dot-grid + scanline field, JetBrains-Mono-led, the green→cyan→violet→coral **spectrum reserved for exactly one phrase** ("build it myself").
 2. **★ Hiring-Manager Mode (the signature).** Type _"Partnerships Lead at Anthropic"_ → the console **tailors the case for that exact role**, streaming a custom pitch. The site reconfigures itself for the reader — proving AI-native fluency *and* GTM instinct in one move. (Falls back to a strong templated pitch if the endpoint is cold.)
-3. **The "sells / builds" split.** Two panes resolve the only question that matters — _"can you really do both?"_ — at a glance: **Sells** (Google-as-partner, $35M+, 11x, enterprise) / **Builds** (40+ apps, 31 repos, $0.0054/clip).
+3. **The "sells / builds" split.** Two panes resolve the only question that matters — _"can you really do both?"_ — at a glance: **Sells** (Google-as-partner, $26M, 11x, enterprise) / **Builds** (40+ apps, 31 repos, $0.0054/clip).
 4. **The ledger, in the open + "prove it" receipts.** Every load-bearing number is a button → opens a drawer with the full context, source, and a `"partner, not sold"`-style tag. _Grounded, every number traceable_ — the single most credible thing you can show an AI lab.
 5. **Live heartbeat.** Pulls your latest public GitHub push → "last shipped 4h ago" in the status bar; `what did you ship this week?` lists real recent commits. The build has a pulse.
 6. **Fun / playful endpoints.** `chuck` (Chuck-Norris API, Bricker-flavored), `advice`, `billygoat`, `sudo hire-bill` (gag → mailto), and a **↑↑↓↓←→←→ba konami** "DJ Billygoat mode." The energy you asked for.
@@ -59,7 +59,7 @@ Four lenses brainstormed in parallel; the convergent picks became v3. The rest i
 
 ## Honest notes / decisions for you
 - **v3 is live but unlinked.** The public root (`/`) is still v2. Nothing about v3 is exposed to a hiring manager unless they open `/Brick/v3/`. Promote it (or merge ideas back into v2) whenever you're ready — your call.
-- **Ledger ⚠️ items still apply** (same list as `BUILD-LOG.md`): the 36 courts / $35M+ / GMV / phone-on-site / etc. v3 surfaces them exactly as the ledger has them; confirm or correct and I'll update once.
+- **Ledger ⚠️ items still apply** (same list as `BUILD-LOG.md`): the 36 courts / $26M / GMV / phone-on-site / etc. v3 surfaces them exactly as the ledger has them; confirm or correct and I'll update once.
 - **The biggest single upgrade is still a real portrait + a 60–90s Loom.** v3 doesn't lean on a portrait (it's a console), but a Loom would be a killer `demo` command.
 - **Network:** the console's live calls (ask-bill, GitHub, Chuck Norris) all degrade gracefully — if any endpoint is cold, you get a strong canned answer, never a broken state.
 

@@ -5,6 +5,7 @@
 (function () {
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePtr = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches; /* focus the terminal input only where it won't open a phone keyboard */
   var $ = function (s, r) { return (r || document).querySelector(s); };
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
@@ -39,28 +40,6 @@
     } else {
       els.forEach(function(el){ el.textContent=(el.dataset.pre||'')+(+el.dataset.count)+(el.dataset.suf||''); });
     }
-  })();
-
-  /* ---------- constellation: one-time line-DRAW (the flywheel wires itself up) ----------
-     SVG connectors start undrawn (CSS sets stroke-dashoffset from --len). On first
-     scroll-in we set each path's dasharray/offset to its real length, then add .wired
-     so CSS eases the offset to 0 — the strokes trace, node dots fade in behind them.
-     Fires once, then unobserves. Reduced-motion: CSS already shows lines drawn, so we
-     just mark .wired without touching dash lengths (no flash, no transition). */
-  (function(){
-    var con=$('#names .constellation'); if(!con) return;
-    var wires=[].slice.call(con.querySelectorAll('.constel-lines .wire'));
-    function wire(){ if(con._w) return; con._w=true;
-      if(!reduce){ wires.forEach(function(p){
-        var len=0; try{ len=p.getTotalLength(); }catch(e){ len=600; }
-        len=Math.ceil(len)||600;
-        p.style.strokeDasharray=len; p.style.setProperty('--len',len); });
-        void con.offsetWidth; }                       /* commit the undrawn state before transitioning */
-      con.classList.add('wired'); }
-    if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wire(); io.disconnect(); } }); },{rootMargin:'0px 0px -12% 0px'});
-      io.observe(con);
-    } else { wire(); }
   })();
 
   /* ---------- identity card: cinematic flip + pointer-tilt depth + bars ----------
@@ -199,79 +178,86 @@
       '<span class="dim">ask Bill:</span> <span class="m">whoami companies google-deal builds pickle-daas stats enterprise</span>',
       '<span class="dim">hiring me:</span> <span class="am">tailor &lt;role&gt;  reference-check  why-you  the-fit  shipped-this-week</span>',
       '<span class="dim">wildcards:</span> <span style="color:#a78bfa">chuck  billygoat  surprise</span>',
-      '<span class="dim">tip:</span> <span class="am">tailor Partnerships Lead at Anthropic</span> <span class="dim">— or paste a job description.</span>']); },
+      '<span class="dim">tip:</span> <span class="am">tailor Partnerships Lead at a frontier AI lab</span> <span class="dim">— or paste a job description.</span>']); },
     whoami:function(){ block([
       '<span class="m">Bill Bricker</span> — AI-Forward Sales &amp; Partnerships Leader.',
-      'I close what the biggest names in tech say yes to, then build',
+      'I close the deals the biggest names in tech say yes to, then build',
       'the AI that does the work. Closed Google as a partner in year one.',
       'Raleigh, NC · father of three · still building.']); },
     companies:function(){ block([
-      '<span class="m">Courtana</span>  founder/CEO · 2023→now — AI smart-court SaaS, 36 courts.',
-      '<span class="m">Dreamship</span> cofounder/CEO · 2018–23 — $35M+, 11x, the Google partnership.']);
+      '<span class="m">Courtana</span>  founder/CEO · 2024–26 — built "TopGolf meets Pickleball".',
+      '<span class="m">Dreamship</span> cofounder/CEO · 2018–24 — $26M peak revenue, 11x, Google.']);
       suggest(['google-deal','builds']); },
     'google-deal':function(){ block([
       '<span class="m"># The Google partnership — not an acquisition.</span>',
-      'In year one, navigated 5–6 internal Google teams to',
-      'VP-level sign-off — a first-of-its-kind cross-division <span class="m">partnership</span>.',
-      '→ <span class="m">$45M+ ad-spend</span> channel, run <span class="m">5+ years</span>. Stripe, PayPal, Meta followed.',
+      'Closed Google as a partner in year one, aligning five internal Google',
+      'teams on a first-of-its-kind <span class="m">partnership</span> that solved',
+      'merchant qualification + IP risk for an underserved Vietnamese market.',
+      '→ <span class="m">$45M+ ad-spend</span> channel, run <span class="m">5+ years</span>. Stripe, PayPal, Meta followed;',
+      'Stripe gave merchants U.S. payments access and supported joint events.',
       '<span class="dim">$45M+ = ad spend through the channel — not revenue.</span>']);
       suggest(['why-you','companies']); },
     enterprise:function(){ block([
       '<span class="m"># 20 years carrying a number.</span>',
-      'IBM/Netezza — Zillow, Avalara; 8-figure McKesson; achieved quota.',
-      'Northwestern Mutual — top 10 nationally; $6M+ TCV. Then founder-led GTM.']); },
+      'GearLaunch — VP Sales &amp; Marketing, globally distributed team of 13.',
+      'IBM/Netezza — Watson Foundations Account Executive: Zillow, Avalara;',
+      'contributed to an 8-figure McKesson win; achieved quota.',
+      'Northwestern Mutual — top-10 nationally; $8M TCV across 185 accounts.',
+      'Then founder-led GTM.']); },
     builds:function(){ block([
-      '<span class="m"># VibeCo</span> — 11 AI agents (Gemini + Claude). Idea → brief → working app.',
-      '<span class="m">40+ apps</span> across <span class="m">31 repos</span>, shipped solo:',
-      '  Venue Connect · Litigator · HeadsUpTime · +30 more.',
+      '<span class="m"># VibeCo</span>: the build engine (Claude, Codex, Lovable, Gemini). Idea → brief → working app.',
+      '<span class="m">40+ apps</span> across <span class="m">31 repos</span>, built &amp; shipped solo:',
+      '  Venue Connect · Litigator · HeadsUpTime · Layup Lab · Pickleball Freak Show.',
       '<span class="dim">→ vibeco.lovable.app</span>']);
       suggest(['pickle-daas','shipped-this-week']); },
     'pickle-daas':function(){ block([
       '<span class="m"># Pickle DaaS</span> — self-serve sports-data warehouse from raw video.',
       'Supabase + connectors + autonomous ingest + ground-truth loop.',
-      '<span class="m">21K+ processed</span> · <span class="m">4,097 analyzed</span> · <span class="m">$0.0054/clip</span> (~7x cheaper).']); },
+      '<span class="m">21K processed</span> · <span class="m">4,097 analyzed</span> · <span class="m">$0.0054/clip</span> (~7x cheaper).']); },
     stats:function(){ block([
-      '11x        revenue growth in one year',
-      '$35M+      peak revenue · Dreamship',
+      '11x        revenue growth in 2020',
+      '$26M       peak revenue · Dreamship',
       '$45M+      Google ad-spend channel · 5+ yrs',
-      '40+ apps   shipped solo · 31 repos',
-      '21K+       clips processed · 4,097 analyzed',
+      '40+ apps   across 31 repos, built & shipped solo',
+      '21K        clips processed · 4,097 analyzed',
       '3          startups founded over 20 years']); },
     'git log':function(){ block([
-      '<span class="m">2026</span>  Courtana — 36 courts live, scaling.',
-      '<span class="m">2023</span>  Diagnosed; kept the pipeline moving. Started Courtana.',
+      '<span class="m">2026</span>  40+ apps across 31 repos, built &amp; shipped solo.',
+      '<span class="m">2024</span>  Founded Courtana: built "TopGolf meets Pickleball", 36 courts.',
+      '<span class="m">2023</span>  Diagnosed; kept the pipeline moving.',
       '<span class="m">2020</span>  Dreamship 11x — orders → routes → shipping trust.',
-      '<span class="m">2019</span>  Closed Google. Stripe/PayPal/Meta followed.']); },
+      '<span class="m">2018</span>  Founded Dreamship; closed Google as a partner in year one.']); },
     contact:function(){ block([
       '<span class="am"># Fastest path: grab 30 minutes.</span>',
       '<span class="a" data-href="https://calendly.com/bricker3-idwj/30min">calendly.com/bricker3-idwj/30min →</span>',
       '<span class="a" data-href="mailto:bricker3@gmail.com">bricker3@gmail.com</span>',
       '<span class="a" data-href="https://linkedin.com/in/williambricker">linkedin.com/in/williambricker</span>',
+      '<span class="a" data-href="resume/">résumé →</span>  <span class="a" data-href="assets/Bill_Bricker_Resume_2026-09.pdf">download PDF</span>',
       'Raleigh, NC',
       '<span class="dim">open to founder / GTM / partnership / forward-deployed / fractional.</span>']); },
     'why-you':function(){ block([
-      '<span class="am"># The rare seam: I close the room AND ship the product.</span>',
-      'Plenty of people can build with AI now. Far fewer can walk into',
-      'Google and leave with a <span class="m">partnership</span>, then turn it into $35M+ and 11x.',
-      '20 years carrying an enterprise number AND I ship production AI solo',
-      'today. That seam is the rare part, and it\'s the whole résumé.']);
-      ask('Make the sharp case for why Bill is a rare hire who both closes enterprise partnerships and ships production AI solo, grounded in his record.', true);
-      suggest(['tailor Partnerships Lead at Anthropic','reference-check']); },
+      '<span class="am"># I close the room and build the product.</span>',
+      'Plenty of people can build with AI now. Far fewer walked into',
+      'Google as a year-one startup and left with a <span class="m">partnership</span>, then led',
+      'Dreamship to $26M peak revenue and 11x. Two decades turning frontier',
+      'tech into revenue, plus 40+ apps across 31 repos, built &amp; shipped solo.']);
+      ask('Make the sharp case for why Bill is a rare hire who both closes enterprise partnerships and builds and ships AI apps solo, grounded in his record.', true);
+      suggest(['tailor Partnerships Lead at a frontier AI lab','reference-check']); },
     'the-fit':function(){ block([
       '<span class="am"># The frontier-lab fit.</span>',
-      'Labs are hiring the <span class="m">forward-deployed / GTM engineer</span> hardest:',
-      'the line between selling and building has collapsed. That\'s the job',
-      'I\'ve already been doing for two companies: close the room, then ship',
-      'the integration myself. I translate frontier capability into a signed yes.']);
+      'Labs need people who can sell the technology and build with it:',
+      'the line between the two has collapsed. At Courtana I sold the venues,',
+      'then built the demos and the video-analysis workflow myself.',
+      'I translate frontier capability into a signed yes.']);
       suggest(['tailor GTM lead at a frontier lab','reference-check']); },
     'reference-check':function(){ block([
-      '<span class="am"># Reference check — a former Dreamship colleague speaks:</span>',
-      '"Would I work with Bill again? In a heartbeat. He closed Google as a',
-      'partner when the rest of us thought it was impossible — then actually',
-      'ran it for five years. He carries the number AND ships the product.',
-      'The rare one who does both."  <span class="dim">— grounded in the record; ask for a real intro.</span>']);
-      ask('Role-play a former Dreamship / Google-era colleague giving a candid, specific reference for Bill — would you hire him again, grounded only in his real record.', true);
-      suggest(['tailor Partnerships Lead at Anthropic','contact']); },
+      '<span class="am"># Reference check: what a reference call will confirm.</span>',
+      'Closed Google as a partner in Dreamship\'s first year; it ran 5+ years.',
+      'Led Dreamship to $26M peak revenue, with 11x growth in 2020.',
+      'Achieved quota at IBM. Top-10 nationally at Northwestern Mutual.',
+      '<span class="dim">For the real thing, ask me for an intro to people who were there.</span>']);
+      ask('List, briefly, what a reference could verify about Bill, using only facts from his record. Never invent a person, a quote, or an opinion.', true);
+      suggest(['tailor Partnerships Lead at a frontier AI lab','contact']); },
     'shipped-this-week':function(){ shipped(); },
     'hire-bill':function(){ block([
       '<span class="dim">[sudo] authenticating hiring manager…</span>',
@@ -281,7 +267,7 @@
     chuck:function(){ chuck(); },
     billygoat:function(){ block([
       'fka <span class="m">DJ Billygoat</span> — yes, that\'s really me. 🐐',
-      'Closed Google, shipped 40+ AI apps solo, dropped a few beats. Same guy.',
+      'Closed Google. 40+ apps across 31 repos, built &amp; shipped solo. Dropped a few beats. Same guy.',
       '<span class="dim">Still in the room.</span>']); },
     surprise:function(){ var picks=[chuck,CMDS.billygoat,CMDS['git log'],function(){ block(['<span class="m">fun fact:</span> my kids think the party card game I shipped (GroupOrDare) is the most impressive thing I\'ve done. They\'re probably right.']); },CMDS['why-you']]; picks[Math.floor(Math.random()*picks.length)](); },
     clear:function(){ cancelTyping(); out.innerHTML=''; }
@@ -289,23 +275,42 @@
 
   /* ---- hiring-manager mode: tailor the pitch to a role / pasted JD ---- */
   function tailor(role){ role=(role||'').trim();
-    if(!role){ block(['<span class="am"># hiring-manager mode</span> — type e.g. <span class="m">tailor Partnerships Lead at Anthropic</span>, or paste a job description, and I\'ll make the case for that exact role.']); return; }
+    if(!role){ block(['<span class="am"># hiring-manager mode</span> — type e.g. <span class="m">tailor Partnerships Lead at a frontier AI lab</span>, or paste a job description, and I\'ll make the case for that exact role.']); return; }
     block(['<span class="am"># tailoring the case for:</span> '+esc(role.slice(0,120))]);
-    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner in year one; led Dreamship to $35M+ peak revenue and 11x; ships production AI solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; 20 years carrying an enterprise number). Address the role directly; be concrete and confident; no generic filler.';
+    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner in year one; led Dreamship to $26M peak revenue and 11x; builds and ships AI apps solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; two decades turning frontier technology into revenue, including enterprise sales at IBM and WibiData). Address the role directly; be concrete and confident; no generic filler.';
     askQuiet(q, function(){ // local fallback
-      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner in year one, turned it into $35M+ peak revenue and 11x at Dreamship, and today I build production AI solo — 40+ apps across 31 repos. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
+      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner in year one, led Dreamship to $26M peak revenue and 11x, plus 40+ apps across 31 repos, built & shipped solo. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
       suggest(['reference-check','why-you','contact']);
     }, function(){ suggest(['reference-check','why-you','contact']); });
   }
 
+  /* stored answers (ported from work.html's terminal) so typed questions still get real answers when the live AI is down */
+  var QA=[
+    {k:["lab", "anthropic", "openai", "frontier", "why now", "why a lab", "join"],r:["<span class=\"m\"># why a frontier lab, why now</span>", "Because the gap I fill is the one labs feel most: people who can stand in front of an enterprise buyer <em>and</em> have personally shipped with the technology. I've sold the hardest room there is (Google, as a no-name startup) and I build with AI every single day. I want to do my best work where the frontier is actually being made."]},
+    {k:["biggest deal", "best deal", "google", "hardest sale"],r:["<span class=\"m\"># the biggest deal</span>", "Google, in Dreamship's first year. Built an AI IP-compliance checker to solve <em>their</em> trust problem, then aligned five internal Google teams behind it. The channel ran 5+ years and drove $45M+ in partner ad spend (ad spend, not revenue). Type <span class=\"m\">google-deal</span> for the full STAR story."]},
+    {k:["vibe coding", "vibe code", "vibeco", "vibe-coding"],r:["<span class=\"m\"># what is vibe coding?</span>", "Describing what you want in plain English and shipping working software the same day. I built <span class=\"val\">VibeCo</span>, a build simulator, to industrialize it: idea → brief → build prompts → working app. 40+ apps across 31 repos came out of that motion. Type <span class=\"m\">builds</span> to see them."]},
+    {k:["pickleball", "courtana", "why pickle", "sports"],r:["<span class=\"m\"># why pickleball?</span>", "A fast-growing sport, venues running on analog ops, and nobody owning the video layer. Courtana (2024–2026) put AI on the court (video, instant highlights, coaching) across 4 venues and 36 courts, and Pickle DaaS turned that footage into data. Pickleball was the wedge; the data was the business. Type <span class=\"m\">companies</span> or <span class=\"m\">pickle-daas</span>."]},
+    {k:["superpower", "strength", "best at", "why hire", "why you"],r:["<span class=\"m\"># the honest answer</span>", "Translation. I make complicated things simple enough that one human buys them from another. Now I can <em>build</em> the demo before the second meeting. Sellers who build are rare; builders who can carry a quota are rarer."]},
+    {k:["cancer", "long walk", "health", "chemo"],r:["<span class=\"m\"># on the record</span>", "Diagnosed 2023. Chemo through 2025. The pipeline kept moving. I keep it on the record because no one I'd want to work with would want it left out. The operator instinct gets clear when the day is short."]},
+    {k:["kids", "family", "father", "three"],r:["<span class=\"m\"># the why</span>", "Three kids, a real kitchen, and an unreal amount of pickleball gear in the garage. The whole map exists to support that — not the other way around."]},
+    {k:["available", "hire", "role", "open to", "looking for", "work with"],r:["<span class=\"m\"># what I'm open to</span>", "Founder roles, GTM &amp; partnership leadership (frontier AI labs especially), fractional/advisory, board. Type <span class=\"m\">contact</span> — or just email <a class=\"lnk\" href=\"mailto:bricker3@gmail.com\">bricker3@gmail.com</a>."]},
+    {k:["dreamship", "fulfillment", "print"],r:["<span class=\"m\"># dreamship, short version</span>", "Cofounder &amp; CEO 2018–2024, then board chair to 2026. Zero → $26M peak revenue, 11x in 2020, on $2.2M raised (500 Startups); EBITDA-profitable four years running. The early product: 3 versions on ~$150K lean funding. Closed Google as a partner in year one, then sequenced Stripe/PayPal/Meta/Payoneer off it. Type <span class=\"m\">companies</span> for links."]},
+    {k:["ibm", "quota", "enterprise sales", "netezza"],r:["<span class=\"m\"># enterprise pedigree</span>", "IBM 2012–14, Watson Foundations Account Executive (in through the IBM Summit Sales Program): seven-figure Watson AI + analytics deals with Zillow and Avalara, contributed to an 8-figure McKesson win, achieved quota. Before that, Northwestern Mutual 2006–10: $8M TCV across 185 accounts and a top-10 national ranking. The selling muscle everything else is built on."]},
+    {k:["northwestern", "nwm", "financial advisor", "cold call", "first job"],r:["<span class=\"m\"># where I learned to sell</span>", "Northwestern Mutual, 2006–10. Built a financial advisory book through cold calls, referrals and relationship selling: $8M TCV across 185 accounts and a top-10 national ranking; recruited and trained interns as College Unit Director."]},
+    {k:["stack", "tools", "claude", "how do you build"],r:["<span class=\"m\"># the stack</span>", "Claude (Code + Design), Codex, Lovable, Gemini, Supabase, Stripe, GitHub. This site, terminal included, was built with the stack it describes."]},
+    {k:["dj", "billygoat", "fka"],r:["<span class=\"m\"># fka DJ Billygoat</span>", "A past life behind the decks. The set lists are sealed; the crowd-reading skills transferred directly to enterprise sales."]}
+  ];
+  function qaAnswer(s){ var best=null, bs=0; QA.forEach(function(a){ var sc=0; a.k.forEach(function(k){ if(s.indexOf(k)>-1) sc++; }); if(sc>bs){ bs=sc; best=a; } }); return best ? function(){ block(best.r); } : null; }
+
   function localAnswer(q){ var s=q.toLowerCase();
-    if(/google/.test(s)) return CMDS['google-deal'];
+    var qa=qaAnswer(s); if(qa) return qa;
+    if(/google|deal|biggest|largest|partnership|proud/.test(s)) return CMDS['google-deal'];
     if(/why|better|over|hire|fde|forward|fit/.test(s)) return CMDS['why-you'];
-    if(/dreamship|\$35|11x|revenue|courtana|court|company|companies/.test(s)) return CMDS.companies;
+    if(/dreamship|\$26|\$35|11x|revenue|courtana|court|company|companies/.test(s)) return CMDS.companies;
     if(/build|app|vibe|ship|repo|code|solo/.test(s)) return CMDS.builds;
     if(/data|clip|pickle|warehouse|video|vision|cost/.test(s)) return CMDS['pickle-daas'];
     if(/sell|sale|gtm|quota|ibm|enterprise|partner/.test(s)) return CMDS.enterprise;
-    if(/cancer|chemo|health|climb|walk|story/.test(s)) return function(){ block(['Diagnosed 2023; operated through chemo into 2025 — the pipeline never stopped. <span class="a" data-href="climb.html">walk the climb →</span>']); };
+    if(/cancer|chemo|health|climb|walk|story/.test(s)) return function(){ block(['Diagnosed 2023; operated through chemo into 2025 and kept the pipeline moving. <span class="a" data-href="climb.html">walk the climb →</span>']); };
     if(/kid|child|family|father|three|dad/.test(s)) return function(){ block(['Father of three. They are completely unimpressed by all of it.']); };
     if(/dj|billygoat|music/.test(s)) return CMDS.billygoat;
     if(/contact|email|reach|talk|available|role|job/.test(s)) return CMDS.contact;
@@ -314,36 +319,38 @@
 
   var ASK_URL='https://ulgoahsxkrkzoquvntei.supabase.co/functions/v1/ask-bill';
   function ask(q, quiet){ askQuiet(q, function(){ // standard fallback
-      if(quiet) return; var f=localAnswer(q); if(f) f(); else block(['<span class="dim">live answer unavailable — try:</span> <span class="m">companies · google-deal · builds · stats</span>']); }); }
+      if(quiet) return; var f=localAnswer(q); if(f) f(); else block(['<span class="m"># good question.</span>','I don\'t have a stored answer for that one, which probably means it deserves a real conversation.','<span class="dim">try</span> <span class="m">google-deal · companies · builds · stats</span> <span class="dim">or</span> <span class="a" data-href="https://calendly.com/bricker3-idwj/30min">grab 30 minutes with Bill →</span>']); }); }
   function askQuiet(q, onFail, onOk){
+    var gen=typeGen; /* a newer command bumps typeGen (cancelTyping): drop this answer if it lands late */
     var thinking=el('<span class="dim">thinking…</span>','blk'); out.appendChild(thinking); scroll();
     var done=false, ctrl=('AbortController' in window)?new AbortController():null;
     var to=setTimeout(function(){ if(ctrl)ctrl.abort(); },18000);
     fetch(ASK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,history:history.slice(-6)}),signal:ctrl?ctrl.signal:undefined})
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-      .then(function(d){ clearTimeout(to); done=true; thinking.remove();
+      .then(function(d){ clearTimeout(to); done=true; thinking.remove(); if(gen!==typeGen) return;
         var a=d.answer||d.response||d.text||d.message;
         if(a){ history.push({role:'assistant',content:a}); typed(String(a)); if(onOk) onOk(); } else if(onFail) onFail(); })
-      .catch(function(){ clearTimeout(to); if(done) return; thinking.remove(); if(onFail) onFail(); });
+      .catch(function(){ clearTimeout(to); if(done) return; thinking.remove(); if(gen!==typeGen) return; if(onFail) onFail(); });
   }
   /* LLM answers are plain text — escape so stray < & display literally, then type through the shared typewriter */
   function typed(text){ typeLines(String(text).split(/\n+/), {esc:true}); }
 
-  function chuck(){ var t=el('<span class="dim">fetching…</span>','blk'); out.appendChild(t); scroll();
-    fetch('https://api.chucknorris.io/jokes/random').then(function(r){return r.json();}).then(function(d){
-      t.remove(); block(['<span class="m"># fact:</span> '+esc(String(d.value||'').replace(/Chuck Norris/g,'Bill Bricker'))]);
-    }).catch(function(){ t.remove(); block(['<span class="m"># fact:</span> Bill Bricker closed Google as a partner before his startup turned one. (API\'s napping; this one\'s true.)']); }); }
+  function chuck(){ var gen=typeGen, t=el('<span class="dim">fetching…</span>','blk'); out.appendChild(t); scroll();
+    fetch('https://api.chucknorris.io/jokes/random?category=dev').then(function(r){return r.json();}).then(function(d){
+      t.remove(); if(gen!==typeGen) return; block(['<span class="m"># fact:</span> '+esc(String(d.value||'').replace(/Chuck Norris/g,'Bill Bricker'))]);
+    }).catch(function(){ t.remove(); if(gen!==typeGen) return; block(['<span class="m"># fact:</span> Bill Bricker closed Google as a partner in Dreamship\'s first year. (API\'s napping; this one\'s true.)']); }); }
 
   function rel(iso){ var s=(Date.now()-new Date(iso).getTime())/1000;
     if(s<3600) return Math.max(1,Math.round(s/60))+'m ago'; if(s<86400) return Math.round(s/3600)+'h ago'; return Math.round(s/86400)+'d ago'; }
-  function shipped(){ var t=el('<span class="dim">pulling recent commits…</span>','blk'); out.appendChild(t); scroll();
+  function shipped(){ var gen=typeGen, t=el('<span class="dim">pulling recent commits…</span>','blk'); out.appendChild(t); scroll();
     fetch('https://api.github.com/users/picklebill/events/public?per_page=30').then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(ev){
-      t.remove(); var ps=ev.filter(function(e){return e.type==='PushEvent';}).slice(0,5); if(!ps.length) throw 0;
-      var L=['<span class="m"># still building — recent public commits:</span>'];
-      ps.forEach(function(p){ var repo=p.repo.name.split('/').pop(); var msg=((p.payload&&p.payload.commits&&p.payload.commits[0]&&p.payload.commits[0].message)||'').split('\n')[0].slice(0,44);
-        L.push('<span class="dim">'+rel(p.created_at)+'</span>  <span class="m">'+esc(repo)+'</span>  '+esc(msg)); });
+      /* repo + time only: raw commit subjects are internal notes, and this site's own repo is its working log */
+      t.remove(); if(gen!==typeGen) return; var ps=ev.filter(function(e){return e.type==='PushEvent' && e.repo && e.repo.name.toLowerCase()!=='picklebill/brick';}).slice(0,5); if(!ps.length) throw 0;
+      var L=['<span class="m"># still building — recent public pushes:</span>'];
+      ps.forEach(function(p){ var repo=p.repo.name.split('/').pop(); var n=(p.payload&&p.payload.size)||((p.payload&&p.payload.commits)||[]).length||1;
+        L.push('<span class="dim">'+rel(p.created_at)+'</span>  <span class="m">'+esc(repo)+'</span>  '+n+' commit'+(n===1?'':'s')); });
       L.push('<span class="dim">…live from github.com/picklebill — the build has a heartbeat.</span>'); block(L);
-    }).catch(function(){ t.remove(); block(['<span class="m"># still building.</span> 40+ apps across 31 repos, shipped solo — VibeCo, Pickle DaaS, and whatever I touched today.']); }); }
+    }).catch(function(){ t.remove(); if(gen!==typeGen) return; block(['<span class="m"># still building.</span> 40+ apps across 31 repos, built &amp; shipped solo — VibeCo, Pickle DaaS, and whatever I touched today.']); }); }
 
   function run(raw){ var cmd=(raw||'').trim(); if(!cmd) return; cancelTyping(); if(out) out.innerHTML=''; echo(cmd); history.push({role:'user',content:cmd});
     var lc=cmd.toLowerCase(); var am=lc.match(/^ask\s+(.+)/); if(am){ ask(am[1]); return; }
@@ -359,15 +366,15 @@
 
   out && out.addEventListener('click', function(e){
     var a=e.target.closest('[data-href]'); if(a){ var u=a.dataset.href; if(u.indexOf('http')===0) window.open(u,'_blank','noopener'); else location.href=u; return; }
-    var r=e.target.closest('[data-run]'); if(r){ run(r.dataset.run); if(input) input.focus(); } });
+    var r=e.target.closest('[data-run]'); if(r){ run(r.dataset.run); if(input && finePtr) input.focus(); } });
 
   /* boot */
   function showInput(){ if(line){ line.style.display='flex'; scroll(); } }
   function boot(after){ var ls=[
-      {t:'brick.os — AI-forward sales console. booting…',c:'dim'},
-      {t:'Bill Bricker — I close what the biggest names in tech say yes to.',c:'m'},
-      {t:'Closed & ran the Google partnership in year one.',c:''},
-      {t:'Now shipping production AI daily. 40+ apps, solo. Ask me anything.',c:''}];
+      {t:'brick.os · ask-bill · booting…',c:'dim'},
+      {t:'Bill Bricker · AI-Forward Sales & Partnerships Leader.',c:'m'},
+      {t:'Top-10 nationally at Northwestern Mutual. Achieved quota at IBM.',c:''},
+      {t:'Ask me anything, or paste a job description.',c:''}];
     echo('whoami');
     /* route the intro through the shared typewriter (markup-aware), then reveal the input */
     typeLines(ls.map(function(l){ return l.c?'<span class="'+l.c+'">'+esc(l.t)+'</span>':esc(l.t); }), {});
@@ -378,7 +385,29 @@
   bootCheck(); addEventListener('scroll',bootCheck,{passive:true}); addEventListener('resize',bootCheck,{passive:true}); addEventListener('load',bootCheck);
   if(input){ input.addEventListener('keydown',function(e){ if(e.key==='Enter'){ var v=input.value; input.value=''; run(v); } }); }
   if(chips){ chips.addEventListener('click',function(e){ var b=e.target.closest('.chip[data-cmd]'); if(!b) return;
-    if(!booted){ booted=true; boot(function(){ showInput(); }); } run(b.dataset.cmd); showInput(); if(input) input.focus(); }); }
+    if(!booted){ booted=true; boot(function(){ showInput(); }); } run(b.dataset.cmd); showInput(); if(input && finePtr) input.focus(); }); }
+
+  /* ---------- constellation: one-time line-DRAW (the flywheel wires itself up) ----------
+     SVG connectors start undrawn (CSS sets stroke-dashoffset from --len). On first
+     scroll-in we set each path's dasharray/offset to its real length, then add .wired
+     so CSS eases the offset to 0 — the strokes trace, node dots fade in behind them.
+     Fires once, then unobserves. Reduced-motion: CSS already shows lines drawn, so we
+     just mark .wired without touching dash lengths (no flash, no transition). */
+  (function(){
+    var con=$('.constellation'); if(!con) return;
+    var wires=[].slice.call(con.querySelectorAll('.constel-lines .wire'));
+    function wire(){ if(con._w) return; con._w=true;
+      if(!reduce){ wires.forEach(function(p){
+        var len=0; try{ len=p.getTotalLength(); }catch(e){ len=600; }
+        len=Math.ceil(len)||600;
+        p.style.strokeDasharray=len; p.style.setProperty('--len',len); });
+        void con.offsetWidth; }                       /* commit the undrawn state before transitioning */
+      con.classList.add('wired'); }
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ wire(); io.disconnect(); } }); },{rootMargin:'0px 0px -12% 0px'});
+      io.observe(con);
+    } else { wire(); }
+  })();
 
   /* ---------- featured video: autoplay in view + cinematic enter (Ken-Burns / sheen / scan / reticle) + cycling AI-vision stat badges ---------- */
   var vid=$('#cvid'), vw=$('#vidwrap');
@@ -389,13 +418,16 @@
       vw.classList.add('lit'); }                         /* one-pass entry FX + ambient drift; CSS neutralizes under reduced-motion */
     /* cycling glow stat badges — the reticle locks on, then stats surface one by one (rolling window) */
     var badges=[].slice.call(vw.querySelectorAll('.statbadge')), started=false, idx=0, bt=null;
+    /* window of 2 visible; with ≤2 badges there is nothing to roll, so surface each once and stop */
     function cycleBadges(){ if(!badges.length) return; bt=setInterval(function(){
       badges[idx % badges.length].classList.add('show');
-      badges[(idx + badges.length - 2) % badges.length].classList.remove('show');
+      if(badges.length>2) badges[(idx + badges.length - 2) % badges.length].classList.remove('show');
+      else if(idx>=badges.length-1) clearInterval(bt);
       idx++; }, 1500); }
     function vCheck(){ var r=vw.getBoundingClientRect(), vh=innerHeight||800, inView=r.top<vh*0.85 && r.bottom>0;
       if(inView){ light();
-        if(!started){ started=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); } }
+        if(!started){ started=true; if(reduce){ badges.forEach(function(b){ b.classList.add('show'); }); } else { cycleBadges(); }
+          if(vid && (reduce || (navigator.connection && navigator.connection.saveData))){ vid.controls=true; } }
         if(vid && !reduce && !(navigator.connection && navigator.connection.saveData)){ var p=vid.play(); if(p&&p.catch) p.catch(function(){}); } }
       else if(vid){ vid.pause(); } }
     vCheck(); addEventListener('scroll',vCheck,{passive:true}); addEventListener('load',vCheck);
@@ -405,15 +437,16 @@
 
   /* ---------- scroll-spy ---------- */
   var spy=$('#spy');
-  if(spy){ var links=[].slice.call(spy.querySelectorAll('a')), secs=links.map(function(a){ return document.getElementById(a.dataset.s); });
+  if(spy){ var links=[].slice.call(spy.querySelectorAll('a')), secs=links.map(function(a){ return document.getElementById(a.dataset.s||(a.hash||'').slice(1)); });
     function spyCheck(){ var y=scrollY+(innerHeight||800)*0.3, best=0;
       secs.forEach(function(s,i){ if(s && s.offsetTop<=y) best=i; });
+      if(scrollY+(innerHeight||800) >= document.documentElement.scrollHeight-2) best=secs.length-1;
       links.forEach(function(a,i){ a.classList.toggle('on',i===best); }); }
     spyCheck(); addEventListener('scroll',spyCheck,{passive:true}); addEventListener('resize',spyCheck); }
 
   /* ---------- konami → billygoat ---------- */
   (function(){ var seq=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'], i=0;
     addEventListener('keydown',function(e){ var k=e.key.length===1?e.key.toLowerCase():e.key; i=(k===seq[i])?i+1:(k===seq[0]?1:0);
-      if(i===seq.length){ i=0; if(!booted){ booted=true; boot(function(){ showInput(); }); } var t=$('#term'); if(t) t.scrollIntoView({block:'center'});
+      if(i===seq.length){ i=0; if(!out) return; if(!booted){ booted=true; boot(function(){ showInput(); }); } var t=$('#term'); if(t) t.scrollIntoView({block:'center'});
         echo('↑↑↓↓←→←→ba'); CMDS.billygoat(); } }); })();
 })();

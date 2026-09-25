@@ -9,6 +9,6 @@ Steps:
 2. **Fan out 4 critics IN PARALLEL** (one message, four Agent calls): `design-critic` (also reads `/tmp/shots/*.png`), `copy-editor`, `ux-flow`, `persona-panel`. Each returns ranked, file-mapped findings.
 3. **Synthesize** into one deduped, ranked **P0–P3 game plan** — each item: P-level · file:line · the specific change · which lens flagged it. P0 = clearly-safe polish; P1 = structural/copy; P2 = nice-to-have; P3 = optional.
 4. **Record** the plan to `handoffs/vSales-review-<date>.md` and surface a tight summary in chat.
-5. **Apply only the safe P0 items** on the working branch. Guardrails: `content/FACTS.md` is binding (no invented numbers; no phone / $350K / "11+ sports" / "sub-one-year-old"; $45M+ ad spend ≠ $35M+ revenue); re-grep banned terms; `node --check sales/ai-forward.js`; verify `<div>` balance; re-screenshot to confirm. Hold P1+ for the user. Push and hand back a SHA-pinned raw.githack preview link.
+5. **Apply only the safe P0 items** on the working branch. Guardrails: `content/FACTS.md` is binding (no invented numbers; no phone / the Courtana raise amount / "11+ sports" / "sub-one-year-old"; $45M+ ad spend ≠ $35M+ revenue); re-grep banned terms; `node --check sales/ai-forward.js`; verify `<div>` balance; re-screenshot to confirm. Hold P1+ for the user. Push and hand back a SHA-pinned raw.githack preview link.
 
 Use `/loop 30m /review-site` to run this on a recurring interval.

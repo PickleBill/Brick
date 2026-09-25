@@ -120,7 +120,7 @@ Minimal/local only — no data fetching. State needed if rebuilt in a framework:
 ## Fact discipline (read `content/FACTS.md` — it is the binding ledger)
 - **Eight figures = ad spend THROUGH the Google channel, NOT Dreamship revenue.** Keep them distinct and labeled.
 - **$35M+ = Dreamship revenue/scale.** EBITDA‑profitable four years; profitable today.
-- **$350K Courtana raise is private — never render it.**
+- **The Courtana raise amount is private — never render it.**
 - Microsoft/Bing‑ChatGPT deal: keep the dignified framing; do not flex the chemo context.
 - Never invent a number. Every value above traces to `FACTS.md` or the sent résumé.
 
