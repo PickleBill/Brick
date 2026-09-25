@@ -291,16 +291,17 @@
   .pw-go { margin-top:auto; font-family:var(--mono); font-size:12px; font-weight:600; color:var(--accent); }
   @media (max-width:860px){ .pw { grid-template-columns:1fr; } }
   @media (max-width:560px){ .pw-tag { display:none; } .pw-kpis { grid-template-columns:1fr; } .pw-kpis div { flex-direction:row; align-items:baseline; gap:var(--s2); } }
-  /* AI-vision stat pop-ups on the proof video: corner-anchored, glass, one surfacing at a time (home.js cycles them) */
-  .pw-vid .statbadge { left:auto; top:auto; max-width:180px; }
+  /* AI-vision stat pop-ups on the proof video: corner-anchored glass, a slow two-at-a-time rotation (home.js cycles them) */
+  .pw-vid .statbadge { left:auto; top:auto; max-width:180px; transform:translateY(6px) scale(.97); transition:opacity .8s var(--ease), transform 1s var(--ease); }
+  .pw-vid .statbadge.show { transform:none; }
   .pw-vid .sb-tr { top:var(--s3); right:var(--s3); }
-  .pw-vid .sb-bl { bottom:var(--s4); left:var(--s3); }
+  .pw-vid .sb-ml { top:36%; left:var(--s3); }   /* mid-left: clears the Courtana logo burned into the footage, bottom-left */
   .pw-vid .sb-br { bottom:var(--s4); right:var(--s3); }
   .pw-vid .statbadge .bd { background:rgba(8,9,10,.62); border-color:rgba(255,255,255,.14); padding:6px 10px; box-shadow:0 10px 30px -10px rgba(0,0,0,.6), 0 0 18px -8px var(--c); }
   .pw-vid .statbadge .bt { font-size:8.5px; letter-spacing:.14em; }
-  .pw-vid .statbadge .bb { font-size:11px; letter-spacing:.01em; }
-  .pw-vid video[controls] ~ .sb-bl, .pw-vid video[controls] ~ .sb-br { bottom:56px; }
-  @media (max-width:560px){ .pw-vid .statbadge { max-width:130px; } .pw-vid .statbadge .bd { padding:4px 7px; } .pw-vid .statbadge .bt { font-size:7.5px; } .pw-vid .statbadge .bb { font-size:9.5px; margin-top:1px; } .pw-vid .sb-tr { top:var(--s2); right:var(--s2); } .pw-vid .sb-bl { left:var(--s2); } .pw-vid .sb-br { right:var(--s2); } }
+  .pw-vid .statbadge .bb { font-size:11px; letter-spacing:.01em; white-space:nowrap; }
+  .pw-vid video[controls] ~ .sb-br { bottom:56px; }
+  @media (max-width:560px){ .pw-vid .statbadge { max-width:130px; } .pw-vid .statbadge .bd { padding:4px 7px; } .pw-vid .statbadge .bt { font-size:7.5px; } .pw-vid .statbadge .bb { font-size:9.5px; margin-top:1px; } .pw-vid .sb-tr { top:var(--s2); right:var(--s2); } .pw-vid .sb-ml { left:var(--s2); } .pw-vid .sb-br { right:var(--s2); } }
   /* short lines break evenly; paragraphs avoid one-word last lines */
   .lede, .sec-head p, .contact .now { text-wrap:balance; }
   .gdeal-copy p, .pw-body p, .story p { text-wrap:pretty; }
@@ -746,9 +747,13 @@
               <source src="assets/courtana-shot.mp4" type="video/mp4" />
             </video>
             <span class="pw-tag">Courtana · court camera</span>
-            <div class="statbadge sb-tr" style="--c:#F1C40F"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
-            <div class="statbadge sb-bl" style="--c:#6EEFC0"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
-            <div class="statbadge sb-br" style="--c:#BD93F9"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
+            <!-- 6 readouts over 3 slots (top-right → mid-left → bottom-right, twice); home.js shows two at a time, one step every ~3s -->
+            <div class="statbadge sb-tr" aria-hidden="true" style="--c:#F1C40F"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
+            <div class="statbadge sb-ml" aria-hidden="true" style="--c:var(--cyan)"><span class="edge"></span><span class="bd"><span class="bt">Tracking</span><span class="bb"><b>4</b> players · doubles</span></span></div>
+            <div class="statbadge sb-br" aria-hidden="true" style="--c:#6EEFC0"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
+            <div class="statbadge sb-tr" aria-hidden="true" style="--c:var(--coral)"><span class="edge"></span><span class="bd"><span class="bt">Model</span><span class="bb"><b>Gemini</b> vision</span></span></div>
+            <div class="statbadge sb-ml" aria-hidden="true" style="--c:#BD93F9"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
+            <div class="statbadge sb-br" aria-hidden="true" style="--c:var(--amber)"><span class="edge"></span><span class="bd"><span class="bt">Brand index</span><span class="bb"><b>336</b> brands tracked</span></span></div>
           </figure>
           <div class="pw-body">
             <div class="pw-top"><span class="pw-k">Founder &amp; CEO</span><span class="pw-yr">2024–2026</span></div>
