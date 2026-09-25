@@ -110,7 +110,7 @@
     "*{box-sizing:border-box}",
     ".scene{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;overflow:visible}",
     ".aura{position:absolute;inset:0;margin:auto;width:64vmin;max-width:480px;height:64vmin;max-height:480px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,.22),transparent 66%);filter:blur(64px);pointer-events:none;animation:v6Aura 22s ease-in-out infinite}",
-    ".wrap{position:relative;width:min(360px,100%);aspect-ratio:3/4;z-index:2;touch-action:pan-y;cursor:grab;outline:none}",
+    ".wrap{position:relative;width:min(360px,100%);aspect-ratio:3/4;z-index:2;container-type:inline-size;touch-action:pan-y;cursor:grab;outline:none}",
     ".wrap:focus-visible{outline:2px solid #6fefb4;outline-offset:7px;border-radius:30px}",
     ".edges{position:absolute;inset:0;pointer-events:none;z-index:7;color:rgba(244,247,240,.5);font-size:15px}",
     ".edges span{position:absolute;top:50%;transform:translateY(-50%)}",
@@ -379,10 +379,10 @@
 
     // ---- per-facet copy by text density --------------------------------------
     styleFor(role, acc) {
-      if (role === "grad") return "font-weight:800;font-size:30px;background:linear-gradient(92deg,#ff4fa0,#ffb050 46%,#5ee0d6);-webkit-background-clip:text;background-clip:text;color:transparent;";
-      if (role === "aside") return "font-weight:500;font-size:19px;font-style:italic;color:rgba(244,247,240,.7);font-family:'Hanken Grotesk',sans-serif;";
-      if (role === "mid") return "font-weight:600;font-size:21px;color:#f4f7f0;";
-      return "font-weight:800;font-size:28px;color:" + acc + ";"; // head
+      if (role === "grad") return "font-weight:800;font-size:clamp(22px,8.3cqw,30px);background:linear-gradient(92deg,#ff4fa0,#ffb050 46%,#5ee0d6);-webkit-background-clip:text;background-clip:text;color:transparent;";
+      if (role === "aside") return "font-weight:500;font-size:clamp(14px,5.2cqw,19px);white-space:nowrap;font-style:italic;color:rgba(244,247,240,.7);font-family:'Hanken Grotesk',sans-serif;";
+      if (role === "mid") return "font-weight:600;font-size:clamp(16px,5.8cqw,21px);color:#f4f7f0;";
+      return "font-weight:800;font-size:clamp(22px,7.8cqw,28px);color:" + acc + ";"; // head
     }
     buildLines(f, acc) {
       var density = this.textDensity;

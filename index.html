@@ -43,7 +43,7 @@
   }
   * { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; overflow-x:clip; }
-  body { background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  body { background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.55; -webkit-font-smoothing:antialiased; }
   ::selection { background:var(--accent); color:#08090a; }
   a { color:inherit; text-decoration:none; }
   img { display:block; max-width:100%; }
@@ -291,6 +291,22 @@
   .pw-go { margin-top:auto; font-family:var(--mono); font-size:12px; font-weight:600; color:var(--accent); }
   @media (max-width:860px){ .pw { grid-template-columns:1fr; } }
   @media (max-width:560px){ .pw-tag { display:none; } .pw-kpis { grid-template-columns:1fr; } .pw-kpis div { flex-direction:row; align-items:baseline; gap:var(--s2); } }
+  /* AI-vision stat pop-ups on the proof video: corner-anchored, glass, one surfacing at a time (home.js cycles them) */
+  .pw-vid .statbadge { left:auto; top:auto; max-width:180px; }
+  .pw-vid .sb-tr { top:var(--s3); right:var(--s3); }
+  .pw-vid .sb-bl { bottom:var(--s4); left:var(--s3); }
+  .pw-vid .sb-br { bottom:var(--s4); right:var(--s3); }
+  .pw-vid .statbadge .bd { background:rgba(8,9,10,.62); border-color:rgba(255,255,255,.14); padding:6px 10px; box-shadow:0 10px 30px -10px rgba(0,0,0,.6), 0 0 18px -8px var(--c); }
+  .pw-vid .statbadge .bt { font-size:8.5px; letter-spacing:.14em; }
+  .pw-vid .statbadge .bb { font-size:11px; letter-spacing:.01em; }
+  .pw-vid video[controls] ~ .sb-bl, .pw-vid video[controls] ~ .sb-br { bottom:56px; }
+  @media (max-width:560px){ .pw-vid .statbadge { max-width:130px; } .pw-vid .statbadge .bd { padding:4px 7px; } .pw-vid .statbadge .bt { font-size:7.5px; } .pw-vid .statbadge .bb { font-size:9.5px; margin-top:1px; } .pw-vid .sb-tr { top:var(--s2); right:var(--s2); } .pw-vid .sb-bl { left:var(--s2); } .pw-vid .sb-br { right:var(--s2); } }
+  /* short lines break evenly; paragraphs avoid one-word last lines */
+  .lede, .sec-head p, .contact .now { text-wrap:balance; }
+  .gdeal-copy p, .pw-body p, .story p { text-wrap:pretty; }
+  .gnames-lead span { display:inline-block; }  /* break between the two sentences, never inside one */
+  @media (max-width:560px){ #person .story{ padding:var(--s4); } #person .story p{ max-width:none; } }
+  .avail, .gdeal-copy h2, .contact h2, .story h3, .pw-body h3 { text-wrap:balance; }
   /* ---------- logo constellation (restored from the pre-overhaul flywheel section, compacted into the deal card) ---------- */
   .constellation { position:relative; margin-top:0; min-height:150px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--s4); padding:var(--s3) 0 var(--s2); overflow:hidden; }
   .constel-stack { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:var(--s4); width:100%; }
@@ -566,7 +582,7 @@
         <div class="hero-copy rv">
           <span class="avail">Sales &amp; Partnerships Leader for the AI Era</span>
           <h1 class="head">I close the deals the biggest names in tech <span class="spectrum">say yes to.</span></h1>
-          <p class="lede">Two decades turning frontier tech into revenue: IBM, then three companies of my own. I build <b>the AI behind the selling</b> and still close the room myself.</p>
+          <p class="lede">Two decades turning frontier tech into revenue. I build <b>the AI behind the selling</b> and still close the room myself.</p>
           <div class="hero-cta">
             <a class="pill solid plausible-event-name=Book" data-cta="book" href="https://calendly.com/bricker3-idwj/30min" target="_blank" rel="noopener">Grab 30 minutes →</a>
             <a class="pill ghost" href="#interface">Ask my AI anything ↓</a>
@@ -585,7 +601,7 @@
         <div class="gdeal-copy">
           <div class="kick">The deal that made Dreamship</div>
           <h2>I closed Google as a partner.<br><span class="flat">In year one.</span></h2>
-          <p>A first-of-its-kind partnership: an AI trademark and IP checker on Google Vision that verified high-volume merchants, connecting an underserved Vietnamese merchant market with Google. <b>Five internal Google teams</b> aligned behind it, and it ran <b>5+ years</b>.</p>
+          <p>An AI trademark and IP checker on Google Vision that vetted high-volume merchants. <b>Five internal Google teams</b> aligned behind it; it ran <b>5+ years</b>.</p>
         </div>
         <div class="gdeal-stats">
           <div class="gstat lead"><span class="gn" data-count="45" data-pre="$" data-suf="M+">$45M+</span><span class="gk">ad spend through the Google channel</span></div>
@@ -594,7 +610,7 @@
         </div>
         <!-- the flywheel, folded in: one quiet row of names (was the #names constellation section) -->
         <div class="gnames">
-          <p class="gnames-lead">Google was the hard yes. The rest followed.</p>
+          <p class="gnames-lead"><span>Google was the hard yes.</span> <span>The rest followed.</span></p>
           <div class="constellation" role="img" aria-label="Brands Bill has closed and shipped with. Closed as partners and clients: Google, Microsoft, Stripe, PayPal, Payoneer, Meta, Adobe. Enterprise sales: IBM, Zillow, Macy's, Nordstrom, McKesson, Avalara.">
             <svg class="constel-lines" viewBox="0 0 800 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
               <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5be8a0"/><stop offset=".5" stop-color="#36c6e0"/><stop offset="1" stop-color="#8b7cf0"/></linearGradient></defs>
@@ -644,12 +660,7 @@
       <a class="story rv" href="climb.html">
         <div>
           <h3>Twenty years, one climb.</h3>
-          <p>IBM. The Google partnership. Three kids, unimpressed by any of it. A cancer diagnosis in 2023, met head-on. Here's what twenty years taught me:</p>
-          <ul class="principles">
-            <li>Earn the first yes — the flywheel follows.</li>
-            <li>Ship the thing; don't pitch the deck.</li>
-            <li>Carry the number and build the product.</li>
-          </ul>
+          <p>IBM. The Google partnership. Three kids, unimpressed by any of it. A cancer diagnosis in 2023, met head-on.</p>
           <span class="e-go">Walk The Climb <span class="ar">→</span></span>
         </div>
         <div class="climb-prev">
@@ -671,7 +682,7 @@
       <div class="interface-grid">
         <div class="sec-head rv">
           <h2>Don't read the résumé.<br><span class="flat">Prompt it.</span></h2>
-          <p>An AI that answers from a fact-checked record of twenty years. Ask it anything, or paste a job description.</p>
+          <p>Ask it anything, or paste a job description.</p>
         </div>
 
         <div class="term-wrap rv">
@@ -735,11 +746,14 @@
               <source src="assets/courtana-shot.mp4" type="video/mp4" />
             </video>
             <span class="pw-tag">Courtana · court camera</span>
+            <div class="statbadge sb-tr" style="--c:#F1C40F"><span class="edge"></span><span class="bd"><span class="bt">Brand</span><span class="bb"><b>JOOLA</b> · paddle</span></span></div>
+            <div class="statbadge sb-bl" style="--c:#6EEFC0"><span class="edge"></span><span class="bd"><span class="bt">Player DNA</span><span class="bb">Power <b>9</b> · IQ <b>8</b></span></span></div>
+            <div class="statbadge sb-br" style="--c:#BD93F9"><span class="edge"></span><span class="bd"><span class="bt">Arc</span><span class="bb">Viral <b>7.4</b>/10</span></span></div>
           </figure>
           <div class="pw-body">
             <div class="pw-top"><span class="pw-k">Founder &amp; CEO</span><span class="pw-yr">2024–2026</span></div>
             <h3>Courtana</h3>
-            <p>An AI smart-court platform: <b>“TopGolf meets Pickleball.”</b> Built and commercialized across <b>4 venues · 36 courts · 760 users</b>.</p>
+            <p>AI smart courts, <b>“TopGolf meets Pickleball.”</b> Built across <b>4 venues · 36 courts · 760 users</b>.</p>
             <div class="pw-kpis">
               <div><b>21,000+</b><span>clips processed</span></div>
               <div><b>4,097</b><span>deep-analyzed with Gemini</span></div>
@@ -753,7 +767,7 @@
           <div class="pw-body">
             <div class="pw-top"><span class="pw-k">Cofounder &amp; CEO</span><span class="pw-yr">2018–2024</span></div>
             <h3>Dreamship</h3>
-            <p>API-driven on-demand fulfillment, built from zero to <b>$26M peak revenue</b>, with <b>11x growth in 2020</b>. A team of 24 and 21 fulfillment locations in 6 countries.</p>
+            <p>On-demand fulfillment, built from zero to <b>$26M peak revenue</b> and <b>11x growth in 2020</b>.</p>
             <span class="pw-go">More on Dreamship <span class="ar" aria-hidden="true">→</span></span>
           </div>
         </a>
@@ -770,7 +784,6 @@
     <div class="wrap rv">
       <p class="now"><b>Open to the right GTM or partnerships role,</b> where the hard deals decide the company.</p>
       <h2>Let's close <span class="flat">something big.</span></h2>
-      <p>Hiring for GTM or partnerships? Grab thirty minutes. I'll show you something I built, not slides.</p>
       <div class="ctas">
         <a class="pill solid plausible-event-name=Book" data-cta="book" href="https://calendly.com/bricker3-idwj/30min" target="_blank" rel="noopener">Grab 30 minutes →</a>
       </div>

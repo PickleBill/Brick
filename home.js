@@ -6,6 +6,31 @@
   'use strict';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePtr = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches; /* focus the terminal input only where it won't open a phone keyboard */
+
+  /* ---------- always open at the top ----------
+     Browsers (iOS Safari especially) restore the old scroll position on reload, and an in-page
+     anchor tap ("Ask my AI anything ↓", the scroll-spy) used to leave a #hash that a reload jumps
+     back to. So: no scroll restoration, and in-page anchors scroll without touching the URL.
+     A real deep link from another page (e.g. the résumé's index.html#google) still lands. */
+  (function(){
+    function manual(){ try { if('scrollRestoration' in history) history.scrollRestoration='manual'; } catch(e){} }
+    var nav=(performance.getEntriesByType && performance.getEntriesByType('navigation')[0])||{}, touched=false;
+    if(location.hash && nav.type==='reload'){ try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){} }
+    ['touchstart','wheel','keydown','mousedown'].forEach(function(ev){ addEventListener(ev,function(){ touched=true; },{passive:true,once:true}); });
+    function toTop(){ if(!location.hash && !touched) window.scrollTo(0,0); }
+    manual(); toTop();
+    /* the browser restores scroll around load, after this script runs: re-assert once it settles */
+    addEventListener('load', function(){ manual(); toTop(); setTimeout(toTop,60); });
+    addEventListener('pageshow', function(e){ if(!e.persisted){ manual(); toTop(); } });
+  })();
+  document.addEventListener('click', function(e){
+    var a=e.target.closest && e.target.closest('a[href^="#"]'); if(!a) return;
+    var id=a.getAttribute('href').slice(1), t=id && id!=='top' ? document.getElementById(id) : null;
+    if(id && id!=='top' && !t) return;
+    e.preventDefault();
+    if(!t) window.scrollTo({ top:0, behavior: reduce?'auto':'smooth' });
+    else t.scrollIntoView({ behavior: reduce?'auto':'smooth', block:'start' });
+  });
   var $ = function (s, r) { return (r || document).querySelector(s); };
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
