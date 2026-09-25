@@ -177,10 +177,10 @@
       '<span class="dim">ask Bill:</span> <span class="m">whoami companies google-deal builds pickle-daas stats enterprise</span>',
       '<span class="dim">hiring me:</span> <span class="am">tailor &lt;role&gt;  reference-check  why-you  the-fit  shipped-this-week</span>',
       '<span class="dim">wildcards:</span> <span style="color:#a78bfa">chuck  billygoat  surprise</span>',
-      '<span class="dim">tip:</span> <span class="am">tailor Partnerships Lead at Anthropic</span> <span class="dim">— or paste a job description.</span>']); },
+      '<span class="dim">tip:</span> <span class="am">tailor Partnerships Lead at a frontier AI lab</span> <span class="dim">— or paste a job description.</span>']); },
     whoami:function(){ block([
       '<span class="m">Bill Bricker</span> — AI-Forward Sales &amp; Partnerships Leader.',
-      'I close what the biggest names in tech say yes to, then build',
+      'I close the deals the biggest names in tech say yes to, then build',
       'the AI that does the work. Closed Google as a partner in year one.',
       'Raleigh, NC · father of three · still building.']); },
     companies:function(){ block([
@@ -190,7 +190,7 @@
     'google-deal':function(){ block([
       '<span class="m"># The Google partnership — not an acquisition.</span>',
       'Closed Google as a partner in year one, aligning five internal Google',
-      'teams on a first-of-its-kind cross-division <span class="m">partnership</span> that solved',
+      'teams on a first-of-its-kind <span class="m">partnership</span> that solved',
       'merchant qualification + IP risk for an underserved Vietnamese market.',
       '→ <span class="m">$45M+ ad-spend</span> channel, run <span class="m">5+ years</span>. Stripe, PayPal, Meta followed;',
       'Stripe gave merchants U.S. payments access and supported joint events.',
@@ -204,9 +204,9 @@
       'Northwestern Mutual — top-10 nationally; $8M TCV across 185 accounts.',
       'Then founder-led GTM.']); },
     builds:function(){ block([
-      '<span class="m"># VibeCo</span> — 11 AI agents (Gemini + Claude). Idea → brief → working app.',
+      '<span class="m"># VibeCo</span>: the build engine (Claude, Codex, Lovable, Gemini). Idea → brief → working app.',
       '<span class="m">40+ apps</span> across <span class="m">31 repos</span>, built &amp; shipped solo:',
-      '  Venue Connect · Litigator · HeadsUpTime · +30 more.',
+      '  Venue Connect · Litigator · HeadsUpTime · Layup Lab · Pickleball Freak Show.',
       '<span class="dim">→ vibeco.lovable.app</span>']);
       suggest(['pickle-daas','shipped-this-week']); },
     'pickle-daas':function(){ block([
@@ -214,10 +214,10 @@
       'Supabase + connectors + autonomous ingest + ground-truth loop.',
       '<span class="m">21K processed</span> · <span class="m">4,097 analyzed</span> · <span class="m">$0.0054/clip</span> (~7x cheaper).']); },
     stats:function(){ block([
-      '11x        revenue growth in one year',
+      '11x        revenue growth in 2020',
       '$35M+      peak revenue · Dreamship',
       '$45M+      Google ad-spend channel · 5+ yrs',
-      '40+ apps   shipped solo · 31 repos',
+      '40+ apps   across 31 repos, built & shipped solo',
       '21K        clips processed · 4,097 analyzed',
       '3          startups founded over 20 years']); },
     'git log':function(){ block([
@@ -225,7 +225,7 @@
       '<span class="m">2024</span>  Founded Courtana: built "TopGolf meets Pickleball", 36 courts.',
       '<span class="m">2023</span>  Diagnosed; kept the pipeline moving.',
       '<span class="m">2020</span>  Dreamship 11x — orders → routes → shipping trust.',
-      '<span class="m">2019</span>  Closed Google. Stripe/PayPal/Meta followed.']); },
+      '<span class="m">2018</span>  Founded Dreamship; closed Google as a partner in year one.']); },
     contact:function(){ block([
       '<span class="am"># Fastest path: grab 30 minutes.</span>',
       '<span class="a" data-href="https://calendly.com/bricker3-idwj/30min">calendly.com/bricker3-idwj/30min →</span>',
@@ -235,29 +235,28 @@
       'Raleigh, NC',
       '<span class="dim">open to founder / GTM / partnership / forward-deployed / fractional.</span>']); },
     'why-you':function(){ block([
-      '<span class="am"># The rare seam: I close the room AND ship the product.</span>',
-      'Plenty of people can build with AI now. Far fewer can walk into',
-      'Google and leave with a <span class="m">partnership</span>, then lead Dreamship to',
-      '$35M+ peak revenue and 11x. 20 years carrying an enterprise number',
-      'AND 40+ apps across 31 repos, built &amp; shipped solo. That seam is',
-      'the rare part, and it\'s the whole résumé.']);
+      '<span class="am"># I close the room and build the product.</span>',
+      'Plenty of people can build with AI now. Far fewer walked into',
+      'Google as a year-one startup and left with a <span class="m">partnership</span>, then led',
+      'Dreamship to $35M+ peak revenue and 11x. Two decades turning frontier',
+      'tech into revenue, plus 40+ apps across 31 repos, built &amp; shipped solo.']);
       ask('Make the sharp case for why Bill is a rare hire who both closes enterprise partnerships and builds and ships AI apps solo, grounded in his record.', true);
-      suggest(['tailor Partnerships Lead at Anthropic','reference-check']); },
+      suggest(['tailor Partnerships Lead at a frontier AI lab','reference-check']); },
     'the-fit':function(){ block([
       '<span class="am"># The frontier-lab fit.</span>',
-      'Labs are hiring the <span class="m">forward-deployed / GTM engineer</span> hardest:',
-      'the line between selling and building has collapsed. That\'s the job',
-      'I\'ve already been doing for two companies: close the room, then ship',
-      'the integration myself. I translate frontier capability into a signed yes.']);
+      'Labs need people who can sell the technology and build with it:',
+      'the line between the two has collapsed. At Courtana I sold the venues,',
+      'then built the demos and the video-analysis workflow myself.',
+      'I translate frontier capability into a signed yes.']);
       suggest(['tailor GTM lead at a frontier lab','reference-check']); },
     'reference-check':function(){ block([
-      '<span class="am"># Reference check — a former Dreamship colleague speaks:</span>',
-      '"Would I work with Bill again? In a heartbeat. He closed Google as a',
-      'partner when the rest of us thought it was impossible — then actually',
-      'ran it for five years. He carries the number AND ships the product.',
-      'The rare one who does both."  <span class="dim">— grounded in the record; ask for a real intro.</span>']);
-      ask('Role-play a former Dreamship / Google-era colleague giving a candid, specific reference for Bill — would you hire him again, grounded only in his real record.', true);
-      suggest(['tailor Partnerships Lead at Anthropic','contact']); },
+      '<span class="am"># Reference check: what a reference call will confirm.</span>',
+      'Closed Google as a partner in Dreamship\'s first year; it ran 5+ years.',
+      'Led Dreamship to $35M+ peak revenue, with 11x growth in 2020.',
+      'Achieved quota at IBM. Top-10 nationally at Northwestern Mutual.',
+      '<span class="dim">For the real thing, ask me for an intro to people who were there.</span>']);
+      ask('List, briefly, what a reference could verify about Bill, using only facts from his record. Never invent a person, a quote, or an opinion.', true);
+      suggest(['tailor Partnerships Lead at a frontier AI lab','contact']); },
     'shipped-this-week':function(){ shipped(); },
     'hire-bill':function(){ block([
       '<span class="dim">[sudo] authenticating hiring manager…</span>',
@@ -267,7 +266,7 @@
     chuck:function(){ chuck(); },
     billygoat:function(){ block([
       'fka <span class="m">DJ Billygoat</span> — yes, that\'s really me. 🐐',
-      'Closed Google, shipped 40+ AI apps solo, dropped a few beats. Same guy.',
+      'Closed Google. 40+ apps across 31 repos, built &amp; shipped solo. Dropped a few beats. Same guy.',
       '<span class="dim">Still in the room.</span>']); },
     surprise:function(){ var picks=[chuck,CMDS.billygoat,CMDS['git log'],function(){ block(['<span class="m">fun fact:</span> my kids think the party card game I shipped (GroupOrDare) is the most impressive thing I\'ve done. They\'re probably right.']); },CMDS['why-you']]; picks[Math.floor(Math.random()*picks.length)](); },
     clear:function(){ cancelTyping(); out.innerHTML=''; }
@@ -275,11 +274,11 @@
 
   /* ---- hiring-manager mode: tailor the pitch to a role / pasted JD ---- */
   function tailor(role){ role=(role||'').trim();
-    if(!role){ block(['<span class="am"># hiring-manager mode</span> — type e.g. <span class="m">tailor Partnerships Lead at Anthropic</span>, or paste a job description, and I\'ll make the case for that exact role.']); return; }
+    if(!role){ block(['<span class="am"># hiring-manager mode</span> — type e.g. <span class="m">tailor Partnerships Lead at a frontier AI lab</span>, or paste a job description, and I\'ll make the case for that exact role.']); return; }
     block(['<span class="am"># tailoring the case for:</span> '+esc(role.slice(0,120))]);
-    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner in year one; led Dreamship to $35M+ peak revenue and 11x; builds and ships AI apps solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; 20 years carrying an enterprise number). Address the role directly; be concrete and confident; no generic filler.';
+    var q='A hiring manager is hiring for: "'+role+'". In 3-4 punchy sentences, make the SPECIFIC case for why Bill Bricker fits THAT role, grounded only in his real record (closed Google as a partner in year one; led Dreamship to $35M+ peak revenue and 11x; builds and ships AI apps solo — VibeCo, 40+ apps across 31 repos, Pickle DaaS at $0.0054/clip; two decades turning frontier technology into revenue, including enterprise sales at IBM and WibiData). Address the role directly; be concrete and confident; no generic filler.';
     askQuiet(q, function(){ // local fallback
-      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner in year one, led Dreamship to $35M+ peak revenue and 11x, and I\'ve built & shipped 40+ apps across 31 repos solo. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
+      typed('For '+role.slice(0,80)+': you need someone who can close the room AND ship the product. I closed Google as a partner in year one, led Dreamship to $35M+ peak revenue and 11x, plus 40+ apps across 31 repos, built & shipped solo. That\'s the forward-deployed seam most teams can\'t hire for. Let\'s talk this week.');
       suggest(['reference-check','why-you','contact']);
     }, function(){ suggest(['reference-check','why-you','contact']); });
   }
@@ -291,7 +290,7 @@
     if(/build|app|vibe|ship|repo|code|solo/.test(s)) return CMDS.builds;
     if(/data|clip|pickle|warehouse|video|vision|cost/.test(s)) return CMDS['pickle-daas'];
     if(/sell|sale|gtm|quota|ibm|enterprise|partner/.test(s)) return CMDS.enterprise;
-    if(/cancer|chemo|health|climb|walk|story/.test(s)) return function(){ block(['Diagnosed 2023; operated through chemo into 2025 — the pipeline never stopped. <span class="a" data-href="climb.html">walk the climb →</span>']); };
+    if(/cancer|chemo|health|climb|walk|story/.test(s)) return function(){ block(['Diagnosed 2023; operated through chemo into 2025 and kept the pipeline moving. <span class="a" data-href="climb.html">walk the climb →</span>']); };
     if(/kid|child|family|father|three|dad/.test(s)) return function(){ block(['Father of three. They are completely unimpressed by all of it.']); };
     if(/dj|billygoat|music/.test(s)) return CMDS.billygoat;
     if(/contact|email|reach|talk|available|role|job/.test(s)) return CMDS.contact;
@@ -316,7 +315,7 @@
   function typed(text){ typeLines(String(text).split(/\n+/), {esc:true}); }
 
   function chuck(){ var t=el('<span class="dim">fetching…</span>','blk'); out.appendChild(t); scroll();
-    fetch('https://api.chucknorris.io/jokes/random').then(function(r){return r.json();}).then(function(d){
+    fetch('https://api.chucknorris.io/jokes/random?category=dev').then(function(r){return r.json();}).then(function(d){
       t.remove(); block(['<span class="m"># fact:</span> '+esc(String(d.value||'').replace(/Chuck Norris/g,'Bill Bricker'))]);
     }).catch(function(){ t.remove(); block(['<span class="m"># fact:</span> Bill Bricker closed Google as a partner in Dreamship\'s first year. (API\'s napping; this one\'s true.)']); }); }
 
@@ -324,10 +323,11 @@
     if(s<3600) return Math.max(1,Math.round(s/60))+'m ago'; if(s<86400) return Math.round(s/3600)+'h ago'; return Math.round(s/86400)+'d ago'; }
   function shipped(){ var t=el('<span class="dim">pulling recent commits…</span>','blk'); out.appendChild(t); scroll();
     fetch('https://api.github.com/users/picklebill/events/public?per_page=30').then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(ev){
-      t.remove(); var ps=ev.filter(function(e){return e.type==='PushEvent';}).slice(0,5); if(!ps.length) throw 0;
-      var L=['<span class="m"># still building — recent public commits:</span>'];
-      ps.forEach(function(p){ var repo=p.repo.name.split('/').pop(); var msg=((p.payload&&p.payload.commits&&p.payload.commits[0]&&p.payload.commits[0].message)||'').split('\n')[0].slice(0,44);
-        L.push('<span class="dim">'+rel(p.created_at)+'</span>  <span class="m">'+esc(repo)+'</span>  '+esc(msg)); });
+      /* repo + time only: raw commit subjects are internal notes, and this site's own repo is its working log */
+      t.remove(); var ps=ev.filter(function(e){return e.type==='PushEvent' && e.repo && e.repo.name.toLowerCase()!=='picklebill/brick';}).slice(0,5); if(!ps.length) throw 0;
+      var L=['<span class="m"># still building — recent public pushes:</span>'];
+      ps.forEach(function(p){ var repo=p.repo.name.split('/').pop(); var n=(p.payload&&p.payload.size)||((p.payload&&p.payload.commits)||[]).length||1;
+        L.push('<span class="dim">'+rel(p.created_at)+'</span>  <span class="m">'+esc(repo)+'</span>  '+n+' commit'+(n===1?'':'s')); });
       L.push('<span class="dim">…live from github.com/picklebill — the build has a heartbeat.</span>'); block(L);
     }).catch(function(){ t.remove(); block(['<span class="m"># still building.</span> 40+ apps across 31 repos, built &amp; shipped solo — VibeCo, Pickle DaaS, and whatever I touched today.']); }); }
 
@@ -350,10 +350,10 @@
   /* boot */
   function showInput(){ if(line){ line.style.display='flex'; scroll(); } }
   function boot(after){ var ls=[
-      {t:'brick.os — AI-forward sales console. booting…',c:'dim'},
-      {t:'Bill Bricker — I close what the biggest names in tech say yes to.',c:'m'},
-      {t:'Closed Google as a partner in year one, then ran it 5+ years.',c:''},
-      {t:'40+ apps across 31 repos, built & shipped solo. Ask me anything.',c:''}];
+      {t:'brick.os · ask-bill · booting…',c:'dim'},
+      {t:'Bill Bricker · AI-Forward Sales & Partnerships Leader.',c:'m'},
+      {t:'Top-10 nationally at Northwestern Mutual. Achieved quota at IBM.',c:''},
+      {t:'Ask me anything, or paste a job description.',c:''}];
     echo('whoami');
     /* route the intro through the shared typewriter (markup-aware), then reveal the input */
     typeLines(ls.map(function(l){ return l.c?'<span class="'+l.c+'">'+esc(l.t)+'</span>':esc(l.t); }), {});
