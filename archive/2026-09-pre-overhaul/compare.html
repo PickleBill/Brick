@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Before / After · Sept 2026 overhaul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:40px; --s6:64px; --s7:96px;
+    --bg:#08090a; --text:#f4f2ec; --mute:#a6a49d; --faint:#6e6c66; --accent:#6fefb4;
+    --line:rgba(255,255,255,.09); --glass:rgba(255,255,255,.045);
+    --display:"Bricolage Grotesque", system-ui, sans-serif; --body:"Hanken Grotesk", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, monospace;
+  }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.5; }
+  .wrap { max-width:1280px; margin:0 auto; padding:var(--s6) var(--s4) var(--s7); }
+  .eyebrow { font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); }
+  h1 { font-family:var(--display); font-weight:800; letter-spacing:-.03em; font-size:clamp(30px,6vw,52px); line-height:1.04; margin:var(--s3) 0 var(--s2); }
+  .sub { color:var(--mute); max-width:64ch; }
+  .sub a, .links a { color:var(--text); text-underline-offset:3px; }
+  .toggle { display:flex; gap:var(--s2); margin-top:var(--s4); }
+  .toggle button { font:500 13px var(--mono); color:var(--mute); background:var(--glass); border:1px solid var(--line); border-radius:999px; padding:8px 14px; cursor:pointer; }
+  .toggle button[aria-pressed="true"] { color:var(--bg); background:var(--accent); border-color:var(--accent); }
+  .pages { display:grid; gap:var(--s6); margin-top:var(--s6); }
+  .page h2 { font-family:var(--display); font-weight:700; letter-spacing:-.02em; font-size:clamp(20px,3.4vw,28px); }
+  .links { font-family:var(--mono); font-size:12px; color:var(--faint); margin-top:var(--s1); }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:var(--s3); margin-top:var(--s3); }
+  figure { display:grid; gap:var(--s2); }
+  figcaption { font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); }
+  .shot { height:75vh; overflow:auto; border:1px solid var(--line); border-radius:14px; background:#000; }
+  .shot img { display:block; width:100%; height:auto; }
+  body[data-view="mobile"] .shot { max-width:420px; }
+  @media (max-width:720px){ .pair { grid-template-columns:1fr; } .shot { height:60vh; } }
+  :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+</style>
+</head>
+<body data-view="desktop">
+<main class="wrap">
+  <p class="eyebrow">Sept 2026 overhaul · internal</p>
+  <h1>Before / After</h1>
+  <p class="sub">Left is the site as it stood on 2026-09-25 before the overhaul; right is what it became. Each panel scrolls. The old pages still work: <a href="index.html">old home</a> · <a href="work.html">old proof</a> · <a href="climb.html">old story</a> · <a href="resume-v2.html">old résumé</a>. The old and new identity card run side by side in the <a href="../../playground.html">playground</a>.</p>
+  <div class="toggle" role="group" aria-label="Screen size">
+    <button type="button" data-v="desktop" aria-pressed="true">Desktop 1440px</button>
+    <button type="button" data-v="mobile" aria-pressed="false">Phone 375px</button>
+  </div>
+
+  <div class="pages" id="pages"></div>
+</main>
+<script>
+  var PAGES = [
+    { key: 'index', title: 'Home', live: '../../index.html', before: 'index' },
+    { key: 'work', title: 'Proof', live: '../../work.html', before: 'work' },
+    { key: 'resume', title: 'Résumé', live: '../../resume/index.html', before: 'resume-v2' },
+    { key: 'climb', title: 'Story', live: '../../climb.html', before: 'climb' }
+  ];
+  var host = document.getElementById('pages');
+  function render(view) {
+    document.body.setAttribute('data-view', view);
+    host.innerHTML = PAGES.map(function (p) {
+      return '<section class="page" aria-labelledby="h-' + p.key + '">' +
+        '<h2 id="h-' + p.key + '">' + p.title + '</h2>' +
+        '<p class="links"><a href="' + p.live + '">open the new page</a></p>' +
+        '<div class="pair">' +
+          '<figure><figcaption>Before</figcaption><div class="shot" tabindex="0"><img loading="lazy" alt="' + p.title + ' before, ' + view + '" src="screens/' + p.before + '.' + view + '.before.jpg"></div></figure>' +
+          '<figure><figcaption>After</figcaption><div class="shot" tabindex="0"><img loading="lazy" alt="' + p.title + ' after, ' + view + '" src="screens/' + p.key + '.' + view + '.after.jpg"></div></figure>' +
+        '</div></section>';
+    }).join('');
+  }
+  document.querySelectorAll('.toggle button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.toggle button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      render(b.getAttribute('data-v'));
+    });
+  });
+  render('desktop');
+</script>
+</body>
+</html>
