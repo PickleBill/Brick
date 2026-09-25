@@ -20,7 +20,7 @@
     repos:    { k:'On the commits', v:'31 repos', c:'<b>31 repositories with my name on the commits.</b> Not no-code, not a demo account — designed and shipped production AI systems myself.', src:'github.com/picklebill' },
     clip:     { k:'Unit economics', v:'$0.0054', c:'Pickle DaaS analyzes video at <b>$0.0054 per clip</b> (~7x cheaper than the obvious approach) — the measured unit-cost instinct a forward-deployed role runs on.', src:'Pickle DaaS · verified Apr 2026' },
     daas:     { k:'Data pipeline', v:'21K+', c:'A self-serve sports-data warehouse spun from raw video: <b>21K+ clips processed</b>, <b>4,097 analyzed</b> — Supabase, autonomous ingest, a ground-truth validation loop. A working system, not a slide.', src:'Pickle DaaS', link:{u:'https://picklebill.github.io/pickle-daas-data/dashboards/investor-walkthrough-v4.html',t:'walkthrough ↗'} },
-    courts:   { k:'Now shipping', v:'36 courts', c:'Courtana — AI smart-court SaaS — concept to <b>36 courts live or piloting</b> across 11+ sports, with a 44-court LOI, on $350K raised. The current live peak of the climb.', src:'Courtana · 2023 → now', link:{u:'https://courtana.com',t:'courtana.com ↗'} },
+    courts:   { k:'Now shipping', v:'36 courts', c:'Courtana — AI smart-court SaaS — concept to <b>36 courts live or piloting</b>, with a 44-court LOI. The current live peak of the climb.', src:'Courtana · 2023 → now', link:{u:'https://courtana.com',t:'courtana.com ↗'} },
     years:    { k:'The career', v:'20 yrs', c:'<b>Twenty years</b> translating frontier/complex tech into a "yes" — enterprise data, then a platform, now the models themselves. The only thing that changed is I now build what I sell.', src:'2006 → now' }
   };
   var SELLS_R = ['google','revenue','eleven','enterprise'];
@@ -116,7 +116,7 @@
     'shipped-this-week': function(){ shippedThisWeek(); },
     companies: function(){ block([
       '<span class="m">Courtana</span>  founder/CEO · 2023→now · <span class="dim">courtana.com</span>',
-      '  AI smart-court SaaS — 36 courts live/piloting, 11+ sports.',
+      '  AI smart-court SaaS — 36 courts live/piloting.',
       '<span class="m">Dreamship</span> cofounder/CEO · 2018–23 · <span class="dim">dreamship.com</span>',
       '  API fulfillment — $35M+, 11x in a year, the Google partnership.',
       rc('courts')+' '+rc('revenue')
@@ -172,7 +172,7 @@
     contact: function(){ block([
       '<span class="a" data-href="mailto:bricker3@gmail.com">bricker3@gmail.com</span>',
       '<span class="a" data-href="https://linkedin.com/in/williambricker">linkedin.com/in/williambricker</span>',
-      '908 · 601 · 8152 · Raleigh, NC',
+      'Raleigh, NC',
       '<span class="dim">open to founder / GTM / partnership / forward-deployed / fractional.</span>'
     ]); },
     chuck: function(){ chuck(); },

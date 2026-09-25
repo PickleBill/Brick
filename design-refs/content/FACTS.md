@@ -19,7 +19,7 @@ Every number and claim that appears on any surface (site, terminal, résumé, PD
 | Fact | Value | Tag |
 |------|-------|-----|
 | Courts live | 36 | ⚠️ still current? |
-| Raised | $350K | ⚠️ public-safe? |
+| Raised | [private] | ⚠️ public-safe? |
 | LOI | 44 courts | ⚠️ status — signed/converted? |
 | Sports supported | 11+ | ⚠️ |
 | Ecosystem | 65+ projects (CLAUDE.md) vs 40+ apps / 31 repos (content.json) | ⚠️ pick one framing |

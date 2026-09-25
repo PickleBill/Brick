@@ -41,7 +41,7 @@ preview, then merge to `main` (live). Preview:
 Run **after** Bill's Claude Design pass (design direction first, then execute). Sequence on `sales/`:
 1. `/impeccable critique sales/index.html` + `/review-site` (4 ICP critics) → P0–P3 backlog.
 2. **Copy:** `/impeccable clarify` + the `copy-editor` agent — sharpen headlines/subs, kill redundancy.
-   FACTS.md binding (banned: phone, $350K, "11+ sports"; **$45M ad-spend ≠ $35M revenue**).
+   FACTS.md binding (banned: phone, the Courtana raise amount, "11+ sports"; **$45M ad-spend ≠ $35M revenue**).
 3. **Structure/type/space:** `/impeccable layout` + `typeset` + `distill`.
 4. **Mobile:** `/impeccable adapt` — re-verify parity at 390px.
 5. **Signature:** `/impeccable overdrive` on ONE moment (the hero or the constellation), not everything.

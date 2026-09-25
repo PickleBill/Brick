@@ -56,7 +56,7 @@ cache-buster (`?v=timestamp`). Source mirror lives in the deploy folder itself
 ## 5. Open items needing BILL's input
 - Venue Connect: URL of the **discovery / venue-analytics page** (more compelling than its homepage) for the build-card screenshot.
 - Pickle DaaS: preferred hero visual ("shot of the day" CDN asset vs. brand-intel dashboard, currently the latter).
-- Confirm/replace **20K+ clips** figure; confirm $350K/36 courts/44-court LOI remain current.
+- Confirm/replace **20K+ clips** figure; confirm [private]/36 courts/44-court LOI remain current.
 - Real URLs (optional): FactFudge, The Load, AI cooking app, the 12-year-old's app, ecommerce build (VibeCo #model wall covers them today).
 - Buy **billbricker.com**; create empty public repo `bill-bricker` (assistant's GitHub scope can't create repos) for a cleaner path even pre-domain.
 - DreamWork reference: dreamworkhq.com blocks bots (403) — more screenshots/video if résumé should match it closer.

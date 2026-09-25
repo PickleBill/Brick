@@ -1,0 +1,23 @@
+name: Fact check
+
+# Scans everything Pages publishes against _source/facts.md (Tier A) and _source/grader.md (GATE).
+# Fails on any error; warnings are printed but never fail. Link checking (--links) is local only:
+# run `npm run factcheck:links`.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  factcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fact check
+        run: node tools/factcheck.mjs

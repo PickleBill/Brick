@@ -5,7 +5,9 @@
   "type": "module",
   "description": "Bill Bricker — dynamic résumé / personal OS (static site). Tooling only; the site is plain HTML/CSS/JS.",
   "scripts": {
-    "shoot": "node tools/shoot.mjs"
+    "shoot": "node tools/shoot.mjs",
+    "factcheck": "node tools/factcheck.mjs",
+    "factcheck:links": "NODE_USE_ENV_PROXY=1 node tools/factcheck.mjs --links"
   },
   "devDependencies": {
     "playwright": "1.56.1"

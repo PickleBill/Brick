@@ -7,7 +7,7 @@ A readable chronicle of the work across this session: what was asked, what was d
 ## 1 · Résumé refinement → **PR #24 (merged)**
 **Ask:** reconcile two updated co-work résumés (1-page + full) into the site and the facts ledger; get the résumé interview-ready.
 
-**Decisions (Bill):** keep **bricker3@gmail.com**; keep the full Courtana line incl. $350K raised + 44-court LOI; keep **>100% quota + IBM Summit**; EBITDA = **"four years running."**
+**Decisions (Bill):** keep **bricker3@gmail.com**; keep the full Courtana line incl. the Courtana raise amount + 44-court LOI; keep **>100% quota + IBM Summit**; EBITDA = **"four years running."**
 
 **Done:** updated `content/FACTS.md` (provenance + cleared ⚠️ rows); rewrote `resume-v2.html` + `resume.html` — new positioning, **Partnerships-closed strip** (Google · Microsoft · Stripe · PayPal · Payoneer · Meta), fixed the stale Board-Chair dates (→ 2018–Sep 2023 CEO; Board Chair 2023–Present), wove in 11x-in-2020 / 323% CAGR / EBITDA-four-years / 21 fulfillment locations / IBM Summit / Courtana 760 users / Mike Olson / Ukraine&Nigeria. Made the **partnerships strip print into the PDF** + tightened page breaks. **Merged to main; live** at `picklebill.github.io/Brick/resume-v2.html`.
 
@@ -16,7 +16,7 @@ A readable chronicle of the work across this session: what was asked, what was d
 
 **Decision:** build a new `/sales/` version, don't replace the root.
 
-**Done:** the zip was a full design handoff (`design-refs/`) — used it. Built `sales/index.html` (**Dossier**, primary), `sales/console.html` (Console A/B), `sales/compare.html` (A/B harness), `sales/climb.html` (the Climb with sales-arc copy, visual unchanged), `sales/ai-forward.css` + `sales/ai-forward.js` (live terminal: canned sales commands + free-text → `ask-bill` backend with graceful fallback). Staged `assets/Bill_Bricker_Resume.pdf` + portrait. Updated `content/FACTS.md` with vSales public-site rules: **$45M+ ad spend ≠ $35M+ peak revenue**, "in year one" not "sub-one-year-old", achieved quota + Summit, and **never public**: $350K / "11+ sports" / phone.
+**Done:** the zip was a full design handoff (`design-refs/`) — used it. Built `sales/index.html` (**Dossier**, primary), `sales/console.html` (Console A/B), `sales/compare.html` (A/B harness), `sales/climb.html` (the Climb with sales-arc copy, visual unchanged), `sales/ai-forward.css` + `sales/ai-forward.js` (live terminal: canned sales commands + free-text → `ask-bill` backend with graceful fallback). Staged `assets/Bill_Bricker_Resume.pdf` + portrait. Updated `content/FACTS.md` with vSales public-site rules: **$45M+ ad spend ≠ $35M+ peak revenue**, "in year one" not "sub-one-year-old", achieved quota + Summit, and **never public**: the Courtana raise amount / "11+ sports" / phone.
 
 ## 3 · Dossier rework (Bill picked Dossier)
 **Ask:** flip-panel photo from the original build (keep flippable), smaller image; 2-line header moved up; minimize the "closed" strip; tighten the Dreamship deal; move the terminal under the deal with 3 grouped command rows; one-panel Climb section + the zoom-in climb image; the "shot of the day" clip in the AI section; less colorful headers.
