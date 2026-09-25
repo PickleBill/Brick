@@ -47,12 +47,12 @@ Part of the **Courtana organization** ecosystem (see sibling repos: `vibeco`, `p
 
 The live site is `picklebill.github.io/Brick/`. All primary pages are at the repo root:
 
-- `index.html` — **the front door** (Main). One-objective page; scroll-spy sections: Deal (Google/Dreamship) · Flywheel · Ask · Work · Story · Talk. Nav = Story (`climb.html`) · Proof (`work.html`) · "Let's talk" CTA.
-- `climb.html` — Story (the sales-arc narrative). `work.html` — Proof. `resume-v2.html` — the résumé pages link to (`resume.html` is the older version).
+- `index.html` — **the front door** (Main). One-objective page; scroll-spy sections: Deal (Google + partner logos) · Ask · Work · Story · Talk. Nav (every page) = Story (`climb.html`) · Proof (`work.html`) · Résumé (`resume/`) · "Let's talk" CTA (Calendly).
+- `climb.html` — Story (the sales-arc narrative). `work.html` — Proof (the full proof of work; anchors `#courtana` `#dreamship` `#pickle-daas` `#vibeco` `#apps`). `resume/` — the résumé page; its PDF `assets/Bill_Bricker_Resume_2026-09.pdf` is rendered from it by `tools/resume-pdf.mjs`. `resume-v2.html` / `resume.html` are redirect stubs → `resume/`.
 - `home.js` — front-door behavior (reveal, count-ups, identity card, ask-bill terminal with hiring-manager/reference modes, featured video, scroll-spy).
-- `operator-card.js` — `<operator-card>` Web Component (v6.5): the six-facet identity-card hero. `operator-card-cube.js` — parked cube variant, lives in `playground.html`. `card-lab.html` — card experiments.
+- `operator-card.js` — `<operator-card>` Web Component: the three-facet identity-card hero (builder · pay it forward · father; O-1, 2026-09-25). The six-facet v6.5 is frozen in `archive/2026-09-pre-overhaul/operator-card.js` and shown beside the live card in `playground.html`. `operator-card-cube.js` — parked cube variant, lives in `playground.html`. `card-lab.html` — card experiments.
 - `site-config.js` — one place to wire conversion + analytics (Calendly / Formspree / Plausible / Clarity); everything falls back to `mailto:bricker3@gmail.com` until configured. Calendly is live.
-- `tools/` — render harness: `shoot.mjs` (page screenshots), `elshot.mjs` (element shots), `record-motion.mjs`.
+- `tools/` — render harness: `shoot.mjs` (page screenshots), `elshot.mjs` (element shots), `record-motion.mjs`; `net.mjs` makes headless Chromium load Google Fonts behind the cloud sandbox proxy. **`npm run factcheck`** (`tools/factcheck.mjs`) scans every published surface against the ledger's Tier A rules; CI runs it on every PR.
 - `sales/index.html` — redirect stub → root (forwards query/hash). `archive/sales-legacy-2026-06-22/` — the preserved legacy sales site. `archive/` root files — the pre-merge builder page.
 - `v3/` — parked experiment. `content/`, `source/` — legacy content/design references from the v1 lineage (`pickle-daas-data`).
 
