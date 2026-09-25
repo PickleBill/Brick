@@ -8,7 +8,7 @@
 | # | Item | Notes |
 |---|------|-------|
 | P-1 | Public repo | Pages no longer publishes `_source/`, but the GitHub repo is public, so the working notes (framing rules, upgrades) are readable. Options: move `_source/` + `handoffs/` to a private repo, or make Brick private (Pages on a private repo needs a paid plan). |
-| P-2 | Old résumé PDFs | `assets/Bill_Bricker_Resume.pdf` and `…_vFinal.pdf` still serve the June facts (VP-level, $6M+) to anyone with an old link. Keep (archive rule), replace their contents with the 2026-09 PDF, or delete. |
+| P-2 | Old résumé PDFs | ✅ Partly resolved 2026-09-25 (F-12 made them state a wrong number: $35M+): kept in the repo as history (O-5) but **no longer published** by Pages (excluded in `pages.yml`), so old links 404 instead of serving $35M+ / VP-level. Bill can still choose to redirect or delete. |
 | P-3 | ask-bill backend | The vibeco Supabase function returns HTTP 500 ("AI service error") on every request; the terminal falls back to its local answers. Fix lives in the vibeco repo (provider key / quota), outside this repo. |
 | P-4 | Optional copy (red-team suggestions, not applied) | Hero eyebrow → "AI-Forward Sales & Partnerships Leader"; hero CTA → "Prompt my résumé ↓"; drop the Story card's three principles and the contact sub-line as repeats. |
 | P-5 | Venue Connect screenshot | Shows "Courtana Connect · Live partnership portal · 16 courts" (image, not copy). Keep, or swap for a neutral shot under F-4. |

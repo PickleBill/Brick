@@ -60,6 +60,8 @@ jobs:
             --exclude='/package-lock.json' \
             --exclude='/skills-lock.json' \
             --exclude='/v3/RESEARCH.md' \
+            --exclude='/assets/Bill_Bricker_Resume.pdf' \
+            --exclude='/assets/Bill_Bricker_Resume_vFinal.pdf' \
             ./ _site/
           # The ask-bill edge function fetches content/index.json from Pages, then every file it
           # lists. Re-add those so the live terminal keeps its corpus; drop a file from the manifest
